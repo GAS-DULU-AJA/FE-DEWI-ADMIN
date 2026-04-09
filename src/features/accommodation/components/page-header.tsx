@@ -1,0 +1,74 @@
+import { Link } from "@/i18n/navigation";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft, ChevronRight } from "lucide-react";
+import type { ReactNode } from "react";
+
+type BreadcrumbItem = {
+  label: string;
+  href?: string;
+};
+
+type AccommodationPageHeaderProps = {
+  title: string;
+  description?: string;
+  breadcrumbs: BreadcrumbItem[];
+  backHref?: string;
+  action?: ReactNode;
+  badge?: ReactNode;
+};
+
+export function AccommodationPageHeader({
+  title,
+  description,
+  breadcrumbs,
+  backHref,
+  action,
+  badge,
+}: AccommodationPageHeaderProps) {
+  return (
+    <div className="space-y-4">
+      <nav className="flex flex-wrap items-center gap-1.5 text-sm text-stone-500">
+        {breadcrumbs.map((item, index) => {
+          const isLast = index === breadcrumbs.length - 1;
+
+          return (
+            <div key={`${item.label}-${index}`} className="flex items-center gap-1.5">
+              {item.href && !isLast ? (
+                <Link href={item.href} className="transition-colors hover:text-stone-900">
+                  {item.label}
+                </Link>
+              ) : (
+                <span className={isLast ? "font-medium text-stone-900" : undefined}>
+                  {item.label}
+                </span>
+              )}
+              {!isLast && <ChevronRight className="h-4 w-4 text-stone-400" />}
+            </div>
+          );
+        })}
+      </nav>
+
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <div className="flex flex-wrap items-center gap-2">
+            <h1 className="text-2xl font-bold text-stone-900">{title}</h1>
+            {badge}
+          </div>
+          {description ? <p className="mt-1 text-sm text-stone-500">{description}</p> : null}
+        </div>
+
+        <div className="flex flex-wrap items-center gap-2">
+          {backHref ? (
+            <Button variant="outline" size="sm" asChild>
+              <Link href={backHref}>
+                <ArrowLeft className="h-4 w-4" />
+                Kembali
+              </Link>
+            </Button>
+          ) : null}
+          {action}
+        </div>
+      </div>
+    </div>
+  );
+}
