@@ -10,9 +10,27 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { VILLAGE_PROFILE } from "../mock-data";
 import { maskBankAccount } from "../utils";
-import type { VillageProfile } from "../types";
+import type {
+  GovernmentServiceFacility,
+  GovernmentServicePriority,
+  VillageProfile,
+} from "../types";
+import { VillageLocationPicker } from "./village-location-picker";
 
 type Tab = "profile" | "location" | "media" | "bank";
+
+const GOVERNMENT_SERVICE_OPTIONS = [
+  "clinic",
+  "hospital",
+  "fire_department",
+  "police",
+  "pharmacy",
+  "other",
+] as const;
+
+const GOVERNMENT_SERVICE_PRIORITY_OPTIONS = ["open_24h", "emergency_ready"] as const;
+const REQUIRED_EMERGENCY_TYPES = new Set(["clinic", "hospital", "police"]);
+const AUTO_EMERGENCY_TYPES = new Set(["clinic", "hospital", "police", "fire_department"]);
 
 function getYouTubeEmbedUrl(url: string): string | null {
   const m = url.match(
@@ -34,13 +52,44 @@ function ImagePreview({ src, alt, className }: { src: string; alt: string; class
   );
 }
 
+function parseCoordinateInput(value: string): number | undefined {
+  if (value.trim() === "") return undefined;
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? parsed : undefined;
+}
+
+function isOpen24Hours(value: string): boolean {
+  const normalized = value.toLowerCase().replace(/\s+/g, " ").trim();
+  return /24\s*jam|24\s*hours?|24\/7/.test(normalized);
+}
+
+function hasEmergencyKeyword(value: string): boolean {
+  const normalized = value.toLowerCase().replace(/\s+/g, " ").trim();
+  return /(darurat|emergency|igd|ugd|ambulans|ambulance|rescue|siaga)/.test(normalized);
+}
+
 export function VillageDataForm() {
   const t = useTranslations("village");
   const [activeTab, setActiveTab] = useState<Tab>("profile");
   const [form, setForm] = useState<VillageProfile>(VILLAGE_PROFILE);
   const [savedTab, setSavedTab] = useState<Tab | null>(null);
+  const [locationValidationError, setLocationValidationError] = useState("");
 
   function handleSave(tab: Tab) {
+    if (tab === "location") {
+      const hasEmergencyService = (form.governmentServices ?? []).some((service) => {
+        if (!REQUIRED_EMERGENCY_TYPES.has(service.type)) return false;
+        return service.name.trim().length > 0 && service.address.trim().length > 0;
+      });
+
+      if (!hasEmergencyService) {
+        setLocationValidationError(t("villageData.governmentServices.requiredEmergencyError"));
+        return;
+      }
+
+      setLocationValidationError("");
+    }
+
     setSavedTab(tab);
     setTimeout(() => setSavedTab(null), 2000);
   }
@@ -57,6 +106,88 @@ export function VillageDataForm() {
 
   function addGalleryItem() {
     setForm({ ...form, gallery: [...(form.gallery ?? []), ""] });
+  }
+
+  function addGovernmentService() {
+    const services = [...(form.governmentServices ?? [])];
+    services.push({
+      id: crypto.randomUUID(),
+      type: "clinic",
+      name: "",
+      address: "",
+      latitude: undefined,
+      longitude: undefined,
+      phone: "",
+      operatingHours: "",
+      notes: "",
+      priorities: [],
+    });
+    setLocationValidationError("");
+    setForm({ ...form, governmentServices: services });
+  }
+
+  function updateGovernmentService<K extends keyof GovernmentServiceFacility>(
+    id: string,
+    key: K,
+    value: GovernmentServiceFacility[K],
+  ) {
+    const services = (form.governmentServices ?? []).map((item) => {
+      if (item.id !== id) return item;
+
+      const updated = { ...item, [key]: value };
+
+      if (key === "operatingHours") {
+        const nextValue = String(value ?? "");
+        const priorities = updated.priorities ?? [];
+
+        if (isOpen24Hours(nextValue)) {
+          if (!priorities.includes("open_24h")) {
+            updated.priorities = [...priorities, "open_24h"];
+          }
+        } else {
+          updated.priorities = priorities.filter((candidate) => candidate !== "open_24h");
+        }
+      }
+
+      if (key === "type" || key === "notes") {
+        const priorities = updated.priorities ?? [];
+        const shouldSetEmergencyReady =
+          AUTO_EMERGENCY_TYPES.has(updated.type) && hasEmergencyKeyword(updated.notes ?? "");
+
+        if (shouldSetEmergencyReady) {
+          if (!priorities.includes("emergency_ready")) {
+            updated.priorities = [...priorities, "emergency_ready"];
+          }
+        } else {
+          updated.priorities = priorities.filter((candidate) => candidate !== "emergency_ready");
+        }
+      }
+
+      return updated;
+    });
+    setLocationValidationError("");
+    setForm({ ...form, governmentServices: services });
+  }
+
+  function toggleServicePriority(id: string, priority: GovernmentServicePriority) {
+    const services = (form.governmentServices ?? []).map((item) => {
+      if (item.id !== id) return item;
+      const existing = item.priorities ?? [];
+      const next = existing.includes(priority)
+        ? existing.filter((candidate) => candidate !== priority)
+        : [...existing, priority];
+      return { ...item, priorities: next };
+    });
+    setLocationValidationError("");
+    setForm({ ...form, governmentServices: services });
+  }
+
+  function removeGovernmentService(id: string) {
+    setForm({
+      ...form,
+      governmentServices: (form.governmentServices ?? []).filter((item) => item.id !== id),
+    });
+    setLocationValidationError("");
   }
 
   const tabs: { key: Tab; label: string }[] = [
@@ -175,6 +306,27 @@ export function VillageDataForm() {
                 </div>
               </div>
               <p className="text-xs text-muted-foreground">{t("villageData.coordinatesHint")}</p>
+              <VillageLocationPicker
+                latitude={form.latitude}
+                longitude={form.longitude}
+                onLocationChange={(latitude, longitude) => setForm({ ...form, latitude, longitude })}
+                serviceMarkers={(form.governmentServices ?? [])
+                  .filter(
+                    (service) =>
+                      Number.isFinite(service.latitude) &&
+                      Number.isFinite(service.longitude),
+                  )
+                  .map((service) => ({
+                    id: service.id,
+                    name: service.name || t("villageData.governmentServices.unnamed"),
+                    typeLabel: t(`villageData.governmentServices.types.${service.type}`),
+                    latitude: service.latitude as number,
+                    longitude: service.longitude as number,
+                    priorityLabels: (service.priorities ?? []).map((priority) =>
+                      t(`villageData.governmentServices.priorities.${priority}`),
+                    ),
+                  }))}
+              />
 
               <div className="border-t pt-5 grid grid-cols-2 gap-4">
                 <div className="space-y-2">
@@ -227,6 +379,175 @@ export function VillageDataForm() {
                   </div>
                 ))}
               </div>
+
+              <div className="border-t pt-5 space-y-4">
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <p className="text-sm font-medium">{t("villageData.governmentServices.title")}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">
+                      {t("villageData.governmentServices.description")}
+                    </p>
+                  </div>
+                  <Button type="button" variant="outline" size="sm" onClick={addGovernmentService}>
+                    + {t("villageData.governmentServices.add")}
+                  </Button>
+                </div>
+
+                {(form.governmentServices ?? []).length === 0 ? (
+                  <div className="rounded-lg border border-dashed px-4 py-3 text-xs text-muted-foreground">
+                    {t("villageData.governmentServices.empty")}
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    {(form.governmentServices ?? []).map((service, index) => (
+                      <div key={service.id} className="rounded-xl border bg-muted/20 p-3 space-y-3">
+                        <div className="flex items-center justify-between gap-3">
+                          <p className="text-xs font-semibold text-muted-foreground">
+                            {t("villageData.governmentServices.itemLabel", { number: index + 1 })}
+                          </p>
+                          <button
+                            type="button"
+                            onClick={() => removeGovernmentService(service.id)}
+                            className="text-xs text-destructive hover:underline"
+                          >
+                            {t("villageData.governmentServices.remove")}
+                          </button>
+                        </div>
+
+                        <div className="grid gap-3 md:grid-cols-2">
+                          <div className="space-y-2">
+                            <Label>{t("villageData.governmentServices.type")}</Label>
+                            <select
+                              value={service.type}
+                              onChange={(e) =>
+                                updateGovernmentService(
+                                  service.id,
+                                  "type",
+                                  e.target.value as GovernmentServiceFacility["type"],
+                                )
+                              }
+                              className="h-10 w-full rounded-md border bg-background px-3 text-sm"
+                            >
+                              {GOVERNMENT_SERVICE_OPTIONS.map((option) => (
+                                <option key={option} value={option}>
+                                  {t(`villageData.governmentServices.types.${option}`)}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+
+                          <div className="space-y-2">
+                            <Label>{t("villageData.governmentServices.name")}</Label>
+                            <Input
+                              value={service.name}
+                              onChange={(e) => updateGovernmentService(service.id, "name", e.target.value)}
+                              placeholder={t("villageData.governmentServices.namePlaceholder")}
+                            />
+                          </div>
+
+                          <div className="space-y-2 md:col-span-2">
+                            <Label>{t("villageData.governmentServices.address")}</Label>
+                            <Input
+                              value={service.address}
+                              onChange={(e) => updateGovernmentService(service.id, "address", e.target.value)}
+                              placeholder={t("villageData.governmentServices.addressPlaceholder")}
+                            />
+                          </div>
+
+                          <div className="space-y-2">
+                            <Label>{t("villageData.governmentServices.latitude")}</Label>
+                            <Input
+                              type="number"
+                              step="0.000001"
+                              value={service.latitude ?? ""}
+                              onChange={(e) =>
+                                updateGovernmentService(
+                                  service.id,
+                                  "latitude",
+                                  parseCoordinateInput(e.target.value),
+                                )
+                              }
+                              placeholder={t("villageData.governmentServices.latitudePlaceholder")}
+                            />
+                          </div>
+
+                          <div className="space-y-2">
+                            <Label>{t("villageData.governmentServices.longitude")}</Label>
+                            <Input
+                              type="number"
+                              step="0.000001"
+                              value={service.longitude ?? ""}
+                              onChange={(e) =>
+                                updateGovernmentService(
+                                  service.id,
+                                  "longitude",
+                                  parseCoordinateInput(e.target.value),
+                                )
+                              }
+                              placeholder={t("villageData.governmentServices.longitudePlaceholder")}
+                            />
+                          </div>
+
+                          <div className="space-y-2">
+                            <Label>{t("villageData.governmentServices.phone")}</Label>
+                            <Input
+                              value={service.phone ?? ""}
+                              onChange={(e) => updateGovernmentService(service.id, "phone", e.target.value)}
+                              placeholder={t("villageData.governmentServices.phonePlaceholder")}
+                            />
+                          </div>
+
+                          <div className="space-y-2">
+                            <Label>{t("villageData.governmentServices.operatingHours")}</Label>
+                            <Input
+                              value={service.operatingHours ?? ""}
+                              onChange={(e) => updateGovernmentService(service.id, "operatingHours", e.target.value)}
+                              placeholder={t("villageData.governmentServices.operatingHoursPlaceholder")}
+                            />
+                          </div>
+
+                          <div className="space-y-2 md:col-span-2">
+                            <Label>{t("villageData.governmentServices.priorityBadges")}</Label>
+                            <div className="flex flex-wrap gap-2">
+                              {GOVERNMENT_SERVICE_PRIORITY_OPTIONS.map((priority) => {
+                                const isActive = (service.priorities ?? []).includes(priority);
+                                return (
+                                  <button
+                                    key={priority}
+                                    type="button"
+                                    onClick={() => toggleServicePriority(service.id, priority)}
+                                    className={`rounded-full border px-3 py-1 text-xs transition-colors ${
+                                      isActive
+                                        ? "border-emerald-500 bg-emerald-50 text-emerald-700"
+                                        : "border-border bg-background text-muted-foreground hover:text-foreground"
+                                    }`}
+                                  >
+                                    {t(`villageData.governmentServices.priorities.${priority}`)}
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          </div>
+
+                          <div className="space-y-2 md:col-span-2">
+                            <Label>{t("villageData.governmentServices.notes")}</Label>
+                            <Textarea
+                              rows={2}
+                              value={service.notes ?? ""}
+                              onChange={(e) => updateGovernmentService(service.id, "notes", e.target.value)}
+                              placeholder={t("villageData.governmentServices.notesPlaceholder")}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {locationValidationError ? (
+                <p className="text-sm text-destructive">{locationValidationError}</p>
+              ) : null}
 
               <div className="flex justify-end pt-2">
                 <Button onClick={() => handleSave("location")}>
@@ -479,6 +800,43 @@ export function VillageDataForm() {
                     ▶ YouTube
                   </Badge>
                 )}
+              </div>
+            )}
+
+            {(form.governmentServices ?? []).length > 0 && (
+              <div className="space-y-2">
+                <p className="text-xs text-muted-foreground font-medium">
+                  {t("villageData.governmentServices.previewTitle")}
+                </p>
+                <div className="space-y-1.5">
+                  {(form.governmentServices ?? []).slice(0, 4).map((service) => (
+                    <div key={service.id} className="rounded-lg border bg-muted/20 px-2.5 py-2">
+                      <p className="text-xs font-medium leading-snug">
+                        {t(`villageData.governmentServices.types.${service.type}`)} · {service.name || t("villageData.governmentServices.unnamed")}
+                      </p>
+                      <p className="text-[11px] text-muted-foreground leading-snug truncate">
+                        {service.address || "-"}
+                      </p>
+                      {(service.priorities ?? []).length > 0 ? (
+                        <div className="mt-1 flex flex-wrap gap-1">
+                          {(service.priorities ?? []).map((priority) => (
+                            <Badge key={priority} variant="outline" className="text-[10px] px-1.5 py-0">
+                              {t(`villageData.governmentServices.priorities.${priority}`)}
+                            </Badge>
+                          ))}
+                        </div>
+                      ) : null}
+                      {Number.isFinite(service.latitude) && Number.isFinite(service.longitude) ? (
+                        <p className="text-[11px] text-muted-foreground">
+                          📌 {(service.latitude as number).toFixed(5)}, {(service.longitude as number).toFixed(5)}
+                        </p>
+                      ) : null}
+                      {service.phone ? (
+                        <p className="text-[11px] text-muted-foreground">☎ {service.phone}</p>
+                      ) : null}
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
 

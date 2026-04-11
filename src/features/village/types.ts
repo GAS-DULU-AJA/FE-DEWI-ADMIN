@@ -36,6 +36,29 @@ export type CoordinationStatus =
   | "completed"
   | "rejected";
 
+export type GovernmentServiceType =
+  | "clinic"
+  | "hospital"
+  | "fire_department"
+  | "police"
+  | "pharmacy"
+  | "other";
+
+export type GovernmentServicePriority = "open_24h" | "emergency_ready";
+
+export interface GovernmentServiceFacility {
+  id: string;
+  type: GovernmentServiceType;
+  name: string;
+  address: string;
+  latitude?: number;
+  longitude?: number;
+  phone?: string;
+  operatingHours?: string;
+  notes?: string;
+  priorities?: GovernmentServicePriority[];
+}
+
 export interface VillageProfile {
   villageName: string;
   address: string;
@@ -58,6 +81,7 @@ export interface VillageProfile {
   bankName: string;
   bankAccountNumber: string;
   taxId?: string;
+  governmentServices?: GovernmentServiceFacility[];
 }
 
 export interface Facility {
