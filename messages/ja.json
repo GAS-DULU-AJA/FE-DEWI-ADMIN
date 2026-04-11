@@ -606,6 +606,14 @@
         "monthlyRevenue": "月間収益",
         "utilizationRate": "施設稼働率",
         "averageRating": "平均評価"
+      },
+      "charts": {
+        "revenueTrend": "収益トレンド",
+        "partnerTrend": "パートナー登録トレンド",
+        "facilityUtilization": "施設稼働率",
+        "monetizableFacilities": "収益化施設",
+        "publicFacilities": "公共施設",
+        "securityTransportation": "安全・交通施設"
       }
     },
     "common": {
@@ -871,16 +879,6 @@
       "reviews": "レビュー",
       "analytics": "分析",
       "finance": "財務"
-    },
-    "dashboard": {
-      "charts": {
-        "revenueTrend": "収益トレンド",
-        "partnerTrend": "パートナー登録トレンド",
-        "facilityUtilization": "施設稼働率",
-        "monetizableFacilities": "収益化施設",
-        "publicFacilities": "公共施設",
-        "securityTransportation": "安全・交通施設"
-      }
     }
   },
   "experience": {

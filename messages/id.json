@@ -606,6 +606,14 @@
         "monthlyRevenue": "Pendapatan Bulanan",
         "utilizationRate": "Utilisasi Fasilitas",
         "averageRating": "Rating Rata-rata"
+      },
+      "charts": {
+        "revenueTrend": "Tren Pendapatan",
+        "partnerTrend": "Tren Registrasi Mitra",
+        "facilityUtilization": "Utilisasi Fasilitas",
+        "monetizableFacilities": "Fasilitas monetisasi",
+        "publicFacilities": "Fasilitas publik",
+        "securityTransportation": "Keamanan dan transportasi"
       }
     },
     "common": {
@@ -871,16 +879,6 @@
       "reviews": "Ulasan",
       "analytics": "Analitik",
       "finance": "Keuangan"
-    },
-    "dashboard": {
-      "charts": {
-        "revenueTrend": "Tren Pendapatan",
-        "partnerTrend": "Tren Registrasi Mitra",
-        "facilityUtilization": "Utilisasi Fasilitas",
-        "monetizableFacilities": "Fasilitas monetisasi",
-        "publicFacilities": "Fasilitas publik",
-        "securityTransportation": "Keamanan dan transportasi"
-      }
     }
   },
   "experience": {

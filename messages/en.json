@@ -606,6 +606,14 @@
         "monthlyRevenue": "Monthly Revenue",
         "utilizationRate": "Facility Utilization",
         "averageRating": "Average Rating"
+      },
+      "charts": {
+        "revenueTrend": "Revenue Trend",
+        "partnerTrend": "Partner Registration Trend",
+        "facilityUtilization": "Facility Utilization",
+        "monetizableFacilities": "Monetizable facilities",
+        "publicFacilities": "Public facilities",
+        "securityTransportation": "Security and transportation"
       }
     },
     "common": {
@@ -871,16 +879,6 @@
       "reviews": "Reviews",
       "analytics": "Analytics",
       "finance": "Finance"
-    },
-    "dashboard": {
-      "charts": {
-        "revenueTrend": "Revenue Trend",
-        "partnerTrend": "Partner Registration Trend",
-        "facilityUtilization": "Facility Utilization",
-        "monetizableFacilities": "Monetizable facilities",
-        "publicFacilities": "Public facilities",
-        "securityTransportation": "Security and transportation"
-      }
     }
   },
   "experience": {
