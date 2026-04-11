@@ -27,7 +27,7 @@ export function PropertySwitcher({
         value={activeAccommodationId}
         onChange={(event) => {
           const selectedId = event.target.value;
-          router.push(`/dashboard/penginapan/${selectedId}`);
+          router.push(`/dashboard/accommodation/${selectedId}`);
         }}
       >
         {accommodations.map((item) => (

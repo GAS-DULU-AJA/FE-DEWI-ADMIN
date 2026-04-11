@@ -1,0 +1,144 @@
+export type FacilityCategory =
+  | "public"
+  | "security"
+  | "transportation"
+  | "monetizable";
+
+export type ExperienceCategory =
+  | "cultural"
+  | "nature"
+  | "culinary"
+  | "craft"
+  | "sport"
+  | "education"
+  | "other";
+
+export type ExperienceStatus =
+  | "draft"
+  | "published"
+  | "ongoing"
+  | "completed"
+  | "cancelled";
+
+export type PartnerApplicationStatus =
+  | "pending"
+  | "under_review"
+  | "approved"
+  | "revision_required"
+  | "rejected";
+
+export type CoordinationStatus =
+  | "application"
+  | "under_review"
+  | "facility_reserved"
+  | "terms_agreed"
+  | "active"
+  | "completed"
+  | "rejected";
+
+export interface VillageProfile {
+  villageName: string;
+  address: string;
+  latitude: number;
+  longitude: number;
+  history: string;
+  description: string;
+  contactPhone: string;
+  contactEmail: string;
+  website?: string;
+  socialMedia?: {
+    instagram?: string;
+    facebook?: string;
+    youtube?: string;
+  };
+  bankAccountName: string;
+  bankName: string;
+  bankAccountNumber: string;
+  taxId?: string;
+}
+
+export interface Facility {
+  id: string;
+  name: string;
+  category: FacilityCategory;
+  description: string;
+  address: string;
+  latitude?: number;
+  longitude?: number;
+  operatingHours?: string;
+  contact?: string;
+  photos: string[];
+  isMonetizable: boolean;
+  rentalPrice?: number;
+  capacity?: number;
+  utilizationRate?: number;
+}
+
+export interface Experience {
+  id: string;
+  name: string;
+  description: string;
+  category: ExperienceCategory;
+  location: string;
+  startsAt: string;
+  endsAt: string;
+  recurringPattern?: "one-time" | "daily" | "weekly" | "monthly";
+  capacity: number;
+  booked: number;
+  pricePerPerson: number;
+  status: ExperienceStatus;
+  contactPerson: string;
+  cancellationPolicy: string;
+  facilitiesUsed: string[];
+}
+
+export interface PartnerApplication {
+  id: string;
+  organizationName: string;
+  role: "accommodation" | "sme" | "external_experience";
+  ownerName: string;
+  submittedAt: string;
+  status: PartnerApplicationStatus;
+  completionScore: number;
+  checklist: {
+    businessInfo: boolean;
+    documents: boolean;
+    location: boolean;
+    financial: boolean;
+    media: boolean;
+  };
+  latestNote?: string;
+}
+
+export interface CoordinationRequest {
+  id: string;
+  organizerName: string;
+  eventName: string;
+  requestedFacilityId?: string;
+  requestedDate: string;
+  participantsEstimate: number;
+  status: CoordinationStatus;
+  villageSharePercent: number;
+  organizerSharePercent: number;
+  platformSharePercent: number;
+}
+
+export interface VillageReview {
+  id: string;
+  entityType: "experience" | "facility" | "general";
+  targetName: string;
+  rating: number;
+  reviewerName: string;
+  comment: string;
+  createdAt: string;
+  hasResponse: boolean;
+}
+
+export interface VillageDashboardKpi {
+  totalPartners: number;
+  pendingApprovals: number;
+  activeExperiences: number;
+  monthlyRevenue: number;
+  facilityUtilizationRate: number;
+  averageVillageRating: number;
+}

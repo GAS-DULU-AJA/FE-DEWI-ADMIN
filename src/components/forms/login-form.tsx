@@ -35,7 +35,7 @@ export function LoginForm() {
       const authStore = useAuthStore.getState();
       if (authStore.user) {
         if (!authStore.user.isApproved) {
-          router.push("/menunggu-persetujuan");
+          router.push("/pending-approval");
           return;
         }
         const path = ROLE_DASHBOARD_PATH[authStore.user.role];

@@ -17,10 +17,10 @@ export const PARTNER_ROLES: PartnerRole[] = [
 ];
 
 export const ROLE_DASHBOARD_PATH: Record<PartnerRole, string> = {
-  VILLAGE_ADMIN: "/dashboard/pengelola-desa",
-  ACCOMMODATION: "/dashboard/penginapan",
-  UMKM: "/dashboard/umkm",
-  EVENT_ORGANIZER: "/dashboard/event-organizer",
+  VILLAGE_ADMIN: "/dashboard/village-admin",
+  ACCOMMODATION: "/dashboard/accommodation",
+  UMKM: "/dashboard/sme",
+  EVENT_ORGANIZER: "/dashboard/experience",
 };
 
 export const ROLE_COLORS: Record<PartnerRole, string> = {

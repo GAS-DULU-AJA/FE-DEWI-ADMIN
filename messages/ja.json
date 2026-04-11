@@ -609,7 +609,10 @@
       }
     },
     "common": {
-      "name": "名前"
+      "name": "名前",
+      "description": "説明",
+      "previous": "前へ",
+      "next": "次へ"
     },
     "actions": {
       "saveProfile": "プロフィールを保存",
@@ -626,7 +629,10 @@
       "addExperience": "体験を追加",
       "viewDetail": "詳細を見る",
       "submitResponse": "返信を送信",
-      "flagReview": "レビューを報告"
+      "flagReview": "レビューを報告",
+      "requestWithdrawal": "出金申請",
+      "updateScheme": "スキームを更新",
+      "saveSharing": "配分ルールを保存"
     },
     "villageData": {
       "title": "村データ管理",
@@ -657,7 +663,17 @@
       "addressPlaceholder": "施設住所",
       "isMonetizable": "この施設を収益化する",
       "rentalPrice": "レンタル料金",
-      "capacity": "収容人数"
+      "capacity": "収容人数",
+      "facilityInfo": "施設情報",
+      "notMonetizable": "非収益化施設",
+      "rental": "レンタル",
+      "utilizationLabel": "稼働率",
+      "categories": {
+        "public": "公共",
+        "security": "安全",
+        "transportation": "交通",
+        "monetizable": "収益化"
+      }
     },
     "experiences": {
       "title": "村の体験",
@@ -672,7 +688,51 @@
       "startsAt": "開始日時",
       "endsAt": "終了日時",
       "capacity": "定員",
-      "pricePerPerson": "1人あたり料金"
+      "pricePerPerson": "1人あたり料金",
+      "detailTitle": "体験詳細",
+      "scheduleLabel": "スケジュール",
+      "contactPerson": "担当者",
+      "cancellationPolicy": "キャンセルポリシー",
+      "bookedOf": "{booked}/{capacity} 予約済み",
+      "statuses": {
+        "draft": "下書き",
+        "published": "公開中",
+        "ongoing": "進行中",
+        "completed": "完了",
+        "cancelled": "キャンセル"
+      },
+      "categories": {
+        "cultural": "文化",
+        "nature": "自然",
+        "culinary": "グルメ",
+        "craft": "工芸",
+        "sport": "スポーツ",
+        "education": "学習",
+        "other": "その他"
+      },
+      "steps": {
+        "basic": "基本情報",
+        "schedule": "スケジュール",
+        "tickets": "チケット",
+        "media": "メディア",
+        "review": "確認"
+      },
+      "wizard": {
+        "ticketsTitle": "チケット設定",
+        "ticketType": "チケット種別",
+        "priceAdult": "大人料金",
+        "priceChild": "子供料金",
+        "maxPerBooking": "1予約あたり最大枚数",
+        "bookingDeadline": "予約締切（開始前の時間）",
+        "autoConfirm": "予約自動承認",
+        "mediaTitle": "メディア・ギャラリー",
+        "coverPhotoHint": "カバー写真URL",
+        "galleryHint": "ギャラリー写真URL（カンマ区切り）",
+        "videoUrl": "YouTube / 動画URL",
+        "reviewTitle": "確認・公開",
+        "publishNote": "公開後、参加者がこの体験を閲覧・予約できるようになります。",
+        "readyLabel": "公開準備はできていますか？"
+      }
     },
     "approval": {
       "title": "パートナー審査",
@@ -681,16 +741,110 @@
       "reviewPanel": "審査パネル",
       "searchPlaceholder": "組織名または担当者名で検索",
       "feedbackPlaceholder": "審査コメント、修正指示、要約を入力",
-      "noSelection": "申請が選択されていません"
+      "noSelection": "申請が選択されていません",
+      "statuses": {
+        "pending": "保留中",
+        "under_review": "審査中",
+        "approved": "承認済み",
+        "revision_required": "要修正",
+        "rejected": "却下"
+      }
     },
     "coordination": {
       "title": "外部連携",
-      "subtitle": "外部主催者、施設利用、収益配分設定を調整します。"
+      "subtitle": "外部主催者、施設利用、収益配分設定を調整します。",
+      "inbox": "連携受信箱",
+      "all": "すべて",
+      "openDetail": "開く",
+      "detailTitle": "連携概要",
+      "requestedDate": "申請日",
+      "participantsEstimate": "参加者見込み",
+      "requestedFacility": "申請施設",
+      "notSpecified": "未指定",
+      "statuses": {
+        "application": "申請中",
+        "under_review": "審査中",
+        "facility_reserved": "施設予約済み",
+        "terms_agreed": "条件合意済み",
+        "active": "進行中",
+        "completed": "完了",
+        "rejected": "却下"
+      },
+      "revenueSharing": {
+        "title": "収益配分設定",
+        "organizer": "主催者 %",
+        "village": "村 %",
+        "platformFixed": "プラットフォーム %（固定）",
+        "total": "合計設定値: {percent}%",
+        "save": "配分ルールを保存"
+      },
+      "paymentScheme": {
+        "title": "支払いスキーム",
+        "milestone": "マイルストーン",
+        "percent": "割合",
+        "timing": "タイミング",
+        "update": "スキームを更新",
+        "downPayment": "頭金",
+        "secondPayment": "第2回支払い",
+        "finalPayment": "最終支払い",
+        "uponApproval": "承認後",
+        "sevenDaysBefore": "イベント7日前",
+        "dayOfEvent": "当日"
+      }
     },
     "reviews": {
       "title": "村レビュー",
       "subtitle": "体験・施設・全体レビューを確認して返信します。",
       "responsePlaceholder": "公開返信を入力"
+    },
+    "partners": {
+      "title": "パートナー管理",
+      "subtitle": "登録済み村パートナーを確認・管理します。",
+      "role": "役割",
+      "submittedAt": "申請日",
+      "completionScore": "完成度",
+      "checklist": "審査チェックリスト",
+      "checklistFields": {
+        "businessInfo": "ビジネス情報",
+        "documents": "書類",
+        "location": "場所",
+        "financial": "財務",
+        "media": "メディア"
+      },
+      "latestNote": "最新メモ",
+      "noData": "パートナーが見つかりません。",
+      "roles": {
+        "accommodation": "宿泊",
+        "sme": "UMKM",
+        "external_experience": "イベント主催者"
+      },
+      "detailTitle": "パートナー詳細",
+      "backToList": "一覧に戻る",
+      "viewApproval": "審査ページで開く"
+    },
+    "analytics": {
+      "title": "村の分析",
+      "subtitle": "KPIトレンド、パートナー成長、体験パフォーマンスを追跡します。",
+      "revenueTitle": "収益トレンド（過去6ヶ月）",
+      "partnerTitle": "パートナー成長",
+      "experienceTitle": "体験パフォーマンス",
+      "facilityTitle": "施設稼働率",
+      "kpiTitle": "主要業績指標"
+    },
+    "withdrawal": {
+      "title": "収益出金",
+      "subtitle": "登録済みの村銀行口座への出金を申請します。",
+      "requestTitle": "新規出金申請",
+      "amount": "出金金額（IDR）",
+      "bankInfo": "銀行口座",
+      "historyTitle": "出金履歴",
+      "noHistory": "出金申請はまだありません。",
+      "estimatedSettlement": "承認後1〜3営業日での処理が見込まれます。",
+      "statuses": {
+        "pending": "処理中",
+        "completed": "完了",
+        "rejected": "却下"
+      }
     },
     "settings": {
       "adminManagement": "村管理者管理",
@@ -703,6 +857,30 @@
       "notifyExternalCoordination": "外部連携の更新",
       "notifyNegativeReviews": "低評価レビュー通知",
       "notifySettlementDelays": "精算遅延通知"
+    },
+    "breadcrumbs": {
+      "home": "村管理者",
+      "villageData": "村データ",
+      "facilities": "施設",
+      "experiences": "体験",
+      "create": "作成",
+      "calendar": "カレンダー",
+      "coordination": "連携",
+      "approval": "パートナー審査",
+      "partners": "パートナー",
+      "reviews": "レビュー",
+      "analytics": "分析",
+      "finance": "財務"
+    },
+    "dashboard": {
+      "charts": {
+        "revenueTrend": "収益トレンド",
+        "partnerTrend": "パートナー登録トレンド",
+        "facilityUtilization": "施設稼働率",
+        "monetizableFacilities": "収益化施設",
+        "publicFacilities": "公共施設",
+        "securityTransportation": "安全・交通施設"
+      }
     }
   },
   "experience": {

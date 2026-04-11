@@ -56,13 +56,13 @@ export function AccommodationCard({
         </div>
         <div className="flex flex-wrap gap-2 pt-1">
           <Button size="sm" asChild>
-            <Link href={`/dashboard/penginapan/${accommodation.id}`}>
+            <Link href={`/dashboard/accommodation/${accommodation.id}`}>
               <Building2 className="h-3.5 w-3.5" />
               Buka Dashboard
             </Link>
           </Button>
           <Button variant="outline" size="sm" asChild>
-            <Link href={`/dashboard/penginapan/${accommodation.id}/status`}>
+            <Link href={`/dashboard/accommodation/${accommodation.id}/status`}>
               Lihat Status Pengajuan
             </Link>
           </Button>

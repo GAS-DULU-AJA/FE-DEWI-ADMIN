@@ -1,0 +1,83 @@
+import type { RevenueShareConfig, SettlementSchedule } from "./types";
+
+export const DEFAULT_REVENUE_CONFIGS: RevenueShareConfig[] = [
+  {
+    id: "rs-accommodation",
+    transactionType: "accommodation",
+    partnerPercent: 85,
+    villagePercent: 0,
+    platformPercent: 15,
+    isNegotiable: false,
+    minPartnerPercent: 80,
+    maxPartnerPercent: 90,
+    effectiveFrom: "2026-01-01",
+  },
+  {
+    id: "rs-sme-order",
+    transactionType: "sme_order",
+    partnerPercent: 90,
+    villagePercent: 0,
+    platformPercent: 10,
+    isNegotiable: false,
+    minPartnerPercent: 85,
+    maxPartnerPercent: 92,
+    effectiveFrom: "2026-01-01",
+  },
+  {
+    id: "rs-village-experience",
+    transactionType: "experience_village",
+    partnerPercent: 85,
+    villagePercent: 0,
+    platformPercent: 15,
+    isNegotiable: false,
+    minPartnerPercent: 80,
+    maxPartnerPercent: 90,
+    effectiveFrom: "2026-01-01",
+  },
+  {
+    id: "rs-external-experience",
+    transactionType: "experience_external",
+    partnerPercent: 60,
+    villagePercent: 25,
+    platformPercent: 15,
+    isNegotiable: true,
+    minPartnerPercent: 55,
+    maxPartnerPercent: 70,
+    effectiveFrom: "2026-01-01",
+  },
+  {
+    id: "rs-facility-rental",
+    transactionType: "facility_rental",
+    partnerPercent: 0,
+    villagePercent: 85,
+    platformPercent: 15,
+    isNegotiable: false,
+    minPartnerPercent: 0,
+    maxPartnerPercent: 0,
+    effectiveFrom: "2026-01-01",
+  },
+];
+
+export const SETTLEMENT_SCHEDULES: SettlementSchedule[] = [
+  {
+    speed: "standard",
+    label: "Standard (T+7)",
+    daysToSettle: 7,
+    feePercent: 0,
+    description: "Free settlement 7 days after transaction",
+  },
+  {
+    speed: "express",
+    label: "Express (T+1)",
+    daysToSettle: 1,
+    feePercent: 1,
+    description: "Next business day settlement, 1% fee",
+  },
+  {
+    speed: "instant",
+    label: "Instant (Same Day)",
+    daysToSettle: 0,
+    feePercent: 2,
+    description: "Same-day settlement, 2% fee",
+  },
+];

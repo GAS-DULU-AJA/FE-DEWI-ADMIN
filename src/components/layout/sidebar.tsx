@@ -22,7 +22,6 @@ import {
   Plus,
   LogOut,
   Leaf,
-  Truck,
   BarChart3,
   Wallet,
 } from "lucide-react";
@@ -32,12 +31,20 @@ interface NavItem {
   href: string;
   label: string;
   icon: React.ReactNode;
+  section?: string;
 }
 
-function getNavItems(role: PartnerRole, t: ReturnType<typeof useTranslations>): NavItem[] {
+interface NavSection {
+  type: "section";
+  label: string;
+}
+
+type NavElement = NavItem | NavSection;
+
+function getNavItems(role: PartnerRole, t: ReturnType<typeof useTranslations>): NavElement[] {
   const base = "/dashboard";
 
-  const commonItems: NavItem[] = [
+  const commonItems: NavElement[] = [
     {
       href: `${base}`,
       label: t("dashboard.overview"),
@@ -47,44 +54,64 @@ function getNavItems(role: PartnerRole, t: ReturnType<typeof useTranslations>): 
 
   const defaultAccommodationId = ACCOMMODATIONS[0]?.id ?? "acc-1";
 
-  const roleItems: Record<PartnerRole, NavItem[]> = {
+  const roleItems: Record<PartnerRole, NavElement[]> = {
     VILLAGE_ADMIN: [
-      { href: `${base}/pengelola-desa`, label: t("partner.villageAdmin"), icon: <Building2 className="h-4 w-4" /> },
-      { href: `${base}/pengelola-desa/approval`, label: t("approval.title"), icon: <CheckSquare className="h-4 w-4" /> },
-      { href: `${base}/pengelola-desa/mitra`, label: t("dashboard.totalPartners"), icon: <Users className="h-4 w-4" /> },
-      { href: `${base}/pengelola-desa/analitik`, label: t("nav.dashboard"), icon: <BarChart3 className="h-4 w-4" /> },
+      { href: `${base}/village-admin`, label: t("nav.dashboard"), icon: <LayoutDashboard className="h-4 w-4" /> },
+      { href: `${base}/village-admin/village-data`, label: t("nav.villageData"), icon: <Building2 className="h-4 w-4" /> },
+      { href: `${base}/village-admin/facilities`, label: t("nav.facilities"), icon: <BarChart3 className="h-4 w-4" /> },
+      { href: `${base}/village-admin/experiences`, label: t("nav.experiences"), icon: <CalendarDays className="h-4 w-4" /> },
+      { href: `${base}/village-admin/approval`, label: t("nav.partnerVerification"), icon: <CheckSquare className="h-4 w-4" /> },
+      { href: `${base}/village-admin/partners`, label: t("nav.partners"), icon: <Users className="h-4 w-4" /> },
+      { href: `${base}/village-admin/coordination`, label: t("nav.externalCoordination"), icon: <MessageSquare className="h-4 w-4" /> },
+      { href: `${base}/village-admin/reviews`, label: t("dashboard.reviews"), icon: <Star className="h-4 w-4" /> },
+      { href: `${base}/village-admin/analytics`, label: t("nav.analytics"), icon: <TrendingUp className="h-4 w-4" /> },
+      { href: `${base}/village-admin/finance`, label: t("nav.finance"), icon: <Wallet className="h-4 w-4" /> },
     ],
     ACCOMMODATION: [
-      { href: `${base}/penginapan`, label: t("partner.accommodation"), icon: <BedDouble className="h-4 w-4" /> },
-      { href: `${base}/penginapan/tambah`, label: "Ajukan Penginapan", icon: <Plus className="h-4 w-4" /> },
-      { href: `${base}/penginapan/kamar`, label: t("rooms.title"), icon: <BedDouble className="h-4 w-4" /> },
-      { href: `${base}/penginapan/reservasi`, label: t("reservations.title"), icon: <ClipboardList className="h-4 w-4" /> },
-      { href: `${base}/penginapan/ulasan`, label: t("dashboard.reviews"), icon: <Star className="h-4 w-4" /> },
-      { href: `${base}/penginapan/${defaultAccommodationId}/status`, label: "Status Pengajuan", icon: <CheckSquare className="h-4 w-4" /> },
-      { href: `${base}/penginapan/${defaultAccommodationId}/pengaturan`, label: t("nav.settings"), icon: <Settings className="h-4 w-4" /> },
-    ],
+      { type: "section", label: t("nav.accommodationDashboard") },
+      { href: `${base}/accommodation`, label: t("partner.accommodation"), icon: <BedDouble className="h-4 w-4" /> },
+      { href: `${base}/accommodation/add`, label: t("nav.addAccommodation"), icon: <Plus className="h-4 w-4" /> },
+      { href: `${base}/accommodation/rooms`, label: t("rooms.title"), icon: <BedDouble className="h-4 w-4" /> },
+      { href: `${base}/accommodation/reservations`, label: t("reservations.title"), icon: <ClipboardList className="h-4 w-4" /> },
+      { href: `${base}/accommodation/promotions`, label: t("nav.promotions"), icon: <Wallet className="h-4 w-4" /> },
+      { href: `${base}/accommodation/reviews`, label: t("dashboard.reviews"), icon: <Star className="h-4 w-4" /> },
+      { href: `${base}/accommodation/${defaultAccommodationId}/status`, label: t("nav.submissionStatus"), icon: <CheckSquare className="h-4 w-4" /> },
+      { href: `${base}/accommodation/${defaultAccommodationId}/settings`, label: t("nav.settings"), icon: <Settings className="h-4 w-4" /> },
+    ] as NavElement[],
     UMKM: [
-      { href: `${base}/umkm`, label: t("partner.umkm"), icon: <ShoppingBag className="h-4 w-4" /> },
-      { href: `${base}/umkm/produk`, label: t("products.title"), icon: <Package className="h-4 w-4" /> },
-      { href: `${base}/umkm/stok`, label: t("nav.stock"), icon: <TrendingUp className="h-4 w-4" /> },
-      { href: `${base}/umkm/pesanan`, label: t("nav.orders"), icon: <ClipboardList className="h-4 w-4" /> },
-      { href: `${base}/umkm/pengiriman`, label: t("nav.shipping"), icon: <Truck className="h-4 w-4" /> },
+      { href: `${base}/sme`, label: t("nav.dashboard"), icon: <ShoppingBag className="h-4 w-4" /> },
+      { type: "section", label: t("products.title") },
+      { href: `${base}/sme/products`, label: t("products.title"), icon: <Package className="h-4 w-4" /> },
+      { href: `${base}/sme/stock`, label: t("nav.stock"), icon: <TrendingUp className="h-4 w-4" /> },
+      { type: "section", label: t("nav.orders") },
+      { href: `${base}/sme/orders`, label: t("nav.orders"), icon: <ClipboardList className="h-4 w-4" /> },
+      { href: `${base}/sme/reviews`, label: t("dashboard.reviews"), icon: <Star className="h-4 w-4" /> },
+      { href: `${base}/sme/promotions`, label: t("nav.promotions"), icon: <Wallet className="h-4 w-4" /> },
     ],
     EVENT_ORGANIZER: [
-      { href: `${base}/event-organizer`, label: t("partner.eventOrganizer"), icon: <CalendarDays className="h-4 w-4" /> },
-      { href: `${base}/event-organizer/acara`, label: t("events.title"), icon: <CalendarDays className="h-4 w-4" /> },
-      { href: `${base}/event-organizer/kalender`, label: t("events.title"), icon: <CalendarDays className="h-4 w-4" /> },
+      { type: "section", label: t("nav.experiences") },
+      { href: `${base}/experience`, label: t("partner.eventOrganizer"), icon: <CalendarDays className="h-4 w-4" /> },
+      { href: `${base}/experience/events`, label: t("events.title"), icon: <CalendarDays className="h-4 w-4" /> },
+      { href: `${base}/experience/calendar`, label: t("nav.calendar"), icon: <CalendarDays className="h-4 w-4" /> },
+      { type: "section", label: t("nav.orders") },
+      { href: `${base}/experience/reservations`, label: t("reservations.title"), icon: <ClipboardList className="h-4 w-4" /> },
+      { href: `${base}/experience/coordination`, label: t("nav.externalCoordination"), icon: <Users className="h-4 w-4" /> },
+      { href: `${base}/experience/reviews`, label: t("dashboard.reviews"), icon: <Star className="h-4 w-4" /> },
+      { href: `${base}/experience/promotions`, label: t("nav.promotions"), icon: <Wallet className="h-4 w-4" /> },
     ],
   };
 
-  const sharedItems: NavItem[] = [
-    ...(role === "ACCOMMODATION"
+  const sharedItems: NavElement[] = [
+    ...(role === "ACCOMMODATION" || role === "VILLAGE_ADMIN" || role === "EVENT_ORGANIZER"
       ? []
-      : [{ href: `${base}/ulasan`, label: t("dashboard.reviews"), icon: <Star className="h-4 w-4" /> }]),
+      : [{ href: `${base}/reviews`, label: t("dashboard.reviews"), icon: <Star className="h-4 w-4" /> }]),
+    { type: "section", label: t("nav.financeDashboard") },
+    { href: `${base}/finance`, label: t("nav.finance"), icon: <Wallet className="h-4 w-4" /> },
+    { href: `${base}/finance/reports`, label: t("nav.financialReports"), icon: <TrendingUp className="h-4 w-4" /> },
+    { href: `${base}/finance/management`, label: t("nav.financeManagement"), icon: <Wallet className="h-4 w-4" /> },
+    { type: "section", label: t("nav.general") },
     { href: `${base}/chat`, label: t("dashboard.chat"), icon: <MessageSquare className="h-4 w-4" /> },
-    { href: `${base}/keuangan/laporan`, label: "Laporan Keuangan", icon: <TrendingUp className="h-4 w-4" /> },
-    { href: `${base}/keuangan/manajemen`, label: "Manajemen Keuangan", icon: <Wallet className="h-4 w-4" /> },
-    { href: `${base}/pengaturan`, label: t("nav.settings"), icon: <Settings className="h-4 w-4" /> },
+    { href: `${base}/settings`, label: t("nav.settings"), icon: <Settings className="h-4 w-4" /> },
   ];
 
   return [...commonItems, ...(roleItems[role] || []), ...sharedItems];
@@ -126,8 +153,20 @@ export function DashboardSidebar({ onClose }: { onClose?: () => void }) {
       {/* Nav Items */}
       <nav className="flex-1 overflow-y-auto px-3 pb-4">
         <ul className="space-y-0.5">
-          {navItems.map((item) => {
-            const indexRoutes = ["/dashboard", "/dashboard/penginapan", "/dashboard/umkm", "/dashboard/event-organizer", "/dashboard/pengelola-desa"];
+          {navItems.map((element, idx) => {
+            // Handle section headers
+            if ("type" in element && element.type === "section") {
+              return (
+                <li key={`section-${idx}`} className="pt-3 pb-1.5 first:pt-1.5">
+                  <p className="px-3 text-xs font-semibold text-stone-400 uppercase tracking-wider">
+                    {element.label}
+                  </p>
+                </li>
+              );
+            }
+
+            const item = element as NavItem;
+            const indexRoutes = ["/dashboard", "/dashboard/accommodation", "/dashboard/sme", "/dashboard/experience", "/dashboard/village-admin", "/dashboard/finance"];
             const isActive = indexRoutes.some((r) => item.href.endsWith(r))
               ? pathname === item.href
               : pathname === item.href || pathname.startsWith(item.href + "/");

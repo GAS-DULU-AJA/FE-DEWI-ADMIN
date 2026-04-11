@@ -90,3 +90,23 @@ export const PAYMENT_GATEWAY_RECOMMENDATIONS = [
 
 export const SUBMISSION_DISCLAIMER =
   "Setiap pengajuan penginapan akan diverifikasi admin. Pengajuan dapat ditolak jika data, kualitas foto, lokasi, dokumen legal, atau harga tidak memenuhi standar platform.";
+
+export const PROMOTION_TYPES = [
+  "seasonal_discount",
+  "early_bird",
+  "last_minute",
+  "long_stay",
+  "bundle_package",
+  "promo_code",
+] as const;
+
+export const PROMOTION_TYPE_LABELS: Record<(typeof PROMOTION_TYPES)[number], string> = {
+  seasonal_discount: "Seasonal Discount",
+  early_bird: "Early Bird",
+  last_minute: "Last Minute",
+  long_stay: "Long Stay",
+  bundle_package: "Bundle Package",
+  promo_code: "Promo Code",
+};
+
+export const ACCOMMODATION_BANKS = ["BCA", "BNI", "BRI", "Mandiri", "CIMB Niaga"] as const;

@@ -609,7 +609,10 @@
       }
     },
     "common": {
-      "name": "Name"
+      "name": "Name",
+      "description": "Description",
+      "previous": "Previous",
+      "next": "Next"
     },
     "actions": {
       "saveProfile": "Save Profile",
@@ -626,7 +629,10 @@
       "addExperience": "Add Experience",
       "viewDetail": "View Detail",
       "submitResponse": "Submit Response",
-      "flagReview": "Flag Review"
+      "flagReview": "Flag Review",
+      "requestWithdrawal": "Request Withdrawal",
+      "updateScheme": "Update Scheme",
+      "saveSharing": "Save Sharing Rule"
     },
     "villageData": {
       "title": "Village Data Management",
@@ -657,7 +663,17 @@
       "addressPlaceholder": "Facility address",
       "isMonetizable": "This facility can be monetized",
       "rentalPrice": "Rental Price",
-      "capacity": "Capacity"
+      "capacity": "Capacity",
+      "facilityInfo": "Facility Information",
+      "notMonetizable": "Non-monetizable facility",
+      "rental": "Rental",
+      "utilizationLabel": "Utilization",
+      "categories": {
+        "public": "Public",
+        "security": "Security",
+        "transportation": "Transportation",
+        "monetizable": "Monetizable"
+      }
     },
     "experiences": {
       "title": "Village Experiences",
@@ -672,7 +688,51 @@
       "startsAt": "Start Date-Time",
       "endsAt": "End Date-Time",
       "capacity": "Capacity",
-      "pricePerPerson": "Price per Person"
+      "pricePerPerson": "Price per Person",
+      "detailTitle": "Experience Details",
+      "scheduleLabel": "Schedule",
+      "contactPerson": "Contact",
+      "cancellationPolicy": "Cancellation policy",
+      "bookedOf": "{booked}/{capacity} booked",
+      "statuses": {
+        "draft": "Draft",
+        "published": "Published",
+        "ongoing": "Ongoing",
+        "completed": "Completed",
+        "cancelled": "Cancelled"
+      },
+      "categories": {
+        "cultural": "Cultural",
+        "nature": "Nature",
+        "culinary": "Culinary",
+        "craft": "Craft",
+        "sport": "Sport",
+        "education": "Education",
+        "other": "Other"
+      },
+      "steps": {
+        "basic": "Basic Info",
+        "schedule": "Schedule",
+        "tickets": "Tickets",
+        "media": "Media",
+        "review": "Review"
+      },
+      "wizard": {
+        "ticketsTitle": "Ticket Configuration",
+        "ticketType": "Ticket Type",
+        "priceAdult": "Adult Price",
+        "priceChild": "Child Price",
+        "maxPerBooking": "Max Tickets per Booking",
+        "bookingDeadline": "Booking Deadline (hours before)",
+        "autoConfirm": "Auto-confirm bookings",
+        "mediaTitle": "Media & Gallery",
+        "coverPhotoHint": "Cover Photo URL",
+        "galleryHint": "Photo Gallery URLs (comma-separated)",
+        "videoUrl": "YouTube / Video URL",
+        "reviewTitle": "Review & Publish",
+        "publishNote": "Once published, participants can browse and book this experience.",
+        "readyLabel": "Ready to publish?"
+      }
     },
     "approval": {
       "title": "Partner Verification",
@@ -681,16 +741,110 @@
       "reviewPanel": "Review Panel",
       "searchPlaceholder": "Search by organization or owner",
       "feedbackPlaceholder": "Write review feedback, revision notes, or verification summary",
-      "noSelection": "No application selected"
+      "noSelection": "No application selected",
+      "statuses": {
+        "pending": "Pending",
+        "under_review": "Under Review",
+        "approved": "Approved",
+        "revision_required": "Revision Required",
+        "rejected": "Rejected"
+      }
     },
     "coordination": {
       "title": "External Coordination",
-      "subtitle": "Coordinate external organizers, facility usage, and revenue-sharing configuration."
+      "subtitle": "Coordinate external organizers, facility usage, and revenue-sharing configuration.",
+      "inbox": "Coordination Inbox",
+      "all": "All",
+      "openDetail": "Open",
+      "detailTitle": "Coordination Summary",
+      "requestedDate": "Requested date",
+      "participantsEstimate": "Estimated participants",
+      "requestedFacility": "Requested facility",
+      "notSpecified": "not specified",
+      "statuses": {
+        "application": "Application",
+        "under_review": "Under Review",
+        "facility_reserved": "Facility Reserved",
+        "terms_agreed": "Terms Agreed",
+        "active": "Active",
+        "completed": "Completed",
+        "rejected": "Rejected"
+      },
+      "revenueSharing": {
+        "title": "Revenue Sharing Configuration",
+        "organizer": "Organizer %",
+        "village": "Village %",
+        "platformFixed": "Platform % (fixed)",
+        "total": "Total configured: {percent}%",
+        "save": "Save Sharing Rule"
+      },
+      "paymentScheme": {
+        "title": "Payment Scheme",
+        "milestone": "Milestone",
+        "percent": "Percent",
+        "timing": "Timing",
+        "update": "Update Scheme",
+        "downPayment": "Down Payment",
+        "secondPayment": "Second Payment",
+        "finalPayment": "Final Payment",
+        "uponApproval": "Upon approval",
+        "sevenDaysBefore": "7 days before event",
+        "dayOfEvent": "Day of event"
+      }
     },
     "reviews": {
       "title": "Village Reviews",
       "subtitle": "Review and respond to experience, facility, and general village feedback.",
       "responsePlaceholder": "Write a public response"
+    },
+    "partners": {
+      "title": "Partner Management",
+      "subtitle": "View and manage all registered village partners.",
+      "role": "Role",
+      "submittedAt": "Submitted",
+      "completionScore": "Completion",
+      "checklist": "Verification Checklist",
+      "checklistFields": {
+        "businessInfo": "Business Information",
+        "documents": "Documents",
+        "location": "Location",
+        "financial": "Financial",
+        "media": "Media"
+      },
+      "latestNote": "Latest Note",
+      "noData": "No partners found.",
+      "roles": {
+        "accommodation": "Accommodation",
+        "sme": "UMKM",
+        "external_experience": "Event Organizer"
+      },
+      "detailTitle": "Partner Detail",
+      "backToList": "Back to Partners",
+      "viewApproval": "Open in Approval"
+    },
+    "analytics": {
+      "title": "Village Analytics",
+      "subtitle": "Track KPI trends, partner growth, and experience performance.",
+      "revenueTitle": "Revenue Trend (last 6 months)",
+      "partnerTitle": "Partner Growth",
+      "experienceTitle": "Experience Performance",
+      "facilityTitle": "Facility Utilization",
+      "kpiTitle": "Key Performance Indicators"
+    },
+    "withdrawal": {
+      "title": "Revenue Withdrawal",
+      "subtitle": "Request payout to the registered village bank account.",
+      "requestTitle": "New Withdrawal Request",
+      "amount": "Withdrawal Amount (IDR)",
+      "bankInfo": "Bank Account",
+      "historyTitle": "Withdrawal History",
+      "noHistory": "No withdrawal requests yet.",
+      "estimatedSettlement": "Estimated 1–3 business days after approval.",
+      "statuses": {
+        "pending": "Processing",
+        "completed": "Completed",
+        "rejected": "Rejected"
+      }
     },
     "settings": {
       "adminManagement": "Village Admin Management",
@@ -703,6 +857,30 @@
       "notifyExternalCoordination": "External coordination updates",
       "notifyNegativeReviews": "Negative review alerts",
       "notifySettlementDelays": "Settlement delay alerts"
+    },
+    "breadcrumbs": {
+      "home": "Village Admin",
+      "villageData": "Village Data",
+      "facilities": "Facilities",
+      "experiences": "Experiences",
+      "create": "Create",
+      "calendar": "Calendar",
+      "coordination": "Coordination",
+      "approval": "Partner Verification",
+      "partners": "Partners",
+      "reviews": "Reviews",
+      "analytics": "Analytics",
+      "finance": "Finance"
+    },
+    "dashboard": {
+      "charts": {
+        "revenueTrend": "Revenue Trend",
+        "partnerTrend": "Partner Registration Trend",
+        "facilityUtilization": "Facility Utilization",
+        "monetizableFacilities": "Monetizable facilities",
+        "publicFacilities": "Public facilities",
+        "securityTransportation": "Security and transportation"
+      }
     }
   },
   "experience": {

@@ -13,7 +13,7 @@ export default function DashboardPage() {
     if (!isHydrated || !user) return;
 
     if (!user.isApproved) {
-      router.replace("/menunggu-persetujuan");
+      router.replace("/pending-approval");
       return;
     }
 

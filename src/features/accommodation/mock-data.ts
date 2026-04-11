@@ -1,12 +1,15 @@
 import type {
   Accommodation,
   AccommodationSubmissionEvent,
+  BankAccount,
   Payment,
   PaymentItem,
   PaymentSplit,
+  Promotion,
   Reservation,
   Review,
   Room,
+  WithdrawalRequest,
 } from "@/types";
 
 const accommodationA: Accommodation = {
@@ -576,5 +579,110 @@ export const ACCOMMODATION_REVIEWS: Review[] = [
     rating: 4,
     comment: "Pemandangan malam indah, sarapan enak, staf helpfull untuk rekomendasi wisata.",
     createdAt: "2026-03-28",
+  },
+];
+
+export const ACCOMMODATION_PROMOTIONS: Promotion[] = [
+  {
+    id: "promo-1",
+    name: "Lebaran Escape",
+    type: "seasonal_discount",
+    discountValue: 15,
+    discountType: "percentage",
+    validFrom: "2026-04-01",
+    validTo: "2026-04-30",
+    applicableRoomIds: "all",
+    applicableAccommodationIds: ["acc-1", "acc-2"],
+    status: "active",
+    usageCount: 18,
+    revenueImpact: 12450000,
+  },
+  {
+    id: "promo-2",
+    name: "Stay4Save",
+    type: "long_stay",
+    discountValue: 250000,
+    discountType: "fixed",
+    validFrom: "2026-04-01",
+    validTo: "2026-06-30",
+    applicableRoomIds: ["room-1", "room-2"],
+    applicableAccommodationIds: ["acc-1"],
+    minStay: 4,
+    status: "active",
+    usageCount: 9,
+    revenueImpact: 5600000,
+  },
+  {
+    id: "promo-3",
+    name: "EARLY10",
+    type: "promo_code",
+    discountValue: 10,
+    discountType: "percentage",
+    validFrom: "2026-04-10",
+    validTo: "2026-05-31",
+    applicableRoomIds: "all",
+    applicableAccommodationIds: "all",
+    promoCode: "EARLY10",
+    status: "inactive",
+    usageCount: 0,
+    revenueImpact: 0,
+  },
+];
+
+export const ACCOMMODATION_BANK_ACCOUNTS: BankAccount[] = [
+  {
+    id: "bank-1",
+    accommodationId: "acc-1",
+    accountHolderName: "PT Bukit Hijau Hospitality",
+    bankName: "BCA",
+    accountNumber: "1234567890",
+    branch: "Wonosobo",
+    swiftCode: "CENAIDJA",
+    isVerified: true,
+  },
+  {
+    id: "bank-2",
+    accommodationId: "acc-2",
+    accountHolderName: "Villa Puncak Embun",
+    bankName: "Mandiri",
+    accountNumber: "9988776655",
+    branch: "Banjarnegara",
+    swiftCode: "BMRIIDJA",
+    isVerified: false,
+  },
+  {
+    id: "bank-3",
+    accommodationId: "acc-3",
+    accountHolderName: "Guest House Cendana",
+    bankName: "BNI",
+    accountNumber: "4455667788",
+    branch: "Wonosobo",
+    swiftCode: "BNINIDJA",
+    isVerified: true,
+  },
+];
+
+export const ACCOMMODATION_WITHDRAWALS: WithdrawalRequest[] = [
+  {
+    id: "wd-1",
+    accommodationId: "acc-1",
+    amount: 2500000,
+    status: "paid",
+    requestedAt: "2026-04-01",
+    paidAt: "2026-04-03",
+  },
+  {
+    id: "wd-2",
+    accommodationId: "acc-1",
+    amount: 1800000,
+    status: "pending",
+    requestedAt: "2026-04-08",
+  },
+  {
+    id: "wd-3",
+    accommodationId: "acc-3",
+    amount: 750000,
+    status: "approved",
+    requestedAt: "2026-04-06",
   },
 ];

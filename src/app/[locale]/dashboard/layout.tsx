@@ -27,7 +27,7 @@ export default function DashboardLayout({
     }
 
     if (user && !user.isApproved) {
-      router.push("/menunggu-persetujuan");
+      router.push("/pending-approval");
     }
   }, [isAuthenticated, isHydrated, router, user]);
 

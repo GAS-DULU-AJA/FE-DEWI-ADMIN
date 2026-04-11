@@ -3,6 +3,9 @@ import {
   ACCOMMODATION_RESERVATIONS,
   ACCOMMODATION_REVIEWS,
   ACCOMMODATION_ROOMS,
+  ACCOMMODATION_BANK_ACCOUNTS,
+  ACCOMMODATION_PROMOTIONS,
+  ACCOMMODATION_WITHDRAWALS,
   PAYMENTS,
   SUBMISSION_EVENTS,
 } from "./mock-data";
@@ -46,6 +49,26 @@ export function getReservationsByAccommodationId(accommodationId: string) {
 
 export function getAllAccommodationReviews() {
   return ACCOMMODATION_REVIEWS;
+}
+
+export function getAllAccommodationPromotions() {
+  return ACCOMMODATION_PROMOTIONS;
+}
+
+export function getPromotionsByAccommodationId(accommodationId: string) {
+  return ACCOMMODATION_PROMOTIONS.filter(
+    (promotion) =>
+      promotion.applicableAccommodationIds === "all" ||
+      promotion.applicableAccommodationIds.includes(accommodationId)
+  );
+}
+
+export function getBankAccountByAccommodationId(accommodationId: string) {
+  return ACCOMMODATION_BANK_ACCOUNTS.find((account) => account.accommodationId === accommodationId);
+}
+
+export function getWithdrawalsByAccommodationId(accommodationId: string) {
+  return ACCOMMODATION_WITHDRAWALS.filter((item) => item.accommodationId === accommodationId);
 }
 
 export function getAccommodationReviewsByAccommodationId(accommodationId: string) {

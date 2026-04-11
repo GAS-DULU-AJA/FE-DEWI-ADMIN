@@ -15,7 +15,7 @@ interface DashboardHeaderProps {
 
 export function DashboardHeader({ onMenuToggle, sidebarOpen }: DashboardHeaderProps) {
   const t = useTranslations();
-  const { notifications, unreadCount, markAllAsRead, markAsRead } = useNotificationStore();
+  const { notifications, unreadCount, markAllAsRead, markAsRead, clearRead } = useNotificationStore();
   const { user } = useAuthStore();
 
   return (
@@ -58,14 +58,24 @@ export function DashboardHeader({ onMenuToggle, sidebarOpen }: DashboardHeaderPr
             >
               <div className="flex items-center justify-between border-b border-stone-100 px-4 py-3">
                 <h3 className="font-semibold text-stone-900">{t("notifications.title")}</h3>
-                {unreadCount > 0 && (
-                  <button
-                    onClick={markAllAsRead}
-                    className="text-xs text-emerald-600 hover:text-emerald-700 font-medium"
-                  >
-                    {t("notifications.markAllRead")}
-                  </button>
-                )}
+                <div className="flex items-center gap-2">
+                  {unreadCount > 0 && (
+                    <button
+                      onClick={markAllAsRead}
+                      className="text-xs text-emerald-600 hover:text-emerald-700 font-medium"
+                    >
+                      {t("notifications.markAllRead")}
+                    </button>
+                  )}
+                  {notifications.some((n) => n.isRead) && (
+                    <button
+                      onClick={clearRead}
+                      className="text-xs text-stone-400 hover:text-stone-600"
+                    >
+                      {t("notifications.clearRead")}
+                    </button>
+                  )}
+                </div>
               </div>
               <div className="max-h-80 overflow-y-auto divide-y divide-stone-100">
                 {notifications.length === 0 ? (

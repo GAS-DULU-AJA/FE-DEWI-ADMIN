@@ -609,7 +609,10 @@
       }
     },
     "common": {
-      "name": "Nama"
+      "name": "Nama",
+      "description": "Deskripsi",
+      "previous": "Sebelumnya",
+      "next": "Selanjutnya"
     },
     "actions": {
       "saveProfile": "Simpan Profil",
@@ -626,7 +629,10 @@
       "addExperience": "Tambah Pengalaman",
       "viewDetail": "Lihat Detail",
       "submitResponse": "Kirim Balasan",
-      "flagReview": "Tandai Ulasan"
+      "flagReview": "Tandai Ulasan",
+      "requestWithdrawal": "Ajukan Pencairan",
+      "updateScheme": "Perbarui Skema",
+      "saveSharing": "Simpan Aturan Bagi Hasil"
     },
     "villageData": {
       "title": "Manajemen Data Desa",
@@ -657,7 +663,17 @@
       "addressPlaceholder": "Alamat fasilitas",
       "isMonetizable": "Fasilitas ini dapat dimonetisasi",
       "rentalPrice": "Harga Sewa",
-      "capacity": "Kapasitas"
+      "capacity": "Kapasitas",
+      "facilityInfo": "Informasi Fasilitas",
+      "notMonetizable": "Fasilitas non-monetisasi",
+      "rental": "Sewa",
+      "utilizationLabel": "Utilisasi",
+      "categories": {
+        "public": "Publik",
+        "security": "Keamanan",
+        "transportation": "Transportasi",
+        "monetizable": "Monetisasi"
+      }
     },
     "experiences": {
       "title": "Pengalaman Desa",
@@ -672,7 +688,51 @@
       "startsAt": "Tanggal-Waktu Mulai",
       "endsAt": "Tanggal-Waktu Selesai",
       "capacity": "Kapasitas",
-      "pricePerPerson": "Harga per Orang"
+      "pricePerPerson": "Harga per Orang",
+      "detailTitle": "Detail Pengalaman",
+      "scheduleLabel": "Jadwal",
+      "contactPerson": "Kontak",
+      "cancellationPolicy": "Kebijakan Pembatalan",
+      "bookedOf": "{booked}/{capacity} dipesan",
+      "statuses": {
+        "draft": "Draf",
+        "published": "Dipublikasi",
+        "ongoing": "Sedang Berjalan",
+        "completed": "Selesai",
+        "cancelled": "Dibatalkan"
+      },
+      "categories": {
+        "cultural": "Budaya",
+        "nature": "Alam",
+        "culinary": "Kuliner",
+        "craft": "Kerajinan",
+        "sport": "Olahraga",
+        "education": "Edukasi",
+        "other": "Lainnya"
+      },
+      "steps": {
+        "basic": "Info Dasar",
+        "schedule": "Jadwal",
+        "tickets": "Tiket",
+        "media": "Media",
+        "review": "Tinjau"
+      },
+      "wizard": {
+        "ticketsTitle": "Konfigurasi Tiket",
+        "ticketType": "Jenis Tiket",
+        "priceAdult": "Harga Dewasa",
+        "priceChild": "Harga Anak",
+        "maxPerBooking": "Maks Tiket per Pesanan",
+        "bookingDeadline": "Batas Pemesanan (jam sebelum)",
+        "autoConfirm": "Konfirmasi pesanan otomatis",
+        "mediaTitle": "Media & Galeri",
+        "coverPhotoHint": "URL Foto Sampul",
+        "galleryHint": "URL Foto Galeri (pisahkan dengan koma)",
+        "videoUrl": "YouTube / URL Video",
+        "reviewTitle": "Tinjau & Publikasikan",
+        "publishNote": "Setelah dipublikasi, peserta dapat melihat dan memesan pengalaman ini.",
+        "readyLabel": "Siap dipublikasi?"
+      }
     },
     "approval": {
       "title": "Verifikasi Mitra",
@@ -681,16 +741,110 @@
       "reviewPanel": "Panel Tinjauan",
       "searchPlaceholder": "Cari berdasarkan organisasi atau pemilik",
       "feedbackPlaceholder": "Tulis umpan balik, catatan revisi, atau ringkasan verifikasi",
-      "noSelection": "Belum ada pengajuan dipilih"
+      "noSelection": "Belum ada pengajuan dipilih",
+      "statuses": {
+        "pending": "Menunggu",
+        "under_review": "Sedang Ditinjau",
+        "approved": "Disetujui",
+        "revision_required": "Perlu Revisi",
+        "rejected": "Ditolak"
+      }
     },
     "coordination": {
       "title": "Koordinasi Eksternal",
-      "subtitle": "Koordinasikan organizer eksternal, penggunaan fasilitas, dan konfigurasi bagi hasil."
+      "subtitle": "Koordinasikan organizer eksternal, penggunaan fasilitas, dan konfigurasi bagi hasil.",
+      "inbox": "Kotak Masuk Koordinasi",
+      "all": "Semua",
+      "openDetail": "Buka",
+      "detailTitle": "Ringkasan Koordinasi",
+      "requestedDate": "Tanggal Diminta",
+      "participantsEstimate": "Estimasi Peserta",
+      "requestedFacility": "Fasilitas Diminta",
+      "notSpecified": "tidak ditentukan",
+      "statuses": {
+        "application": "Pengajuan",
+        "under_review": "Sedang Ditinjau",
+        "facility_reserved": "Fasilitas Dipesan",
+        "terms_agreed": "Syarat Disetujui",
+        "active": "Aktif",
+        "completed": "Selesai",
+        "rejected": "Ditolak"
+      },
+      "revenueSharing": {
+        "title": "Konfigurasi Bagi Hasil",
+        "organizer": "Penyelenggara %",
+        "village": "Desa %",
+        "platformFixed": "Platform % (tetap)",
+        "total": "Total terkonfigurasi: {percent}%",
+        "save": "Simpan Aturan Bagi Hasil"
+      },
+      "paymentScheme": {
+        "title": "Skema Pembayaran",
+        "milestone": "Tahapan",
+        "percent": "Persentase",
+        "timing": "Waktu",
+        "update": "Perbarui Skema",
+        "downPayment": "Uang Muka",
+        "secondPayment": "Pembayaran Kedua",
+        "finalPayment": "Pembayaran Akhir",
+        "uponApproval": "Setelah persetujuan",
+        "sevenDaysBefore": "7 hari sebelum acara",
+        "dayOfEvent": "Hari acara"
+      }
     },
     "reviews": {
       "title": "Ulasan Desa",
       "subtitle": "Tinjau dan balas ulasan untuk pengalaman, fasilitas, dan umpan balik umum desa.",
       "responsePlaceholder": "Tulis balasan publik"
+    },
+    "partners": {
+      "title": "Manajemen Mitra",
+      "subtitle": "Lihat dan kelola semua mitra desa terdaftar.",
+      "role": "Peran",
+      "submittedAt": "Diajukan",
+      "completionScore": "Kelengkapan",
+      "checklist": "Checklist Verifikasi",
+      "checklistFields": {
+        "businessInfo": "Informasi Bisnis",
+        "documents": "Dokumen",
+        "location": "Lokasi",
+        "financial": "Keuangan",
+        "media": "Media"
+      },
+      "latestNote": "Catatan Terbaru",
+      "noData": "Tidak ada mitra ditemukan.",
+      "roles": {
+        "accommodation": "Akomodasi",
+        "sme": "UMKM",
+        "external_experience": "Penyelenggara Acara"
+      },
+      "detailTitle": "Detail Mitra",
+      "backToList": "Kembali ke Daftar",
+      "viewApproval": "Buka di Verifikasi"
+    },
+    "analytics": {
+      "title": "Analitik Desa",
+      "subtitle": "Pantau tren KPI, pertumbuhan mitra, dan performa pengalaman.",
+      "revenueTitle": "Tren Pendapatan (6 bulan terakhir)",
+      "partnerTitle": "Pertumbuhan Mitra",
+      "experienceTitle": "Performa Pengalaman",
+      "facilityTitle": "Utilisasi Fasilitas",
+      "kpiTitle": "Indikator Kinerja Utama"
+    },
+    "withdrawal": {
+      "title": "Pencairan Pendapatan",
+      "subtitle": "Ajukan pencairan ke rekening bank desa yang terdaftar.",
+      "requestTitle": "Pengajuan Pencairan Baru",
+      "amount": "Jumlah Pencairan (IDR)",
+      "bankInfo": "Rekening Bank",
+      "historyTitle": "Riwayat Pencairan",
+      "noHistory": "Belum ada pengajuan pencairan.",
+      "estimatedSettlement": "Estimasi 1\u20133 hari kerja setelah persetujuan.",
+      "statuses": {
+        "pending": "Diproses",
+        "completed": "Selesai",
+        "rejected": "Ditolak"
+      }
     },
     "settings": {
       "adminManagement": "Manajemen Admin Desa",
@@ -703,6 +857,30 @@
       "notifyExternalCoordination": "Pembaruan koordinasi eksternal",
       "notifyNegativeReviews": "Peringatan ulasan negatif",
       "notifySettlementDelays": "Peringatan keterlambatan settlement"
+    },
+    "breadcrumbs": {
+      "home": "Admin Desa",
+      "villageData": "Data Desa",
+      "facilities": "Fasilitas",
+      "experiences": "Pengalaman",
+      "create": "Buat Baru",
+      "calendar": "Kalender",
+      "coordination": "Koordinasi",
+      "approval": "Verifikasi Mitra",
+      "partners": "Mitra",
+      "reviews": "Ulasan",
+      "analytics": "Analitik",
+      "finance": "Keuangan"
+    },
+    "dashboard": {
+      "charts": {
+        "revenueTrend": "Tren Pendapatan",
+        "partnerTrend": "Tren Registrasi Mitra",
+        "facilityUtilization": "Utilisasi Fasilitas",
+        "monetizableFacilities": "Fasilitas monetisasi",
+        "publicFacilities": "Fasilitas publik",
+        "securityTransportation": "Keamanan dan transportasi"
+      }
     }
   },
   "experience": {

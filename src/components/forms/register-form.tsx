@@ -49,7 +49,7 @@ export function RegisterForm() {
       password: data.password,
     });
     if (success) {
-      router.push("/menunggu-persetujuan");
+      router.push("/pending-approval");
     }
   };
 
