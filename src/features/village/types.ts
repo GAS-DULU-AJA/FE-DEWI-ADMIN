@@ -51,6 +51,9 @@ export interface VillageProfile {
     facebook?: string;
     youtube?: string;
   };
+  coverPhoto?: string;
+  gallery?: string[];
+  videoUrl?: string;
   bankAccountName: string;
   bankName: string;
   bankAccountNumber: string;

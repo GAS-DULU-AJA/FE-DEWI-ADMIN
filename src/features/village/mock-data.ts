@@ -21,7 +21,16 @@ export const VILLAGE_PROFILE: VillageProfile = {
   socialMedia: {
     instagram: "@sarialam.village",
     facebook: "Sari Alam Village",
+    youtube: "https://youtube.com/@sarialam",
   },
+  coverPhoto: "https://images.unsplash.com/photo-1625457228779-7cc7d8acbfff?w=1200&q=80",
+  gallery: [
+    "https://images.unsplash.com/photo-1568295967650-c234e48ab22a?w=800&q=80",
+    "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=800&q=80",
+    "https://images.unsplash.com/photo-1589308078054-77c73d14abf6?w=800&q=80",
+    "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=800&q=80",
+  ],
+  videoUrl: "https://www.youtube.com/watch?v=LXb3EKWsInQ",
   bankAccountName: "BUMDes Sari Alam",
   bankName: "Bank BNI",
   bankAccountNumber: "1234567890",
