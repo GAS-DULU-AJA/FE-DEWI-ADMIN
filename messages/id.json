@@ -48,7 +48,24 @@
     "inventory": "Inventaris",
     "stock": "Stok",
     "orders": "Pesanan",
-    "shipping": "Pengiriman"
+    "shipping": "Pengiriman",
+    "accommodationDashboard": "Dasbor Penginapan",
+    "financeDashboard": "Dasbor Keuangan",
+    "addAccommodation": "Tambah Penginapan",
+    "submissionStatus": "Status Pengajuan",
+    "finance": "Keuangan",
+    "financialReports": "Laporan Keuangan",
+    "financeManagement": "Manajemen Keuangan",
+    "promotions": "Promosi",
+    "partners": "Mitra",
+    "analytics": "Analitik",
+    "calendar": "Kalender",
+    "villageData": "Data Desa",
+    "facilities": "Fasilitas",
+    "experiences": "Pengalaman",
+    "partnerVerification": "Verifikasi Mitra",
+    "externalCoordination": "Koordinasi Eksternal",
+    "general": "Umum"
   },
   "landing": {
     "heroTitle": "Selamat Datang di Mitra Dewi",
@@ -222,6 +239,7 @@
   "notifications": {
     "title": "Notifikasi",
     "markAllRead": "Tandai Semua Dibaca",
+    "clearRead": "Hapus yang Sudah Dibaca",
     "noNotifications": "Tidak ada notifikasi",
     "newOrder": "Pesanan Baru",
     "newReservation": "Reservasi Baru",
@@ -237,5 +255,834 @@
     "rights": "Hak cipta dilindungi",
     "privacy": "Kebijakan Privasi",
     "terms": "Syarat & Ketentuan"
+  },
+  "settingsPage": {
+    "subtitle": "Kelola akun dan preferensi Anda",
+    "tabs": {
+      "profile": "Profil",
+      "security": "Keamanan",
+      "notifications": "Notifikasi",
+      "organization": "Organisasi",
+      "adminManagement": "Manajemen Admin",
+      "language": "Bahasa",
+      "privacy": "Privasi"
+    },
+    "saved": "Tersimpan!",
+    "profile": {
+      "title": "Informasi Profil",
+      "changePhoto": "Ganti Foto",
+      "fullName": "Nama Lengkap",
+      "email": "Email",
+      "phone": "Nomor Telepon",
+      "organization": "Nama Organisasi",
+      "address": "Alamat",
+      "bio": "Bio",
+      "save": "Simpan Perubahan"
+    },
+    "security": {
+      "title": "Keamanan Akun",
+      "currentPassword": "Password Saat Ini",
+      "newPassword": "Password Baru",
+      "newPasswordPlaceholder": "Min. 8 karakter",
+      "confirmPassword": "Konfirmasi Password Baru",
+      "confirmPasswordPlaceholder": "Ulangi password baru",
+      "save": "Ubah Password"
+    },
+    "notifications": {
+      "title": "Preferensi Notifikasi",
+      "fromSharedConfig": "Dikelola dari aturan bersama berbasis peran",
+      "save": "Simpan Preferensi",
+      "items": {
+        "newReservation": {
+          "label": "Reservasi baru",
+          "desc": "Notifikasi ketika ada reservasi masuk"
+        },
+        "newReview": {
+          "label": "Ulasan baru",
+          "desc": "Notifikasi ketika pengunjung menulis ulasan"
+        },
+        "lowStock": {
+          "label": "Stok menipis",
+          "desc": "Notifikasi ketika produk hampir habis"
+        },
+        "approvalUpdate": {
+          "label": "Update persetujuan",
+          "desc": "Notifikasi status pendaftaran mitra"
+        },
+        "systemUpdate": {
+          "label": "Update sistem",
+          "desc": "Informasi pembaruan platform"
+        },
+        "emailDigest": {
+          "label": "Ringkasan email mingguan",
+          "desc": "Laporan singkat aktivitas mingguan"
+        }
+      }
+    },
+    "organization": {
+      "title": "Profil Organisasi",
+      "defaultDescription": "Organisasi mitra tepercaya yang berfokus pada layanan wisata berkualitas.",
+      "logoFallback": "Organisasi",
+      "logoHint": "Unggah logo untuk memperkuat identitas brand.",
+      "uploadLogo": "Unggah Logo",
+      "displayName": "Nama Tampilan",
+      "website": "URL Website",
+      "description": "Deskripsi",
+      "instagram": "Instagram",
+      "tiktok": "TikTok",
+      "save": "Simpan Organisasi"
+    },
+    "adminManagement": {
+      "title": "Manajemen Admin",
+      "currentAdmins": "Admin Saat Ini",
+      "inviteTitle": "Undang Admin Baru",
+      "emailPlaceholder": "admin@organisasi.com",
+      "sendInvite": "Kirim Undangan",
+      "deactivate": "Nonaktifkan",
+      "activate": "Aktifkan",
+      "roles": {
+        "owner": "Pemilik",
+        "admin": "Admin",
+        "viewer": "Viewer"
+      },
+      "status": {
+        "active": "Aktif",
+        "invited": "Undangan Tertunda",
+        "deactivated": "Dinonaktifkan"
+      }
+    },
+    "language": {
+      "title": "Pengaturan Bahasa",
+      "active": "Aktif"
+    },
+    "privacy": {
+      "title": "Pengaturan Privasi",
+      "accountDataTitle": "Data Akun",
+      "accountDataDesc": "Kelola data pribadi dan akun Anda di platform.",
+      "downloadMyData": "Unduh Data Saya",
+      "deleteAccountTitle": "Hapus Akun",
+      "deleteAccountDesc": "Tindakan ini tidak dapat dibatalkan. Semua data akan dihapus permanen.",
+      "deleteAccount": "Hapus Akun"
+    },
+    "withdraw": {
+      "status": {
+        "pending": "Menunggu",
+        "settled": "Selesai"
+      }
+    },
+    "organizer": {
+      "bankSetupTitle": "Pengaturan Rekening Bank",
+      "bankSetupSubtitle": "Simpan rekening tujuan untuk settlement dan penarikan dana.",
+      "accountHolder": "Nama Pemilik Rekening",
+      "bankName": "Nama Bank",
+      "accountNumber": "Nomor Rekening",
+      "branch": "Cabang",
+      "saveBankAccount": "Simpan Rekening",
+      "withdrawRequest": "Permintaan Penarikan Dana",
+      "withdrawHint": "Ajukan pencairan saldo organizer ke rekening terdaftar.",
+      "withdrawAmountPlaceholder": "Nominal penarikan",
+      "request": "Ajukan",
+      "withdrawHistory": "Riwayat Penarikan"
+    }
+  },
+  "chat": {
+    "title": "Percakapan",
+    "subtitle": "Koordinasi lebih cepat dengan mitra, desa, dan tim support.",
+    "searchPlaceholder": "Cari percakapan...",
+    "justNow": "baru saja",
+    "messagePlaceholder": "Tulis pesan...",
+    "pinned": "Pesan disematkan",
+    "noPinnedMessages": "Belum ada pesan yang disematkan di percakapan ini.",
+    "channelType": {
+      "village_partner": "Mitra Desa",
+      "organizer_village": "Organizer x Desa",
+      "support": "Dukungan Platform"
+    }
+  },
+  "financeOverview": {
+    "title": "Ringkasan Keuangan",
+    "subtitle": "Pantau settlement, pencairan, dan performa pendapatan lintas operasional.",
+    "kpi": {
+      "totalRevenue": "Total Pendapatan",
+      "transactions": "{count} transaksi",
+      "settled": "Sudah Settled",
+      "settledHint": "selesai dan dibayar",
+      "pending": "Menunggu",
+      "pendingHint": "menunggu konfirmasi",
+      "estimatedFee": "Estimasi Biaya Platform",
+      "feeRate": "Tarif {rate}%"
+    },
+    "netBalance": {
+      "title": "Saldo Bersih",
+      "hint": "Siap dicairkan"
+    },
+    "failureRefund": {
+      "title": "Gagal & Refund",
+      "failed": "Gagal",
+      "refunded": "Refund"
+    },
+    "statusSummary": {
+      "title": "Ringkasan Status",
+      "paid": "Lunas",
+      "pending": "Pending",
+      "failedRefund": "Gagal/Refund"
+    },
+    "villageBreakdown": {
+      "title": "Rincian Koordinasi Desa",
+      "subtitle": "Ringkasan kolaborasi experience dan fasilitas.",
+      "experiences": "Experience",
+      "facilityRentals": "Sewa Fasilitas",
+      "externalSharing": "External Sharing",
+      "activeCoordinations": "{count} koordinasi aktif"
+    },
+    "charts": {
+      "revenueTrend": "Tren Pendapatan",
+      "revenueTrendHint": "Performa 6 bulan terakhir",
+      "paymentDistribution": "Distribusi Pembayaran",
+      "paymentDistributionHint": "Komposisi berdasarkan status pembayaran"
+    },
+    "quickActions": {
+      "reports": "Generate Laporan",
+      "reportsHint": "Ekspor ringkasan harian dan bulanan",
+      "management": "Kelola Settlement",
+      "managementHint": "Tinjau pencairan dan biaya yang menunggu"
+    }
+  },
+  "financeReports": {
+    "title": "Laporan Keuangan",
+    "subtitle": "Analisis visual performa finansial, tren pendapatan, dan status transaksi seluruh properti.",
+    "kpi": {
+      "totalRevenue": "Total Pendapatan",
+      "transactions": "{count} transaksi",
+      "settled": "Sudah Settled",
+      "settledHint": "pembayaran lunas",
+      "pending": "Menunggu Pembayaran",
+      "pendingHint": "belum diselesaikan",
+      "refunded": "Refunded / Dibatalkan",
+      "refundedHint": "dikembalikan ke tamu"
+    },
+    "experienceShare": {
+      "title": "Revenue Sharing Pengalaman",
+      "subtitle": "Ringkasan distribusi pendapatan experience organizer ke organizer, desa, dan platform.",
+      "gross": "Gross Revenue",
+      "organizer": "Organizer Share",
+      "village": "Village Share",
+      "platform": "Platform Fee"
+    },
+    "charts": {
+      "monthlyTrend": {
+        "title": "Tren Pendapatan Bulanan",
+        "subtitle": "Riwayat 6 bulan terakhir (simulasi + aktual Apr'26)."
+      },
+      "revenueByProperty": {
+        "title": "Pendapatan Per Properti",
+        "subtitle": "Hanya transaksi dengan status pembayaran lunas"
+      },
+      "reservationStatus": {
+        "title": "Distribusi Status Reservasi",
+        "subtitle": "Sebaran status dari seluruh booking"
+      },
+      "paymentStatus": {
+        "title": "Distribusi Status Pembayaran",
+        "subtitle": "Komposisi status pembayaran semua transaksi"
+      },
+      "roomStock": {
+        "title": "Stok Kamar Per Properti",
+        "subtitle": "Unit tersedia, terisi, dan dalam pemeliharaan"
+      },
+      "roomTypeRevenue": {
+        "title": "Kontribusi Revenue Per Tipe Kamar",
+        "subtitle": "Total pendapatan lunas berdasarkan tipe kamar"
+      }
+    },
+    "propertySummary": {
+      "title": "Ringkasan Per Penginapan"
+    },
+    "reservationHistory": {
+      "title": "Riwayat Transaksi Reservasi"
+    },
+    "table": {
+      "experience": "Experience",
+      "split": "Split",
+      "gross": "Gross",
+      "organizer": "Organizer",
+      "village": "Village",
+      "platform": "Platform",
+      "accommodation": "Penginapan",
+      "reservation": "Reservasi",
+      "paid": "Lunas",
+      "pending": "Pending",
+      "cancelled": "Dibatalkan",
+      "revenue": "Pendapatan",
+      "id": "ID",
+      "guest": "Tamu",
+      "room": "Kamar",
+      "checkIn": "Check-In",
+      "checkOut": "Check-Out",
+      "amount": "Nilai",
+      "payment": "Pembayaran",
+      "status": "Status"
+    },
+    "reservationStatus": {
+      "pending": "Pending",
+      "confirmed": "Confirmed",
+      "checked_in": "Aktif",
+      "checked_out": "Selesai",
+      "cancelled": "Dibatalkan"
+    },
+    "paymentStatus": {
+      "pending": "Pending",
+      "success": "Lunas",
+      "failed": "Gagal",
+      "refunded": "Refunded"
+    }
+  },
+  "financeManagement": {
+    "title": "Manajemen Keuangan",
+    "subtitle": "Kelola transaksi, status pembayaran, dan pengajuan withdraw.",
+    "kpi": {
+      "availableBalance": "Saldo Siap Withdraw (Estimasi)",
+      "pendingSettlement": "Saldo Pending Settlement",
+      "refundTotal": "Total Refund",
+      "totalTransactions": "Total Transaksi"
+    },
+    "transactionManagement": {
+      "title": "Manajemen Transaksi"
+    },
+    "table": {
+      "id": "ID",
+      "date": "Tanggal",
+      "guest": "Tamu",
+      "accommodation": "Penginapan",
+      "amount": "Nilai",
+      "payment": "Pembayaran"
+    },
+    "withdraw": {
+      "title": "Pengajuan Withdraw",
+      "method": "Metode Pencairan",
+      "methodBank": "Transfer Bank",
+      "methodWallet": "E-Wallet",
+      "channel": "Nama Bank / E-Wallet",
+      "channelPlaceholder": "Contoh: BCA / GoPay",
+      "accountNumber": "Nomor Rekening / Nomor Wallet",
+      "accountNumberPlaceholder": "Masukkan nomor tujuan",
+      "amount": "Nominal Withdraw",
+      "amountPlaceholder": "Minimal 100000",
+      "notice": "Pengajuan withdraw di lingkungan demo ini belum mengirim dana nyata. Gunakan ini sebagai blueprint alur pencairan dan validasi bisnis.",
+      "submit": "Ajukan Withdraw"
+    },
+    "requirements": {
+      "title": "Syarat Pengajuan Withdraw",
+      "channelTitle": "Rekomendasi Channel Withdraw",
+      "items": {
+        "1": "Akun pencairan (rekening bank / e-wallet) sudah diverifikasi dan atas nama pemilik akun mitra.",
+        "2": "Minimum nominal withdraw terpenuhi (rekomendasi: >= Rp100.000 per pengajuan).",
+        "3": "Saldo tersedia tidak sedang dalam status pending settlement, dispute, atau investigasi fraud.",
+        "4": "Tidak ada refund terbuka atau komplain transaksi aktif pada periode penarikan.",
+        "5": "Dokumen legal usaha dan informasi pajak (mis. NPWP bila diwajibkan) sudah lengkap dan valid.",
+        "6": "Pengguna yang mengajukan withdraw wajib lolos autentikasi tambahan (PIN/OTP atau 2FA)."
+      },
+      "channels": {
+        "1": "Transfer bank (BCA, BNI, BRI, Mandiri, CIMB, Permata) untuk nominal besar dan rekonsiliasi lebih mudah.",
+        "2": "E-wallet (GoPay, OVO, DANA, ShopeePay) untuk nominal kecil-menengah dengan kebutuhan pencairan cepat.",
+        "3": "Jadwal payout teratur (harian/mingguan) disarankan agar arus kas stabil dan biaya admin terkendali."
+      }
+    }
+  },
+  "village": {
+    "dashboard": {
+      "title": "Dashboard Manajemen Desa",
+      "subtitle": "Pantau operasional desa, ekosistem mitra, dan kesehatan pendapatan bersama.",
+      "recentActivity": "Aktivitas Terbaru",
+      "quickActions": "Aksi Cepat",
+      "activity": {
+        "application": "mengirim pengajuan mitra",
+        "review": "memberi ulasan"
+      },
+      "kpi": {
+        "totalPartners": "Total Mitra",
+        "pendingApprovals": "Menunggu Persetujuan",
+        "activeExperiences": "Pengalaman Aktif",
+        "monthlyRevenue": "Pendapatan Bulanan",
+        "utilizationRate": "Utilisasi Fasilitas",
+        "averageRating": "Rating Rata-rata"
+      }
+    },
+    "common": {
+      "name": "Nama"
+    },
+    "actions": {
+      "saveProfile": "Simpan Profil",
+      "updateBank": "Perbarui Rekening",
+      "saveFacility": "Simpan Fasilitas",
+      "publishExperience": "Publikasikan Pengalaman",
+      "approve": "Setujui",
+      "reject": "Tolak",
+      "requestRevision": "Minta Revisi",
+      "registerVillageData": "Daftarkan Data Desa",
+      "verifyPartner": "Verifikasi Mitra",
+      "createExperience": "Buat Pengalaman",
+      "viewFinancialReport": "Lihat Laporan Keuangan",
+      "addExperience": "Tambah Pengalaman",
+      "viewDetail": "Lihat Detail",
+      "submitResponse": "Kirim Balasan",
+      "flagReview": "Tandai Ulasan"
+    },
+    "villageData": {
+      "title": "Manajemen Data Desa",
+      "subtitle": "Kelola profil resmi desa, informasi kontak, dan rekening pencairan.",
+      "profileTitle": "Profil Desa",
+      "bankTitle": "Pengaturan Rekening Bank",
+      "villageName": "Nama Desa",
+      "address": "Alamat",
+      "description": "Deskripsi",
+      "history": "Sejarah",
+      "latitude": "Lintang",
+      "longitude": "Bujur",
+      "contactPhone": "Telepon Kontak",
+      "contactEmail": "Email Kontak",
+      "website": "Website",
+      "bankAccountName": "Nama Pemilik Rekening",
+      "bankName": "Nama Bank",
+      "bankAccountNumber": "Nomor Rekening",
+      "maskedPreview": "Pratinjau Tersamarkan"
+    },
+    "facilities": {
+      "title": "Manajemen Fasilitas",
+      "subtitle": "Kelola fasilitas publik, keamanan, transportasi, dan fasilitas yang dapat dimonetisasi.",
+      "addFacility": "Tambah atau Perbarui Fasilitas",
+      "category": "Kategori",
+      "namePlaceholder": "Nama fasilitas",
+      "descriptionPlaceholder": "Deskripsi fasilitas",
+      "addressPlaceholder": "Alamat fasilitas",
+      "isMonetizable": "Fasilitas ini dapat dimonetisasi",
+      "rentalPrice": "Harga Sewa",
+      "capacity": "Kapasitas"
+    },
+    "experiences": {
+      "title": "Pengalaman Desa",
+      "subtitle": "Buat dan kelola aktivitas desa dengan sistem tiket dan kontrol kapasitas.",
+      "addTitle": "Buat Pengalaman",
+      "addSubtitle": "Gunakan wizard untuk mempublikasikan pengalaman secara terstruktur.",
+      "calendarTitle": "Kalender Pengalaman",
+      "calendarSubtitle": "Kalender bulanan untuk semua pengalaman desa.",
+      "wizardTitle": "Wizard Pengalaman",
+      "wizardPlaceholder": "Tahapan lanjutan tiket, media, dan review siap dikembangkan lebih lanjut.",
+      "category": "Kategori",
+      "startsAt": "Tanggal-Waktu Mulai",
+      "endsAt": "Tanggal-Waktu Selesai",
+      "capacity": "Kapasitas",
+      "pricePerPerson": "Harga per Orang"
+    },
+    "approval": {
+      "title": "Verifikasi Mitra",
+      "subtitle": "Tinjau pengajuan mitra dengan checklist validasi dan riwayat tindakan.",
+      "inbox": "Kotak Masuk Pengajuan",
+      "reviewPanel": "Panel Tinjauan",
+      "searchPlaceholder": "Cari berdasarkan organisasi atau pemilik",
+      "feedbackPlaceholder": "Tulis umpan balik, catatan revisi, atau ringkasan verifikasi",
+      "noSelection": "Belum ada pengajuan dipilih"
+    },
+    "coordination": {
+      "title": "Koordinasi Eksternal",
+      "subtitle": "Koordinasikan organizer eksternal, penggunaan fasilitas, dan konfigurasi bagi hasil."
+    },
+    "reviews": {
+      "title": "Ulasan Desa",
+      "subtitle": "Tinjau dan balas ulasan untuk pengalaman, fasilitas, dan umpan balik umum desa.",
+      "responsePlaceholder": "Tulis balasan publik"
+    },
+    "settings": {
+      "adminManagement": "Manajemen Admin Desa",
+      "adminManagementDesc": "Kelola akun admin tambahan untuk operasional desa secara kolaboratif.",
+      "newAdminEmailPlaceholder": "Email admin baru",
+      "addAdmin": "Tambah Admin",
+      "villageNotificationRules": "Aturan Notifikasi Desa",
+      "villageNotificationRulesDesc": "Pilih notifikasi operasional untuk administrasi desa.",
+      "notifyPartnerApplications": "Pembaruan pengajuan mitra",
+      "notifyExternalCoordination": "Pembaruan koordinasi eksternal",
+      "notifyNegativeReviews": "Peringatan ulasan negatif",
+      "notifySettlementDelays": "Peringatan keterlambatan settlement"
+    }
+  },
+  "experience": {
+    "dashboard": {
+      "title": "Dashboard Pengalaman",
+      "subtitle": "Pantau pemesanan, pendapatan, dan performa koordinasi organizer.",
+      "kpi": {
+        "totalExperiences": "Total Pengalaman",
+        "totalBookings": "Total Pemesanan",
+        "monthlyRevenue": "Pendapatan Bulanan",
+        "pendingApprovals": "Menunggu Persetujuan"
+      }
+    },
+    "events": {
+      "title": "Event Pengalaman",
+      "subtitle": "Kelola pengalaman yang sudah dipublikasikan maupun draft.",
+      "add": "Tambah Pengalaman",
+      "searchPlaceholder": "Cari pengalaman...",
+      "all": "Semua",
+      "openDetail": "Buka Detail"
+    },
+    "add": {
+      "title": "Buat Pengalaman",
+      "subtitle": "Gunakan wizard untuk menyiapkan pengalaman wisata baru."
+    },
+    "detail": {
+      "location": "Lokasi",
+      "schedule": "Jadwal",
+      "status": "Status"
+    },
+    "calendar": {
+      "title": "Kalender Pengalaman",
+      "subtitle": "Tinjau timeline dan potensi bentrok jadwal.",
+      "overview": "Ringkasan Kalender",
+      "detectedConflicts": "Konflik terdeteksi: {count}"
+    },
+    "reservations": {
+      "title": "Reservasi Pengalaman",
+      "subtitle": "Pantau pembelian tiket dan kesiapan check-in.",
+      "actionsTitle": "Alur Pembatalan dan Refund",
+      "actionsSubtitle": "Simulasikan pembatalan reservasi, no-show, dan proses refund.",
+      "selectReservation": "Pilih Reservasi",
+      "cancelReason": "Alasan Pembatalan",
+      "cancelReasonPlaceholder": "Tulis alasan pembatalan atau insiden",
+      "refundPercent": "Persentase Refund",
+      "projectedRefund": "Estimasi Nominal Refund",
+      "simulationNote": "Mode simulasi untuk validasi alur bisnis.",
+      "markNoShow": "Tandai No Show",
+      "cancelReservation": "Batalkan Reservasi",
+      "processRefund": "Proses Refund",
+      "reasonCaptured": "Alasan tersimpan"
+    },
+    "coordination": {
+      "title": "Koordinasi Eksternal",
+      "subtitle": "Koordinasikan fasilitas dan operasi desa untuk tiap pengalaman.",
+      "detailTitle": "Koordinasi #{id}",
+      "targetVillage": "Desa Tujuan",
+      "messages": "Pesan",
+      "facilitiesRequested": "Fasilitas Diminta",
+      "facilityCalendarTitle": "Kalender Ketersediaan Fasilitas",
+      "facilityCalendarSubtitle": "Ketersediaan 7 hari ke depan berdasarkan reservasi fasilitas.",
+      "reservedHours": "Terpakai ({hours} jam)",
+      "open": "Kosong"
+    },
+    "reviews": {
+      "title": "Ulasan Pengalaman",
+      "averageRating": "Rata-rata rating: {value}/5"
+    },
+    "promotions": {
+      "title": "Promosi Pengalaman",
+      "subtitle": "Buat kampanye untuk meningkatkan konversi penjualan tiket."
+    },
+    "categories": {
+      "cultural": "Budaya",
+      "nature": "Alam",
+      "culinary": "Kuliner",
+      "craft": "Kerajinan",
+      "adventure": "Petualangan",
+      "wellness": "Kebugaran",
+      "education": "Edukasi",
+      "festival": "Festival",
+      "photography": "Fotografi",
+      "agro_tourism": "Agrowisata",
+      "other": "Lainnya"
+    },
+    "status": {
+      "active": "Aktif",
+      "inactive": "Tidak Aktif",
+      "draft": "Draft",
+      "proposal_sent": "Proposal Dikirim",
+      "under_review": "Sedang Ditinjau",
+      "changes_requested": "Perubahan Diminta",
+      "village_approved": "Disetujui Desa",
+      "published": "Dipublikasikan",
+      "ticket_sales_open": "Penjualan Tiket Dibuka",
+      "ongoing": "Berlangsung",
+      "completed": "Selesai",
+      "rejected": "Ditolak",
+      "cancelled": "Dibatalkan",
+      "refund_processing": "Refund Diproses",
+      "closed": "Ditutup",
+      "facility_reserved": "Fasilitas Dipesan",
+      "terms_agreed": "Syarat Disepakati",
+      "approved": "Disetujui"
+    },
+    "availability": {
+      "available": "Tersedia",
+      "limited": "Terbatas",
+      "unavailable": "Tidak Tersedia"
+    },
+    "reservationStatus": {
+      "pending": "Menunggu",
+      "success": "Berhasil Dibayar",
+      "failed": "Gagal",
+      "refunded": "Refund"
+    },
+    "bookingStatus": {
+      "confirmed": "Dikonfirmasi",
+      "checked_in": "Sudah Check-In",
+      "no_show": "Tidak Hadir",
+      "cancelled": "Dibatalkan"
+    },
+    "milestones": {
+      "dp": "Uang Muka",
+      "second": "Pembayaran Kedua",
+      "final": "Pembayaran Akhir"
+    },
+    "promotionTypes": {
+      "early_bird": "Early Bird",
+      "group_discount": "Diskon Grup",
+      "last_chance": "Kesempatan Terakhir",
+      "returning_customer": "Pelanggan Kembali",
+      "promo_code": "Kode Promo",
+      "bundle": "Bundling"
+    },
+    "components": {
+      "checkInManager": "Manajer Check-In",
+      "checkedIn": "Sudah Check-In",
+      "markCheckIn": "Tandai Check-In",
+      "facilityBrowser": "Daftar Fasilitas",
+      "wizardTitle": "Wizard Pengalaman",
+      "steps": {
+        "basic": "Dasar",
+        "schedule": "Jadwal",
+        "tickets": "Tiket",
+        "itinerary": "Itinerary",
+        "media": "Media",
+        "review": "Tinjau"
+      },
+      "name": "Nama",
+      "experienceNamePlaceholder": "Nama pengalaman",
+      "category": "Kategori",
+      "categoryPlaceholder": "Kategori",
+      "description": "Deskripsi",
+      "previous": "Sebelumnya",
+      "next": "Selanjutnya",
+      "submitProposal": "Kirim Proposal",
+      "coordinationProposals": "Proposal Koordinasi",
+      "village": "Desa",
+      "messages": "Pesan",
+      "bookings": "Pemesanan",
+      "outOfFive": "/ 5",
+      "reviews": "ulasan",
+      "organizer": "Organizer",
+      "revenueSharing": "Bagi Hasil",
+      "platform": "Platform",
+      "createPromotion": "Buat Promosi",
+      "campaignNamePlaceholder": "Nama kampanye",
+      "type": "Tipe",
+      "discount": "Diskon",
+      "promoCode": "Kode Promo",
+      "promoCodeSample": "EXPERIENCE10",
+      "create": "Buat",
+      "booking": "Booking",
+      "qty": "Qty",
+      "facility": "Fasilitas",
+      "ticketTypes": "Jenis Tiket",
+      "price": "Harga",
+      "quota": "Kuota",
+      "paymentMilestones": "Tahap Pembayaran",
+      "due": "Jatuh Tempo",
+      "paid": "Lunas",
+      "pending": "Menunggu",
+      "promotionalMaterial": "Materi Promosi",
+      "posterPlaceholder": "Taruh poster acara di sini",
+      "bannerPlaceholder": "Taruh banner media sosial di sini",
+      "itinerary": "Itinerary"
+    },
+    "charts": {
+      "bookingTrend": {
+        "title": "Tren Pemesanan",
+        "subtitle": "Jumlah pemesanan per pengalaman pada periode berjalan."
+      },
+      "revenueByExperience": {
+        "title": "Pendapatan per Pengalaman",
+        "subtitle": "Kontribusi pendapatan bulanan tiap pengalaman."
+      },
+      "ticketSalesDistribution": {
+        "title": "Distribusi Penjualan Tiket",
+        "subtitle": "Jumlah tiket terjual berdasarkan jenis tiket."
+      },
+      "ratingTrend": {
+        "title": "Tren Rating",
+        "subtitle": "Rata-rata rating untuk tiap pengalaman."
+      }
+    }
+  },
+  "sme": {
+    "orderStatus": {
+      "pending_payment": "Menunggu Pembayaran",
+      "paid": "Dibayar",
+      "preparing": "Sedang Disiapkan",
+      "ready_for_pickup": "Siap Diambil",
+      "picked_up": "Sudah Diambil",
+      "cancelled": "Dibatalkan",
+      "refunded": "Dikembalikan"
+    },
+    "dashboard": {
+      "title": "Dasbor UMKM",
+      "subtitle": "Ringkasan operasional penjualan pickup UMKM.",
+      "kpi": {
+        "totalProducts": "Total Produk",
+        "activeProducts": "Produk Aktif",
+        "ordersToday": "Pesanan Hari Ini",
+        "monthlyRevenue": "Pendapatan Bulanan",
+        "lowStockAlerts": "Peringatan Stok Rendah",
+        "avgRating": "Rata-rata Rating"
+      },
+      "actions": {
+        "createPromotion": "Buat Promosi",
+        "viewOrders": "Lihat Pesanan",
+        "addProduct": "Tambah Produk",
+        "managePickupOrders": "Kelola Pesanan Pickup",
+        "resolveLowStock": "Tangani Stok Rendah"
+      },
+      "operationsAlerts": "Peringatan Operasional",
+      "stockDropped": "Stok turun di bawah batas minimum",
+      "stockValue": "Stok {value}",
+      "orderNumber": "Pesanan #{id}",
+      "readyForPickupBy": "Siap diambil oleh {name}",
+      "ready": "Siap",
+      "quickActions": "Aksi Cepat",
+      "recentPickupRevenue": "Pendapatan Pickup Terbaru",
+      "charts": {
+        "revenueTrend": {
+          "title": "Tren Pendapatan",
+          "subtitle": "Tren pendapatan harian/mingguan/bulanan (mock)."
+        },
+        "topSellingProducts": {
+          "title": "Produk Terlaris",
+          "subtitle": "Produk dengan performa volume terbaik (mock)."
+        },
+        "orderStatus": {
+          "title": "Status Pesanan",
+          "subtitle": "Distribusi lifecycle pesanan pickup (mock)."
+        },
+        "categoryBreakdown": {
+          "title": "Komposisi Kategori",
+          "subtitle": "Kontribusi kategori terhadap penjualan (mock)."
+        }
+      }
+    },
+    "products": {
+      "title": "Produk UMKM",
+      "subtitle": "Kelola katalog produk, harga, stok, dan media.",
+      "addProduct": "Tambah Produk",
+      "summary": {
+        "totalProducts": "Total Produk",
+        "published": "Dipublikasi",
+        "pending": "Menunggu",
+        "lowStock": "Stok Rendah"
+      },
+      "searchPlaceholder": "Cari produk...",
+      "categories": {
+        "all": "Semua",
+        "food": "Makanan",
+        "craft": "Kerajinan",
+        "service": "Layanan"
+      },
+      "status": {
+        "approved": "Disetujui",
+        "pending": "Menunggu"
+      },
+      "stockValue": "Stok {value}",
+      "partnerValue": "Mitra: {name}",
+      "edit": "Edit"
+    },
+    "orders": {
+      "title": "Pesanan Pickup",
+      "subtitle": "Proses pesanan online dengan alur pemenuhan pickup.",
+      "summary": {
+        "pendingPayment": "Menunggu Pembayaran",
+        "readyForPickup": "Siap Diambil",
+        "completedToday": "Selesai Hari Ini"
+      },
+      "orderNumber": "Pesanan #{id}",
+      "itemsCount": "{count} item",
+      "pickupEta": "Estimasi pickup: {value}",
+      "orderDetail": "Detail Pesanan",
+      "itemRow": "{name} x {qty}",
+      "pickupTimeline": "Timeline Pickup",
+      "autoCancelledReason": "Dibatalkan oleh operator UMKM",
+      "actions": {
+        "title": "Aksi Pesanan",
+        "noActions": "Tidak ada aksi untuk status saat ini.",
+        "mark_paid": "Tandai Sudah Dibayar",
+        "cancel": "Batalkan Pesanan",
+        "prepare": "Mulai Siapkan",
+        "ready": "Tandai Siap Diambil",
+        "picked_up": "Tandai Sudah Diambil",
+        "refund": "Tandai Refund"
+      }
+    },
+    "stock": {
+      "title": "Manajemen Stok",
+      "subtitle": "Pantau ambang batas, lakukan penyesuaian, dan tinjau histori stok.",
+      "summary": {
+        "totalProducts": "Total Produk",
+        "lowStock": "Stok Rendah",
+        "healthyStock": "Stok Aman"
+      },
+      "restockAlerts": "Peringatan Restok",
+      "remaining": "Sisa {stock} {unit} · Min. {min}",
+      "restock": "Restok",
+      "fullSnapshot": "Ringkasan Stok Lengkap",
+      "priceValue": "Harga {value}",
+      "lastRestock": "Restok terakhir: {date}",
+      "adjustmentHistory": "Riwayat Penyesuaian Stok",
+      "inStock": "{count} dalam stok"
+    },
+    "reviews": {
+      "title": "Ulasan UMKM",
+      "subtitle": "Pantau sentimen pelanggan dan tanggapi umpan balik produk.",
+      "totalReviews": "Total Ulasan",
+      "averageRating": "Rata-rata Rating",
+      "ratingValue": "Rating: {rating}/5",
+      "reply": "Balasan: {response}"
+    },
+    "promotions": {
+      "title": "Promosi UMKM",
+      "subtitle": "Buat kampanye untuk meningkatkan penjualan pickup.",
+      "summary": {
+        "totalPromotions": "Total Promosi",
+        "active": "Aktif",
+        "withPromoCode": "Dengan Kode Promo"
+      },
+      "formTitle": "Buat Promosi",
+      "name": "Nama",
+      "namePlaceholder": "Nama promosi",
+      "type": "Tipe",
+      "discountValue": "Nilai Diskon",
+      "create": "Buat Promosi",
+      "types": {
+        "product_discount": "Diskon Produk",
+        "category_sale": "Diskon Kategori",
+        "bundle_deal": "Paket Bundling",
+        "buy_x_get_y": "Beli X Gratis Y",
+        "flash_sale": "Flash Sale",
+        "promo_code": "Kode Promo",
+        "first_purchase": "Pembelian Pertama"
+      }
+    },
+    "productForm": {
+      "title": "Tambah / Edit Produk",
+      "name": "Nama Produk",
+      "namePlaceholder": "Nama produk",
+      "category": "Kategori",
+      "categoryPlaceholder": "Makanan, kerajinan, layanan...",
+      "price": "Harga",
+      "stock": "Stok",
+      "save": "Simpan Produk"
+    },
+    "profileForm": {
+      "title": "Pendaftaran Profil UMKM",
+      "businessName": "Nama Usaha",
+      "businessType": "Jenis Usaha",
+      "storeAddress": "Alamat Toko",
+      "bankName": "Nama Bank",
+      "bankAccountNumber": "Nomor Rekening",
+      "save": "Simpan Profil UMKM"
+    }
   }
 }

@@ -107,18 +107,43 @@ export interface Event {
   approvalStatus: ApprovalStatus;
 }
 
+export type OrderStatus =
+  | "pending_payment"
+  | "paid"
+  | "preparing"
+  | "ready_for_pickup"
+  | "picked_up"
+  | "cancelled"
+  | "refunded";
+
+export interface OrderItem {
+  productId: string;
+  productName: string;
+  quantity: number;
+  unitPrice: number;
+  variant?: string;
+  subtotal: number;
+}
+
 export interface Order {
   id: string;
   customerId: string;
   customerName: string;
-  productId: string;
-  productName: string;
-  quantity: number;
+  customerPhone: string;
+  customerEmail: string;
+  items: OrderItem[];
   totalPrice: number;
-  status: "pending" | "processing" | "shipped" | "delivered" | "cancelled";
+  status: OrderStatus;
   paymentStatus: PaymentStatus;
-  shippingAddress: string;
+  estimatedPickupTime?: string;
+  actualPickupTime?: string;
+  specialInstructions?: string;
+  cancellationReason?: string;
+  refundAmount?: number;
+  smeId: string;
+  smeName: string;
   createdAt: string;
+  updatedAt: string;
 }
 
 export interface Notification {
@@ -327,4 +352,214 @@ export interface Payment {
   webhookPayload?: object;
   createdAt: string;
   updatedAt: string;
+}
+
+export type PromotionType =
+  | "seasonal_discount"
+  | "early_bird"
+  | "last_minute"
+  | "long_stay"
+  | "bundle_package"
+  | "promo_code";
+
+export interface Promotion {
+  id: string;
+  name: string;
+  type: PromotionType;
+  discountValue: number;
+  discountType: "percentage" | "fixed";
+  validFrom: string;
+  validTo: string;
+  applicableRoomIds: string[] | "all";
+  applicableAccommodationIds: string[] | "all";
+  maxUsage?: number;
+  minStay?: number;
+  minBookingValue?: number;
+  promoCode?: string;
+  status: "active" | "inactive" | "expired";
+  usageCount: number;
+  revenueImpact: number;
+}
+
+export interface BankAccount {
+  id: string;
+  accommodationId: string;
+  accountHolderName: string;
+  bankName: string;
+  accountNumber: string;
+  branch?: string;
+  swiftCode?: string;
+  isVerified: boolean;
+}
+
+export interface WithdrawalRequest {
+  id: string;
+  accommodationId: string;
+  amount: number;
+  status: "pending" | "approved" | "rejected" | "paid";
+  requestedAt: string;
+  paidAt?: string;
+}
+
+export interface TicketType {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  quota: number;
+  sold: number;
+  perPersonPrice: boolean;
+  groupSize?: number;
+  includes: string[];
+  minAge?: number;
+  maxAge?: number;
+}
+
+export interface Itinerary {
+  time: string;
+  endTime?: string;
+  activity: string;
+  location?: string;
+  description?: string;
+  isOptional: boolean;
+}
+
+export interface ExperienceReservation {
+  id: string;
+  experienceId: string;
+  experienceName: string;
+  customerName: string;
+  customerEmail: string;
+  customerPhone: string;
+  ticketTypeId: string;
+  ticketTypeName: string;
+  quantity: number;
+  totalPrice: number;
+  paymentStatus: PaymentStatus;
+  bookingStatus: "confirmed" | "checked_in" | "no_show" | "cancelled";
+  isWaitlist: boolean;
+  groupSize?: number;
+  specialRequirements?: string;
+  cancellationReason?: string;
+  refundAmount?: number;
+  createdAt: string;
+}
+
+export interface ExperienceCoordination {
+  id: string;
+  experienceId: string;
+  targetVillage: string;
+  status:
+    | "proposal_sent"
+    | "under_review"
+    | "changes_requested"
+    | "facility_reserved"
+    | "terms_agreed"
+    | "approved"
+    | "rejected"
+    | "completed";
+  messages: Array<{
+    id: string;
+    senderRole: "organizer" | "village_admin";
+    senderName: string;
+    content: string;
+    createdAt: string;
+  }>;
+  facilityRequests: Array<{
+    facilityId: string;
+    facilityName: string;
+    date: string;
+    hours: number;
+    rentalPrice: number;
+  }>;
+  revenueSplit: {
+    organizer: number;
+    village: number;
+    platform: number;
+  };
+  paymentSchedule: Array<{
+    milestone: "dp" | "second" | "final";
+    percent: number;
+    amount: number;
+    dueDate: string;
+    paid: boolean;
+  }>;
+  contractRef?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+// ── Shared Platform Types ──────────────────────────────────────────────────
+
+export type WithdrawalStatus =
+  | "pending"
+  | "processing"
+  | "completed"
+  | "failed"
+  | "cancelled";
+
+export interface PartnerBankAccount {
+  id: string;
+  partnerId: string;
+  holderName: string;
+  bankName: string;
+  accountNumber: string;
+  branch?: string;
+  isVerified: boolean;
+  isPrimary: boolean;
+  verifiedAt?: string;
+  createdAt: string;
+}
+
+export interface PartnerWithdrawalRequest {
+  id: string;
+  partnerId: string;
+  bankAccountId: string;
+  amount: number;
+  status: WithdrawalStatus;
+  requestedAt: string;
+  processedAt?: string;
+  failureReason?: string;
+  transactionRef?: string;
+}
+
+export type OrgAdminRole = "owner" | "admin" | "viewer";
+
+export interface OrganizationAdmin {
+  id: string;
+  userId: string;
+  organizationId: string;
+  role: OrgAdminRole;
+  permissions: string[];
+  invitedBy: string;
+  invitedEmail: string;
+  status: "active" | "invited" | "deactivated";
+  createdAt: string;
+}
+
+export interface ReviewResponse {
+  text: string;
+  respondedBy: string;
+  respondedAt: string;
+}
+
+export interface EnhancedReview {
+  id: string;
+  reviewerName: string;
+  reviewerEmail?: string;
+  targetId: string;
+  targetType: "product" | "accommodation" | "experience" | "village" | "sme_store";
+  rating: number;
+  title?: string;
+  comment: string;
+  pros?: string;
+  cons?: string;
+  images?: string[];
+  isVerifiedPurchase: boolean;
+  response?: ReviewResponse;
+  isFlagged: boolean;
+  flagReason?: string;
+  helpfulCount: number;
+  createdAt: string;
+  updatedAt?: string;
 }

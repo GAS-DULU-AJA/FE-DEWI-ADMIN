@@ -2,13 +2,20 @@
 
 import { create } from "zustand";
 import type { Notification } from "@/types";
+import type { NotificationPreference } from "@/features/shared/notifications/types";
+import {
+  DEFAULT_NOTIFICATION_PREFERENCES,
+} from "@/features/shared/notifications/constants";
 
 interface NotificationState {
   notifications: Notification[];
   unreadCount: number;
+  preferences: NotificationPreference[];
   markAsRead: (id: string) => void;
   markAllAsRead: () => void;
+  clearRead: () => void;
   addNotification: (n: Omit<Notification, "id" | "createdAt" | "isRead">) => void;
+  setPreference: (type: string, enabled: boolean) => void;
 }
 
 const DEMO_NOTIFICATIONS: Notification[] = [
@@ -49,6 +56,7 @@ const DEMO_NOTIFICATIONS: Notification[] = [
 export const useNotificationStore = create<NotificationState>((set) => ({
   notifications: DEMO_NOTIFICATIONS,
   unreadCount: DEMO_NOTIFICATIONS.filter((n) => !n.isRead).length,
+  preferences: DEFAULT_NOTIFICATION_PREFERENCES,
 
   markAsRead: (id) =>
     set((state) => {
@@ -67,6 +75,12 @@ export const useNotificationStore = create<NotificationState>((set) => ({
       unreadCount: 0,
     })),
 
+  clearRead: () =>
+    set((state) => {
+      const unread = state.notifications.filter((n) => !n.isRead);
+      return { notifications: unread, unreadCount: unread.length };
+    }),
+
   addNotification: (data) =>
     set((state) => {
       const n: Notification = {
@@ -80,4 +94,11 @@ export const useNotificationStore = create<NotificationState>((set) => ({
         unreadCount: state.unreadCount + 1,
       };
     }),
+
+  setPreference: (type, enabled) =>
+    set((state) => ({
+      preferences: state.preferences.map((p) =>
+        p.type === type ? { ...p, enabled } : p
+      ),
+    })),
 }));

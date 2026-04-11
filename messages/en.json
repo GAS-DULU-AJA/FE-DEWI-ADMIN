@@ -48,7 +48,24 @@
     "inventory": "Inventory",
     "stock": "Stock",
     "orders": "Orders",
-    "shipping": "Shipping"
+    "shipping": "Shipping",
+    "accommodationDashboard": "Accommodation Dashboard",
+    "financeDashboard": "Finance Dashboard",
+    "addAccommodation": "Add Accommodation",
+    "submissionStatus": "Submission Status",
+    "finance": "Finance",
+    "financialReports": "Financial Reports",
+    "financeManagement": "Finance Management",
+    "promotions": "Promotions",
+    "partners": "Partners",
+    "analytics": "Analytics",
+    "calendar": "Calendar",
+    "villageData": "Village Data",
+    "facilities": "Facilities",
+    "experiences": "Experiences",
+    "partnerVerification": "Partner Verification",
+    "externalCoordination": "External Coordination",
+    "general": "General"
   },
   "landing": {
     "heroTitle": "Welcome to Mitra Dewi",
@@ -222,6 +239,7 @@
   "notifications": {
     "title": "Notifications",
     "markAllRead": "Mark All as Read",
+    "clearRead": "Clear Read",
     "noNotifications": "No notifications",
     "newOrder": "New Order",
     "newReservation": "New Reservation",
@@ -237,5 +255,834 @@
     "rights": "All rights reserved",
     "privacy": "Privacy Policy",
     "terms": "Terms & Conditions"
+  },
+  "settingsPage": {
+    "subtitle": "Manage your account and preferences",
+    "tabs": {
+      "profile": "Profile",
+      "security": "Security",
+      "notifications": "Notifications",
+      "organization": "Organization",
+      "adminManagement": "Admin Management",
+      "language": "Language",
+      "privacy": "Privacy"
+    },
+    "saved": "Saved!",
+    "profile": {
+      "title": "Profile Information",
+      "changePhoto": "Change Photo",
+      "fullName": "Full Name",
+      "email": "Email",
+      "phone": "Phone Number",
+      "organization": "Organization Name",
+      "address": "Address",
+      "bio": "Bio",
+      "save": "Save Changes"
+    },
+    "security": {
+      "title": "Account Security",
+      "currentPassword": "Current Password",
+      "newPassword": "New Password",
+      "newPasswordPlaceholder": "Min. 8 characters",
+      "confirmPassword": "Confirm New Password",
+      "confirmPasswordPlaceholder": "Repeat new password",
+      "save": "Update Password"
+    },
+    "notifications": {
+      "title": "Notification Preferences",
+      "fromSharedConfig": "Managed from shared role-based rules",
+      "save": "Save Preferences",
+      "items": {
+        "newReservation": {
+          "label": "New reservation",
+          "desc": "Notify when a new reservation is received"
+        },
+        "newReview": {
+          "label": "New review",
+          "desc": "Notify when a guest submits a review"
+        },
+        "lowStock": {
+          "label": "Low stock",
+          "desc": "Notify when products are running low"
+        },
+        "approvalUpdate": {
+          "label": "Approval updates",
+          "desc": "Notify about partner registration status"
+        },
+        "systemUpdate": {
+          "label": "System updates",
+          "desc": "Platform update announcements"
+        },
+        "emailDigest": {
+          "label": "Weekly email digest",
+          "desc": "Weekly activity summary"
+        }
+      }
+    },
+    "organization": {
+      "title": "Organization Profile",
+      "defaultDescription": "A trusted partner organization focused on quality tourism services.",
+      "logoFallback": "Organization",
+      "logoHint": "Upload your logo for stronger brand recognition.",
+      "uploadLogo": "Upload Logo",
+      "displayName": "Display Name",
+      "website": "Website URL",
+      "description": "Description",
+      "instagram": "Instagram",
+      "tiktok": "TikTok",
+      "save": "Save Organization"
+    },
+    "adminManagement": {
+      "title": "Admin Management",
+      "currentAdmins": "Current Admins",
+      "inviteTitle": "Invite New Admin",
+      "emailPlaceholder": "admin@organization.com",
+      "sendInvite": "Send Invite",
+      "deactivate": "Deactivate",
+      "activate": "Activate",
+      "roles": {
+        "owner": "Owner",
+        "admin": "Admin",
+        "viewer": "Viewer"
+      },
+      "status": {
+        "active": "Active",
+        "invited": "Invitation Pending",
+        "deactivated": "Deactivated"
+      }
+    },
+    "language": {
+      "title": "Language Settings",
+      "active": "Active"
+    },
+    "privacy": {
+      "title": "Privacy Settings",
+      "accountDataTitle": "Account Data",
+      "accountDataDesc": "Manage your personal and account data on the platform.",
+      "downloadMyData": "Download My Data",
+      "deleteAccountTitle": "Delete Account",
+      "deleteAccountDesc": "This action cannot be undone. All data will be permanently deleted.",
+      "deleteAccount": "Delete Account"
+    },
+    "withdraw": {
+      "status": {
+        "pending": "Pending",
+        "settled": "Settled"
+      }
+    },
+    "organizer": {
+      "bankSetupTitle": "Bank Account Setup",
+      "bankSetupSubtitle": "Save destination account for settlement and withdrawals.",
+      "accountHolder": "Account Holder Name",
+      "bankName": "Bank Name",
+      "accountNumber": "Account Number",
+      "branch": "Branch",
+      "saveBankAccount": "Save Bank Account",
+      "withdrawRequest": "Withdrawal Request",
+      "withdrawHint": "Submit organizer balance withdrawals to registered account.",
+      "withdrawAmountPlaceholder": "Withdrawal amount",
+      "request": "Request",
+      "withdrawHistory": "Withdrawal History"
+    }
+  },
+  "chat": {
+    "title": "Conversations",
+    "subtitle": "Coordinate faster with partners, villages, and support.",
+    "searchPlaceholder": "Search chats...",
+    "justNow": "just now",
+    "messagePlaceholder": "Type a message...",
+    "pinned": "Pinned messages",
+    "noPinnedMessages": "No pinned messages in this conversation.",
+    "channelType": {
+      "village_partner": "Village Partner",
+      "organizer_village": "Organizer x Village",
+      "support": "Platform Support"
+    }
+  },
+  "financeOverview": {
+    "title": "Finance Overview",
+    "subtitle": "Track settlements, payouts, and revenue performance across operations.",
+    "kpi": {
+      "totalRevenue": "Total Revenue",
+      "transactions": "{count} transactions",
+      "settled": "Settled",
+      "settledHint": "completed and paid",
+      "pending": "Pending",
+      "pendingHint": "awaiting confirmation",
+      "estimatedFee": "Estimated Platform Fee",
+      "feeRate": "Rate {rate}%"
+    },
+    "netBalance": {
+      "title": "Net Balance",
+      "hint": "Available for payout"
+    },
+    "failureRefund": {
+      "title": "Failure & Refund",
+      "failed": "Failed",
+      "refunded": "Refunded"
+    },
+    "statusSummary": {
+      "title": "Status Summary",
+      "paid": "Paid",
+      "pending": "Pending",
+      "failedRefund": "Failed/Refund"
+    },
+    "villageBreakdown": {
+      "title": "Village Coordination Breakdown",
+      "subtitle": "Experience and facility collaboration summary.",
+      "experiences": "Experiences",
+      "facilityRentals": "Facility Rentals",
+      "externalSharing": "External Sharing",
+      "activeCoordinations": "{count} active coordinations"
+    },
+    "charts": {
+      "revenueTrend": "Revenue Trend",
+      "revenueTrendHint": "Last 6 months performance",
+      "paymentDistribution": "Payment Distribution",
+      "paymentDistributionHint": "Share by payment status"
+    },
+    "quickActions": {
+      "reports": "Generate Reports",
+      "reportsHint": "Export daily and monthly summaries",
+      "management": "Manage Settlements",
+      "managementHint": "Review pending payouts and fees"
+    }
+  },
+  "financeReports": {
+    "title": "Financial Reports",
+    "subtitle": "Visual analysis of financial performance, revenue trends, and transaction statuses.",
+    "kpi": {
+      "totalRevenue": "Total Revenue",
+      "transactions": "{count} transactions",
+      "settled": "Settled",
+      "settledHint": "fully paid transactions",
+      "pending": "Pending Payments",
+      "pendingHint": "not yet completed",
+      "refunded": "Refunded / Cancelled",
+      "refundedHint": "returned to guests"
+    },
+    "experienceShare": {
+      "title": "Experience Revenue Sharing",
+      "subtitle": "Revenue distribution summary from experience organizer to organizer, village, and platform.",
+      "gross": "Gross Revenue",
+      "organizer": "Organizer Share",
+      "village": "Village Share",
+      "platform": "Platform Fee"
+    },
+    "charts": {
+      "monthlyTrend": {
+        "title": "Monthly Revenue Trend",
+        "subtitle": "Last 6 months trend (simulation + actual Apr'26)."
+      },
+      "revenueByProperty": {
+        "title": "Revenue by Property",
+        "subtitle": "Only fully paid transactions"
+      },
+      "reservationStatus": {
+        "title": "Reservation Status Distribution",
+        "subtitle": "Status spread from all bookings"
+      },
+      "paymentStatus": {
+        "title": "Payment Status Distribution",
+        "subtitle": "Payment status composition across all transactions"
+      },
+      "roomStock": {
+        "title": "Room Stock per Property",
+        "subtitle": "Available, occupied, and maintenance units"
+      },
+      "roomTypeRevenue": {
+        "title": "Revenue Contribution by Room Type",
+        "subtitle": "Fully paid revenue by room type"
+      }
+    },
+    "propertySummary": {
+      "title": "Accommodation Summary"
+    },
+    "reservationHistory": {
+      "title": "Reservation Transaction History"
+    },
+    "table": {
+      "experience": "Experience",
+      "split": "Split",
+      "gross": "Gross",
+      "organizer": "Organizer",
+      "village": "Village",
+      "platform": "Platform",
+      "accommodation": "Accommodation",
+      "reservation": "Reservation",
+      "paid": "Paid",
+      "pending": "Pending",
+      "cancelled": "Cancelled",
+      "revenue": "Revenue",
+      "id": "ID",
+      "guest": "Guest",
+      "room": "Room",
+      "checkIn": "Check-In",
+      "checkOut": "Check-Out",
+      "amount": "Amount",
+      "payment": "Payment",
+      "status": "Status"
+    },
+    "reservationStatus": {
+      "pending": "Pending",
+      "confirmed": "Confirmed",
+      "checked_in": "Active",
+      "checked_out": "Completed",
+      "cancelled": "Cancelled"
+    },
+    "paymentStatus": {
+      "pending": "Pending",
+      "success": "Paid",
+      "failed": "Failed",
+      "refunded": "Refunded"
+    }
+  },
+  "financeManagement": {
+    "title": "Financial Management",
+    "subtitle": "Manage transactions, payment statuses, and withdrawal requests.",
+    "kpi": {
+      "availableBalance": "Available Balance (Estimated)",
+      "pendingSettlement": "Pending Settlement Balance",
+      "refundTotal": "Total Refund",
+      "totalTransactions": "Total Transactions"
+    },
+    "transactionManagement": {
+      "title": "Transaction Management"
+    },
+    "table": {
+      "id": "ID",
+      "date": "Date",
+      "guest": "Guest",
+      "accommodation": "Accommodation",
+      "amount": "Amount",
+      "payment": "Payment"
+    },
+    "withdraw": {
+      "title": "Withdrawal Request",
+      "method": "Disbursement Method",
+      "methodBank": "Bank Transfer",
+      "methodWallet": "E-Wallet",
+      "channel": "Bank / E-Wallet Name",
+      "channelPlaceholder": "Example: BCA / GoPay",
+      "accountNumber": "Account / Wallet Number",
+      "accountNumberPlaceholder": "Enter destination number",
+      "amount": "Withdrawal Amount",
+      "amountPlaceholder": "Minimum 100000",
+      "notice": "In this demo environment, withdrawals do not transfer real funds. Use this as a business flow blueprint.",
+      "submit": "Submit Withdrawal"
+    },
+    "requirements": {
+      "title": "Withdrawal Requirements",
+      "channelTitle": "Recommended Withdrawal Channels",
+      "items": {
+        "1": "Disbursement account (bank/e-wallet) is verified and under partner owner name.",
+        "2": "Minimum withdrawal amount is met (recommended: >= Rp100,000 per request).",
+        "3": "Available balance is not in pending settlement, dispute, or fraud investigation state.",
+        "4": "No open refunds or active transaction complaints in current withdrawal period.",
+        "5": "Business legal documents and tax data (e.g. NPWP when required) are complete and valid.",
+        "6": "User requesting withdrawal must pass additional auth (PIN/OTP/2FA)."
+      },
+      "channels": {
+        "1": "Bank transfer (BCA, BNI, BRI, Mandiri, CIMB, Permata) for larger amounts and easier reconciliation.",
+        "2": "E-wallet (GoPay, OVO, DANA, ShopeePay) for small-mid amounts needing faster disbursement.",
+        "3": "Regular payout cadence (daily/weekly) is recommended for stable cashflow and controlled admin costs."
+      }
+    }
+  },
+  "village": {
+    "dashboard": {
+      "title": "Village Management Dashboard",
+      "subtitle": "Monitor village operations, partner ecosystem, and shared revenue health.",
+      "recentActivity": "Recent Activity",
+      "quickActions": "Quick Actions",
+      "activity": {
+        "application": "submitted a partner application",
+        "review": "left a review"
+      },
+      "kpi": {
+        "totalPartners": "Total Partners",
+        "pendingApprovals": "Pending Approvals",
+        "activeExperiences": "Active Experiences",
+        "monthlyRevenue": "Monthly Revenue",
+        "utilizationRate": "Facility Utilization",
+        "averageRating": "Average Rating"
+      }
+    },
+    "common": {
+      "name": "Name"
+    },
+    "actions": {
+      "saveProfile": "Save Profile",
+      "updateBank": "Update Bank Settings",
+      "saveFacility": "Save Facility",
+      "publishExperience": "Publish Experience",
+      "approve": "Approve",
+      "reject": "Reject",
+      "requestRevision": "Request Revision",
+      "registerVillageData": "Register Village Data",
+      "verifyPartner": "Verify Partner",
+      "createExperience": "Create Experience",
+      "viewFinancialReport": "View Financial Report",
+      "addExperience": "Add Experience",
+      "viewDetail": "View Detail",
+      "submitResponse": "Submit Response",
+      "flagReview": "Flag Review"
+    },
+    "villageData": {
+      "title": "Village Data Management",
+      "subtitle": "Maintain official village profile, contact information, and withdrawal account.",
+      "profileTitle": "Village Profile",
+      "bankTitle": "Bank Account Settings",
+      "villageName": "Village Name",
+      "address": "Address",
+      "description": "Description",
+      "history": "History",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "contactPhone": "Contact Phone",
+      "contactEmail": "Contact Email",
+      "website": "Website",
+      "bankAccountName": "Bank Account Name",
+      "bankName": "Bank Name",
+      "bankAccountNumber": "Bank Account Number",
+      "maskedPreview": "Masked Preview"
+    },
+    "facilities": {
+      "title": "Facility Management",
+      "subtitle": "Manage public, security, transportation, and monetizable village facilities.",
+      "addFacility": "Add or Update Facility",
+      "category": "Category",
+      "namePlaceholder": "Facility name",
+      "descriptionPlaceholder": "Facility description",
+      "addressPlaceholder": "Facility address",
+      "isMonetizable": "This facility can be monetized",
+      "rentalPrice": "Rental Price",
+      "capacity": "Capacity"
+    },
+    "experiences": {
+      "title": "Village Experiences",
+      "subtitle": "Create and manage village-organized activities with ticket and capacity controls.",
+      "addTitle": "Create Experience",
+      "addSubtitle": "Use the wizard to publish a structured experience offer.",
+      "calendarTitle": "Experience Calendar",
+      "calendarSubtitle": "Monthly calendar for all planned village experiences.",
+      "wizardTitle": "Experience Wizard",
+      "wizardPlaceholder": "Advanced ticket, media, and review steps are prepared for further extension.",
+      "category": "Category",
+      "startsAt": "Start Date-Time",
+      "endsAt": "End Date-Time",
+      "capacity": "Capacity",
+      "pricePerPerson": "Price per Person"
+    },
+    "approval": {
+      "title": "Partner Verification",
+      "subtitle": "Review partner applications with checklist validation and action history.",
+      "inbox": "Application Inbox",
+      "reviewPanel": "Review Panel",
+      "searchPlaceholder": "Search by organization or owner",
+      "feedbackPlaceholder": "Write review feedback, revision notes, or verification summary",
+      "noSelection": "No application selected"
+    },
+    "coordination": {
+      "title": "External Coordination",
+      "subtitle": "Coordinate external organizers, facility usage, and revenue-sharing configuration."
+    },
+    "reviews": {
+      "title": "Village Reviews",
+      "subtitle": "Review and respond to experience, facility, and general village feedback.",
+      "responsePlaceholder": "Write a public response"
+    },
+    "settings": {
+      "adminManagement": "Village Admin Management",
+      "adminManagementDesc": "Manage additional admin accounts for collaborative village operations.",
+      "newAdminEmailPlaceholder": "New admin email",
+      "addAdmin": "Add Admin",
+      "villageNotificationRules": "Village Notification Rules",
+      "villageNotificationRulesDesc": "Select operational notifications for village administration.",
+      "notifyPartnerApplications": "Partner application updates",
+      "notifyExternalCoordination": "External coordination updates",
+      "notifyNegativeReviews": "Negative review alerts",
+      "notifySettlementDelays": "Settlement delay alerts"
+    }
+  },
+  "experience": {
+    "dashboard": {
+      "title": "Experience Dashboard",
+      "subtitle": "Track bookings, revenue, and organizer coordination performance.",
+      "kpi": {
+        "totalExperiences": "Total Experiences",
+        "totalBookings": "Total Bookings",
+        "monthlyRevenue": "Monthly Revenue",
+        "pendingApprovals": "Pending Approvals"
+      }
+    },
+    "events": {
+      "title": "Experience Events",
+      "subtitle": "Manage published and draft experiences in one place.",
+      "add": "Add Experience",
+      "searchPlaceholder": "Search experiences...",
+      "all": "All",
+      "openDetail": "Open Detail"
+    },
+    "add": {
+      "title": "Create Experience",
+      "subtitle": "Use the setup wizard to prepare your new tourism experience."
+    },
+    "detail": {
+      "location": "Location",
+      "schedule": "Schedule",
+      "status": "Status"
+    },
+    "calendar": {
+      "title": "Experience Calendar",
+      "subtitle": "Review timeline and potential schedule conflicts.",
+      "overview": "Calendar Overview",
+      "detectedConflicts": "Detected conflicts: {count}"
+    },
+    "reservations": {
+      "title": "Experience Reservations",
+      "subtitle": "Monitor ticket purchases and check-in readiness.",
+      "actionsTitle": "Cancellation and Refund Flow",
+      "actionsSubtitle": "Simulate reservation cancellation, no-show tagging, and refund processing.",
+      "selectReservation": "Select Reservation",
+      "cancelReason": "Cancellation Reason",
+      "cancelReasonPlaceholder": "Write cancellation or incident reason",
+      "refundPercent": "Refund Percentage",
+      "projectedRefund": "Projected Refund Amount",
+      "simulationNote": "Simulation mode for workflow validation.",
+      "markNoShow": "Mark No Show",
+      "cancelReservation": "Cancel Reservation",
+      "processRefund": "Process Refund",
+      "reasonCaptured": "Captured reason"
+    },
+    "coordination": {
+      "title": "External Coordination",
+      "subtitle": "Coordinate facilities and village operations for each experience.",
+      "detailTitle": "Coordination #{id}",
+      "targetVillage": "Target Village",
+      "messages": "Messages",
+      "facilitiesRequested": "Facilities Requested",
+      "facilityCalendarTitle": "Facility Availability Calendar",
+      "facilityCalendarSubtitle": "Next 7 days availability based on facility reservations.",
+      "reservedHours": "Reserved ({hours}h)",
+      "open": "Open"
+    },
+    "reviews": {
+      "title": "Experience Reviews",
+      "averageRating": "Average rating: {value}/5"
+    },
+    "promotions": {
+      "title": "Experience Promotions",
+      "subtitle": "Create campaigns to increase ticket conversion."
+    },
+    "categories": {
+      "cultural": "Cultural",
+      "nature": "Nature",
+      "culinary": "Culinary",
+      "craft": "Craft",
+      "adventure": "Adventure",
+      "wellness": "Wellness",
+      "education": "Education",
+      "festival": "Festival",
+      "photography": "Photography",
+      "agro_tourism": "Agro Tourism",
+      "other": "Other"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "draft": "Draft",
+      "proposal_sent": "Proposal Sent",
+      "under_review": "Under Review",
+      "changes_requested": "Changes Requested",
+      "village_approved": "Village Approved",
+      "published": "Published",
+      "ticket_sales_open": "Ticket Sales Open",
+      "ongoing": "Ongoing",
+      "completed": "Completed",
+      "rejected": "Rejected",
+      "cancelled": "Cancelled",
+      "refund_processing": "Refund Processing",
+      "closed": "Closed",
+      "facility_reserved": "Facility Reserved",
+      "terms_agreed": "Terms Agreed",
+      "approved": "Approved"
+    },
+    "availability": {
+      "available": "Available",
+      "limited": "Limited",
+      "unavailable": "Unavailable"
+    },
+    "reservationStatus": {
+      "pending": "Pending",
+      "success": "Paid",
+      "failed": "Failed",
+      "refunded": "Refunded"
+    },
+    "bookingStatus": {
+      "confirmed": "Confirmed",
+      "checked_in": "Checked In",
+      "no_show": "No Show",
+      "cancelled": "Cancelled"
+    },
+    "milestones": {
+      "dp": "Down Payment",
+      "second": "Second Payment",
+      "final": "Final Payment"
+    },
+    "promotionTypes": {
+      "early_bird": "Early Bird",
+      "group_discount": "Group Discount",
+      "last_chance": "Last Chance",
+      "returning_customer": "Returning Customer",
+      "promo_code": "Promo Code",
+      "bundle": "Bundle"
+    },
+    "components": {
+      "checkInManager": "Check-In Manager",
+      "checkedIn": "Checked In",
+      "markCheckIn": "Mark Check-In",
+      "facilityBrowser": "Facility Browser",
+      "wizardTitle": "Experience Wizard",
+      "steps": {
+        "basic": "Basic",
+        "schedule": "Schedule",
+        "tickets": "Tickets",
+        "itinerary": "Itinerary",
+        "media": "Media",
+        "review": "Review"
+      },
+      "name": "Name",
+      "experienceNamePlaceholder": "Experience name",
+      "category": "Category",
+      "categoryPlaceholder": "Category",
+      "description": "Description",
+      "previous": "Previous",
+      "next": "Next",
+      "submitProposal": "Submit Proposal",
+      "coordinationProposals": "Coordination Proposals",
+      "village": "Village",
+      "messages": "Messages",
+      "bookings": "Bookings",
+      "outOfFive": "/ 5",
+      "reviews": "reviews",
+      "organizer": "Organizer",
+      "revenueSharing": "Revenue Sharing",
+      "platform": "Platform",
+      "createPromotion": "Create Promotion",
+      "campaignNamePlaceholder": "Campaign name",
+      "type": "Type",
+      "discount": "Discount",
+      "promoCode": "Promo Code",
+      "promoCodeSample": "EXPERIENCE10",
+      "create": "Create",
+      "booking": "Booking",
+      "qty": "Qty",
+      "facility": "Facility",
+      "ticketTypes": "Ticket Types",
+      "price": "Price",
+      "quota": "Quota",
+      "paymentMilestones": "Payment Milestones",
+      "due": "Due",
+      "paid": "Paid",
+      "pending": "Pending",
+      "promotionalMaterial": "Promotional Material",
+      "posterPlaceholder": "Drop event poster here",
+      "bannerPlaceholder": "Drop social media banner here",
+      "itinerary": "Itinerary"
+    },
+    "charts": {
+      "bookingTrend": {
+        "title": "Booking Trend",
+        "subtitle": "Bookings per experience in current cycle."
+      },
+      "revenueByExperience": {
+        "title": "Revenue by Experience",
+        "subtitle": "Monthly revenue contribution per experience."
+      },
+      "ticketSalesDistribution": {
+        "title": "Ticket Sales Distribution",
+        "subtitle": "Sold tickets by ticket type."
+      },
+      "ratingTrend": {
+        "title": "Rating Trend",
+        "subtitle": "Average rating by experience."
+      }
+    }
+  },
+  "sme": {
+    "orderStatus": {
+      "pending_payment": "Pending Payment",
+      "paid": "Paid",
+      "preparing": "Preparing",
+      "ready_for_pickup": "Ready for Pickup",
+      "picked_up": "Picked Up",
+      "cancelled": "Cancelled",
+      "refunded": "Refunded"
+    },
+    "dashboard": {
+      "title": "SME Dashboard",
+      "subtitle": "Pickup commerce overview and operations control center.",
+      "kpi": {
+        "totalProducts": "Total Products",
+        "activeProducts": "Active Products",
+        "ordersToday": "Orders Today",
+        "monthlyRevenue": "Monthly Revenue",
+        "lowStockAlerts": "Low Stock Alerts",
+        "avgRating": "Avg Rating"
+      },
+      "actions": {
+        "createPromotion": "Create Promotion",
+        "viewOrders": "View Orders",
+        "addProduct": "Add Product",
+        "managePickupOrders": "Manage Pickup Orders",
+        "resolveLowStock": "Resolve Low Stock"
+      },
+      "operationsAlerts": "Operations Alerts",
+      "stockDropped": "Stock dropped below threshold",
+      "stockValue": "Stock {value}",
+      "orderNumber": "Order #{id}",
+      "readyForPickupBy": "Ready for pickup by {name}",
+      "ready": "Ready",
+      "quickActions": "Quick Actions",
+      "recentPickupRevenue": "Recent Pickup Revenue",
+      "charts": {
+        "revenueTrend": {
+          "title": "Revenue Trend",
+          "subtitle": "Daily/weekly/monthly revenue trend (mock)."
+        },
+        "topSellingProducts": {
+          "title": "Top Selling Products",
+          "subtitle": "Best performing products by volume (mock)."
+        },
+        "orderStatus": {
+          "title": "Order Status",
+          "subtitle": "Pickup order lifecycle distribution (mock)."
+        },
+        "categoryBreakdown": {
+          "title": "Category Breakdown",
+          "subtitle": "Category contribution to sales (mock)."
+        }
+      }
+    },
+    "products": {
+      "title": "SME Products",
+      "subtitle": "Manage product catalog, pricing, stock, and media.",
+      "addProduct": "Add Product",
+      "summary": {
+        "totalProducts": "Total Products",
+        "published": "Published",
+        "pending": "Pending",
+        "lowStock": "Low Stock"
+      },
+      "searchPlaceholder": "Search products...",
+      "categories": {
+        "all": "All",
+        "food": "Food",
+        "craft": "Craft",
+        "service": "Service"
+      },
+      "status": {
+        "approved": "Approved",
+        "pending": "Pending"
+      },
+      "stockValue": "Stock {value}",
+      "partnerValue": "Partner: {name}",
+      "edit": "Edit"
+    },
+    "orders": {
+      "title": "Pickup Orders",
+      "subtitle": "Process online orders through a pickup-only fulfillment lifecycle.",
+      "summary": {
+        "pendingPayment": "Pending Payment",
+        "readyForPickup": "Ready for Pickup",
+        "completedToday": "Completed Today"
+      },
+      "orderNumber": "Order #{id}",
+      "itemsCount": "{count} item(s)",
+      "pickupEta": "Pickup ETA: {value}",
+      "orderDetail": "Order Detail",
+      "itemRow": "{name} x {qty}",
+      "pickupTimeline": "Pickup Timeline",
+      "autoCancelledReason": "Cancelled by SME operator",
+      "actions": {
+        "title": "Order Actions",
+        "noActions": "No available action for current status.",
+        "mark_paid": "Mark as Paid",
+        "cancel": "Cancel Order",
+        "prepare": "Start Preparing",
+        "ready": "Mark Ready for Pickup",
+        "picked_up": "Mark as Picked Up",
+        "refund": "Mark Refunded"
+      }
+    },
+    "stock": {
+      "title": "Stock Management",
+      "subtitle": "Monitor thresholds, apply adjustments, and review stock history.",
+      "summary": {
+        "totalProducts": "Total Products",
+        "lowStock": "Low Stock",
+        "healthyStock": "Healthy Stock"
+      },
+      "restockAlerts": "Restock Alerts",
+      "remaining": "Remaining {stock} {unit} · Min. {min}",
+      "restock": "Restock",
+      "fullSnapshot": "Full Stock Snapshot",
+      "priceValue": "Price {value}",
+      "lastRestock": "Last restock: {date}",
+      "adjustmentHistory": "Stock Adjustment History",
+      "inStock": "{count} in stock"
+    },
+    "reviews": {
+      "title": "SME Reviews",
+      "subtitle": "Monitor customer sentiment and respond to product feedback.",
+      "totalReviews": "Total Reviews",
+      "averageRating": "Average Rating",
+      "ratingValue": "Rating: {rating}/5",
+      "reply": "Reply: {response}"
+    },
+    "promotions": {
+      "title": "SME Promotions",
+      "subtitle": "Create campaigns to grow in-store pickup sales.",
+      "summary": {
+        "totalPromotions": "Total Promotions",
+        "active": "Active",
+        "withPromoCode": "With Promo Code"
+      },
+      "formTitle": "Create Promotion",
+      "name": "Name",
+      "namePlaceholder": "Promotion name",
+      "type": "Type",
+      "discountValue": "Discount Value",
+      "create": "Create Promotion",
+      "types": {
+        "product_discount": "Product Discount",
+        "category_sale": "Category Sale",
+        "bundle_deal": "Bundle Deal",
+        "buy_x_get_y": "Buy X Get Y",
+        "flash_sale": "Flash Sale",
+        "promo_code": "Promo Code",
+        "first_purchase": "First Purchase"
+      }
+    },
+    "productForm": {
+      "title": "Add / Edit Product",
+      "name": "Product Name",
+      "namePlaceholder": "Product name",
+      "category": "Category",
+      "categoryPlaceholder": "Food, craft, service...",
+      "price": "Price",
+      "stock": "Stock",
+      "save": "Save Product"
+    },
+    "profileForm": {
+      "title": "SME Profile Registration",
+      "businessName": "Business Name",
+      "businessType": "Business Type",
+      "storeAddress": "Store Address",
+      "bankName": "Bank Name",
+      "bankAccountNumber": "Bank Account Number",
+      "save": "Save SME Profile"
+    }
   }
 }

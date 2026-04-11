@@ -48,7 +48,24 @@
     "inventory": "在庫管理",
     "stock": "在庫",
     "orders": "注文",
-    "shipping": "配送"
+    "shipping": "配送",
+    "accommodationDashboard": "宿泊施設ダッシュボード",
+    "financeDashboard": "財務ダッシュボード",
+    "addAccommodation": "宿泊施設を追加",
+    "submissionStatus": "申請ステータス",
+    "finance": "財務",
+    "financialReports": "財務レポート",
+    "financeManagement": "財務管理",
+    "promotions": "プロモーション",
+    "partners": "パートナー",
+    "analytics": "分析",
+    "calendar": "カレンダー",
+    "villageData": "村データ",
+    "facilities": "施設",
+    "experiences": "体験",
+    "partnerVerification": "パートナー審査",
+    "externalCoordination": "外部連携",
+    "general": "一般"
   },
   "landing": {
     "heroTitle": "Mitra Dewiへようこそ",
@@ -222,6 +239,7 @@
   "notifications": {
     "title": "通知",
     "markAllRead": "すべて既読にする",
+    "clearRead": "既読をクリア",
     "noNotifications": "通知はありません",
     "newOrder": "新しい注文",
     "newReservation": "新しい予約",
@@ -237,5 +255,834 @@
     "rights": "全著作権所有",
     "privacy": "プライバシーポリシー",
     "terms": "利用規約"
+  },
+  "settingsPage": {
+    "subtitle": "アカウントと各種設定を管理します",
+    "tabs": {
+      "profile": "プロフィール",
+      "security": "セキュリティ",
+      "notifications": "通知",
+      "organization": "組織",
+      "adminManagement": "管理者管理",
+      "language": "言語",
+      "privacy": "プライバシー"
+    },
+    "saved": "保存しました",
+    "profile": {
+      "title": "プロフィール情報",
+      "changePhoto": "写真を変更",
+      "fullName": "氏名",
+      "email": "メール",
+      "phone": "電話番号",
+      "organization": "組織名",
+      "address": "住所",
+      "bio": "自己紹介",
+      "save": "変更を保存"
+    },
+    "security": {
+      "title": "アカウントセキュリティ",
+      "currentPassword": "現在のパスワード",
+      "newPassword": "新しいパスワード",
+      "newPasswordPlaceholder": "8文字以上",
+      "confirmPassword": "新しいパスワード（確認）",
+      "confirmPasswordPlaceholder": "新しいパスワードを再入力",
+      "save": "パスワードを変更"
+    },
+    "notifications": {
+      "title": "通知設定",
+      "fromSharedConfig": "共有されたロール別ルールにより管理されています",
+      "save": "設定を保存",
+      "items": {
+        "newReservation": {
+          "label": "新しい予約",
+          "desc": "新規予約が入ったときに通知"
+        },
+        "newReview": {
+          "label": "新しいレビュー",
+          "desc": "ゲストがレビューを投稿したときに通知"
+        },
+        "lowStock": {
+          "label": "在庫不足",
+          "desc": "商品在庫が少なくなったときに通知"
+        },
+        "approvalUpdate": {
+          "label": "承認更新",
+          "desc": "パートナー申請ステータスの通知"
+        },
+        "systemUpdate": {
+          "label": "システム更新",
+          "desc": "プラットフォーム更新情報"
+        },
+        "emailDigest": {
+          "label": "週次メール要約",
+          "desc": "週次アクティビティの要約"
+        }
+      }
+    },
+    "organization": {
+      "title": "組織プロフィール",
+      "defaultDescription": "高品質な観光サービスに注力する信頼できるパートナー組織です。",
+      "logoFallback": "組織",
+      "logoHint": "ロゴをアップロードしてブランド認知を強化します。",
+      "uploadLogo": "ロゴをアップロード",
+      "displayName": "表示名",
+      "website": "WebサイトURL",
+      "description": "説明",
+      "instagram": "Instagram",
+      "tiktok": "TikTok",
+      "save": "組織情報を保存"
+    },
+    "adminManagement": {
+      "title": "管理者管理",
+      "currentAdmins": "現在の管理者",
+      "inviteTitle": "新しい管理者を招待",
+      "emailPlaceholder": "admin@organization.com",
+      "sendInvite": "招待を送信",
+      "deactivate": "無効化",
+      "activate": "有効化",
+      "roles": {
+        "owner": "オーナー",
+        "admin": "管理者",
+        "viewer": "閲覧者"
+      },
+      "status": {
+        "active": "有効",
+        "invited": "招待中",
+        "deactivated": "無効"
+      }
+    },
+    "language": {
+      "title": "言語設定",
+      "active": "有効"
+    },
+    "privacy": {
+      "title": "プライバシー設定",
+      "accountDataTitle": "アカウントデータ",
+      "accountDataDesc": "プラットフォーム上の個人情報とアカウントデータを管理します。",
+      "downloadMyData": "データをダウンロード",
+      "deleteAccountTitle": "アカウント削除",
+      "deleteAccountDesc": "この操作は取り消せません。すべてのデータが完全に削除されます。",
+      "deleteAccount": "アカウントを削除"
+    },
+    "withdraw": {
+      "status": {
+        "pending": "保留中",
+        "settled": "完了"
+      }
+    },
+    "organizer": {
+      "bankSetupTitle": "銀行口座設定",
+      "bankSetupSubtitle": "精算および出金先口座を保存します。",
+      "accountHolder": "口座名義",
+      "bankName": "銀行名",
+      "accountNumber": "口座番号",
+      "branch": "支店",
+      "saveBankAccount": "口座を保存",
+      "withdrawRequest": "出金申請",
+      "withdrawHint": "登録済み口座へ主催者残高の出金を申請します。",
+      "withdrawAmountPlaceholder": "出金額",
+      "request": "申請する",
+      "withdrawHistory": "出金履歴"
+    }
+  },
+  "chat": {
+    "title": "会話",
+    "subtitle": "パートナー、村、サポートとの連携をより迅速に。",
+    "searchPlaceholder": "チャットを検索...",
+    "justNow": "たった今",
+    "messagePlaceholder": "メッセージを入力...",
+    "pinned": "ピン留めメッセージ",
+    "noPinnedMessages": "この会話にはピン留めメッセージがありません。",
+    "channelType": {
+      "village_partner": "村パートナー",
+      "organizer_village": "主催者 x 村",
+      "support": "プラットフォームサポート"
+    }
+  },
+  "financeOverview": {
+    "title": "財務概要",
+    "subtitle": "精算、出金、収益パフォーマンスを横断的に追跡します。",
+    "kpi": {
+      "totalRevenue": "総売上",
+      "transactions": "{count} 件の取引",
+      "settled": "精算済み",
+      "settledHint": "完了かつ支払い済み",
+      "pending": "保留中",
+      "pendingHint": "確認待ち",
+      "estimatedFee": "推定プラットフォーム手数料",
+      "feeRate": "料率 {rate}%"
+    },
+    "netBalance": {
+      "title": "純残高",
+      "hint": "出金可能額"
+    },
+    "failureRefund": {
+      "title": "失敗・返金",
+      "failed": "失敗",
+      "refunded": "返金済み"
+    },
+    "statusSummary": {
+      "title": "ステータス概要",
+      "paid": "支払い済み",
+      "pending": "保留中",
+      "failedRefund": "失敗/返金"
+    },
+    "villageBreakdown": {
+      "title": "村連携の内訳",
+      "subtitle": "体験と施設連携のサマリーです。",
+      "experiences": "体験",
+      "facilityRentals": "施設レンタル",
+      "externalSharing": "外部シェア",
+      "activeCoordinations": "進行中の連携 {count} 件"
+    },
+    "charts": {
+      "revenueTrend": "売上推移",
+      "revenueTrendHint": "直近6か月のパフォーマンス",
+      "paymentDistribution": "支払い分布",
+      "paymentDistributionHint": "支払いステータス別の構成"
+    },
+    "quickActions": {
+      "reports": "レポート生成",
+      "reportsHint": "日次・月次サマリーをエクスポート",
+      "management": "精算管理",
+      "managementHint": "保留中の出金と手数料を確認"
+    }
+  },
+  "financeReports": {
+    "title": "財務レポート",
+    "subtitle": "財務パフォーマンス、売上推移、取引ステータスの可視化分析。",
+    "kpi": {
+      "totalRevenue": "総売上",
+      "transactions": "取引 {count} 件",
+      "settled": "精算済み",
+      "settledHint": "支払い完了取引",
+      "pending": "支払い待ち",
+      "pendingHint": "未完了",
+      "refunded": "返金 / キャンセル",
+      "refundedHint": "ゲストへ返金済み"
+    },
+    "experienceShare": {
+      "title": "体験収益配分",
+      "subtitle": "体験主催者収益を主催者・村・プラットフォームへ配分した概要。",
+      "gross": "総売上",
+      "organizer": "主催者取り分",
+      "village": "村取り分",
+      "platform": "プラットフォーム手数料"
+    },
+    "charts": {
+      "monthlyTrend": {
+        "title": "月次売上推移",
+        "subtitle": "直近6か月（シミュレーション + 2026年4月実績）。"
+      },
+      "revenueByProperty": {
+        "title": "施設別売上",
+        "subtitle": "支払い完了取引のみ"
+      },
+      "reservationStatus": {
+        "title": "予約ステータス分布",
+        "subtitle": "全予約のステータス内訳"
+      },
+      "paymentStatus": {
+        "title": "支払いステータス分布",
+        "subtitle": "全取引の支払いステータス構成"
+      },
+      "roomStock": {
+        "title": "施設別客室在庫",
+        "subtitle": "空室・利用中・メンテナンス中"
+      },
+      "roomTypeRevenue": {
+        "title": "客室タイプ別売上寄与",
+        "subtitle": "支払い完了売上の客室タイプ別内訳"
+      }
+    },
+    "propertySummary": {
+      "title": "宿泊施設サマリー"
+    },
+    "reservationHistory": {
+      "title": "予約取引履歴"
+    },
+    "table": {
+      "experience": "体験",
+      "split": "配分",
+      "gross": "総額",
+      "organizer": "主催者",
+      "village": "村",
+      "platform": "プラットフォーム",
+      "accommodation": "宿泊施設",
+      "reservation": "予約",
+      "paid": "支払い済み",
+      "pending": "保留",
+      "cancelled": "キャンセル",
+      "revenue": "売上",
+      "id": "ID",
+      "guest": "ゲスト",
+      "room": "客室",
+      "checkIn": "チェックイン",
+      "checkOut": "チェックアウト",
+      "amount": "金額",
+      "payment": "支払い",
+      "status": "ステータス"
+    },
+    "reservationStatus": {
+      "pending": "保留",
+      "confirmed": "確定",
+      "checked_in": "利用中",
+      "checked_out": "完了",
+      "cancelled": "キャンセル"
+    },
+    "paymentStatus": {
+      "pending": "保留",
+      "success": "支払い済み",
+      "failed": "失敗",
+      "refunded": "返金済み"
+    }
+  },
+  "financeManagement": {
+    "title": "財務管理",
+    "subtitle": "取引、支払いステータス、出金申請を管理します。",
+    "kpi": {
+      "availableBalance": "出金可能残高（推定）",
+      "pendingSettlement": "精算待ち残高",
+      "refundTotal": "返金合計",
+      "totalTransactions": "取引総数"
+    },
+    "transactionManagement": {
+      "title": "取引管理"
+    },
+    "table": {
+      "id": "ID",
+      "date": "日付",
+      "guest": "ゲスト",
+      "accommodation": "宿泊施設",
+      "amount": "金額",
+      "payment": "支払い"
+    },
+    "withdraw": {
+      "title": "出金申請",
+      "method": "出金方法",
+      "methodBank": "銀行振込",
+      "methodWallet": "Eウォレット",
+      "channel": "銀行 / Eウォレット名",
+      "channelPlaceholder": "例: BCA / GoPay",
+      "accountNumber": "口座番号 / ウォレット番号",
+      "accountNumberPlaceholder": "送金先番号を入力",
+      "amount": "出金額",
+      "amountPlaceholder": "最低 100000",
+      "notice": "このデモ環境では実際の送金は行われません。業務フロー検証用の画面です。",
+      "submit": "出金申請"
+    },
+    "requirements": {
+      "title": "出金申請要件",
+      "channelTitle": "推奨出金チャネル",
+      "items": {
+        "1": "出金口座（銀行/Eウォレット）が認証済みで、パートナー名義であること。",
+        "2": "最低出金額を満たしていること（推奨: 1回あたり Rp100,000 以上）。",
+        "3": "利用可能残高が精算待ち・紛争・不正調査中でないこと。",
+        "4": "出金対象期間に未解決返金や進行中クレームがないこと。",
+        "5": "事業関連書類および税情報（必要時のNPWP等）が有効かつ完備していること。",
+        "6": "出金申請者が追加認証（PIN/OTP/2FA）を通過すること。"
+      },
+      "channels": {
+        "1": "銀行振込（BCA, BNI, BRI, Mandiri, CIMB, Permata）は高額出金と照合のしやすさに有効。",
+        "2": "Eウォレット（GoPay, OVO, DANA, ShopeePay）は少額〜中額の迅速出金に有効。",
+        "3": "日次/週次など定期的な支払いサイクルは、資金繰り安定と手数料管理に有効。"
+      }
+    }
+  },
+  "village": {
+    "dashboard": {
+      "title": "村管理ダッシュボード",
+      "subtitle": "村の運営、パートナーエコシステム、収益状況をモニタリングします。",
+      "recentActivity": "最近のアクティビティ",
+      "quickActions": "クイックアクション",
+      "activity": {
+        "application": "がパートナー申請を提出しました",
+        "review": "がレビューを投稿しました"
+      },
+      "kpi": {
+        "totalPartners": "総パートナー数",
+        "pendingApprovals": "承認待ち",
+        "activeExperiences": "実施中の体験",
+        "monthlyRevenue": "月間収益",
+        "utilizationRate": "施設稼働率",
+        "averageRating": "平均評価"
+      }
+    },
+    "common": {
+      "name": "名前"
+    },
+    "actions": {
+      "saveProfile": "プロフィールを保存",
+      "updateBank": "銀行情報を更新",
+      "saveFacility": "施設を保存",
+      "publishExperience": "体験を公開",
+      "approve": "承認",
+      "reject": "却下",
+      "requestRevision": "修正依頼",
+      "registerVillageData": "村データを登録",
+      "verifyPartner": "パートナー審査",
+      "createExperience": "体験を作成",
+      "viewFinancialReport": "財務レポートを見る",
+      "addExperience": "体験を追加",
+      "viewDetail": "詳細を見る",
+      "submitResponse": "返信を送信",
+      "flagReview": "レビューを報告"
+    },
+    "villageData": {
+      "title": "村データ管理",
+      "subtitle": "公式プロフィール、連絡先、出金口座情報を管理します。",
+      "profileTitle": "村プロフィール",
+      "bankTitle": "銀行口座設定",
+      "villageName": "村名",
+      "address": "住所",
+      "description": "説明",
+      "history": "歴史",
+      "latitude": "緯度",
+      "longitude": "経度",
+      "contactPhone": "連絡先電話",
+      "contactEmail": "連絡先メール",
+      "website": "ウェブサイト",
+      "bankAccountName": "口座名義",
+      "bankName": "銀行名",
+      "bankAccountNumber": "口座番号",
+      "maskedPreview": "マスク表示"
+    },
+    "facilities": {
+      "title": "施設管理",
+      "subtitle": "公共・安全・交通・収益化施設を管理します。",
+      "addFacility": "施設を追加または更新",
+      "category": "カテゴリ",
+      "namePlaceholder": "施設名",
+      "descriptionPlaceholder": "施設の説明",
+      "addressPlaceholder": "施設住所",
+      "isMonetizable": "この施設を収益化する",
+      "rentalPrice": "レンタル料金",
+      "capacity": "収容人数"
+    },
+    "experiences": {
+      "title": "村の体験",
+      "subtitle": "チケットと定員管理付きで村主催体験を運用します。",
+      "addTitle": "体験を作成",
+      "addSubtitle": "ウィザードで体験内容を構造化して公開します。",
+      "calendarTitle": "体験カレンダー",
+      "calendarSubtitle": "村の体験スケジュール（月次ビュー）。",
+      "wizardTitle": "体験ウィザード",
+      "wizardPlaceholder": "チケット・メディア・確認ステップは今後拡張可能です。",
+      "category": "カテゴリ",
+      "startsAt": "開始日時",
+      "endsAt": "終了日時",
+      "capacity": "定員",
+      "pricePerPerson": "1人あたり料金"
+    },
+    "approval": {
+      "title": "パートナー審査",
+      "subtitle": "チェックリストと履歴で申請を審査します。",
+      "inbox": "申請受信箱",
+      "reviewPanel": "審査パネル",
+      "searchPlaceholder": "組織名または担当者名で検索",
+      "feedbackPlaceholder": "審査コメント、修正指示、要約を入力",
+      "noSelection": "申請が選択されていません"
+    },
+    "coordination": {
+      "title": "外部連携",
+      "subtitle": "外部主催者、施設利用、収益配分設定を調整します。"
+    },
+    "reviews": {
+      "title": "村レビュー",
+      "subtitle": "体験・施設・全体レビューを確認して返信します。",
+      "responsePlaceholder": "公開返信を入力"
+    },
+    "settings": {
+      "adminManagement": "村管理者管理",
+      "adminManagementDesc": "共同運営のために追加の管理者アカウントを管理します。",
+      "newAdminEmailPlaceholder": "新しい管理者メール",
+      "addAdmin": "管理者を追加",
+      "villageNotificationRules": "村通知ルール",
+      "villageNotificationRulesDesc": "村運営に必要な通知を選択します。",
+      "notifyPartnerApplications": "パートナー申請の更新",
+      "notifyExternalCoordination": "外部連携の更新",
+      "notifyNegativeReviews": "低評価レビュー通知",
+      "notifySettlementDelays": "精算遅延通知"
+    }
+  },
+  "experience": {
+    "dashboard": {
+      "title": "体験ダッシュボード",
+      "subtitle": "予約数、売上、運営調整の状況を確認します。",
+      "kpi": {
+        "totalExperiences": "体験数",
+        "totalBookings": "総予約数",
+        "monthlyRevenue": "月間売上",
+        "pendingApprovals": "承認待ち"
+      }
+    },
+    "events": {
+      "title": "体験イベント",
+      "subtitle": "公開済みと下書きの体験を管理します。",
+      "add": "体験を追加",
+      "searchPlaceholder": "体験を検索...",
+      "all": "すべて",
+      "openDetail": "詳細を見る"
+    },
+    "add": {
+      "title": "体験を作成",
+      "subtitle": "ウィザードで新しい観光体験を設定します。"
+    },
+    "detail": {
+      "location": "場所",
+      "schedule": "スケジュール",
+      "status": "ステータス"
+    },
+    "calendar": {
+      "title": "体験カレンダー",
+      "subtitle": "タイムラインとスケジュール競合を確認します。",
+      "overview": "カレンダー概要",
+      "detectedConflicts": "競合件数: {count}"
+    },
+    "reservations": {
+      "title": "体験予約",
+      "subtitle": "チケット購入とチェックイン状況を確認します。",
+      "actionsTitle": "キャンセルと返金フロー",
+      "actionsSubtitle": "予約キャンセル、ノーショー、返金処理をシミュレーションします。",
+      "selectReservation": "予約を選択",
+      "cancelReason": "キャンセル理由",
+      "cancelReasonPlaceholder": "キャンセルまたはインシデントの理由を入力",
+      "refundPercent": "返金率",
+      "projectedRefund": "想定返金額",
+      "simulationNote": "業務フロー検証用のシミュレーションです。",
+      "markNoShow": "ノーショーにする",
+      "cancelReservation": "予約をキャンセル",
+      "processRefund": "返金処理",
+      "reasonCaptured": "記録された理由"
+    },
+    "coordination": {
+      "title": "外部連携",
+      "subtitle": "各体験の施設利用と村運営連携を調整します。",
+      "detailTitle": "連携 #{id}",
+      "targetVillage": "対象の村",
+      "messages": "メッセージ",
+      "facilitiesRequested": "申請施設数",
+      "facilityCalendarTitle": "施設空き状況カレンダー",
+      "facilityCalendarSubtitle": "施設予約に基づく今後7日間の空き状況です。",
+      "reservedHours": "予約済み ({hours}時間)",
+      "open": "空き"
+    },
+    "reviews": {
+      "title": "体験レビュー",
+      "averageRating": "平均評価: {value}/5"
+    },
+    "promotions": {
+      "title": "体験プロモーション",
+      "subtitle": "チケット購入率を高めるキャンペーンを作成します。"
+    },
+    "categories": {
+      "cultural": "文化",
+      "nature": "自然",
+      "culinary": "グルメ",
+      "craft": "工芸",
+      "adventure": "アドベンチャー",
+      "wellness": "ウェルネス",
+      "education": "学習",
+      "festival": "フェスティバル",
+      "photography": "写真",
+      "agro_tourism": "アグロツーリズム",
+      "other": "その他"
+    },
+    "status": {
+      "active": "有効",
+      "inactive": "無効",
+      "draft": "下書き",
+      "proposal_sent": "提案送信済み",
+      "under_review": "審査中",
+      "changes_requested": "修正依頼あり",
+      "village_approved": "村承認済み",
+      "published": "公開中",
+      "ticket_sales_open": "チケット販売中",
+      "ongoing": "進行中",
+      "completed": "完了",
+      "rejected": "却下",
+      "cancelled": "キャンセル",
+      "refund_processing": "返金処理中",
+      "closed": "終了",
+      "facility_reserved": "施設予約済み",
+      "terms_agreed": "条件合意済み",
+      "approved": "承認済み"
+    },
+    "availability": {
+      "available": "利用可",
+      "limited": "一部利用可",
+      "unavailable": "利用不可"
+    },
+    "reservationStatus": {
+      "pending": "支払い待ち",
+      "success": "支払い完了",
+      "failed": "失敗",
+      "refunded": "返金済み"
+    },
+    "bookingStatus": {
+      "confirmed": "確定",
+      "checked_in": "チェックイン済み",
+      "no_show": "不参加",
+      "cancelled": "キャンセル"
+    },
+    "milestones": {
+      "dp": "頭金",
+      "second": "第2支払い",
+      "final": "最終支払い"
+    },
+    "promotionTypes": {
+      "early_bird": "早割",
+      "group_discount": "団体割引",
+      "last_chance": "ラストチャンス",
+      "returning_customer": "リピーター向け",
+      "promo_code": "プロモコード",
+      "bundle": "セット販売"
+    },
+    "components": {
+      "checkInManager": "チェックイン管理",
+      "checkedIn": "チェックイン済み",
+      "markCheckIn": "チェックイン登録",
+      "facilityBrowser": "施設一覧",
+      "wizardTitle": "体験ウィザード",
+      "steps": {
+        "basic": "基本",
+        "schedule": "日程",
+        "tickets": "チケット",
+        "itinerary": "行程",
+        "media": "メディア",
+        "review": "確認"
+      },
+      "name": "名称",
+      "experienceNamePlaceholder": "体験名",
+      "category": "カテゴリ",
+      "categoryPlaceholder": "カテゴリ",
+      "description": "説明",
+      "previous": "前へ",
+      "next": "次へ",
+      "submitProposal": "提案を送信",
+      "coordinationProposals": "連携提案",
+      "village": "村",
+      "messages": "メッセージ",
+      "bookings": "予約",
+      "outOfFive": "/ 5",
+      "reviews": "件のレビュー",
+      "organizer": "主催者",
+      "revenueSharing": "収益配分",
+      "platform": "プラットフォーム",
+      "createPromotion": "プロモーション作成",
+      "campaignNamePlaceholder": "キャンペーン名",
+      "type": "種別",
+      "discount": "割引",
+      "promoCode": "プロモコード",
+      "promoCodeSample": "EXPERIENCE10",
+      "create": "作成",
+      "booking": "予約",
+      "qty": "数量",
+      "facility": "施設",
+      "ticketTypes": "チケット種別",
+      "price": "価格",
+      "quota": "定員",
+      "paymentMilestones": "支払いマイルストーン",
+      "due": "期限",
+      "paid": "支払い済み",
+      "pending": "保留中",
+      "promotionalMaterial": "プロモーション素材",
+      "posterPlaceholder": "イベントポスターをここに追加",
+      "bannerPlaceholder": "SNSバナーをここに追加",
+      "itinerary": "行程"
+    },
+    "charts": {
+      "bookingTrend": {
+        "title": "予約推移",
+        "subtitle": "現在期間の体験別予約数。"
+      },
+      "revenueByExperience": {
+        "title": "体験別売上",
+        "subtitle": "体験ごとの月間売上構成。"
+      },
+      "ticketSalesDistribution": {
+        "title": "チケット販売内訳",
+        "subtitle": "チケット種別ごとの販売数。"
+      },
+      "ratingTrend": {
+        "title": "評価推移",
+        "subtitle": "体験ごとの平均評価。"
+      }
+    }
+  },
+  "sme": {
+    "orderStatus": {
+      "pending_payment": "支払い待ち",
+      "paid": "支払い済み",
+      "preparing": "準備中",
+      "ready_for_pickup": "受け取り準備完了",
+      "picked_up": "受け取り済み",
+      "cancelled": "キャンセル",
+      "refunded": "返金済み"
+    },
+    "dashboard": {
+      "title": "SMEダッシュボード",
+      "subtitle": "店頭受け取り販売の運用状況を管理します。",
+      "kpi": {
+        "totalProducts": "商品数",
+        "activeProducts": "公開中商品",
+        "ordersToday": "本日の注文",
+        "monthlyRevenue": "月間売上",
+        "lowStockAlerts": "在庫警告",
+        "avgRating": "平均評価"
+      },
+      "actions": {
+        "createPromotion": "プロモーション作成",
+        "viewOrders": "注文を見る",
+        "addProduct": "商品を追加",
+        "managePickupOrders": "受け取り注文を管理",
+        "resolveLowStock": "在庫不足に対応"
+      },
+      "operationsAlerts": "運用アラート",
+      "stockDropped": "在庫がしきい値を下回りました",
+      "stockValue": "在庫 {value}",
+      "orderNumber": "注文 #{id}",
+      "readyForPickupBy": "{name} さんの受け取り準備完了",
+      "ready": "準備完了",
+      "quickActions": "クイックアクション",
+      "recentPickupRevenue": "最近の受け取り売上",
+      "charts": {
+        "revenueTrend": {
+          "title": "売上推移",
+          "subtitle": "日次・週次・月次の売上推移（モック）。"
+        },
+        "topSellingProducts": {
+          "title": "売れ筋商品",
+          "subtitle": "販売数量上位の商品（モック）。"
+        },
+        "orderStatus": {
+          "title": "注文ステータス",
+          "subtitle": "受け取り注文ライフサイクルの分布（モック）。"
+        },
+        "categoryBreakdown": {
+          "title": "カテゴリ内訳",
+          "subtitle": "売上に対するカテゴリ別貢献（モック）。"
+        }
+      }
+    },
+    "products": {
+      "title": "SME商品",
+      "subtitle": "商品カタログ、価格、在庫、メディアを管理します。",
+      "addProduct": "商品を追加",
+      "summary": {
+        "totalProducts": "商品数",
+        "published": "公開中",
+        "pending": "承認待ち",
+        "lowStock": "在庫少"
+      },
+      "searchPlaceholder": "商品を検索...",
+      "categories": {
+        "all": "すべて",
+        "food": "食品",
+        "craft": "工芸",
+        "service": "サービス"
+      },
+      "status": {
+        "approved": "承認済み",
+        "pending": "保留中"
+      },
+      "stockValue": "在庫 {value}",
+      "partnerValue": "パートナー: {name}",
+      "edit": "編集"
+    },
+    "orders": {
+      "title": "受け取り注文",
+      "subtitle": "オンライン注文を受け取り専用フローで処理します。",
+      "summary": {
+        "pendingPayment": "支払い待ち",
+        "readyForPickup": "受け取り準備完了",
+        "completedToday": "本日完了"
+      },
+      "orderNumber": "注文 #{id}",
+      "itemsCount": "{count} 点",
+      "pickupEta": "受け取り予定: {value}",
+      "orderDetail": "注文詳細",
+      "itemRow": "{name} x {qty}",
+      "pickupTimeline": "受け取りタイムライン",
+      "autoCancelledReason": "SME担当者によりキャンセル",
+      "actions": {
+        "title": "注文アクション",
+        "noActions": "このステータスで実行可能なアクションはありません。",
+        "mark_paid": "支払い済みにする",
+        "cancel": "注文をキャンセル",
+        "prepare": "準備を開始",
+        "ready": "受け取り準備完了にする",
+        "picked_up": "受け取り済みにする",
+        "refund": "返金済みにする"
+      }
+    },
+    "stock": {
+      "title": "在庫管理",
+      "subtitle": "しきい値監視、在庫調整、履歴確認を行います。",
+      "summary": {
+        "totalProducts": "商品数",
+        "lowStock": "在庫少",
+        "healthyStock": "在庫正常"
+      },
+      "restockAlerts": "補充アラート",
+      "remaining": "残り {stock} {unit} ・ 最小 {min}",
+      "restock": "補充",
+      "fullSnapshot": "在庫スナップショット",
+      "priceValue": "価格 {value}",
+      "lastRestock": "最終補充: {date}",
+      "adjustmentHistory": "在庫調整履歴",
+      "inStock": "在庫 {count}"
+    },
+    "reviews": {
+      "title": "SMEレビュー",
+      "subtitle": "顧客の評価を把握し、商品フィードバックに対応します。",
+      "totalReviews": "レビュー数",
+      "averageRating": "平均評価",
+      "ratingValue": "評価: {rating}/5",
+      "reply": "返信: {response}"
+    },
+    "promotions": {
+      "title": "SMEプロモーション",
+      "subtitle": "店頭受け取り売上を伸ばすキャンペーンを作成します。",
+      "summary": {
+        "totalPromotions": "プロモーション数",
+        "active": "有効",
+        "withPromoCode": "プロモコードあり"
+      },
+      "formTitle": "プロモーション作成",
+      "name": "名称",
+      "namePlaceholder": "プロモーション名",
+      "type": "種類",
+      "discountValue": "割引値",
+      "create": "プロモーション作成",
+      "types": {
+        "product_discount": "商品割引",
+        "category_sale": "カテゴリセール",
+        "bundle_deal": "バンドル販売",
+        "buy_x_get_y": "X個購入でY個付与",
+        "flash_sale": "フラッシュセール",
+        "promo_code": "プロモコード",
+        "first_purchase": "初回購入"
+      }
+    },
+    "productForm": {
+      "title": "商品の追加 / 編集",
+      "name": "商品名",
+      "namePlaceholder": "商品名",
+      "category": "カテゴリ",
+      "categoryPlaceholder": "食品、工芸、サービス...",
+      "price": "価格",
+      "stock": "在庫",
+      "save": "商品を保存"
+    },
+    "profileForm": {
+      "title": "SMEプロフィール登録",
+      "businessName": "事業名",
+      "businessType": "事業タイプ",
+      "storeAddress": "店舗住所",
+      "bankName": "銀行名",
+      "bankAccountNumber": "口座番号",
+      "save": "SMEプロフィールを保存"
+    }
   }
 }
