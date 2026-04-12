@@ -3,14 +3,11 @@
 import { useMemo, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import {
-  PickupTimeline,
-  SmeOrderCard,
-  SmeOrderDetail,
-  type SmeOrder,
-  type SmeOrderStatus,
-  getSmeOrders,
-} from "@/features/sme";
+import { PickupTimeline } from "@/features/sme/components/pickup-timeline";
+import { SmeOrderCard } from "@/features/sme/components/order-card";
+import { SmeOrderDetail } from "@/features/sme/components/order-detail";
+import type { SmeOrder, SmeOrderStatus } from "@/features/sme/types";
+import { getSmeOrders } from "@/features/sme/utils";
 import { useTranslations } from "next-intl";
 
 type OrderAction = {

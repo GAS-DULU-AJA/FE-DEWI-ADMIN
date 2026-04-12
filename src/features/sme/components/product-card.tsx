@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import type { SmeProduct } from "@/features/sme";
+import type { SmeProduct } from "@/features/sme/types";
 import { formatCurrency } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 

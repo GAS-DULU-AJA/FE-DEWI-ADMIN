@@ -3,11 +3,11 @@
 import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ACCOMMODATIONS } from "@/features/accommodation/mock-data";
+import { AccommodationPageHeader } from "@/features/accommodation/components/page-header";
 import {
-  ACCOMMODATIONS,
-  AccommodationPageHeader,
   getAllAccommodationReviews,
-} from "@/features/accommodation";
+} from "@/features/accommodation/utils";
 import { Star } from "lucide-react";
 import { formatDateShort } from "@/lib/utils";
 

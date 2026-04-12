@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { FACILITY_COLORS } from "@/features/experience";
+import { FACILITY_COLORS } from "@/features/experience/constants";
 import { useTranslations } from "next-intl";
 
 type FacilityRow = { id: string; name: string; availability: keyof typeof FACILITY_COLORS; price: number };

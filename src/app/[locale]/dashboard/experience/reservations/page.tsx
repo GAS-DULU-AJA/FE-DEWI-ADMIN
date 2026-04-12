@@ -1,9 +1,5 @@
-import {
-  CheckInManager,
-  ReservationCard,
-  ReservationActionPanel,
-  getExperienceReservations,
-} from "@/features/experience";
+import { ReservationsWorkspace } from "@/features/experience/components/reservations-workspace";
+import { getExperienceReservations } from "@/features/experience/utils";
 import { getTranslations } from "next-intl/server";
 
 export default async function ExperienceReservationsPage({
@@ -22,14 +18,7 @@ export default async function ExperienceReservationsPage({
         <p className="mt-1 text-sm text-stone-500">{t("reservations.subtitle")}</p>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-        {reservations.map((reservation) => (
-          <ReservationCard key={reservation.id} reservation={reservation} />
-        ))}
-      </div>
-
-      <ReservationActionPanel reservations={reservations} />
-      <CheckInManager reservations={reservations} />
+      <ReservationsWorkspace reservations={reservations} />
     </div>
   );
 }

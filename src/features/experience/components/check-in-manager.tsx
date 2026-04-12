@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import type { ExperienceReservation } from "@/features/experience";
+import type { ExperienceReservation } from "@/features/experience/types";
 import { useTranslations } from "next-intl";
 
 export function CheckInManager({ reservations }: { reservations: ExperienceReservation[] }) {

@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import type { PaymentMilestone } from "@/features/experience";
+import type { PaymentMilestone } from "@/features/experience/types";
 import { useTranslations } from "next-intl";
 
 export function PaymentMilestoneTracker({ milestones }: { milestones: PaymentMilestone[] }) {

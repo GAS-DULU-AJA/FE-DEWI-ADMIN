@@ -1,7 +1,8 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { ExperienceWizard, VillagePageHeader } from "@/features/village";
+import { ExperienceWizard } from "@/features/village/components/experience-wizard";
+import { VillagePageHeader } from "@/features/village/components/page-header";
 
 export default function AddExperiencePage() {
   const t = useTranslations("village");

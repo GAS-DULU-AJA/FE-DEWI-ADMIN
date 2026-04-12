@@ -1,12 +1,9 @@
 import { notFound } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  ACCOMMODATIONS,
-  AccommodationPageHeader,
-  PropertyDetailTabs,
-  getAccommodationById,
-  getAccommodationReviewsByAccommodationId,
-} from "@/features/accommodation";
+import { ACCOMMODATIONS } from "@/features/accommodation/mock-data";
+import { AccommodationPageHeader } from "@/features/accommodation/components/page-header";
+import { PropertyDetailTabs } from "@/features/accommodation/components/property-detail-tabs";
+import { getAccommodationById, getAccommodationReviewsByAccommodationId } from "@/features/accommodation/utils";
 import { formatDateShort } from "@/lib/utils";
 import { Star } from "lucide-react";
 

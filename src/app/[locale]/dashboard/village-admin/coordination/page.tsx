@@ -1,7 +1,8 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { CoordinationInbox, VillagePageHeader } from "@/features/village";
+import { CoordinationInbox } from "@/features/village/components/coordination-inbox";
+import { VillagePageHeader } from "@/features/village/components/page-header";
 
 export default function CoordinationPage() {
   const t = useTranslations("village");

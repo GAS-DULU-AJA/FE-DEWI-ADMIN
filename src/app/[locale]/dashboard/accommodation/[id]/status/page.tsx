@@ -1,13 +1,13 @@
 import { notFound } from "next/navigation";
+import { AccommodationPageHeader } from "@/features/accommodation/components/page-header";
 import {
-  AccommodationPageHeader,
   getAccommodationById,
   getSubmissionEvents,
-  PropertyDetailTabs,
-  SubmissionDisclaimer,
-  SubmissionStatusBadge,
-  SubmissionTimeline,
-} from "@/features/accommodation";
+} from "@/features/accommodation/utils";
+import { PropertyDetailTabs } from "@/features/accommodation/components/property-detail-tabs";
+import { SubmissionDisclaimer } from "@/features/accommodation/components/submission-disclaimer";
+import { SubmissionStatusBadge } from "@/features/accommodation/components/status-badge";
+import { SubmissionTimeline } from "@/features/accommodation/components/submission-timeline";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default async function SubmissionStatusPage({

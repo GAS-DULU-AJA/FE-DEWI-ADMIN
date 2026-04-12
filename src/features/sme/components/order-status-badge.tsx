@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
-import { SME_ORDER_STATUS_META } from "@/features/sme";
-import type { SmeOrderStatus } from "@/features/sme";
+import { SME_ORDER_STATUS_META } from "@/features/sme/constants";
+import type { SmeOrderStatus } from "@/features/sme/types";
 import { useTranslations } from "next-intl";
 
 export function SmeOrderStatusBadge({ status }: { status: SmeOrderStatus }) {

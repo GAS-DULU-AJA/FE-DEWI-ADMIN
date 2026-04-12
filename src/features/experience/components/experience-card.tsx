@@ -2,8 +2,8 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { calculateCapacityUtilization } from "@/features/experience";
-import type { ExperienceItem } from "@/features/experience";
+import { calculateCapacityUtilization } from "@/features/experience/utils";
+import type { ExperienceItem } from "@/features/experience/types";
 import { useTranslations } from "next-intl";
 
 export function ExperienceCard({ experience }: { experience: ExperienceItem }) {

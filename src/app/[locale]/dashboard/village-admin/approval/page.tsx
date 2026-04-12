@@ -1,7 +1,8 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { ApprovalPanel, VillagePageHeader } from "@/features/village";
+import { ApprovalPanel } from "@/features/village/components/approval-panel";
+import { VillagePageHeader } from "@/features/village/components/page-header";
 
 export default function ApprovalPage() {
   const t = useTranslations("village");

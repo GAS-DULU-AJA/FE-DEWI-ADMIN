@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { SmeOrderStatusBadge } from "./order-status-badge";
-import type { SmeOrder } from "@/features/sme";
+import type { SmeOrder } from "@/features/sme/types";
 import { formatCurrency } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 

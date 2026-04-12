@@ -3,8 +3,10 @@
 import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { AccommodationPageHeader, RoomStatusBadge } from "@/features/accommodation";
-import { ACCOMMODATIONS, getAllRooms } from "@/features/accommodation";
+import { AccommodationPageHeader } from "@/features/accommodation/components/page-header";
+import { RoomStatusBadge } from "@/features/accommodation/components/room-status-badge";
+import { ACCOMMODATIONS } from "@/features/accommodation/mock-data";
+import { getAllRooms } from "@/features/accommodation/utils";
 import { formatCurrency } from "@/lib/utils";
 import { RoomAvailabilityBarChart } from "@/features/accommodation/components/dashboard-charts";
 

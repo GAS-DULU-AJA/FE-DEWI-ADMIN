@@ -1,12 +1,10 @@
-import {
-  CoordinationPanel,
-  FacilityBrowser,
-  FacilityAvailabilityCalendar,
-  PaymentMilestoneTracker,
-  RevenueShareDisplay,
-  VILLAGE_FACILITIES,
-  getExperienceCoordinations,
-} from "@/features/experience";
+import { CoordinationPanel } from "@/features/experience/components/coordination-panel";
+import { FacilityBrowser } from "@/features/experience/components/facility-browser";
+import { FacilityAvailabilityCalendar } from "@/features/experience/components/facility-availability-calendar";
+import { PaymentMilestoneTracker } from "@/features/experience/components/payment-milestone-tracker";
+import { RevenueShareDisplay } from "@/features/experience/components/revenue-share-display";
+import { VILLAGE_FACILITIES } from "@/features/experience/mock-data";
+import { getExperienceCoordinations } from "@/features/experience/utils";
 import { getTranslations } from "next-intl/server";
 
 export default async function ExperienceCoordinationPage({

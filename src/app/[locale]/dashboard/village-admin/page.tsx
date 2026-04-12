@@ -9,10 +9,12 @@ import {
   PARTNER_APPLICATIONS,
   VILLAGE_KPI,
   VILLAGE_REVIEWS,
+} from "@/features/village/mock-data";
+import {
   VillageRevenueTrendChart,
   PartnerTrendChart,
   FacilityUtilizationDonutLike,
-} from "@/features/village";
+} from "@/features/village/components/dashboard-charts";
 import { formatCurrency } from "@/lib/utils";
 import { Building2, CalendarDays, CheckSquare, Wallet } from "lucide-react";
 

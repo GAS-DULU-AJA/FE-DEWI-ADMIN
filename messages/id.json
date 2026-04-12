@@ -30,6 +30,7 @@
     "details": "Detail",
     "close": "Tutup",
     "confirm": "Konfirmasi",
+    "ok": "OK",
     "approved": "Disetujui",
     "rejected": "Ditolak",
     "pending": "Menunggu",
@@ -62,10 +63,17 @@
     "calendar": "Kalender",
     "villageData": "Data Desa",
     "facilities": "Fasilitas",
+    "facilityReservations": "Reservasi Fasilitas",
     "experiences": "Pengalaman",
     "partnerVerification": "Verifikasi Mitra",
     "externalCoordination": "Koordinasi Eksternal",
-    "general": "Umum"
+    "general": "Umum",
+    "speakers": "Pembicara",
+    "attendees": "Peserta",
+    "experienceAnalytics": "Analitik Pengalaman",
+    "documents": "Dokumen",
+    "postEvent": "Pasca-Acara",
+    "insights": "Insight"
   },
   "landing": {
     "heroTitle": "Selamat Datang di Mitra Dewi",
@@ -118,6 +126,7 @@
     "registerTitle": "Daftar sebagai Mitra",
     "registerSubtitle": "Bergabunglah dengan ekosistem desa wisata digital",
     "forgotPassword": "Lupa kata sandi?",
+    "forgotPasswordNotAvailable": "Fitur lupa kata sandi belum tersedia. Silakan hubungi admin.",
     "noAccount": "Belum punya akun?",
     "hasAccount": "Sudah punya akun?",
     "registerHere": "Daftar di sini",
@@ -746,10 +755,19 @@
       "title": "Manajemen Fasilitas",
       "subtitle": "Kelola fasilitas publik, keamanan, transportasi, dan fasilitas yang dapat dimonetisasi.",
       "addFacility": "Tambah atau Perbarui Fasilitas",
+      "editFacility": "Edit Fasilitas",
+      "updateFacility": "Perbarui Fasilitas",
+      "manageReservations": "Kelola Reservasi Fasilitas",
+      "deleteConfirmTitle": "Hapus Fasilitas",
+      "deleteConfirmDescription": "Apakah Anda yakin ingin menghapus fasilitas '{name}'? Tindakan ini tidak dapat dibatalkan.",
       "category": "Kategori",
       "namePlaceholder": "Nama fasilitas",
       "descriptionPlaceholder": "Deskripsi fasilitas",
       "addressPlaceholder": "Alamat fasilitas",
+      "operatingHours": "Jam Operasional",
+      "operatingHoursPlaceholder": "Contoh: 08:00 - 17:00",
+      "contact": "Kontak Penanggung Jawab",
+      "contactPlaceholder": "Contoh: +62 812-0000-0000",
       "isMonetizable": "Fasilitas ini dapat dimonetisasi",
       "rentalPrice": "Harga Sewa",
       "capacity": "Kapasitas",
@@ -757,6 +775,25 @@
       "notMonetizable": "Fasilitas non-monetisasi",
       "rental": "Sewa",
       "utilizationLabel": "Utilisasi",
+      "reservations": {
+        "title": "Reservasi Penggunaan Fasilitas",
+        "subtitle": "Tinjau dan proses permintaan penggunaan fasilitas desa dari mitra dan komunitas.",
+        "periodLabel": "Periode",
+        "participantsLabel": "Perkiraan Peserta",
+        "purposeLabel": "Tujuan Penggunaan",
+        "notesLabel": "Catatan",
+        "approve": "Setujui",
+        "reject": "Tolak",
+        "complete": "Tandai Selesai",
+        "conflictTitle": "Konflik Jadwal",
+        "conflictError": "Fasilitas ini sudah dipesan untuk periode yang sama. Pemesanan dari {conflictingReservation} untuk tanggal {conflictingDate} sudah tersedia. Silakan cek ulang tanggal.",
+        "status": {
+          "pending": "Menunggu",
+          "approved": "Disetujui",
+          "rejected": "Ditolak",
+          "completed": "Selesai"
+        }
+      },
       "categories": {
         "public": "Publik",
         "security": "Keamanan",
@@ -783,9 +820,24 @@
       "contactPerson": "Kontak",
       "cancellationPolicy": "Kebijakan Pembatalan",
       "bookedOf": "{booked}/{capacity} dipesan",
+      "analyticsTitle": "Analitik Pengalaman",
+      "analyticsSubtitle": "Pantau kinerja, pendapatan, dan statistik pengalaman desa.",
+      "attendeesTitle": "Peserta Pengalaman",
+      "attendeesSubtitle": "Kelola peserta, check-in, dan ekspor data.",
+      "speakersTitle": "Pembicara",
+      "whatToBring": "Yang Perlu Dibawa",
+      "checkedIn": "Check-in",
+      "noShow": "Tidak Hadir",
+      "rating": "Rating",
+      "revenue": "Pendapatan",
+      "ticketTypes": "Jenis Tiket",
+      "totalEvents": "{count} pengalaman",
+      "upcomingEvents": "Pengalaman Mendatang",
       "statuses": {
+        "all": "Semua",
         "draft": "Draf",
         "published": "Dipublikasi",
+        "ticket_sales_open": "Tiket Dijual",
         "ongoing": "Sedang Berjalan",
         "completed": "Selesai",
         "cancelled": "Dibatalkan"
@@ -988,7 +1040,26 @@
     "detail": {
       "location": "Lokasi",
       "schedule": "Jadwal",
-      "status": "Status"
+      "status": "Status",
+      "eventInfo": "Informasi Acara",
+      "address": "Alamat",
+      "visibility": "Visibilitas",
+      "locationType": "Tipe Lokasi",
+      "onlineUrl": "URL Online",
+      "contactInfo": "Informasi Kontak",
+      "contactPerson": "Kontak",
+      "contactPhone": "Telepon",
+      "contactEmail": "Email",
+      "cancellationPolicy": "Kebijakan Pembatalan",
+      "whatToBring": "Yang Perlu Dibawa",
+      "difficulty": "Tingkat Kesulitan",
+      "languages": "Bahasa",
+      "totalBookings": "Total Pemesanan",
+      "checkedIn": "Sudah Check-In",
+      "noShow": "Tidak Hadir",
+      "rating": "Rating",
+      "capacity": "Kapasitas",
+      "category": "Kategori"
     },
     "calendar": {
       "title": "Kalender Pengalaman",
@@ -1164,7 +1235,179 @@
       "ratingTrend": {
         "title": "Tren Rating",
         "subtitle": "Rata-rata rating untuk tiap pengalaman."
+      },
+      "lifecycleStatus": {
+        "title": "Distribusi Status Event",
+        "subtitle": "Sebaran event berdasarkan status lifecycle saat ini."
+      },
+      "labels": {
+        "checkIn": "Check-in",
+        "noShow": "No-show",
+        "checkInRate": "Rasio Check-in",
+        "noShowRate": "Rasio No-show",
+        "events": "Event"
       }
+    },
+    "common": {
+      "cancel": "Batal"
+    },
+    "visibility": {
+      "public": "Publik",
+      "private": "Privat",
+      "invite_only": "Undangan Saja"
+    },
+    "locationType": {
+      "offline": "Luring",
+      "online": "Daring",
+      "hybrid": "Hybrid"
+    },
+    "difficulty": {
+      "easy": "Mudah",
+      "moderate": "Sedang",
+      "challenging": "Menantang"
+    },
+    "speakers": {
+      "title": "Manajemen Pembicara",
+      "subtitle": "Kelola pembicara dan narasumber untuk acara Anda.",
+      "sectionTitle": "Pembicara / Narasumber",
+      "addSpeaker": "Tambah Pembicara",
+      "name": "Nama",
+      "namePlaceholder": "Nama pembicara",
+      "titleLabel": "Jabatan",
+      "titlePlaceholder": "Jabatan atau keahlian",
+      "bio": "Biografi",
+      "bioPlaceholder": "Deskripsi singkat pembicara",
+      "email": "Email",
+      "phone": "Telepon",
+      "topics": "Topik",
+      "topicsPlaceholder": "Topik 1, Topik 2",
+      "topicsHint": "Pisahkan dengan koma",
+      "save": "Simpan"
+    },
+    "attendees": {
+      "title": "Manajemen Peserta",
+      "pageTitle": "Peserta Pengalaman",
+      "pageSubtitle": "Kelola peserta, check-in, dan ekspor data.",
+      "total": "Total",
+      "checkedIn": "Check-In",
+      "noShow": "Tidak Hadir",
+      "cancelled": "Dibatalkan",
+      "searchPlaceholder": "Cari peserta...",
+      "name": "Nama",
+      "emailCol": "Email",
+      "ticket": "Tiket",
+      "qty": "Qty",
+      "qrCode": "Kode QR",
+      "status": "Status",
+      "actions": "Aksi",
+      "checkIn": "Check-In",
+      "viewTicket": "Lihat Tiket",
+      "exportCsv": "Ekspor CSV",
+      "sendBulkNotification": "Kirim Notifikasi Massal"
+    },
+    "qrScanner": {
+      "title": "Scanner QR Check-In",
+      "progress": "{checked}/{total} sudah check-in",
+      "enterCode": "Masukkan kode QR...",
+      "scan": "Scan",
+      "invalidCode": "Kode QR tidak valid",
+      "alreadyChecked": "Peserta sudah check-in sebelumnya",
+      "cancelledTicket": "Tiket telah dibatalkan",
+      "checkInSuccess": "Check-in berhasil!",
+      "recentScans": "Scan Terbaru"
+    },
+    "documents": {
+      "title": "Manajemen Dokumen",
+      "pageTitle": "Dokumen & Notifikasi",
+      "pageSubtitle": "Kelola dokumen acara dan sistem notifikasi.",
+      "upload": "Upload Dokumen",
+      "fileName": "Nama File",
+      "fileNamePlaceholder": "Nama dokumen",
+      "docType": "Tipe Dokumen",
+      "types": {
+        "contract": "Kontrak",
+        "rundown": "Rundown",
+        "permit": "Izin",
+        "invoice": "Invoice",
+        "other": "Lainnya"
+      },
+      "dropzone": "Seret file ke sini atau klik untuk upload",
+      "uploadFile": "Upload File",
+      "empty": "Belum ada dokumen.",
+      "view": "Lihat",
+      "download": "Unduh"
+    },
+    "notifications": {
+      "title": "Manajemen Notifikasi",
+      "create": "Buat Notifikasi",
+      "notifTitle": "Judul",
+      "titlePlaceholder": "Judul notifikasi",
+      "type": "Tipe",
+      "types": {
+        "reminder": "Pengingat",
+        "update": "Pembaruan",
+        "cancellation": "Pembatalan",
+        "promotion": "Promosi",
+        "check_in": "Check-In"
+      },
+      "message": "Pesan",
+      "messagePlaceholder": "Tulis isi notifikasi...",
+      "scheduleAt": "Jadwalkan Pada",
+      "saveDraft": "Simpan Draft",
+      "scheduleNow": "Jadwalkan Sekarang",
+      "empty": "Belum ada notifikasi.",
+      "statuses": {
+        "draft": "Draft",
+        "scheduled": "Terjadwal",
+        "sent": "Terkirim",
+        "failed": "Gagal"
+      },
+      "recipients": "{count} penerima",
+      "sentAt": "Terkirim pada",
+      "scheduledFor": "Dijadwalkan untuk"
+    },
+    "analytics": {
+      "title": "Analitik Pengalaman",
+      "subtitle": "Pantau performa, pendapatan, dan statistik peserta.",
+      "overviewTitle": "Ringkasan",
+      "totalBookings": "Total Pemesanan",
+      "totalRevenue": "Total Pendapatan",
+      "ticketsSold": "Tiket Terjual",
+      "avgRating": "Rating Rata-rata",
+      "capacityTitle": "Utilisasi Kapasitas",
+      "overallUtilization": "Utilisasi Keseluruhan",
+      "checkInTitle": "Statistik Check-In",
+      "checkInRate": "Rasio Check-In",
+      "noShowRate": "Rasio Tidak Hadir",
+      "paymentTitle": "Status Pembayaran",
+      "paymentSuccess": "Berhasil",
+      "paymentPending": "Menunggu",
+      "paymentFailed": "Gagal",
+      "paymentRefunded": "Refund",
+      "revenueBreakdown": "Rincian Pendapatan",
+      "totalTicketRevenue": "Total Pendapatan Tiket"
+    },
+    "postEvent": {
+      "title": "Pasca-Acara",
+      "subtitle": "Kelola survei pasca-acara dan tinjau ulasan.",
+      "createSurvey": "Buat Survei",
+      "surveyTitle": "Judul Survei",
+      "surveyTitlePlaceholder": "Judul survei Anda",
+      "question": "Pertanyaan",
+      "questionPlaceholder": "Tulis pertanyaan...",
+      "questionType": "Tipe Pertanyaan",
+      "questionTypes": {
+        "rating": "Rating",
+        "text": "Teks Bebas",
+        "multiple_choice": "Pilihan Ganda"
+      },
+      "addQuestion": "Tambah Pertanyaan",
+      "publishSurvey": "Publikasikan Survei",
+      "responses": "{count} responden",
+      "avgSatisfaction": "Kepuasan rata-rata: {value}/5",
+      "options": "opsi",
+      "existingSurveys": "Survei yang Ada",
+      "recentReviews": "Ulasan Terbaru"
     }
   },
   "sme": {
@@ -1245,7 +1488,11 @@
       },
       "stockValue": "Stok {value}",
       "partnerValue": "Mitra: {name}",
-      "edit": "Edit"
+      "edit": "Edit",
+      "cancel": "Batal",
+      "deleteConfirmTitle": "Hapus Produk",
+      "deleteConfirmDescription": "Apakah Anda yakin ingin menghapus produk ini? Tindakan ini tidak dapat dibatalkan.",
+      "deleteConfirmButton": "Hapus"
     },
     "orders": {
       "title": "Pesanan Pickup",
@@ -1341,5 +1588,69 @@
       "bankAccountNumber": "Nomor Rekening",
       "save": "Simpan Profil UMKM"
     }
+  },
+  "privacy": {
+    "backToHome": "Kembali ke Beranda",
+    "title": "Kebijakan Privasi",
+    "intro": "Mitra Dewi berkomitmen untuk melindungi privasi data Anda. Kebijakan ini menjelaskan bagaimana kami mengumpulkan, menggunakan, dan melindungi informasi pribadi Anda.",
+    "dataCollection": {
+      "title": "Pengumpulan Data",
+      "content": "Kami mengumpulkan informasi yang Anda berikan saat mendaftar, termasuk nama, email, nomor telepon, dan informasi usaha. Kami juga mengumpulkan data penggunaan untuk meningkatkan layanan kami."
+    },
+    "dataUsage": {
+      "title": "Penggunaan Data",
+      "content": "Data Anda digunakan untuk menyediakan dan meningkatkan layanan platform, memproses transaksi, mengirim notifikasi penting, dan berkomunikasi dengan Anda terkait akun Anda."
+    },
+    "dataSecurity": {
+      "title": "Keamanan Data",
+      "content": "Kami menerapkan langkah-langkah keamanan teknis dan organisasi yang sesuai untuk melindungi data pribadi Anda dari akses tidak sah, perubahan, pengungkapan, atau penghancuran."
+    },
+    "cookies": {
+      "title": "Cookie",
+      "content": "Platform kami menggunakan cookie untuk menyimpan preferensi pengguna dan meningkatkan pengalaman browsing. Anda dapat mengatur preferensi cookie melalui pengaturan browser Anda."
+    },
+    "rights": {
+      "title": "Hak Anda",
+      "content": "Anda berhak mengakses, memperbarui, atau menghapus data pribadi Anda kapan saja. Untuk menggunakan hak ini, silakan hubungi tim dukungan kami melalui halaman kontak."
+    },
+    "contact": {
+      "title": "Hubungi Kami",
+      "content": "Jika Anda memiliki pertanyaan tentang kebijakan privasi kami, silakan hubungi kami di privacy@mitradewi.id atau melalui formulir kontak di website kami."
+    },
+    "lastUpdated": "Terakhir diperbarui: April 2026"
+  },
+  "terms": {
+    "backToHome": "Kembali ke Beranda",
+    "title": "Syarat dan Ketentuan",
+    "intro": "Dengan menggunakan platform Mitra Dewi, Anda menyetujui syarat dan ketentuan berikut. Harap baca dengan seksama sebelum menggunakan layanan kami.",
+    "acceptance": {
+      "title": "Penerimaan Syarat",
+      "content": "Dengan mengakses atau menggunakan platform Mitra Dewi, Anda setuju untuk terikat oleh syarat dan ketentuan ini. Jika Anda tidak setuju, harap jangan gunakan platform ini."
+    },
+    "accounts": {
+      "title": "Akun Pengguna",
+      "content": "Anda bertanggung jawab untuk menjaga kerahasiaan akun dan kata sandi Anda. Anda setuju untuk segera memberitahu kami tentang penggunaan tidak sah atas akun Anda."
+    },
+    "partnerObligations": {
+      "title": "Kewajiban Mitra",
+      "content": "Sebagai mitra, Anda bertanggung jawab untuk menyediakan informasi yang akurat tentang produk dan layanan Anda, mematuhi regulasi yang berlaku, dan menjaga standar kualitas."
+    },
+    "payments": {
+      "title": "Pembayaran dan Transaksi",
+      "content": "Semua transaksi melalui platform tunduk pada kebijakan pembayaran kami. Pembagian pendapatan akan dilakukan sesuai perjanjian yang telah disepakati antara mitra dan pengelola desa wisata."
+    },
+    "intellectualProperty": {
+      "title": "Hak Kekayaan Intelektual",
+      "content": "Semua konten dan materi di platform ini dilindungi hak cipta. Anda tidak boleh menyalin, memodifikasi, atau mendistribusikan konten platform tanpa izin tertulis."
+    },
+    "termination": {
+      "title": "Pengakhiran",
+      "content": "Kami berhak menangguhkan atau mengakhiri akun Anda jika terjadi pelanggaran terhadap syarat dan ketentuan ini, dengan atau tanpa pemberitahuan sebelumnya."
+    },
+    "contact": {
+      "title": "Kontak",
+      "content": "Untuk pertanyaan terkait syarat dan ketentuan, hubungi kami di legal@mitradewi.id."
+    },
+    "lastUpdated": "Terakhir diperbarui: April 2026"
   }
 }

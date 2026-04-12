@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import type { SmePromotion } from "@/features/sme";
+import type { SmePromotion } from "@/features/sme/types";
 import { useLocale, useTranslations } from "next-intl";
 
 export function SmePromotionCard({ promotion }: { promotion: SmePromotion }) {

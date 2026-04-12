@@ -2,13 +2,13 @@
 
 import { useTranslations } from "next-intl";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { VILLAGE_KPI } from "@/features/village/mock-data";
 import {
-  VILLAGE_KPI,
   VillageRevenueTrendChart,
   PartnerTrendChart,
   FacilityUtilizationDonutLike,
-  VillagePageHeader,
-} from "@/features/village";
+} from "@/features/village/components/dashboard-charts";
+import { VillagePageHeader } from "@/features/village/components/page-header";
 import { formatCurrency } from "@/lib/utils";
 
 export default function VillageAdminAnalyticsPage() {

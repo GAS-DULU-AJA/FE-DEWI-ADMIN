@@ -73,8 +73,8 @@ export function Footer() {
         <div className="mt-10 flex flex-col items-center justify-between gap-2 border-t border-stone-800 pt-6 text-xs text-stone-500 sm:flex-row">
           <p>© {new Date().getFullYear()} Mitra Dewi. {t("rights")}.</p>
           <div className="flex gap-4">
-            <a href="#" className="transition-colors hover:text-emerald-400">{t("privacy")}</a>
-            <a href="#" className="transition-colors hover:text-emerald-400">{t("terms")}</a>
+            <Link href="/privacy" className="transition-colors hover:text-emerald-400">{t("privacy")}</Link>
+            <Link href="/terms" className="transition-colors hover:text-emerald-400">{t("terms")}</Link>
           </div>
         </div>
       </div>

@@ -1,5 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { SmePromotionCard, SmePromotionForm, getSmePromotions } from "@/features/sme";
+import { SmePromotionCard } from "@/features/sme/components/promotion-card";
+import { SmePromotionForm } from "@/features/sme/components/promotion-form";
+import { getSmePromotions } from "@/features/sme/utils";
 import { useTranslations } from "next-intl";
 
 export default function SmePromotionsPage() {

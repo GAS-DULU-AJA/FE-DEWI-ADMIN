@@ -82,9 +82,13 @@ export function LoginForm() {
 
       <div className="flex items-center justify-between text-sm">
         <span />
-        <a href="#" className="text-emerald-600 hover:text-emerald-700 font-medium">
+        <button
+          type="button"
+          onClick={() => alert(t("forgotPasswordNotAvailable"))}
+          className="text-emerald-600 hover:text-emerald-700 font-medium"
+        >
           {t("forgotPassword")}
-        </a>
+        </button>
       </div>
 
       {error && (

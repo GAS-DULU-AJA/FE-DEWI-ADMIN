@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import type { RevenueSplit } from "@/features/experience";
+import type { RevenueSplit } from "@/features/experience/types";
 import { useTranslations } from "next-intl";
 
 export function RevenueShareDisplay({ split }: { split: RevenueSplit }) {

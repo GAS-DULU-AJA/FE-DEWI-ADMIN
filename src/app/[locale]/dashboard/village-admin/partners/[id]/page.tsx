@@ -8,7 +8,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle2, XCircle } from "lucide-react";
-import { PARTNER_APPLICATIONS, VillagePageHeader } from "@/features/village";
+import { PARTNER_APPLICATIONS } from "@/features/village/mock-data";
+import { VillagePageHeader } from "@/features/village/components/page-header";
 
 export default function PartnerDetailPage() {
   const t = useTranslations("village");

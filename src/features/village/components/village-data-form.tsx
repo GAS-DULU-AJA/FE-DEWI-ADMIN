@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -15,7 +16,7 @@ import type {
   GovernmentServicePriority,
   VillageProfile,
 } from "../types";
-import { VillageLocationPicker } from "./village-location-picker";
+const VillageLocationPicker = dynamic(() => import("./village-location-picker").then(m => m.VillageLocationPicker), { ssr: false, loading: () => <div className="h-[400px] bg-muted animate-pulse rounded-lg" /> });
 
 type Tab = "profile" | "location" | "media" | "bank";
 

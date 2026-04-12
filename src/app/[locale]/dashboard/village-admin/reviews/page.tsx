@@ -5,7 +5,8 @@ import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
-import { VILLAGE_REVIEWS, VillagePageHeader } from "@/features/village";
+import { VILLAGE_REVIEWS } from "@/features/village/mock-data";
+import { VillagePageHeader } from "@/features/village/components/page-header";
 
 export default function VillageReviewsPage() {
   const t = useTranslations("village");

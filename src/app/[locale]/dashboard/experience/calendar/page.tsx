@@ -1,4 +1,5 @@
-import { ExperienceCalendar, getExperiences } from "@/features/experience";
+import { ExperienceCalendar } from "@/features/experience/components/experience-calendar";
+import { getExperiences } from "@/features/experience/utils";
 import { getTranslations } from "next-intl/server";
 
 export default async function ExperienceCalendarPage({

@@ -1,4 +1,4 @@
-import type { SmeOrderStatus } from "@/features/sme";
+import type { SmeOrderStatus } from "@/features/sme/types";
 import { useTranslations } from "next-intl";
 
 const FLOW: SmeOrderStatus[] = [

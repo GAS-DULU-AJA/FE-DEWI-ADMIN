@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import type { ExperienceReview } from "@/features/experience";
+import type { ExperienceReview } from "@/features/experience/types";
 import { useTranslations } from "next-intl";
 
 export function ExperienceReviewCard({ review }: { review: ExperienceReview }) {

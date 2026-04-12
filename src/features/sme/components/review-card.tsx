@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import type { SmeReview } from "@/features/sme";
+import type { SmeReview } from "@/features/sme/types";
 import { useTranslations } from "next-intl";
 
 export function SmeReviewCard({ review }: { review: SmeReview }) {
