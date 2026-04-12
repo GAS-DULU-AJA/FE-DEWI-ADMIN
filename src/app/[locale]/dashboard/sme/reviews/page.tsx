@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { SmeReviewCard, getSmeReviews } from "@/features/sme";
+import { SmeReviewCard } from "@/features/sme/components/review-card";
+import { getSmeReviews } from "@/features/sme/utils";
 import { useTranslations } from "next-intl";
 
 export default function SmeReviewsPage() {

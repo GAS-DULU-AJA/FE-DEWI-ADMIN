@@ -14,3 +14,4 @@ export * from "./components/approval-panel";
 export * from "./components/coordination-inbox";
 export * from "./components/revenue-sharing-config";
 export * from "./components/payment-scheme-form";
+export * from "./stores/facility-management-store";

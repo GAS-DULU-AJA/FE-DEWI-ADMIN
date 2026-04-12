@@ -1,17 +1,17 @@
 import { notFound } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { AccommodationPageHeader } from "@/features/accommodation/components/page-header";
+import { BankAccountForm } from "@/features/accommodation/components/bank-account-form";
 import {
-  AccommodationPageHeader,
-  BankAccountForm,
   getAccommodationById,
   getBankAccountByAccommodationId,
   getPaymentsByAccommodationId,
   getReservationsByAccommodationId,
   getWithdrawalsByAccommodationId,
   calculateOccupancyRate,
-  PropertyDetailTabs,
-} from "@/features/accommodation";
+} from "@/features/accommodation/utils";
+import { PropertyDetailTabs } from "@/features/accommodation/components/property-detail-tabs";
 import { formatCurrency, formatDateShort } from "@/lib/utils";
 
 const RESERVATION_STATUS_META: Record<string, { label: string; className: string }> = {

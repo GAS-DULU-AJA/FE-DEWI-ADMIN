@@ -1,11 +1,8 @@
 import { notFound } from "next/navigation";
-import {
-  AccommodationPageHeader,
-  PropertyDetailTabs,
-  RoomManagement,
-  getAccommodationById,
-  getRoomsByAccommodationId,
-} from "@/features/accommodation";
+import { AccommodationPageHeader } from "@/features/accommodation/components/page-header";
+import { PropertyDetailTabs } from "@/features/accommodation/components/property-detail-tabs";
+import { RoomManagement } from "@/features/accommodation/components/room-management";
+import { getAccommodationById, getRoomsByAccommodationId } from "@/features/accommodation/utils";
 
 export default async function PropertyRoomsPage({
   params,

@@ -1,4 +1,5 @@
-import { ExperienceReviewCard, getExperienceReviews } from "@/features/experience";
+import { ExperienceReviewCard } from "@/features/experience/components/review-card";
+import { getExperienceReviews } from "@/features/experience/utils";
 import { getTranslations } from "next-intl/server";
 
 export default async function ExperienceReviewsPage({

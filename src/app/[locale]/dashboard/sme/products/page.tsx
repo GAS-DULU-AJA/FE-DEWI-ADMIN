@@ -4,10 +4,13 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ShoppingBag, Plus, Pencil, Trash2 } from "lucide-react";
+import { ShoppingBag, Plus, Pencil, Trash2, X } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
-import { SmeProductForm, SmeProductCard, getSmeProducts } from "@/features/sme";
+import { SmeProductForm } from "@/features/sme/components/product-form";
+import { SmeProductCard } from "@/features/sme/components/product-card";
+import { getSmeProducts } from "@/features/sme/utils";
 import { useTranslations } from "next-intl";
+import { ConfirmationDialog } from "@/components/ui/confirmation-dialog";
 
 const categories = ["all", "food", "craft", "service"] as const;
 
@@ -16,6 +19,8 @@ export default function ProdukPage() {
   const [products, setProducts] = useState(getSmeProducts());
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<(typeof categories)[number]>("all");
+  const [showForm, setShowForm] = useState(false);
+  const [deleteTarget, setDeleteTarget] = useState<string | null>(null);
 
   const filtered = products.filter((p) => {
     const matchSearch = p.name.toLowerCase().includes(search.toLowerCase());
@@ -25,6 +30,7 @@ export default function ProdukPage() {
 
   const handleDelete = (id: string) => {
     setProducts((prev) => prev.filter((p) => p.id !== id));
+    setDeleteTarget(null);
   };
 
   return (
@@ -35,9 +41,9 @@ export default function ProdukPage() {
           <h1 className="text-2xl font-bold text-stone-900">{t("title")}</h1>
           <p className="mt-0.5 text-sm text-stone-500">{t("subtitle")}</p>
         </div>
-        <Button size="sm">
-          <Plus className="h-4 w-4" />
-          {t("addProduct")}
+        <Button size="sm" onClick={() => setShowForm(!showForm)}>
+          {showForm ? <X className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
+          {showForm ? t("cancel") : t("addProduct")}
         </Button>
       </div>
 
@@ -113,7 +119,7 @@ export default function ProdukPage() {
                   <Pencil className="h-3 w-3" />
                   {t("edit")}
                 </Button>
-                <Button variant="destructive" size="sm" onClick={() => handleDelete(product.id)}>
+                <Button variant="destructive" size="sm" onClick={() => setDeleteTarget(product.id)}>
                   <Trash2 className="h-3 w-3" />
                 </Button>
               </div>
@@ -122,7 +128,17 @@ export default function ProdukPage() {
         ))}
       </div>
 
-      <SmeProductForm />
+      {showForm && <SmeProductForm />}
+
+      <ConfirmationDialog
+        open={!!deleteTarget}
+        onCancel={() => setDeleteTarget(null)}
+        onConfirm={() => deleteTarget && handleDelete(deleteTarget)}
+        title={t("deleteConfirmTitle")}
+        description={t("deleteConfirmDescription")}
+        confirmText={t("deleteConfirmButton")}
+        variant="destructive"
+      />
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         {products.slice(0, 2).map((product) => (

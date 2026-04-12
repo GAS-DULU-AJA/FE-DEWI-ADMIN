@@ -1,17 +1,17 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ACCOMMODATIONS } from "@/features/accommodation/mock-data";
 import {
-  ACCOMMODATIONS,
   getConsolidatedRevenue,
   getPaymentsByAccommodationId,
   getAllReservations,
   getAccommodationNameById,
-} from "@/features/accommodation";
+} from "@/features/accommodation/utils";
+import { DEFAULT_REVENUE_SPLIT } from "@/features/experience/constants";
 import {
-  DEFAULT_REVENUE_SPLIT,
   getExperienceCoordinations,
   getExperiences,
-} from "@/features/experience";
+} from "@/features/experience/utils";
 import {
   MonthlyRevenueTrendChart,
   RevenueByPropertyChart,

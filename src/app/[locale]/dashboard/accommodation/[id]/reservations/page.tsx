@@ -1,13 +1,10 @@
 import { notFound } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  AccommodationPageHeader,
-  PropertyDetailTabs,
-  RefundDialog,
-  getAccommodationById,
-  getReservationsByAccommodationId,
-} from "@/features/accommodation";
+import { AccommodationPageHeader } from "@/features/accommodation/components/page-header";
+import { PropertyDetailTabs } from "@/features/accommodation/components/property-detail-tabs";
+import { RefundDialog } from "@/features/accommodation/components/refund-dialog";
+import { getAccommodationById, getReservationsByAccommodationId } from "@/features/accommodation/utils";
 import { formatCurrency, formatDateShort } from "@/lib/utils";
 
 const RESERVATION_STATUS_META: Record<string, { label: string; className: string }> = {

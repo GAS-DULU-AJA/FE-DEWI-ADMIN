@@ -1,11 +1,11 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ACCOMMODATIONS } from "@/features/accommodation/mock-data";
+import { AccommodationPageHeader } from "@/features/accommodation/components/page-header";
+import { PromotionCard } from "@/features/accommodation/components/promotion-card";
+import { PromotionForm } from "@/features/accommodation/components/promotion-form";
 import {
-  ACCOMMODATIONS,
-  AccommodationPageHeader,
-  PromotionCard,
-  PromotionForm,
   getAllAccommodationPromotions,
-} from "@/features/accommodation";
+} from "@/features/accommodation/utils";
 
 export default function AccommodationPromotionsPage() {
   const promotions = getAllAccommodationPromotions();

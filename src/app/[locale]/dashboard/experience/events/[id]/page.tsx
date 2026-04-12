@@ -1,11 +1,8 @@
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
-import {
-  getExperienceById,
-  TicketManager,
-  ItineraryBuilder,
-  PosterUpload,
-} from "@/features/experience";
+import { getExperienceById, getReservationsByExperienceId } from "@/features/experience/utils";
+import { ExperienceDetailTabs } from "@/features/experience/components/experience-detail-tabs";
+import { Badge } from "@/components/ui/badge";
 
 export default async function ExperienceDetailPage({
   params,
@@ -20,22 +17,20 @@ export default async function ExperienceDetailPage({
     notFound();
   }
 
+  const reservations = getReservationsByExperienceId(id);
+
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-stone-900">{experience.name}</h1>
-        <p className="mt-1 text-sm text-stone-500">{experience.shortDescription}</p>
+      <div className="flex items-start justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-stone-900">{experience.name}</h1>
+          <p className="mt-1 text-sm text-stone-500">{experience.shortDescription}</p>
+        </div>
+        <Badge variant={experience.status === "ticket_sales_open" || experience.status === "published" ? "default" : "secondary"}>
+          {t(`status.${experience.status}`)}
+        </Badge>
       </div>
-
-      <div className="rounded-lg border border-stone-200 bg-white p-4 text-sm text-stone-700">
-        <p>{t("detail.location")}: {experience.locationName}</p>
-        <p>{t("detail.schedule")}: {new Date(experience.scheduleStart).toLocaleString()} - {new Date(experience.scheduleEnd).toLocaleString()}</p>
-        <p>{t("detail.status")}: {t(`status.${experience.status}`)}</p>
-      </div>
-
-      <TicketManager tickets={experience.ticketTypes} />
-      <ItineraryBuilder items={experience.itinerary} />
-      <PosterUpload />
+      <ExperienceDetailTabs experience={experience} reservations={reservations} />
     </div>
   );
 }

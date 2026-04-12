@@ -1,4 +1,4 @@
-import type { ExperienceCategory } from "./types";
+import type { EventDocumentType, EventLocationType, EventVisibility, ExperienceCategory, NotificationType } from "./types";
 
 export const EXPERIENCE_CATEGORIES: ExperienceCategory[] = [
   "cultural",
@@ -13,6 +13,11 @@ export const EXPERIENCE_CATEGORIES: ExperienceCategory[] = [
   "agro_tourism",
   "other",
 ];
+
+export const EVENT_VISIBILITIES: EventVisibility[] = ["public", "private", "invite_only"];
+export const EVENT_LOCATION_TYPES: EventLocationType[] = ["offline", "online", "hybrid"];
+export const EVENT_DOCUMENT_TYPES: EventDocumentType[] = ["contract", "rundown", "permit", "invoice", "other"];
+export const NOTIFICATION_TYPES: NotificationType[] = ["reminder", "update", "cancellation", "promotion", "check_in"];
 
 export const DEFAULT_REVENUE_SPLIT = {
   organizer: 60,
@@ -37,3 +42,6 @@ export const FACILITY_COLORS = {
   limited: "bg-amber-100 text-amber-700",
   unavailable: "bg-red-100 text-red-700",
 };
+
+export const DIFFICULTY_LEVELS = ["easy", "moderate", "challenging"] as const;
+export const REFUND_POLICIES = ["full", "partial", "non_refundable"] as const;

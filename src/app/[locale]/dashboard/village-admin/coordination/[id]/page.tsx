@@ -5,12 +5,10 @@ import { notFound } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  COORDINATION_REQUESTS,
-  PaymentSchemeForm,
-  RevenueSharingConfig,
-  VillagePageHeader,
-} from "@/features/village";
+import { COORDINATION_REQUESTS } from "@/features/village/mock-data";
+import { PaymentSchemeForm } from "@/features/village/components/payment-scheme-form";
+import { RevenueSharingConfig } from "@/features/village/components/revenue-sharing-config";
+import { VillagePageHeader } from "@/features/village/components/page-header";
 
 export default function CoordinationDetailPage() {
   const t = useTranslations("village");

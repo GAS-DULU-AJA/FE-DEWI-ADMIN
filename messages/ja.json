@@ -30,6 +30,7 @@
     "details": "詳細",
     "close": "閉じる",
     "confirm": "確認",
+    "ok": "OK",
     "approved": "承認済み",
     "rejected": "却下",
     "pending": "保留中",
@@ -62,10 +63,17 @@
     "calendar": "カレンダー",
     "villageData": "村データ",
     "facilities": "施設",
+    "facilityReservations": "施設予約",
     "experiences": "体験",
     "partnerVerification": "パートナー審査",
     "externalCoordination": "外部連携",
-    "general": "一般"
+    "general": "一般",
+    "speakers": "スピーカー",
+    "attendees": "参加者",
+    "experienceAnalytics": "体験分析",
+    "documents": "ドキュメント",
+    "postEvent": "イベント後",
+    "insights": "インサイト"
   },
   "landing": {
     "heroTitle": "Mitra Dewiへようこそ",
@@ -118,6 +126,7 @@
     "registerTitle": "パートナーとして登録",
     "registerSubtitle": "デジタル観光村エコシステムに参加する",
     "forgotPassword": "パスワードをお忘れですか？",
+    "forgotPasswordNotAvailable": "パスワードリセット機能はまだ利用できません。管理者にお問い合わせください。",
     "noAccount": "アカウントをお持ちでないですか？",
     "hasAccount": "すでにアカウントをお持ちですか？",
     "registerHere": "こちらで登録",
@@ -746,10 +755,19 @@
       "title": "施設管理",
       "subtitle": "公共・安全・交通・収益化施設を管理します。",
       "addFacility": "施設を追加または更新",
+      "editFacility": "施設を編集",
+      "updateFacility": "施設を更新",
+      "manageReservations": "施設予約を管理",
+      "deleteConfirmTitle": "施設を削除",
+      "deleteConfirmDescription": "施設 '{name}' を削除してよろしいですか？この操作は取り消すことができません。",
       "category": "カテゴリ",
       "namePlaceholder": "施設名",
       "descriptionPlaceholder": "施設の説明",
       "addressPlaceholder": "施設住所",
+      "operatingHours": "営業時間",
+      "operatingHoursPlaceholder": "例: 08:00 - 17:00",
+      "contact": "連絡先担当者",
+      "contactPlaceholder": "例: +62 812-0000-0000",
       "isMonetizable": "この施設を収益化する",
       "rentalPrice": "レンタル料金",
       "capacity": "収容人数",
@@ -757,6 +775,25 @@
       "notMonetizable": "非収益化施設",
       "rental": "レンタル",
       "utilizationLabel": "稼働率",
+      "reservations": {
+        "title": "施設利用予約",
+        "subtitle": "パートナーやコミュニティからの施設利用申請を確認・処理します。",
+        "periodLabel": "期間",
+        "participantsLabel": "想定参加人数",
+        "purposeLabel": "利用目的",
+        "notesLabel": "メモ",
+        "approve": "承認",
+        "reject": "却下",
+        "complete": "完了にする",
+        "conflictTitle": "スケジュール競合",
+        "conflictError": "この施設は同じ期間に既に予約されています。{conflictingReservation} による {conflictingDate} の予約が存在します。日付を確認してください。",
+        "status": {
+          "pending": "保留中",
+          "approved": "承認済み",
+          "rejected": "却下",
+          "completed": "完了"
+        }
+      },
       "categories": {
         "public": "公共",
         "security": "安全",
@@ -783,9 +820,24 @@
       "contactPerson": "担当者",
       "cancellationPolicy": "キャンセルポリシー",
       "bookedOf": "{booked}/{capacity} 予約済み",
+      "analyticsTitle": "体験分析",
+      "analyticsSubtitle": "村の体験のパフォーマンス、収益、統計を監視します。",
+      "attendeesTitle": "体験参加者",
+      "attendeesSubtitle": "参加者の管理、チェックイン、データエクスポート。",
+      "speakersTitle": "講演者",
+      "whatToBring": "持ち物",
+      "checkedIn": "チェックイン済み",
+      "noShow": "不参加",
+      "rating": "評価",
+      "revenue": "収益",
+      "ticketTypes": "チケット種別",
+      "totalEvents": "{count}件の体験",
+      "upcomingEvents": "今後の体験",
       "statuses": {
+        "all": "すべて",
         "draft": "下書き",
         "published": "公開中",
+        "ticket_sales_open": "チケット販売中",
         "ongoing": "進行中",
         "completed": "完了",
         "cancelled": "キャンセル"
@@ -988,7 +1040,26 @@
     "detail": {
       "location": "場所",
       "schedule": "スケジュール",
-      "status": "ステータス"
+      "status": "ステータス",
+      "eventInfo": "イベント情報",
+      "address": "住所",
+      "visibility": "公開設定",
+      "locationType": "場所タイプ",
+      "onlineUrl": "オンラインURL",
+      "contactInfo": "連絡先情報",
+      "contactPerson": "担当者",
+      "contactPhone": "電話",
+      "contactEmail": "メール",
+      "cancellationPolicy": "キャンセルポリシー",
+      "whatToBring": "持ち物",
+      "difficulty": "難易度",
+      "languages": "言語",
+      "totalBookings": "予約総数",
+      "checkedIn": "チェックイン済み",
+      "noShow": "不参加",
+      "rating": "評価",
+      "capacity": "定員",
+      "category": "カテゴリ"
     },
     "calendar": {
       "title": "体験カレンダー",
@@ -1164,7 +1235,179 @@
       "ratingTrend": {
         "title": "評価推移",
         "subtitle": "体験ごとの平均評価。"
+      },
+      "lifecycleStatus": {
+        "title": "イベントステータス分布",
+        "subtitle": "現在のライフサイクル別イベント件数。"
+      },
+      "labels": {
+        "checkIn": "チェックイン",
+        "noShow": "ノーショー",
+        "checkInRate": "チェックイン率",
+        "noShowRate": "ノーショー率",
+        "events": "イベント"
       }
+    },
+    "common": {
+      "cancel": "キャンセル"
+    },
+    "visibility": {
+      "public": "公開",
+      "private": "非公開",
+      "invite_only": "招待のみ"
+    },
+    "locationType": {
+      "offline": "オフライン",
+      "online": "オンライン",
+      "hybrid": "ハイブリッド"
+    },
+    "difficulty": {
+      "easy": "初級",
+      "moderate": "中級",
+      "challenging": "上級"
+    },
+    "speakers": {
+      "title": "スピーカー管理",
+      "subtitle": "イベントの講演者とプレゼンターを管理します。",
+      "sectionTitle": "スピーカー / 講演者",
+      "addSpeaker": "スピーカーを追加",
+      "name": "氏名",
+      "namePlaceholder": "スピーカー名",
+      "titleLabel": "肩書き",
+      "titlePlaceholder": "肩書きまたは専門分野",
+      "bio": "経歴",
+      "bioPlaceholder": "スピーカーの簡単な経歴",
+      "email": "メール",
+      "phone": "電話",
+      "topics": "トピック",
+      "topicsPlaceholder": "トピック1, トピック2",
+      "topicsHint": "カンマで区切ってください",
+      "save": "保存"
+    },
+    "attendees": {
+      "title": "参加者管理",
+      "pageTitle": "体験参加者",
+      "pageSubtitle": "参加者の管理、チェックイン、データエクスポート。",
+      "total": "合計",
+      "checkedIn": "チェックイン済み",
+      "noShow": "不参加",
+      "cancelled": "キャンセル済み",
+      "searchPlaceholder": "参加者を検索...",
+      "name": "氏名",
+      "emailCol": "メール",
+      "ticket": "チケット",
+      "qty": "数量",
+      "qrCode": "QRコード",
+      "status": "ステータス",
+      "actions": "操作",
+      "checkIn": "チェックイン",
+      "viewTicket": "チケット表示",
+      "exportCsv": "CSV出力",
+      "sendBulkNotification": "一括通知送信"
+    },
+    "qrScanner": {
+      "title": "QRチェックインスキャナー",
+      "progress": "{checked}/{total} チェックイン済み",
+      "enterCode": "QRコードを入力...",
+      "scan": "スキャン",
+      "invalidCode": "無効なQRコード",
+      "alreadyChecked": "既にチェックイン済みです",
+      "cancelledTicket": "チケットはキャンセルされています",
+      "checkInSuccess": "チェックイン成功！",
+      "recentScans": "最近のスキャン"
+    },
+    "documents": {
+      "title": "ドキュメント管理",
+      "pageTitle": "ドキュメント＆通知",
+      "pageSubtitle": "イベントドキュメントと通知システムを管理します。",
+      "upload": "ドキュメントをアップロード",
+      "fileName": "ファイル名",
+      "fileNamePlaceholder": "ドキュメント名",
+      "docType": "ドキュメントタイプ",
+      "types": {
+        "contract": "契約書",
+        "rundown": "進行表",
+        "permit": "許可書",
+        "invoice": "請求書",
+        "other": "その他"
+      },
+      "dropzone": "ファイルをドラッグまたはクリックしてアップロード",
+      "uploadFile": "ファイルをアップロード",
+      "empty": "ドキュメントはまだありません。",
+      "view": "表示",
+      "download": "ダウンロード"
+    },
+    "notifications": {
+      "title": "通知管理",
+      "create": "通知を作成",
+      "notifTitle": "タイトル",
+      "titlePlaceholder": "通知タイトル",
+      "type": "タイプ",
+      "types": {
+        "reminder": "リマインダー",
+        "update": "更新",
+        "cancellation": "キャンセル",
+        "promotion": "プロモーション",
+        "check_in": "チェックイン"
+      },
+      "message": "メッセージ",
+      "messagePlaceholder": "通知メッセージを入力...",
+      "scheduleAt": "スケジュール",
+      "saveDraft": "下書き保存",
+      "scheduleNow": "今すぐスケジュール",
+      "empty": "通知はまだありません。",
+      "statuses": {
+        "draft": "下書き",
+        "scheduled": "予定",
+        "sent": "送信済み",
+        "failed": "失敗"
+      },
+      "recipients": "{count}人の受信者",
+      "sentAt": "送信日時",
+      "scheduledFor": "予定日時"
+    },
+    "analytics": {
+      "title": "体験分析",
+      "subtitle": "パフォーマンス、収益、参加者統計を監視します。",
+      "overviewTitle": "概要",
+      "totalBookings": "予約総数",
+      "totalRevenue": "総収益",
+      "ticketsSold": "販売チケット数",
+      "avgRating": "平均評価",
+      "capacityTitle": "定員利用率",
+      "overallUtilization": "全体利用率",
+      "checkInTitle": "チェックイン統計",
+      "checkInRate": "チェックイン率",
+      "noShowRate": "不参加率",
+      "paymentTitle": "支払いステータス",
+      "paymentSuccess": "成功",
+      "paymentPending": "保留",
+      "paymentFailed": "失敗",
+      "paymentRefunded": "返金済み",
+      "revenueBreakdown": "収益内訳",
+      "totalTicketRevenue": "チケット総収益"
+    },
+    "postEvent": {
+      "title": "イベント後",
+      "subtitle": "イベント後のアンケートとレビューフィードバックを管理します。",
+      "createSurvey": "アンケートを作成",
+      "surveyTitle": "アンケートタイトル",
+      "surveyTitlePlaceholder": "アンケートのタイトル",
+      "question": "質問",
+      "questionPlaceholder": "質問を入力...",
+      "questionType": "質問タイプ",
+      "questionTypes": {
+        "rating": "評価",
+        "text": "自由記述",
+        "multiple_choice": "選択式"
+      },
+      "addQuestion": "質問を追加",
+      "publishSurvey": "アンケートを公開",
+      "responses": "{count}件の回答",
+      "avgSatisfaction": "平均満足度: {value}/5",
+      "options": "選択肢",
+      "existingSurveys": "既存のアンケート",
+      "recentReviews": "最近のレビュー"
     }
   },
   "sme": {
@@ -1245,7 +1488,11 @@
       },
       "stockValue": "在庫 {value}",
       "partnerValue": "パートナー: {name}",
-      "edit": "編集"
+      "edit": "編集",
+      "cancel": "キャンセル",
+      "deleteConfirmTitle": "商品を削除",
+      "deleteConfirmDescription": "この商品を削除してもよろしいですか？この操作は元に戻せません。",
+      "deleteConfirmButton": "削除"
     },
     "orders": {
       "title": "受け取り注文",
@@ -1341,5 +1588,69 @@
       "bankAccountNumber": "口座番号",
       "save": "SMEプロフィールを保存"
     }
+  },
+  "privacy": {
+    "backToHome": "ホームに戻る",
+    "title": "プライバシーポリシー",
+    "intro": "Mitra Dewiはお客様のデータプライバシーの保護に努めています。このポリシーでは、個人情報の収集、使用、保護方法について説明します。",
+    "dataCollection": {
+      "title": "データ収集",
+      "content": "登録時に提供される氏名、メール、電話番号、事業情報を収集します。サービス改善のために利用データも収集します。"
+    },
+    "dataUsage": {
+      "title": "データの使用",
+      "content": "お客様のデータは、プラットフォームサービスの提供と改善、取引の処理、重要な通知の送信、アカウントに関するコミュニケーションに使用されます。"
+    },
+    "dataSecurity": {
+      "title": "データセキュリティ",
+      "content": "不正アクセス、改ざん、開示、破壊から個人データを保護するため、適切な技術的・組織的セキュリティ対策を実施しています。"
+    },
+    "cookies": {
+      "title": "Cookie",
+      "content": "当プラットフォームではCookieを使用してユーザー設定を保存し、閲覧体験を向上させています。ブラウザ設定からCookie設定を変更できます。"
+    },
+    "rights": {
+      "title": "お客様の権利",
+      "content": "いつでも個人データへのアクセス、更新、削除を行う権利があります。これらの権利を行使するには、お問い合わせページからサポートチームにご連絡ください。"
+    },
+    "contact": {
+      "title": "お問い合わせ",
+      "content": "プライバシーポリシーに関するご質問は、privacy@mitradewi.idまたはウェブサイトのお問い合わせフォームからご連絡ください。"
+    },
+    "lastUpdated": "最終更新日: 2026年4月"
+  },
+  "terms": {
+    "backToHome": "ホームに戻る",
+    "title": "利用規約",
+    "intro": "Mitra Dewiプラットフォームをご利用いただくことで、以下の利用規約に同意したものとみなされます。サービスをご利用になる前に注意深くお読みください。",
+    "acceptance": {
+      "title": "規約の承諾",
+      "content": "Mitra Dewiプラットフォームにアクセスまたは使用することにより、これらの利用規約に拘束されることに同意します。同意されない場合は、このプラットフォームを使用しないでください。"
+    },
+    "accounts": {
+      "title": "ユーザーアカウント",
+      "content": "アカウントとパスワードの機密性を維持する責任があります。アカウントの不正使用があった場合は、直ちにお知らせいただくことに同意します。"
+    },
+    "partnerObligations": {
+      "title": "パートナーの義務",
+      "content": "パートナーとして、製品やサービスに関する正確な情報の提供、適用法規の遵守、品質基準の維持に責任を負います。"
+    },
+    "payments": {
+      "title": "支払いと取引",
+      "content": "プラットフォームを通じたすべての取引は、当社の支払いポリシーに従います。収益分配は、パートナーと観光村管理者間の合意に従って実施されます。"
+    },
+    "intellectualProperty": {
+      "title": "知的財産権",
+      "content": "このプラットフォーム上のすべてのコンテンツと資料は著作権で保護されています。書面による許可なくプラットフォームのコンテンツをコピー、変更、配布することはできません。"
+    },
+    "termination": {
+      "title": "終了",
+      "content": "これらの利用規約に違反した場合、事前の通知の有無にかかわらず、アカウントを一時停止または終了する権利を留保します。"
+    },
+    "contact": {
+      "title": "お問い合わせ",
+      "content": "利用規約に関するご質問は、legal@mitradewi.idまでお問い合わせください。"
+    },
+    "lastUpdated": "最終更新日: 2026年4月"
   }
 }

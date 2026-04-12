@@ -1,4 +1,5 @@
-import { AccommodationPageHeader, AccommodationWizard } from "@/features/accommodation";
+import { AccommodationPageHeader } from "@/features/accommodation/components/page-header";
+import { AccommodationWizard } from "@/features/accommodation/components/accommodation-wizard";
 
 export default function TambahPenginapanPage() {
   return (

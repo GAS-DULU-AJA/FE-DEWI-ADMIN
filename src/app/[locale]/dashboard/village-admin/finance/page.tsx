@@ -7,7 +7,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { VILLAGE_PROFILE, VillagePageHeader } from "@/features/village";
+import { VILLAGE_PROFILE } from "@/features/village/mock-data";
+import { VillagePageHeader } from "@/features/village/components/page-header";
 
 type WithdrawalStatus = "pending" | "completed" | "rejected";
 

@@ -1,8 +1,6 @@
-import {
-  ExperiencePromotionCard,
-  ExperiencePromotionForm,
-  getExperiencePromotions,
-} from "@/features/experience";
+import { ExperiencePromotionCard } from "@/features/experience/components/promotion-card";
+import { ExperiencePromotionForm } from "@/features/experience/components/promotion-form";
+import { getExperiencePromotions } from "@/features/experience/utils";
 import { getTranslations } from "next-intl/server";
 
 export default async function ExperiencePromotionsPage({

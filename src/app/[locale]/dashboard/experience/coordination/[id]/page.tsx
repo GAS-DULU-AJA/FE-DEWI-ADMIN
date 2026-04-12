@@ -1,10 +1,8 @@
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
-import {
-  PaymentMilestoneTracker,
-  RevenueShareDisplay,
-  getCoordinationById,
-} from "@/features/experience";
+import { PaymentMilestoneTracker } from "@/features/experience/components/payment-milestone-tracker";
+import { RevenueShareDisplay } from "@/features/experience/components/revenue-share-display";
+import { getCoordinationById } from "@/features/experience/utils";
 
 export default async function CoordinationDetailPage({
   params,

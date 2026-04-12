@@ -1,5 +1,6 @@
 import { StatCard } from "@/components/dashboard/stat-card";
-import { ExperienceCard, ExperienceDashboardCharts, getExperiences } from "@/features/experience";
+import { ExperienceDashboardSectionsTabs } from "@/features/experience/components/experience-dashboard-sections-tabs";
+import { getExperiences } from "@/features/experience/utils";
 import { formatCurrency } from "@/lib/utils";
 import { getTranslations } from "next-intl/server";
 
@@ -29,13 +30,7 @@ export default async function ExperienceDashboardPage({
         <StatCard label={t("dashboard.kpi.pendingApprovals")} value={pendingApprovals} icon="partners" color="blue" />
       </div>
 
-      <ExperienceDashboardCharts />
-
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-        {experiences.map((experience) => (
-          <ExperienceCard key={experience.id} experience={experience} />
-        ))}
-      </div>
+      <ExperienceDashboardSectionsTabs experiences={experiences} />
     </div>
   );
 }

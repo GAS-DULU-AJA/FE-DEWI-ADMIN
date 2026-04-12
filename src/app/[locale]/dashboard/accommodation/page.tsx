@@ -5,12 +5,14 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   ACCOMMODATIONS,
-  AccommodationCard,
-  AccommodationPageHeader,
-  PropertySwitcher,
+} from "@/features/accommodation/mock-data";
+import { AccommodationCard } from "@/features/accommodation/components/accommodation-card";
+import { AccommodationPageHeader } from "@/features/accommodation/components/page-header";
+import { PropertySwitcher } from "@/features/accommodation/components/property-switcher";
+import {
   getAllRooms,
   getAllReservations,
-} from "@/features/accommodation";
+} from "@/features/accommodation/utils";
 import {
   MonthlyRevenueTrendChart,
   ReservationStatusDonutChart,

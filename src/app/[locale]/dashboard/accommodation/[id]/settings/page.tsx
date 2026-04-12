@@ -4,12 +4,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import {
-  AccommodationPageHeader,
-  getAccommodationById,
-  MediaGallery,
-  PropertyDetailTabs,
-} from "@/features/accommodation";
+import { AccommodationPageHeader } from "@/features/accommodation/components/page-header";
+import { getAccommodationById } from "@/features/accommodation/utils";
+import { MediaGallery } from "@/features/accommodation/components/media-gallery";
+import { PropertyDetailTabs } from "@/features/accommodation/components/property-detail-tabs";
 
 export default async function PropertySettingsPage({
   params,

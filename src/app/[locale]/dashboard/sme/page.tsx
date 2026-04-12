@@ -4,14 +4,10 @@ import { Button } from "@/components/ui/button";
 import { AlertTriangle, Package, Plus, Tag } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { useTranslations } from "next-intl";
-import {
-  SME_ORDERS,
-  SME_PRODUCTS,
-  SME_PROFILE,
-  SmeDashboardCharts,
-  SmeProfileForm,
-  getSmeDashboardMetrics,
-} from "@/features/sme";
+import { SME_ORDERS, SME_PRODUCTS, SME_PROFILE } from "@/features/sme/mock-data";
+import { SmeDashboardCharts } from "@/features/sme/components/dashboard-charts";
+import { SmeProfileForm } from "@/features/sme/components/sme-profile-form";
+import { getSmeDashboardMetrics } from "@/features/sme/utils";
 
 export default function UmkmDashboard() {
   const t = useTranslations("sme.dashboard");

@@ -1,8 +1,8 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { detectScheduleConflicts } from "@/features/experience";
-import type { ExperienceItem } from "@/features/experience";
+import { detectScheduleConflicts } from "@/features/experience/utils";
+import type { ExperienceItem } from "@/features/experience/types";
 import { useTranslations } from "next-intl";
 
 export function ExperienceCalendar({ experiences }: { experiences: ExperienceItem[] }) {

@@ -6,11 +6,11 @@ import { Button } from "@/components/ui/button";
 import { AlertTriangle, Package, TrendingDown, RefreshCw } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { useTranslations } from "next-intl";
+import { StockIndicator } from "@/features/sme/components/stock-indicator";
 import {
-  StockIndicator,
   getSmeProducts,
   getSmeStockAdjustments,
-} from "@/features/sme";
+} from "@/features/sme/utils";
 
 type StockItem = {
   id: string;

@@ -36,6 +36,8 @@ export type CoordinationStatus =
   | "completed"
   | "rejected";
 
+export type FacilityReservationStatus = "pending" | "approved" | "rejected" | "completed";
+
 export type GovernmentServiceType =
   | "clinic"
   | "hospital"
@@ -107,6 +109,8 @@ export interface Experience {
   description: string;
   category: ExperienceCategory;
   location: string;
+  latitude?: number;
+  longitude?: number;
   startsAt: string;
   endsAt: string;
   recurringPattern?: "one-time" | "daily" | "weekly" | "monthly";
@@ -168,4 +172,18 @@ export interface VillageDashboardKpi {
   monthlyRevenue: number;
   facilityUtilizationRate: number;
   averageVillageRating: number;
+}
+
+export interface FacilityReservation {
+  id: string;
+  facilityId: string;
+  facilityName: string;
+  requesterName: string;
+  requesterRole: "organizer" | "community" | "government" | "internal";
+  startDate: string;
+  endDate: string;
+  participants: number;
+  purpose: string;
+  status: FacilityReservationStatus;
+  notes?: string;
 }

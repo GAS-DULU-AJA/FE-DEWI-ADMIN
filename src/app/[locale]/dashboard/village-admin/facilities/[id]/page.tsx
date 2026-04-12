@@ -4,13 +4,15 @@ import { useParams } from "next/navigation";
 import { notFound } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { FACILITIES, VillagePageHeader } from "@/features/village";
+import { VillagePageHeader } from "@/features/village/components/page-header";
+import { useFacilityManagementStore } from "@/features/village/stores/facility-management-store";
 import { formatCurrency } from "@/lib/utils";
 
 export default function FacilityDetailPage() {
   const t = useTranslations("village");
   const { id } = useParams<{ id: string }>();
-  const facility = FACILITIES.find((item) => item.id === id);
+  const facilities = useFacilityManagementStore((state) => state.facilities);
+  const facility = facilities.find((item) => item.id === id);
 
   if (!facility) {
     notFound();

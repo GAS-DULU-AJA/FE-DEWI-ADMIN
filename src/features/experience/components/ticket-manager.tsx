@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import type { TicketType } from "@/features/experience";
+import type { TicketType } from "@/features/experience/types";
 import { useTranslations } from "next-intl";
 
 export function TicketManager({ tickets }: { tickets: TicketType[] }) {

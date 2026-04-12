@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { useAuthStore } from "@/stores/auth-store";
 import { cn } from "@/lib/utils";
-import { ACCOMMODATIONS } from "@/features/accommodation";
+import { ACCOMMODATIONS } from "@/features/accommodation/mock-data";
 import {
   LayoutDashboard,
   Building2,
@@ -59,7 +59,13 @@ function getNavItems(role: PartnerRole, t: ReturnType<typeof useTranslations>): 
       { href: `${base}/village-admin`, label: t("nav.dashboard"), icon: <LayoutDashboard className="h-4 w-4" /> },
       { href: `${base}/village-admin/village-data`, label: t("nav.villageData"), icon: <Building2 className="h-4 w-4" /> },
       { href: `${base}/village-admin/facilities`, label: t("nav.facilities"), icon: <BarChart3 className="h-4 w-4" /> },
+      { href: `${base}/village-admin/facilities/reservations`, label: t("nav.facilityReservations"), icon: <ClipboardList className="h-4 w-4" /> },
+      { type: "section", label: t("nav.experiences") },
       { href: `${base}/village-admin/experiences`, label: t("nav.experiences"), icon: <CalendarDays className="h-4 w-4" /> },
+      { href: `${base}/village-admin/experiences/calendar`, label: t("nav.calendar"), icon: <CalendarDays className="h-4 w-4" /> },
+      { href: `${base}/village-admin/experiences/attendees`, label: t("nav.attendees"), icon: <Users className="h-4 w-4" /> },
+      { href: `${base}/village-admin/experiences/analytics`, label: t("nav.experienceAnalytics"), icon: <TrendingUp className="h-4 w-4" /> },
+      { type: "section", label: t("nav.general") },
       { href: `${base}/village-admin/approval`, label: t("nav.partnerVerification"), icon: <CheckSquare className="h-4 w-4" /> },
       { href: `${base}/village-admin/partners`, label: t("nav.partners"), icon: <Users className="h-4 w-4" /> },
       { href: `${base}/village-admin/coordination`, label: t("nav.externalCoordination"), icon: <MessageSquare className="h-4 w-4" /> },
@@ -93,11 +99,17 @@ function getNavItems(role: PartnerRole, t: ReturnType<typeof useTranslations>): 
       { href: `${base}/experience`, label: t("partner.eventOrganizer"), icon: <CalendarDays className="h-4 w-4" /> },
       { href: `${base}/experience/events`, label: t("events.title"), icon: <CalendarDays className="h-4 w-4" /> },
       { href: `${base}/experience/calendar`, label: t("nav.calendar"), icon: <CalendarDays className="h-4 w-4" /> },
+      { href: `${base}/experience/speakers`, label: t("nav.speakers"), icon: <Users className="h-4 w-4" /> },
       { type: "section", label: t("nav.orders") },
       { href: `${base}/experience/reservations`, label: t("reservations.title"), icon: <ClipboardList className="h-4 w-4" /> },
+      { href: `${base}/experience/attendees`, label: t("nav.attendees"), icon: <Users className="h-4 w-4" /> },
       { href: `${base}/experience/coordination`, label: t("nav.externalCoordination"), icon: <Users className="h-4 w-4" /> },
+      { type: "section", label: t("nav.insights") },
+      { href: `${base}/experience/analytics`, label: t("nav.experienceAnalytics"), icon: <TrendingUp className="h-4 w-4" /> },
       { href: `${base}/experience/reviews`, label: t("dashboard.reviews"), icon: <Star className="h-4 w-4" /> },
       { href: `${base}/experience/promotions`, label: t("nav.promotions"), icon: <Wallet className="h-4 w-4" /> },
+      { href: `${base}/experience/documents`, label: t("nav.documents"), icon: <ClipboardList className="h-4 w-4" /> },
+      { href: `${base}/experience/post-event`, label: t("nav.postEvent"), icon: <Star className="h-4 w-4" /> },
     ],
   };
 

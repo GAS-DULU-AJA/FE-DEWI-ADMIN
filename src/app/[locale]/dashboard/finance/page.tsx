@@ -6,12 +6,12 @@ import { Badge } from "@/components/ui/badge";
 import {
   getConsolidatedRevenue,
   getAllReservations,
-} from "@/features/accommodation";
+} from "@/features/accommodation/utils";
 import {
   MonthlyRevenueTrendChart,
   PaymentStatusDonutChart,
 } from "@/features/accommodation/components/dashboard-charts";
-import { COORDINATION_REQUESTS, VILLAGE_KPI } from "@/features/village";
+import { COORDINATION_REQUESTS, VILLAGE_KPI } from "@/features/village/mock-data";
 import { formatCurrency } from "@/lib/utils";
 import { TrendingUp, Wallet, CheckCircle, AlertCircle } from "lucide-react";
 

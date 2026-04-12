@@ -28,6 +28,11 @@ export type ExperienceLifecycleStatus =
   | "refund_processing"
   | "closed";
 
+export type EventVisibility = "public" | "private" | "invite_only";
+export type EventLocationType = "offline" | "online" | "hybrid";
+export type EventDocumentType = "contract" | "rundown" | "permit" | "invoice" | "other";
+export type NotificationType = "reminder" | "update" | "cancellation" | "promotion" | "check_in";
+
 export interface TicketType {
   id: string;
   name: string;
@@ -40,6 +45,9 @@ export interface TicketType {
   includes: string[];
   minAge?: number;
   maxAge?: number;
+  salesStart?: string;
+  salesEnd?: string;
+  refundPolicy?: "full" | "partial" | "non_refundable";
 }
 
 export interface ItineraryItem {
@@ -49,6 +57,58 @@ export interface ItineraryItem {
   location?: string;
   description?: string;
   isOptional: boolean;
+  speakerId?: string;
+}
+
+export interface Speaker {
+  id: string;
+  name: string;
+  title: string;
+  bio: string;
+  photoUrl?: string;
+  topics: string[];
+  email?: string;
+  phone?: string;
+  socialMedia?: { platform: string; url: string }[];
+}
+
+export interface EventDocument {
+  id: string;
+  experienceId: string;
+  name: string;
+  type: EventDocumentType;
+  url: string;
+  fileSize?: number;
+  uploadedAt: string;
+}
+
+export interface EventNotification {
+  id: string;
+  experienceId: string;
+  type: NotificationType;
+  title: string;
+  message: string;
+  scheduledAt?: string;
+  sentAt?: string;
+  recipientCount: number;
+  status: "draft" | "scheduled" | "sent" | "failed";
+}
+
+export interface PostEventSurveyQuestion {
+  id: string;
+  question: string;
+  type: "rating" | "text" | "multiple_choice";
+  options?: string[];
+}
+
+export interface PostEventSurvey {
+  id: string;
+  experienceId: string;
+  title: string;
+  questions: PostEventSurveyQuestion[];
+  totalResponses: number;
+  averageSatisfaction: number;
+  createdAt: string;
 }
 
 export interface ExperienceItem {
@@ -57,6 +117,9 @@ export interface ExperienceItem {
   description: string;
   shortDescription: string;
   category: ExperienceCategory;
+  visibility: EventVisibility;
+  locationType: EventLocationType;
+  onlineUrl?: string;
   locationName: string;
   locationAddress: string;
   latitude: number;
@@ -67,7 +130,9 @@ export interface ExperienceItem {
   isMultiDay: boolean;
   recurringPattern?: "one-time" | "daily" | "weekly" | "monthly";
   totalCapacity: number;
+  maxOnlineCapacity?: number;
   ticketTypes: TicketType[];
+  speakers: Speaker[];
   media: string[];
   posterImage: string;
   videoUrl?: string;
@@ -83,11 +148,15 @@ export interface ExperienceItem {
   insuranceIncluded?: boolean;
   itinerary: ItineraryItem[];
   facilitiesNeeded?: string[];
+  documents: EventDocument[];
+  notifications: EventNotification[];
   status: ExperienceLifecycleStatus;
   averageRating: number;
   totalReviews: number;
   totalBookings: number;
   monthlyRevenue: number;
+  totalCheckedIn: number;
+  totalNoShow: number;
 }
 
 export interface ExperienceReservation {
@@ -108,6 +177,10 @@ export interface ExperienceReservation {
   specialRequirements?: string;
   cancellationReason?: string;
   refundAmount?: number;
+  qrCode: string;
+  eTicketUrl?: string;
+  checkInTime?: string;
+  seatNumber?: string;
   createdAt: string;
 }
 

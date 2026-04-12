@@ -4,7 +4,8 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { PARTNER_APPLICATIONS, VillagePageHeader } from "@/features/village";
+import { PARTNER_APPLICATIONS } from "@/features/village/mock-data";
+import { VillagePageHeader } from "@/features/village/components/page-header";
 
 export default function VillageAdminPartnersPage() {
   const t = useTranslations("village");

@@ -3,11 +3,11 @@
 import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ACCOMMODATIONS } from "@/features/accommodation/mock-data";
+import { AccommodationPageHeader } from "@/features/accommodation/components/page-header";
 import {
-  ACCOMMODATIONS,
-  AccommodationPageHeader,
   getAllReservations,
-} from "@/features/accommodation";
+} from "@/features/accommodation/utils";
 import { formatCurrency, formatDateShort } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import {

@@ -6,7 +6,7 @@ import {
   getAllReservations,
   getConsolidatedRevenue,
   getAccommodationNameById,
-} from "@/features/accommodation";
+} from "@/features/accommodation/utils";
 import { formatCurrency, formatDateShort } from "@/lib/utils";
 import { getTranslations } from "next-intl/server";
 

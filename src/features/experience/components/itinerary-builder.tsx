@@ -1,7 +1,7 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import type { ItineraryItem } from "@/features/experience";
+import type { ItineraryItem } from "@/features/experience/types";
 import { useTranslations } from "next-intl";
 
 export function ItineraryBuilder({ items }: { items: ItineraryItem[] }) {

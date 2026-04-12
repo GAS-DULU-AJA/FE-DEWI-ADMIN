@@ -2,22 +2,22 @@ import { notFound } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ACCOMMODATIONS } from "@/features/accommodation/mock-data";
+import { AccommodationPageHeader } from "@/features/accommodation/components/page-header";
+import { BankAccountForm } from "@/features/accommodation/components/bank-account-form";
 import {
-  ACCOMMODATIONS,
-  AccommodationPageHeader,
-  BankAccountForm,
   getAccommodationById,
   getBankAccountByAccommodationId,
   getPromotionsByAccommodationId,
   getRoomsByAccommodationId,
   getWithdrawalsByAccommodationId,
   calculateOccupancyRate,
-  MediaGallery,
-  PromotionCard,
-  PropertyDetailTabs,
-  PropertySwitcher,
-  SubmissionStatusBadge,
-} from "@/features/accommodation";
+} from "@/features/accommodation/utils";
+import { MediaGallery } from "@/features/accommodation/components/media-gallery";
+import { PromotionCard } from "@/features/accommodation/components/promotion-card";
+import { PropertyDetailTabs } from "@/features/accommodation/components/property-detail-tabs";
+import { PropertySwitcher } from "@/features/accommodation/components/property-switcher";
+import { SubmissionStatusBadge } from "@/features/accommodation/components/status-badge";
 import { formatCurrency } from "@/lib/utils";
 
 export default async function AccommodationDetailPage({

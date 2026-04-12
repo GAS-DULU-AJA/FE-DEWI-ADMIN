@@ -1,7 +1,8 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { VillageDataForm, VillagePageHeader } from "@/features/village";
+import { VillageDataForm } from "@/features/village/components/village-data-form";
+import { VillagePageHeader } from "@/features/village/components/page-header";
 
 export default function VillageDataPage() {
   const t = useTranslations("village");
