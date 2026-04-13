@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
+import { setupDevPlatform } from "@cloudflare/next-on-pages/next-dev";
 
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
@@ -20,11 +21,20 @@ const nextConfig: NextConfig = {
           { key: "X-Frame-Options", value: "DENY" },
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(self)" },
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=(self)",
+          },
         ],
       },
     ];
   },
 };
 
-export default withNextIntl(nextConfig);
+export default async (): Promise<NextConfig> => {
+  if (process.env.NODE_ENV === "development") {
+    await setupDevPlatform();
+  }
+
+  return withNextIntl(nextConfig);
+};
