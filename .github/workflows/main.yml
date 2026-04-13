@@ -41,7 +41,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy .vercel/output/static --project-name=niel-portfolio-app --branch=production
+          command: pages deploy .vercel/output/static --project-name=mitra-dewi --branch=production
 
       - name: Deploy to Cloudflare Pages (Development)
         if: github.ref == 'refs/heads/development'
@@ -49,7 +49,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy .vercel/output/static --project-name=niel-portfolio-app-dev --branch=development
+          command: pages deploy .vercel/output/static --project-name=mitra-dewi--branch=development
 
       - name: Deploy Preview
         if: github.event_name == 'pull_request'
@@ -57,4 +57,4 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy .vercel/output/static --project-name=niel-portfolio-app-dev --branch=preview-${{ github.event.pull_request.number }}
+          command: pages deploy .vercel/output/static --project-name=mitra-dewi--branch=preview-${{ github.event.pull_request.number }}
