@@ -5,6 +5,8 @@ import { hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 
+export const runtime = "edge";
+
 type Locale = (typeof routing.locales)[number];
 
 const localeMetadata = {

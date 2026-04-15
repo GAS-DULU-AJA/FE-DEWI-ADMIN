@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
+export const runtime = "edge";
+
 export const metadata: Metadata = {
   title: "Mitra Dewi — Platform Digital Desa Wisata",
   description:
