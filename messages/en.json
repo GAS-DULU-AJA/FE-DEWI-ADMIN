@@ -1,4 +1,48 @@
 {
+  "reviewsPage": {
+    "title": "Reviews",
+    "subtitle": "Visitor and guest reviews for the tourism village",
+    "redirecting": "Redirecting to accommodation reviews...",
+    "totalReviews": "{count} reviews",
+    "replied": "{count} replied",
+    "unreplied": "{count} unreplied",
+    "noReviews": "No reviews found for the selected filter.",
+    "helpful": "Helpful",
+    "reply": "Reply",
+    "viewReply": "View Reply",
+    "partnerReply": "Partner Reply",
+    "replyPlaceholder": "Write a reply to this review...",
+    "sendReply": "Send Reply",
+    "cancel": "Cancel",
+    "categories": {
+      "all": "All",
+      "accommodation": "Accommodation",
+      "sme": "SME Products",
+      "experience": "Events"
+    }
+  },
+  "accommodationReviews": {
+    "title": "Accommodation Reviews",
+    "description": "All room reviews and stay experiences from all partner accommodations.",
+    "accommodation": "Accommodation",
+    "breadcrumbReviews": "Reviews",
+    "filterTitle": "Filter Reviews",
+    "allAccommodations": "All Accommodations",
+    "rating": "Rating",
+    "allRatings": "All Ratings",
+    "stars": "{count} Stars",
+    "searchLabel": "Search reviews",
+    "searchPlaceholder": "Guest name or review content...",
+    "totalReviews": "Total Reviews",
+    "averageRating": "Average Rating",
+    "viewReply": "View Reply",
+    "partnerReply": "Accommodation Reply",
+    "reply": "Reply",
+    "replyPlaceholder": "Write a reply to this review...",
+    "sendReply": "Send Reply",
+    "cancel": "Cancel",
+    "noReviews": "No review data for the selected filter combination."
+  },
   "common": {
     "appName": "Mitra Dewi",
     "appTagline": "Tourism Village Digital Platform",
@@ -647,6 +691,7 @@
       "viewDetail": "View Detail",
       "submitResponse": "Submit Response",
       "flagReview": "Flag Review",
+      "cancel": "Cancel",
       "requestWithdrawal": "Request Withdrawal",
       "updateScheme": "Update Scheme",
       "saveSharing": "Save Sharing Rule"
@@ -936,7 +981,17 @@
     "reviews": {
       "title": "Village Reviews",
       "subtitle": "Review and respond to experience, facility, and general village feedback.",
-      "responsePlaceholder": "Write a public response"
+      "responsePlaceholder": "Write a public response",
+      "viewReply": "View Reply",
+      "adminReply": "Village Admin Reply",
+      "previouslyResponded": "This review has been previously responded to.",
+      "replyButton": "Reply to Review",
+      "filters": {
+        "all": "All",
+        "experience": "Experience",
+        "facility": "Facility",
+        "general": "General"
+      }
     },
     "partners": {
       "title": "Partner Management",
@@ -1097,7 +1152,11 @@
     },
     "reviews": {
       "title": "Experience Reviews",
-      "averageRating": "Average rating: {value}/5"
+      "averageRating": "Average rating: {value}/5",
+      "reply": "Reply",
+      "replyPlaceholder": "Write a reply to this review...",
+      "sendReply": "Send Reply",
+      "cancel": "Cancel"
     },
     "promotions": {
       "title": "Experience Promotions",
@@ -1543,7 +1602,11 @@
       "totalReviews": "Total Reviews",
       "averageRating": "Average Rating",
       "ratingValue": "Rating: {rating}/5",
-      "reply": "Reply: {response}"
+      "reply": "Reply",
+      "partnerReply": "SME Reply",
+      "replyPlaceholder": "Write a reply to this review...",
+      "sendReply": "Send Reply",
+      "cancel": "Cancel"
     },
     "promotions": {
       "title": "SME Promotions",

@@ -1,4 +1,48 @@
 {
+  "reviewsPage": {
+    "title": "レビュー",
+    "subtitle": "観光村の訪問者とゲストのレビュー",
+    "redirecting": "宿泊レビューにリダイレクト中...",
+    "totalReviews": "{count}件のレビュー",
+    "replied": "{count}件返信済み",
+    "unreplied": "{count}件未返信",
+    "noReviews": "選択したフィルターに該当するレビューはありません。",
+    "helpful": "役立った",
+    "reply": "返信",
+    "viewReply": "返信を見る",
+    "partnerReply": "パートナーの返信",
+    "replyPlaceholder": "このレビューへの返信を書く...",
+    "sendReply": "返信を送信",
+    "cancel": "キャンセル",
+    "categories": {
+      "all": "すべて",
+      "accommodation": "宿泊施設",
+      "sme": "SME商品",
+      "experience": "イベント"
+    }
+  },
+  "accommodationReviews": {
+    "title": "宿泊レビュー",
+    "description": "すべてのパートナー宿泊施設の客室レビューと宿泊体験。",
+    "accommodation": "宿泊施設",
+    "breadcrumbReviews": "レビュー",
+    "filterTitle": "レビューフィルター",
+    "allAccommodations": "すべての宿泊施設",
+    "rating": "評価",
+    "allRatings": "すべての評価",
+    "stars": "{count}つ星",
+    "searchLabel": "レビュー検索",
+    "searchPlaceholder": "ゲスト名またはレビュー内容...",
+    "totalReviews": "レビュー数",
+    "averageRating": "平均評価",
+    "viewReply": "返信を見る",
+    "partnerReply": "宿泊施設の返信",
+    "reply": "返信",
+    "replyPlaceholder": "このレビューへの返信を書く...",
+    "sendReply": "返信を送信",
+    "cancel": "キャンセル",
+    "noReviews": "選択したフィルターの組み合わせに該当するレビューデータはありません。"
+  },
   "common": {
     "appName": "Mitra Dewi",
     "appTagline": "観光村デジタルプラットフォーム",
@@ -647,6 +691,7 @@
       "viewDetail": "詳細を見る",
       "submitResponse": "返信を送信",
       "flagReview": "レビューを報告",
+      "cancel": "キャンセル",
       "requestWithdrawal": "出金申請",
       "updateScheme": "スキームを更新",
       "saveSharing": "配分ルールを保存"
@@ -936,7 +981,17 @@
     "reviews": {
       "title": "村レビュー",
       "subtitle": "体験・施設・全体レビューを確認して返信します。",
-      "responsePlaceholder": "公開返信を入力"
+      "responsePlaceholder": "公開返信を入力",
+      "viewReply": "返信を見る",
+      "adminReply": "村管理者の返信",
+      "previouslyResponded": "このレビューは以前に返信済みです。",
+      "replyButton": "レビューに返信",
+      "filters": {
+        "all": "すべて",
+        "experience": "体験",
+        "facility": "施設",
+        "general": "一般"
+      }
     },
     "partners": {
       "title": "パートナー管理",
@@ -1097,7 +1152,11 @@
     },
     "reviews": {
       "title": "体験レビュー",
-      "averageRating": "平均評価: {value}/5"
+      "averageRating": "平均評価: {value}/5",
+      "reply": "返信",
+      "replyPlaceholder": "このレビューへの返信を書く...",
+      "sendReply": "返信を送信",
+      "cancel": "キャンセル"
     },
     "promotions": {
       "title": "体験プロモーション",
@@ -1543,7 +1602,11 @@
       "totalReviews": "レビュー数",
       "averageRating": "平均評価",
       "ratingValue": "評価: {rating}/5",
-      "reply": "返信: {response}"
+      "reply": "返信",
+      "partnerReply": "SMEの返信",
+      "replyPlaceholder": "このレビューへの返信を書く...",
+      "sendReply": "返信を送信",
+      "cancel": "キャンセル"
     },
     "promotions": {
       "title": "SMEプロモーション",

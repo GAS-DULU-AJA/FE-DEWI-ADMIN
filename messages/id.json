@@ -1,4 +1,48 @@
 {
+  "reviewsPage": {
+    "title": "Ulasan",
+    "subtitle": "Ulasan pengunjung dan tamu desa wisata",
+    "redirecting": "Mengarahkan ke ulasan penginapan...",
+    "totalReviews": "{count} ulasan",
+    "replied": "{count} sudah dibalas",
+    "unreplied": "{count} belum dibalas",
+    "noReviews": "Tidak ada ulasan untuk filter yang dipilih.",
+    "helpful": "Membantu",
+    "reply": "Balas",
+    "viewReply": "Lihat Balasan",
+    "partnerReply": "Balasan Mitra",
+    "replyPlaceholder": "Tulis balasan untuk ulasan ini...",
+    "sendReply": "Kirim Balasan",
+    "cancel": "Batal",
+    "categories": {
+      "all": "Semua",
+      "accommodation": "Penginapan",
+      "sme": "Produk UMKM",
+      "experience": "Acara"
+    }
+  },
+  "accommodationReviews": {
+    "title": "Ulasan Penginapan",
+    "description": "Seluruh ulasan kamar dan pengalaman menginap dari semua penginapan mitra.",
+    "accommodation": "Penginapan",
+    "breadcrumbReviews": "Ulasan",
+    "filterTitle": "Filter Ulasan",
+    "allAccommodations": "Semua Penginapan",
+    "rating": "Rating",
+    "allRatings": "Semua Rating",
+    "stars": "{count} Bintang",
+    "searchLabel": "Cari ulasan",
+    "searchPlaceholder": "Nama tamu atau isi ulasan...",
+    "totalReviews": "Total Ulasan",
+    "averageRating": "Rata-rata Rating",
+    "viewReply": "Lihat Balasan",
+    "partnerReply": "Balasan Penginapan",
+    "reply": "Balas",
+    "replyPlaceholder": "Tulis balasan untuk ulasan ini...",
+    "sendReply": "Kirim Balasan",
+    "cancel": "Batal",
+    "noReviews": "Tidak ada data ulasan untuk kombinasi filter yang dipilih."
+  },
   "common": {
     "appName": "Mitra Dewi",
     "appTagline": "Platform Digital Desa Wisata",
@@ -647,6 +691,7 @@
       "viewDetail": "Lihat Detail",
       "submitResponse": "Kirim Balasan",
       "flagReview": "Tandai Ulasan",
+      "cancel": "Batal",
       "requestWithdrawal": "Ajukan Pencairan",
       "updateScheme": "Perbarui Skema",
       "saveSharing": "Simpan Aturan Bagi Hasil"
@@ -936,7 +981,17 @@
     "reviews": {
       "title": "Ulasan Desa",
       "subtitle": "Tinjau dan balas ulasan untuk pengalaman, fasilitas, dan umpan balik umum desa.",
-      "responsePlaceholder": "Tulis balasan publik"
+      "responsePlaceholder": "Tulis balasan publik",
+      "viewReply": "Lihat Balasan",
+      "adminReply": "Balasan Admin Desa",
+      "previouslyResponded": "Ulasan ini telah dibalas sebelumnya.",
+      "replyButton": "Balas Ulasan",
+      "filters": {
+        "all": "Semua",
+        "experience": "Pengalaman",
+        "facility": "Fasilitas",
+        "general": "Umum"
+      }
     },
     "partners": {
       "title": "Manajemen Mitra",
@@ -1097,7 +1152,11 @@
     },
     "reviews": {
       "title": "Ulasan Pengalaman",
-      "averageRating": "Rata-rata rating: {value}/5"
+      "averageRating": "Rata-rata rating: {value}/5",
+      "reply": "Balas",
+      "replyPlaceholder": "Tulis balasan untuk ulasan ini...",
+      "sendReply": "Kirim Balasan",
+      "cancel": "Batal"
     },
     "promotions": {
       "title": "Promosi Pengalaman",
@@ -1543,7 +1602,11 @@
       "totalReviews": "Total Ulasan",
       "averageRating": "Rata-rata Rating",
       "ratingValue": "Rating: {rating}/5",
-      "reply": "Balasan: {response}"
+      "reply": "Balas",
+      "partnerReply": "Balasan UMKM",
+      "replyPlaceholder": "Tulis balasan untuk ulasan ini...",
+      "sendReply": "Kirim Balasan",
+      "cancel": "Batal"
     },
     "promotions": {
       "title": "Promosi UMKM",
