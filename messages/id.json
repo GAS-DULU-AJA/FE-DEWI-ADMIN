@@ -106,6 +106,8 @@
     "analytics": "Analitik",
     "calendar": "Kalender",
     "villageData": "Data Desa",
+    "villageManagement": "Kelola Desa",
+    "bankAccount": "Rekening Bank",
     "facilities": "Fasilitas",
     "facilityReservations": "Reservasi Fasilitas",
     "experiences": "Pengalaman",
@@ -701,6 +703,7 @@
       "subtitle": "Kelola profil resmi desa, informasi kontak, galeri media, dan rekening pencairan.",
       "profileTitle": "Profil Desa",
       "bankTitle": "Pengaturan Rekening Bank",
+      "bankSubtitle": "Kelola informasi rekening bank dan NPWP untuk pencairan dana.",
       "tabs": {
         "profile": "Profil",
         "locationContact": "Lokasi & Kontak",
@@ -794,7 +797,21 @@
       "bankAccountName": "Nama Pemilik Rekening",
       "bankName": "Nama Bank",
       "bankAccountNumber": "Nomor Rekening",
-      "maskedPreview": "Pratinjau Tersamarkan"
+      "maskedPreview": "Pratinjau Tersamarkan",
+      "days": {
+        "monday": "Senin",
+        "tuesday": "Selasa",
+        "wednesday": "Rabu",
+        "thursday": "Kamis",
+        "friday": "Jumat",
+        "saturday": "Sabtu",
+        "sunday": "Minggu"
+      },
+      "operatingHours": {
+        "is24Hours": "24 Jam",
+        "openTime": "Jam Buka",
+        "closeTime": "Jam Tutup"
+      }
     },
     "facilities": {
       "title": "Manajemen Fasilitas",
@@ -832,6 +849,12 @@
         "complete": "Tandai Selesai",
         "conflictTitle": "Konflik Jadwal",
         "conflictError": "Fasilitas ini sudah dipesan untuk periode yang sama. Pemesanan dari {conflictingReservation} untuk tanggal {conflictingDate} sudah tersedia. Silakan cek ulang tanggal.",
+        "confirmApproveTitle": "Setujui Reservasi",
+        "confirmApproveMessage": "Setujui permintaan reservasi fasilitas {facility}?",
+        "confirmRejectTitle": "Tolak Reservasi",
+        "confirmRejectMessage": "Tolak permintaan reservasi fasilitas {facility}?",
+        "confirmCompleteTitle": "Tandai Selesai",
+        "confirmCompleteMessage": "Apakah Anda yakin ingin menandai reservasi fasilitas {facility} sebagai selesai?",
         "status": {
           "pending": "Menunggu",
           "approved": "Disetujui",
@@ -1066,7 +1089,8 @@
       "partners": "Mitra",
       "reviews": "Ulasan",
       "analytics": "Analitik",
-      "finance": "Keuangan"
+      "finance": "Keuangan",
+      "bankAccount": "Rekening Bank"
     }
   },
   "experience": {

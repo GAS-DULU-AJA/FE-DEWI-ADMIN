@@ -48,6 +48,17 @@ export type GovernmentServiceType =
 
 export type GovernmentServicePriority = "open_24h" | "emergency_ready";
 
+export type DayOfWeek = "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday";
+
+export interface DaySchedule {
+  enabled: boolean;
+  is24Hours: boolean;
+  openTime?: string;
+  closeTime?: string;
+}
+
+export type OperatingHoursSchedule = Record<DayOfWeek, DaySchedule>;
+
 export interface GovernmentServiceFacility {
   id: string;
   type: GovernmentServiceType;
@@ -56,7 +67,7 @@ export interface GovernmentServiceFacility {
   latitude?: number;
   longitude?: number;
   phone?: string;
-  operatingHours?: string;
+  operatingHours?: string | OperatingHoursSchedule;
   notes?: string;
   priorities?: GovernmentServicePriority[];
 }

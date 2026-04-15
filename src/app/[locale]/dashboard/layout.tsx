@@ -51,7 +51,7 @@ export default function DashboardLayout({
             className="absolute inset-0 bg-black/50"
             onClick={() => setSidebarOpen(false)}
           />
-          <div className="relative z-50 h-full">
+          <div className="relative z-50 h-full w-64">
             <DashboardSidebar onClose={() => setSidebarOpen(false)} />
           </div>
         </div>

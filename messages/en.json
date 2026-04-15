@@ -106,6 +106,8 @@
     "analytics": "Analytics",
     "calendar": "Calendar",
     "villageData": "Village Data",
+    "villageManagement": "Village Management",
+    "bankAccount": "Bank Account",
     "facilities": "Facilities",
     "facilityReservations": "Facility Reservations",
     "experiences": "Experiences",
@@ -701,6 +703,7 @@
       "subtitle": "Maintain official village profile, contact information, media gallery, and withdrawal account.",
       "profileTitle": "Village Profile",
       "bankTitle": "Bank Account Settings",
+      "bankSubtitle": "Manage bank account information and tax ID for fund disbursement.",
       "tabs": {
         "profile": "Profile",
         "locationContact": "Location & Contact",
@@ -794,7 +797,21 @@
       "bankAccountName": "Bank Account Name",
       "bankName": "Bank Name",
       "bankAccountNumber": "Bank Account Number",
-      "maskedPreview": "Masked Preview"
+      "maskedPreview": "Masked Preview",
+      "days": {
+        "monday": "Monday",
+        "tuesday": "Tuesday",
+        "wednesday": "Wednesday",
+        "thursday": "Thursday",
+        "friday": "Friday",
+        "saturday": "Saturday",
+        "sunday": "Sunday"
+      },
+      "operatingHours": {
+        "is24Hours": "24 Hours",
+        "openTime": "Open Time",
+        "closeTime": "Close Time"
+      }
     },
     "facilities": {
       "title": "Facility Management",
@@ -832,6 +849,12 @@
         "complete": "Mark Completed",
         "conflictTitle": "Schedule Conflict",
         "conflictError": "This facility is already booked for the same period. A booking from {conflictingReservation} for {conflictingDate} already exists. Please check the dates again.",
+        "confirmApproveTitle": "Approve Reservation",
+        "confirmApproveMessage": "Approve the facility reservation request for {facility}?",
+        "confirmRejectTitle": "Reject Reservation",
+        "confirmRejectMessage": "Reject the facility reservation request for {facility}?",
+        "confirmCompleteTitle": "Mark as Completed",
+        "confirmCompleteMessage": "Are you sure you want to mark the facility reservation for {facility} as completed?",
         "status": {
           "pending": "Pending",
           "approved": "Approved",
@@ -1066,7 +1089,8 @@
       "partners": "Partners",
       "reviews": "Reviews",
       "analytics": "Analytics",
-      "finance": "Finance"
+      "finance": "Finance",
+      "bankAccount": "Bank Account"
     }
   },
   "experience": {

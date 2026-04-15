@@ -57,7 +57,8 @@ function getNavItems(role: PartnerRole, t: ReturnType<typeof useTranslations>): 
   const roleItems: Record<PartnerRole, NavElement[]> = {
     VILLAGE_ADMIN: [
       { href: `${base}/village-admin`, label: t("nav.dashboard"), icon: <LayoutDashboard className="h-4 w-4" /> },
-      { href: `${base}/village-admin/village-data`, label: t("nav.villageData"), icon: <Building2 className="h-4 w-4" /> },
+      { href: `${base}/village-admin/village-data`, label: t("nav.villageManagement"), icon: <Building2 className="h-4 w-4" /> },
+      { href: `${base}/village-admin/bank-account`, label: t("nav.bankAccount"), icon: <Wallet className="h-4 w-4" /> },
       { href: `${base}/village-admin/facilities`, label: t("nav.facilities"), icon: <BarChart3 className="h-4 w-4" /> },
       { href: `${base}/village-admin/facilities/reservations`, label: t("nav.facilityReservations"), icon: <ClipboardList className="h-4 w-4" /> },
       { type: "section", label: t("nav.experiences") },

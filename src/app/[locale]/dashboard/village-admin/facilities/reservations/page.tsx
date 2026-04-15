@@ -23,6 +23,10 @@ export default function VillageFacilityReservationsPage() {
     show: false,
     message: "",
   });
+  const [confirmAction, setConfirmAction] = useState<{
+    type: "approve" | "reject" | "complete";
+    reservation: (typeof reservations)[0];
+  } | null>(null);
   const { reservations, updateReservationStatus, checkScheduleConflict } =
     useFacilityManagementStore();
 
@@ -113,30 +117,32 @@ export default function VillageFacilityReservationsPage() {
               ) : null}
 
               <div className="flex flex-wrap gap-2 pt-2">
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => handleApprove(reservation)}
-                  disabled={reservation.status !== "pending"}
-                >
-                  {t("facilities.reservations.approve")}
-                </Button>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => updateReservationStatus(reservation.id, "rejected")}
-                  disabled={reservation.status !== "pending"}
-                >
-                  {t("facilities.reservations.reject")}
-                </Button>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => updateReservationStatus(reservation.id, "completed")}
-                  disabled={reservation.status !== "approved"}
-                >
-                  {t("facilities.reservations.complete")}
-                </Button>
+                {reservation.status === "pending" && (
+                  <>
+                    <Button
+                      size="sm"
+                      onClick={() => setConfirmAction({ type: "approve", reservation })}
+                    >
+                      {t("facilities.reservations.approve")}
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="destructive"
+                      onClick={() => setConfirmAction({ type: "reject", reservation })}
+                    >
+                      {t("facilities.reservations.reject")}
+                    </Button>
+                  </>
+                )}
+                {reservation.status === "approved" && (
+                  <Button
+                    size="sm"
+                    className="bg-blue-600 hover:bg-blue-700 text-white"
+                    onClick={() => setConfirmAction({ type: "complete", reservation })}
+                  >
+                    {t("facilities.reservations.complete")}
+                  </Button>
+                )}
               </div>
             </CardContent>
           </Card>
@@ -150,6 +156,45 @@ export default function VillageFacilityReservationsPage() {
         confirmText={t("common.ok")}
         onConfirm={() => setConflictWarning({ show: false, message: "" })}
         onCancel={() => setConflictWarning({ show: false, message: "" })}
+      />
+
+      <ConfirmationDialog
+        open={!!confirmAction}
+        title={
+          confirmAction?.type === "approve"
+            ? t("facilities.reservations.confirmApproveTitle")
+            : confirmAction?.type === "reject"
+              ? t("facilities.reservations.confirmRejectTitle")
+              : t("facilities.reservations.confirmCompleteTitle")
+        }
+        description={
+          confirmAction?.type === "approve"
+            ? t("facilities.reservations.confirmApproveMessage", { facility: confirmAction?.reservation.facilityName ?? "" })
+            : confirmAction?.type === "reject"
+              ? t("facilities.reservations.confirmRejectMessage", { facility: confirmAction?.reservation.facilityName ?? "" })
+              : t("facilities.reservations.confirmCompleteMessage", { facility: confirmAction?.reservation.facilityName ?? "" })
+        }
+        variant={confirmAction?.type === "reject" ? "destructive" : "default"}
+        confirmText={
+          confirmAction?.type === "approve"
+            ? t("facilities.reservations.approve")
+            : confirmAction?.type === "reject"
+              ? t("facilities.reservations.reject")
+              : t("facilities.reservations.complete")
+        }
+        onConfirm={() => {
+          if (!confirmAction) return;
+          const { type, reservation } = confirmAction;
+          if (type === "approve") {
+            handleApprove(reservation);
+          } else if (type === "reject") {
+            updateReservationStatus(reservation.id, "rejected");
+          } else {
+            updateReservationStatus(reservation.id, "completed");
+          }
+          setConfirmAction(null);
+        }}
+        onCancel={() => setConfirmAction(null)}
       />
     </div>
   );

@@ -129,7 +129,7 @@ export function VillageLocationPicker({
   const currentLatLng = hasValidCoordinates ? ([latitude, longitude] as LatLngExpression) : null;
 
   return (
-    <div className="space-y-3 rounded-xl border bg-muted/20 p-4">
+    <div className="space-y-3 rounded-xl border border-stone-300 bg-muted/20 p-4">
       <div className="space-y-2">
         <p className="text-sm font-medium">{t("villageData.map.title")}</p>
         <p className="text-xs text-muted-foreground">{t("villageData.map.description")}</p>
@@ -187,7 +187,7 @@ export function VillageLocationPicker({
         ) : null}
       </div>
 
-      <div className="overflow-hidden rounded-lg border bg-background">
+      <div className="overflow-hidden rounded-lg border border-stone-300 bg-background">
         <MapContainer
           center={position}
           zoom={currentLatLng ? 15 : 5}

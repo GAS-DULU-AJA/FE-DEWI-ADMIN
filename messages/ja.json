@@ -106,6 +106,8 @@
     "analytics": "分析",
     "calendar": "カレンダー",
     "villageData": "村データ",
+    "villageManagement": "村管理",
+    "bankAccount": "銀行口座",
     "facilities": "施設",
     "facilityReservations": "施設予約",
     "experiences": "体験",
@@ -701,6 +703,7 @@
       "subtitle": "公式プロフィール、連絡先、メディアギャラリー、出金口座情報を管理します。",
       "profileTitle": "村プロフィール",
       "bankTitle": "銀行口座設定",
+      "bankSubtitle": "資金支払のための銀行口座情報と税務番号を管理します。",
       "tabs": {
         "profile": "プロフィール",
         "locationContact": "所在地・連絡先",
@@ -794,7 +797,21 @@
       "bankAccountName": "口座名義",
       "bankName": "銀行名",
       "bankAccountNumber": "口座番号",
-      "maskedPreview": "マスク表示"
+      "maskedPreview": "マスク表示",
+      "days": {
+        "monday": "月曜日",
+        "tuesday": "火曜日",
+        "wednesday": "水曜日",
+        "thursday": "木曜日",
+        "friday": "金曜日",
+        "saturday": "土曜日",
+        "sunday": "日曜日"
+      },
+      "operatingHours": {
+        "is24Hours": "24時間",
+        "openTime": "開店時間",
+        "closeTime": "閉店時間"
+      }
     },
     "facilities": {
       "title": "施設管理",
@@ -832,6 +849,12 @@
         "complete": "完了にする",
         "conflictTitle": "スケジュール競合",
         "conflictError": "この施設は同じ期間に既に予約されています。{conflictingReservation} による {conflictingDate} の予約が存在します。日付を確認してください。",
+        "confirmApproveTitle": "予約を承認",
+        "confirmApproveMessage": "{facility} の施設予約リクエストを承認しますか？",
+        "confirmRejectTitle": "予約を却下",
+        "confirmRejectMessage": "{facility} の施設予約リクエストを却下しますか？",
+        "confirmCompleteTitle": "完了としてマーク",
+        "confirmCompleteMessage": "{facility} の施設予約を完了としてマークしてもよろしいですか？",
         "status": {
           "pending": "保留中",
           "approved": "承認済み",
@@ -1066,7 +1089,8 @@
       "partners": "パートナー",
       "reviews": "レビュー",
       "analytics": "分析",
-      "finance": "財務"
+      "finance": "財務",
+      "bankAccount": "銀行口座"
     }
   },
   "experience": {
