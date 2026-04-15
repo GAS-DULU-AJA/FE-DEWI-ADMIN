@@ -32,6 +32,7 @@ describe("AuthServiceMock", () => {
         email: "new@dewi.id",
         password: "password123",
         fullName: "New User",
+        phone: "081234567890",
         role: "ACCOMMODATION",
       });
       expect(res.success).toBe(true);

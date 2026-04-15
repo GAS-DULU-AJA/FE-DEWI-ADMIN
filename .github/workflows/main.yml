@@ -34,6 +34,7 @@ jobs:
         run: npm run build && npm run build:cf
         env:
           NODE_ENV: production
+          NEXT_IGNORE_INCORRECT_LOCKFILE: 1
 
       - name: Deploy to Cloudflare Pages (Production)
         if: github.ref == 'refs/heads/production'
