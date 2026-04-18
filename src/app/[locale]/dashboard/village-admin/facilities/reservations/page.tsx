@@ -8,6 +8,7 @@ import { ConfirmationDialog } from "@/components/ui/confirmation-dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { SegmentedTabs } from "@/components/ui/segmented-tabs";
 
 const STATUS_BADGE_CLASS: Record<string, string> = {
   pending: "bg-amber-100 text-amber-800",
@@ -18,11 +19,16 @@ const STATUS_BADGE_CLASS: Record<string, string> = {
 
 export default function VillageFacilityReservationsPage() {
   const t = useTranslations("village");
+  const tc = useTranslations("common");
   const [status, setStatus] = useState("all");
   const [conflictWarning, setConflictWarning] = useState<{ show: boolean; message: string }>({
     show: false,
     message: "",
   });
+  const [confirmAction, setConfirmAction] = useState<{
+    type: "approve" | "reject" | "complete";
+    reservation: (typeof reservations)[0];
+  } | null>(null);
   const { reservations, updateReservationStatus, checkScheduleConflict } =
     useFacilityManagementStore();
 
@@ -65,18 +71,18 @@ export default function VillageFacilityReservationsPage() {
         ]}
       />
 
-      <div className="flex flex-wrap gap-2">
-        {["all", "pending", "approved", "rejected", "completed"].map((item) => (
-          <button
-            key={item}
-            type="button"
-            onClick={() => setStatus(item)}
-            className={`rounded-full px-3 py-1 text-xs ${status === item ? "bg-emerald-600 text-white" : "bg-stone-100 text-stone-600"}`}
-          >
-            {item}
-          </button>
-        ))}
-      </div>
+      <SegmentedTabs
+        tabs={[
+          { id: "all", label: tc("all") },
+          { id: "pending", label: t("facilities.reservations.status.pending") },
+          { id: "approved", label: t("facilities.reservations.status.approved") },
+          { id: "rejected", label: t("facilities.reservations.status.rejected") },
+          { id: "completed", label: t("facilities.reservations.status.completed") },
+        ]}
+        active={status}
+        onChange={setStatus}
+        sticky
+      />
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         {list.map((reservation) => (
@@ -113,30 +119,32 @@ export default function VillageFacilityReservationsPage() {
               ) : null}
 
               <div className="flex flex-wrap gap-2 pt-2">
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => handleApprove(reservation)}
-                  disabled={reservation.status !== "pending"}
-                >
-                  {t("facilities.reservations.approve")}
-                </Button>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => updateReservationStatus(reservation.id, "rejected")}
-                  disabled={reservation.status !== "pending"}
-                >
-                  {t("facilities.reservations.reject")}
-                </Button>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => updateReservationStatus(reservation.id, "completed")}
-                  disabled={reservation.status !== "approved"}
-                >
-                  {t("facilities.reservations.complete")}
-                </Button>
+                {reservation.status === "pending" && (
+                  <>
+                    <Button
+                      size="sm"
+                      onClick={() => setConfirmAction({ type: "approve", reservation })}
+                    >
+                      {t("facilities.reservations.approve")}
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="destructive"
+                      onClick={() => setConfirmAction({ type: "reject", reservation })}
+                    >
+                      {t("facilities.reservations.reject")}
+                    </Button>
+                  </>
+                )}
+                {reservation.status === "approved" && (
+                  <Button
+                    size="sm"
+                    className="bg-blue-600 hover:bg-blue-700 text-white"
+                    onClick={() => setConfirmAction({ type: "complete", reservation })}
+                  >
+                    {t("facilities.reservations.complete")}
+                  </Button>
+                )}
               </div>
             </CardContent>
           </Card>
@@ -147,9 +155,48 @@ export default function VillageFacilityReservationsPage() {
         open={conflictWarning.show}
         title={t("facilities.reservations.conflictTitle")}
         description={conflictWarning.message}
-        confirmText={t("common.ok")}
+        confirmText={tc("ok")}
         onConfirm={() => setConflictWarning({ show: false, message: "" })}
         onCancel={() => setConflictWarning({ show: false, message: "" })}
+      />
+
+      <ConfirmationDialog
+        open={!!confirmAction}
+        title={
+          confirmAction?.type === "approve"
+            ? t("facilities.reservations.confirmApproveTitle")
+            : confirmAction?.type === "reject"
+              ? t("facilities.reservations.confirmRejectTitle")
+              : t("facilities.reservations.confirmCompleteTitle")
+        }
+        description={
+          confirmAction?.type === "approve"
+            ? t("facilities.reservations.confirmApproveMessage", { facility: confirmAction?.reservation.facilityName ?? "" })
+            : confirmAction?.type === "reject"
+              ? t("facilities.reservations.confirmRejectMessage", { facility: confirmAction?.reservation.facilityName ?? "" })
+              : t("facilities.reservations.confirmCompleteMessage", { facility: confirmAction?.reservation.facilityName ?? "" })
+        }
+        variant={confirmAction?.type === "reject" ? "destructive" : "default"}
+        confirmText={
+          confirmAction?.type === "approve"
+            ? t("facilities.reservations.approve")
+            : confirmAction?.type === "reject"
+              ? t("facilities.reservations.reject")
+              : t("facilities.reservations.complete")
+        }
+        onConfirm={() => {
+          if (!confirmAction) return;
+          const { type, reservation } = confirmAction;
+          if (type === "approve") {
+            handleApprove(reservation);
+          } else if (type === "reject") {
+            updateReservationStatus(reservation.id, "rejected");
+          } else {
+            updateReservationStatus(reservation.id, "completed");
+          }
+          setConfirmAction(null);
+        }}
+        onCancel={() => setConfirmAction(null)}
       />
     </div>
   );

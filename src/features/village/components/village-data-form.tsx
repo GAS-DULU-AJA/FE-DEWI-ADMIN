@@ -3,22 +3,32 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
+import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
-import { VILLAGE_PROFILE } from "../mock-data";
-import { maskBankAccount } from "../utils";
+import { cn } from "@/lib/utils";
+import { VILLAGE_PROFILE, VILLAGE_CONTACTS, VILLAGE_SOCIAL_MEDIA, VILLAGE_PROFILE_SECTIONS, AVAILABLE_TAGS, VILLAGE_TAG_ASSIGNMENTS } from "../mock-data";
+import { OperatingHoursEditor } from "./operating-hours-editor";
+import { ContactListEditor } from "./contact-list-editor";
+import { SocialMediaListEditor } from "./social-media-list-editor";
+import { ProfileSectionEditor } from "./profile-section-editor";
+import { TagSelector } from "./tag-selector";
 import type {
   GovernmentServiceFacility,
   GovernmentServicePriority,
+  OperatingHoursSchedule,
   VillageProfile,
+  VillageContact,
+  VillageSocialMedia,
+  ProfileSection,
+  VillageTagAssignment,
 } from "../types";
 const VillageLocationPicker = dynamic(() => import("./village-location-picker").then(m => m.VillageLocationPicker), { ssr: false, loading: () => <div className="h-[400px] bg-muted animate-pulse rounded-lg" /> });
 
-type Tab = "profile" | "location" | "media" | "bank";
+type Tab = "profile" | "location" | "media";
 
 const GOVERNMENT_SERVICE_OPTIONS = [
   "clinic",
@@ -73,8 +83,22 @@ export function VillageDataForm() {
   const t = useTranslations("village");
   const [activeTab, setActiveTab] = useState<Tab>("profile");
   const [form, setForm] = useState<VillageProfile>(VILLAGE_PROFILE);
+  const [contacts, setContacts] = useState<VillageContact[]>(VILLAGE_CONTACTS);
+  const [socialMedia, setSocialMedia] = useState<VillageSocialMedia[]>(VILLAGE_SOCIAL_MEDIA);
+  const [profileSections, setProfileSections] = useState<ProfileSection[]>(VILLAGE_PROFILE_SECTIONS);
+  const [tagAssignments, setTagAssignments] = useState<VillageTagAssignment[]>(VILLAGE_TAG_ASSIGNMENTS);
   const [savedTab, setSavedTab] = useState<Tab | null>(null);
   const [locationValidationError, setLocationValidationError] = useState("");
+  const [expandedServices, setExpandedServices] = useState<Set<string>>(new Set());
+
+  function toggleServiceExpanded(id: string) {
+    setExpandedServices((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }
 
   function handleSave(tab: Tab) {
     if (tab === "location") {
@@ -111,8 +135,9 @@ export function VillageDataForm() {
 
   function addGovernmentService() {
     const services = [...(form.governmentServices ?? [])];
+    const newId = crypto.randomUUID();
     services.push({
-      id: crypto.randomUUID(),
+      id: newId,
       type: "clinic",
       name: "",
       address: "",
@@ -124,6 +149,7 @@ export function VillageDataForm() {
       priorities: [],
     });
     setLocationValidationError("");
+    setExpandedServices((prev) => new Set(prev).add(newId));
     setForm({ ...form, governmentServices: services });
   }
 
@@ -138,10 +164,18 @@ export function VillageDataForm() {
       const updated = { ...item, [key]: value };
 
       if (key === "operatingHours") {
-        const nextValue = String(value ?? "");
         const priorities = updated.priorities ?? [];
+        let is24h = false;
 
-        if (isOpen24Hours(nextValue)) {
+        if (typeof value === "string") {
+          is24h = isOpen24Hours(value);
+        } else if (typeof value === "object" && value !== null) {
+          const schedule = value as OperatingHoursSchedule;
+          const enabledDays = Object.values(schedule).filter((d) => d.enabled);
+          is24h = enabledDays.length > 0 && enabledDays.every((d) => d.is24Hours);
+        }
+
+        if (is24h) {
           if (!priorities.includes("open_24h")) {
             updated.priorities = [...priorities, "open_24h"];
           }
@@ -195,18 +229,15 @@ export function VillageDataForm() {
     { key: "profile", label: t("villageData.tabs.profile") },
     { key: "location", label: t("villageData.tabs.locationContact") },
     { key: "media", label: t("villageData.tabs.media") },
-    { key: "bank", label: t("villageData.tabs.bank") },
   ];
 
   const embedUrl = form.videoUrl ? getYouTubeEmbedUrl(form.videoUrl) : null;
   const filledGallery = (form.gallery ?? []).filter((u) => u.trim());
 
   return (
-    <div className="grid gap-6 lg:grid-cols-3">
-      {/* ─── Form panel ─────────────────────────────────────── */}
-      <div className="lg:col-span-2 space-y-4">
-        {/* Tab bar */}
-        <div className="flex gap-1 rounded-xl border bg-muted/50 p-1">
+    <div className="max-w-3xl space-y-4">
+      {/* Tab bar */}
+      <div className="flex gap-1 rounded-xl border border-stone-300 bg-muted/50 p-1">
           {tabs.map((tab) => (
             <button
               key={tab.key}
@@ -255,14 +286,32 @@ export function VillageDataForm() {
                   onChange={(e) => setForm({ ...form, history: e.target.value })}
                 />
               </div>
-              <div className="space-y-2">
-                <Label>{t("villageData.taxId")}</Label>
-                <Input
-                  placeholder={t("villageData.taxIdPlaceholder")}
-                  value={form.taxId ?? ""}
-                  onChange={(e) => setForm({ ...form, taxId: e.target.value })}
+
+              <div className="border-t pt-5">
+                <ProfileSectionEditor sections={profileSections} onChange={setProfileSections} />
+              </div>
+
+              <div className="border-t pt-5">
+                <TagSelector
+                  availableTags={AVAILABLE_TAGS}
+                  assignments={tagAssignments}
+                  onAssign={(tagId) => {
+                    const tag = AVAILABLE_TAGS.find((t) => t.id === tagId);
+                    if (!tag) return;
+                    setTagAssignments([
+                      ...tagAssignments,
+                      {
+                        id: `vta-${Date.now()}`,
+                        tagId,
+                        tag,
+                        assignedAt: new Date().toISOString(),
+                      },
+                    ]);
+                  }}
+                  onRemove={(tagId) => setTagAssignments(tagAssignments.filter((a) => a.tagId !== tagId))}
                 />
               </div>
+
               <div className="flex justify-end pt-2">
                 <Button onClick={() => handleSave("profile")}>
                   {savedTab === "profile" ? `✓ ${t("villageData.saved")}` : t("actions.saveProfile")}
@@ -329,56 +378,12 @@ export function VillageDataForm() {
                   }))}
               />
 
-              <div className="border-t pt-5 grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label>{t("villageData.contactPhone")}</Label>
-                  <Input
-                    type="tel"
-                    value={form.contactPhone}
-                    onChange={(e) => setForm({ ...form, contactPhone: e.target.value })}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label>{t("villageData.contactEmail")}</Label>
-                  <Input
-                    type="email"
-                    value={form.contactEmail}
-                    onChange={(e) => setForm({ ...form, contactEmail: e.target.value })}
-                  />
-                </div>
-                <div className="space-y-2 col-span-2">
-                  <Label>{t("villageData.website")}</Label>
-                  <Input
-                    type="url"
-                    value={form.website ?? ""}
-                    onChange={(e) => setForm({ ...form, website: e.target.value })}
-                  />
-                </div>
+              <div className="border-t pt-5">
+                <ContactListEditor contacts={contacts} onChange={setContacts} />
               </div>
 
-              <div className="border-t pt-5 space-y-3">
-                <p className="text-sm font-medium">{t("villageData.socialMedia")}</p>
-                {(
-                  [
-                    { key: "instagram", placeholder: "@namaakun" },
-                    { key: "facebook", placeholder: "Nama halaman atau URL" },
-                    { key: "youtube", placeholder: "https://youtube.com/@channel" },
-                  ] as const
-                ).map(({ key, placeholder }) => (
-                  <div key={key} className="flex items-center gap-3">
-                    <span className="w-24 text-sm text-muted-foreground capitalize">{key}</span>
-                    <Input
-                      placeholder={placeholder}
-                      value={form.socialMedia?.[key] ?? ""}
-                      onChange={(e) =>
-                        setForm({
-                          ...form,
-                          socialMedia: { ...form.socialMedia, [key]: e.target.value },
-                        })
-                      }
-                    />
-                  </div>
-                ))}
+              <div className="border-t pt-5">
+                <SocialMediaListEditor items={socialMedia} onChange={setSocialMedia} />
               </div>
 
               <div className="border-t pt-5 space-y-4">
@@ -400,12 +405,26 @@ export function VillageDataForm() {
                   </div>
                 ) : (
                   <div className="space-y-3">
-                    {(form.governmentServices ?? []).map((service, index) => (
-                      <div key={service.id} className="rounded-xl border bg-muted/20 p-3 space-y-3">
-                        <div className="flex items-center justify-between gap-3">
-                          <p className="text-xs font-semibold text-muted-foreground">
-                            {t("villageData.governmentServices.itemLabel", { number: index + 1 })}
-                          </p>
+                    {(form.governmentServices ?? []).map((service, index) => {
+                      const isExpanded = expandedServices.has(service.id);
+                      const serviceLabel = service.name
+                        ? `${t(`villageData.governmentServices.types.${service.type}`)} — ${service.name}`
+                        : `${t("villageData.governmentServices.itemLabel", { number: index + 1 })} · ${t(`villageData.governmentServices.types.${service.type}`)}`;
+
+                      return (
+                      <div key={service.id} className="rounded-xl border bg-muted/20 overflow-hidden">
+                        <button
+                          type="button"
+                          onClick={() => toggleServiceExpanded(service.id)}
+                          className="flex w-full items-center justify-between gap-3 p-3 text-left hover:bg-muted/40 transition-colors"
+                        >
+                          <p className="text-sm font-medium truncate">{serviceLabel}</p>
+                          <ChevronDown className={cn("h-4 w-4 shrink-0 text-muted-foreground transition-transform", isExpanded && "rotate-180")} />
+                        </button>
+
+                        {isExpanded && (
+                        <div className="border-t px-3 pb-3 pt-3 space-y-3">
+                        <div className="flex justify-end">
                           <button
                             type="button"
                             onClick={() => removeGovernmentService(service.id)}
@@ -498,12 +517,13 @@ export function VillageDataForm() {
                             />
                           </div>
 
-                          <div className="space-y-2">
+                          <div className="space-y-2 md:col-span-2">
                             <Label>{t("villageData.governmentServices.operatingHours")}</Label>
-                            <Input
-                              value={service.operatingHours ?? ""}
-                              onChange={(e) => updateGovernmentService(service.id, "operatingHours", e.target.value)}
-                              placeholder={t("villageData.governmentServices.operatingHoursPlaceholder")}
+                            <OperatingHoursEditor
+                              value={service.operatingHours}
+                              onChange={(schedule: OperatingHoursSchedule) =>
+                                updateGovernmentService(service.id, "operatingHours", schedule)
+                              }
                             />
                           </div>
 
@@ -540,8 +560,11 @@ export function VillageDataForm() {
                             />
                           </div>
                         </div>
+                        </div>
+                        )}
                       </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 )}
               </div>
@@ -686,210 +709,6 @@ export function VillageDataForm() {
           </Card>
         )}
 
-        {/* ── Tab: Bank Account ────────────────────────────── */}
-        {activeTab === "bank" && (
-          <Card>
-            <CardHeader>
-              <CardTitle>{t("villageData.bankTitle")}</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-5">
-              <div className="rounded-lg bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 px-4 py-3">
-                <p className="text-sm text-amber-800 dark:text-amber-200">
-                  ⚠ {t("villageData.bankWarning")}
-                </p>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label>{t("villageData.bankAccountName")}</Label>
-                  <Input
-                    value={form.bankAccountName}
-                    onChange={(e) => setForm({ ...form, bankAccountName: e.target.value })}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label>{t("villageData.bankName")}</Label>
-                  <Input
-                    value={form.bankName}
-                    onChange={(e) => setForm({ ...form, bankName: e.target.value })}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label>{t("villageData.bankAccountNumber")}</Label>
-                  <Input
-                    value={form.bankAccountNumber}
-                    onChange={(e) => setForm({ ...form, bankAccountNumber: e.target.value })}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label>{t("villageData.maskedPreview")}</Label>
-                  <Input disabled value={maskBankAccount(form.bankAccountNumber)} className="font-mono" />
-                </div>
-              </div>
-              <div className="flex justify-end pt-2">
-                <Button variant="outline" onClick={() => handleSave("bank")}>
-                  {savedTab === "bank" ? `✓ ${t("villageData.saved")}` : t("actions.updateBank")}
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        )}
-      </div>
-
-      {/* ─── Live preview panel ─────────────────────────────── */}
-      <div className="space-y-4">
-        <Card className="sticky top-4 overflow-hidden">
-          <div className="relative h-36 bg-gradient-to-br from-green-100 to-emerald-200 dark:from-green-900 dark:to-emerald-800">
-            {form.coverPhoto && (
-              <ImagePreview
-                src={form.coverPhoto}
-                alt="Cover"
-                className="w-full h-full object-cover"
-              />
-            )}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-            <div className="absolute top-2 right-2">
-              <Badge className="bg-emerald-500 hover:bg-emerald-500 text-white text-xs">
-                {t("villageData.verifiedBadge")}
-              </Badge>
-            </div>
-            <div className="absolute bottom-0 left-0 right-0 px-4 pb-3">
-              <p className="text-white text-xs font-medium opacity-70">{t("villageData.profilePreview")}</p>
-              <h3 className="text-white font-bold text-base leading-tight truncate">
-                {form.villageName || "—"}
-              </h3>
-            </div>
-          </div>
-
-          <CardContent className="pt-4 space-y-4">
-            {/* Address */}
-            <p className="text-xs text-muted-foreground leading-relaxed">
-              📍 {form.address || "—"}
-            </p>
-
-            {/* Description */}
-            {form.description && (
-              <p className="text-xs leading-relaxed line-clamp-4">{form.description}</p>
-            )}
-
-            {/* Contact */}
-            <div className="space-y-1 text-xs text-muted-foreground">
-              {form.contactPhone && <p>📞 {form.contactPhone}</p>}
-              {form.contactEmail && <p>✉ {form.contactEmail}</p>}
-              {form.website && (
-                <p className="truncate">
-                  🌐{" "}
-                  <span className="text-emerald-600 dark:text-emerald-400">{form.website}</span>
-                </p>
-              )}
-            </div>
-
-            {/* Social media */}
-            {(form.socialMedia?.instagram || form.socialMedia?.facebook || form.socialMedia?.youtube) && (
-              <div className="flex flex-wrap gap-1.5">
-                {form.socialMedia.instagram && (
-                  <Badge variant="outline" className="text-xs">
-                    📷 {form.socialMedia.instagram}
-                  </Badge>
-                )}
-                {form.socialMedia.facebook && (
-                  <Badge variant="outline" className="text-xs">
-                    👥 {form.socialMedia.facebook}
-                  </Badge>
-                )}
-                {form.socialMedia.youtube && (
-                  <Badge variant="outline" className="text-xs">
-                    ▶ YouTube
-                  </Badge>
-                )}
-              </div>
-            )}
-
-            {(form.governmentServices ?? []).length > 0 && (
-              <div className="space-y-2">
-                <p className="text-xs text-muted-foreground font-medium">
-                  {t("villageData.governmentServices.previewTitle")}
-                </p>
-                <div className="space-y-1.5">
-                  {(form.governmentServices ?? []).slice(0, 4).map((service) => (
-                    <div key={service.id} className="rounded-lg border bg-muted/20 px-2.5 py-2">
-                      <p className="text-xs font-medium leading-snug">
-                        {t(`villageData.governmentServices.types.${service.type}`)} · {service.name || t("villageData.governmentServices.unnamed")}
-                      </p>
-                      <p className="text-[11px] text-muted-foreground leading-snug truncate">
-                        {service.address || "-"}
-                      </p>
-                      {(service.priorities ?? []).length > 0 ? (
-                        <div className="mt-1 flex flex-wrap gap-1">
-                          {(service.priorities ?? []).map((priority) => (
-                            <Badge key={priority} variant="outline" className="text-[10px] px-1.5 py-0">
-                              {t(`villageData.governmentServices.priorities.${priority}`)}
-                            </Badge>
-                          ))}
-                        </div>
-                      ) : null}
-                      {Number.isFinite(service.latitude) && Number.isFinite(service.longitude) ? (
-                        <p className="text-[11px] text-muted-foreground">
-                          📌 {(service.latitude as number).toFixed(5)}, {(service.longitude as number).toFixed(5)}
-                        </p>
-                      ) : null}
-                      {service.phone ? (
-                        <p className="text-[11px] text-muted-foreground">☎ {service.phone}</p>
-                      ) : null}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Gallery thumbnails */}
-            {filledGallery.length > 0 && (
-              <div className="space-y-1.5">
-                <p className="text-xs text-muted-foreground font-medium">
-                  {t("villageData.gallery")} · {filledGallery.length}{" "}
-                  {t("villageData.photos")}
-                </p>
-                <div className="flex gap-1.5 overflow-hidden">
-                  {filledGallery.slice(0, 4).map((url, i) => (
-                    <div
-                      key={i}
-                      className="w-14 h-14 rounded-lg overflow-hidden bg-muted flex-shrink-0"
-                    >
-                      <ImagePreview src={url} alt="" className="w-full h-full object-cover" />
-                    </div>
-                  ))}
-                  {filledGallery.length > 4 && (
-                    <div className="w-14 h-14 rounded-lg bg-muted flex items-center justify-center text-xs font-semibold text-muted-foreground flex-shrink-0">
-                      +{filledGallery.length - 4}
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
-
-            {/* Video indicator */}
-            {form.videoUrl && embedUrl && (
-              <div className="flex items-center gap-2 rounded-lg bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 px-3 py-2">
-                <span className="text-red-500 text-lg">▶</span>
-                <div className="text-xs">
-                  <p className="font-medium text-red-700 dark:text-red-300">
-                    {t("villageData.videoUrl")}
-                  </p>
-                  <p className="text-muted-foreground truncate max-w-[140px]">{form.videoUrl}</p>
-                </div>
-              </div>
-            )}
-
-            {/* Bank info */}
-            <div className="border-t pt-3 space-y-1 text-xs">
-              <p className="text-muted-foreground font-medium">{t("villageData.bankTitle")}</p>
-              <p className="font-medium">{form.bankAccountName}</p>
-              <p className="text-muted-foreground">
-                {form.bankName} · {maskBankAccount(form.bankAccountNumber)}
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
     </div>
   );
 }

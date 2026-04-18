@@ -58,6 +58,7 @@ function parseNumber(value: string): number | undefined {
 
 export function FacilityForm({ initialFacility, onSubmit, onCancel }: FacilityFormProps) {
   const t = useTranslations("village");
+  const tc = useTranslations("common");
   const [form, setForm] = useState<FacilityInput>(initialFacility ? toFormValue(initialFacility) : defaultValues);
   const [showGeotagging, setShowGeotagging] = useState(false);
 
@@ -141,7 +142,9 @@ export function FacilityForm({ initialFacility, onSubmit, onCancel }: FacilityFo
               onClick={() => setShowGeotagging(!showGeotagging)}
               className="w-full"
             >
-              {showGeotagging ? "🗺️ Sembunyikan Geo-tagging" : "📍 Tampilkan Geo-tagging"}
+              {showGeotagging
+                ? t("facilities.geotagging.hide")
+                : t("facilities.geotagging.show")}
             </Button>
 
             {!showGeotagging ? (
@@ -235,14 +238,14 @@ export function FacilityForm({ initialFacility, onSubmit, onCancel }: FacilityFo
               max={100}
               value={form.utilizationRate ?? ""}
               onChange={(e) => setForm({ ...form, utilizationRate: parseNumber(e.target.value) })}
-              placeholder="0-100"
+              placeholder={t("facilities.utilizationPlaceholder")}
             />
           </div>
 
           <div className="md:col-span-2 flex justify-end gap-2">
             {initialFacility ? (
               <Button type="button" variant="outline" onClick={onCancel}>
-                {t("common.cancel")}
+                {tc("cancel")}
               </Button>
             ) : null}
             <Button type="submit">

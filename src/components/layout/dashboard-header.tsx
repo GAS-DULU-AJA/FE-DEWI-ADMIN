@@ -19,11 +19,11 @@ export function DashboardHeader({ onMenuToggle, sidebarOpen }: DashboardHeaderPr
   const { user } = useAuthStore();
 
   return (
-    <header className="flex h-16 items-center justify-between border-b border-stone-200 bg-white px-4 sm:px-6">
+    <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-stone-200/80 bg-white/90 px-4 backdrop-blur supports-[backdrop-filter]:bg-white/80 sm:px-6">
       <div className="flex items-center gap-3">
         <button
           onClick={onMenuToggle}
-          className="flex h-9 w-9 items-center justify-center rounded-lg text-stone-500 hover:bg-stone-100 lg:hidden transition-colors"
+          className="flex h-9 w-9 items-center justify-center rounded-lg text-stone-500 transition-colors hover:bg-stone-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 lg:hidden"
         >
           {sidebarOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
@@ -41,7 +41,7 @@ export function DashboardHeader({ onMenuToggle, sidebarOpen }: DashboardHeaderPr
         {/* Notification Bell */}
         <Popover.Root>
           <Popover.Trigger asChild>
-            <button className="relative flex h-9 w-9 items-center justify-center rounded-lg text-stone-500 hover:bg-stone-100 transition-colors">
+            <button className="relative flex h-9 w-9 items-center justify-center rounded-lg border border-transparent text-stone-500 transition-colors hover:border-stone-200 hover:bg-stone-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">
               <Bell className="h-5 w-5" />
               {unreadCount > 0 && (
                 <span className="absolute right-1.5 top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">
@@ -54,7 +54,7 @@ export function DashboardHeader({ onMenuToggle, sidebarOpen }: DashboardHeaderPr
             <Popover.Content
               sideOffset={8}
               align="end"
-              className="z-50 w-80 rounded-xl border border-stone-200 bg-white shadow-xl"
+              className="z-50 w-[22rem] max-w-[calc(100vw-1rem)] rounded-xl border border-stone-200 bg-white shadow-xl"
             >
               <div className="flex items-center justify-between border-b border-stone-100 px-4 py-3">
                 <h3 className="font-semibold text-stone-900">{t("notifications.title")}</h3>

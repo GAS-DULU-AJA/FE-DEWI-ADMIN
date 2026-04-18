@@ -53,7 +53,7 @@ export default function VillageAdminFinancePage() {
               min={0}
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
-              placeholder="0"
+              placeholder={t("withdrawal.amountPlaceholder")}
             />
           </div>
 

@@ -39,13 +39,15 @@ export default function PengelolaDesaDashboard() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-stone-900">{t("dashboard.title")}</h1>
-          <p className="text-sm text-stone-500 mt-0.5">{t("dashboard.subtitle")}</p>
-        </div>
-        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100">
-          <Building2 className="h-5 w-5 text-emerald-700" />
+      <div className="rounded-2xl border border-stone-200/80 bg-white/80 p-4 shadow-sm backdrop-blur sm:p-5">
+        <div className="flex items-center justify-between gap-4">
+          <div>
+            <h1 className="text-2xl font-bold text-stone-900">{t("dashboard.title")}</h1>
+            <p className="mt-0.5 text-sm text-stone-500">{t("dashboard.subtitle")}</p>
+          </div>
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100">
+            <Building2 className="h-5 w-5 text-emerald-700" />
+          </div>
         </div>
       </div>
 
@@ -58,12 +60,12 @@ export default function PengelolaDesaDashboard() {
           { label: t("dashboard.kpi.utilizationRate"), value: `${VILLAGE_KPI.facilityUtilizationRate}%` },
           { label: t("dashboard.kpi.averageRating"), value: `${VILLAGE_KPI.averageVillageRating} / 5` },
         ].map((kpi) => (
-          <Card key={kpi.label}>
+          <Card key={kpi.label} className="group">
             <CardHeader className="pb-1">
               <CardTitle className="text-xs text-stone-500">{kpi.label}</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-lg font-semibold text-stone-900">{kpi.value}</p>
+              <p className="text-lg font-semibold text-stone-900 transition-colors group-hover:text-emerald-700">{kpi.value}</p>
             </CardContent>
           </Card>
         ))}
@@ -82,7 +84,7 @@ export default function PengelolaDesaDashboard() {
           </CardHeader>
           <CardContent className="space-y-2">
             {recentActivity.map((item) => (
-              <div key={item.id} className="rounded-lg border border-stone-200 p-3">
+              <div key={item.id} className="rounded-lg border border-stone-200 p-3 transition-colors hover:border-emerald-200 hover:bg-emerald-50/30">
                 <p className="text-sm font-medium text-stone-900">{item.title}</p>
                 <p className="text-xs text-stone-500">{item.date}</p>
               </div>

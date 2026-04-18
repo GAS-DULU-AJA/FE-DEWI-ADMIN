@@ -18,7 +18,7 @@ import {
   ReservationStatusDonutChart,
 } from "@/features/accommodation/components/dashboard-charts";
 import { formatCurrency, formatDateShort } from "@/lib/utils";
-import { Plus, TrendingUp, Users, BedDouble, CheckCircle } from "lucide-react";
+import { Plus, BedDouble, CheckCircle } from "lucide-react";
 
 export default function PenginapanDashboard() {
   const rooms = getAllRooms();
@@ -48,12 +48,19 @@ export default function PenginapanDashboard() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-stone-900">Dashboard Penginapan</h1>
-        <p className="mt-0.5 text-sm text-stone-500">
-          Kelola seluruh properti penginapan, kamar, reservasi, dan performa occupancy
-        </p>
-      </div>
+      <AccommodationPageHeader
+        title="Dashboard Penginapan"
+        description="Kelola seluruh properti penginapan, kamar, reservasi, dan performa occupancy"
+        breadcrumbs={[{ label: "Dashboard" }, { label: "Penginapan" }]}
+        action={
+          <Button asChild size="sm">
+            <Link href="/dashboard/accommodation/add">
+              <Plus className="mr-1 h-4 w-4" />
+              Ajukan Penginapan
+            </Link>
+          </Button>
+        }
+      />
 
       {/* ── KPI Cards ── */}
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
@@ -164,7 +171,7 @@ export default function PenginapanDashboard() {
       </div>
 
       {/* ── Properties Grid ── */}
-      <div>
+      <div className="rounded-2xl border border-stone-200/80 bg-white/70 p-4 shadow-sm sm:p-5">
         <h2 className="mb-4 text-lg font-semibold text-stone-900">Properti Penginapan Anda</h2>
         <PropertySwitcher accommodations={ACCOMMODATIONS} />
         <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-2">

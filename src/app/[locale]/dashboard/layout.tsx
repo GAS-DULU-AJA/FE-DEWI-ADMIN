@@ -38,9 +38,10 @@ export default function DashboardLayout({
   if (!isHydrated || !isAuthenticated || (user && !user.isApproved)) return null;
 
   return (
-    <div className="flex h-screen bg-stone-100 overflow-hidden">
+    <div className="relative flex h-screen overflow-hidden bg-stone-100">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(5,150,105,0.08),_transparent_55%)]" />
       {/* Sidebar - Desktop */}
-      <div className="hidden lg:flex lg:shrink-0">
+      <div className="hidden lg:flex lg:shrink-0 lg:border-r lg:border-stone-800/70">
         <DashboardSidebar />
       </div>
 
@@ -48,23 +49,23 @@ export default function DashboardLayout({
       {sidebarOpen && (
         <div className="fixed inset-0 z-40 lg:hidden">
           <div
-            className="absolute inset-0 bg-black/50"
+            className="absolute inset-0 bg-black/55 backdrop-blur-[2px]"
             onClick={() => setSidebarOpen(false)}
           />
-          <div className="relative z-50 h-full">
+          <div className="relative z-50 h-full w-72 max-w-[88vw] shadow-2xl">
             <DashboardSidebar onClose={() => setSidebarOpen(false)} />
           </div>
         </div>
       )}
 
       {/* Main Content */}
-      <div className="flex flex-1 flex-col min-w-0 overflow-hidden">
+      <div className="relative z-10 flex min-w-0 flex-1 flex-col overflow-hidden">
         <DashboardHeader
           onMenuToggle={() => setSidebarOpen((v) => !v)}
           sidebarOpen={sidebarOpen}
         />
-        <main className={cn("flex-1 overflow-y-auto p-4 sm:p-6")}>
-          {children}
+        <main className={cn("flex-1 overflow-y-auto px-4 pb-6 pt-4 sm:px-6 sm:pb-8") }>
+          <div className="mx-auto w-full max-w-[1440px]">{children}</div>
         </main>
       </div>
     </div>

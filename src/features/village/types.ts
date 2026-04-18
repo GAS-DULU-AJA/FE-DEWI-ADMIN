@@ -38,6 +38,76 @@ export type CoordinationStatus =
 
 export type FacilityReservationStatus = "pending" | "approved" | "rejected" | "completed";
 
+// ─── Contact & Social Media Types ───────────────────────────
+
+export type ContactType = "phone" | "email" | "whatsapp" | "fax" | "hotline" | "other";
+
+export interface VillageContact {
+  id: string;
+  type: ContactType;
+  label: string;
+  value: string;
+  isPrimary: boolean;
+  sortOrder: number;
+}
+
+export type SocialMediaPlatform =
+  | "instagram"
+  | "facebook"
+  | "youtube"
+  | "tiktok"
+  | "twitter"
+  | "website"
+  | "other";
+
+export interface VillageSocialMedia {
+  id: string;
+  platform: SocialMediaPlatform;
+  label?: string;
+  url: string;
+  username?: string;
+  sortOrder: number;
+}
+
+// ─── Profile Section Types ──────────────────────────────────
+
+export type ProfileSectionType =
+  | "history"
+  | "vision_mission"
+  | "culture"
+  | "geography"
+  | "custom";
+
+export interface ProfileSection {
+  id: string;
+  type: ProfileSectionType;
+  title?: string;
+  content: Record<string, any>;
+  sortOrder: number;
+  isVisible: boolean;
+}
+
+// ─── Tag Types ──────────────────────────────────────────────
+
+export type VillageTagCategory = "theme" | "attraction" | "certification" | "custom";
+
+export interface VillageTag {
+  id: string;
+  name: string;
+  category: VillageTagCategory;
+  icon?: string;
+  isActive: boolean;
+}
+
+export interface VillageTagAssignment {
+  id: string;
+  tagId: string;
+  tag: VillageTag;
+  assignedAt: string;
+}
+
+// ─── Government Service Types ───────────────────────────────
+
 export type GovernmentServiceType =
   | "clinic"
   | "hospital"
@@ -48,6 +118,17 @@ export type GovernmentServiceType =
 
 export type GovernmentServicePriority = "open_24h" | "emergency_ready";
 
+export type DayOfWeek = "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday";
+
+export interface DaySchedule {
+  enabled: boolean;
+  is24Hours: boolean;
+  openTime?: string;
+  closeTime?: string;
+}
+
+export type OperatingHoursSchedule = Record<DayOfWeek, DaySchedule>;
+
 export interface GovernmentServiceFacility {
   id: string;
   type: GovernmentServiceType;
@@ -56,7 +137,7 @@ export interface GovernmentServiceFacility {
   latitude?: number;
   longitude?: number;
   phone?: string;
-  operatingHours?: string;
+  operatingHours?: string | OperatingHoursSchedule;
   notes?: string;
   priorities?: GovernmentServicePriority[];
 }
@@ -68,8 +149,17 @@ export interface VillageProfile {
   longitude: number;
   history: string;
   description: string;
-  contactPhone: string;
-  contactEmail: string;
+  // Flexible contacts (replaces static contactPhone/contactEmail/website)
+  contacts: VillageContact[];
+  // Flexible social media (replaces static socialMedia object)
+  socialMediaLinks: VillageSocialMedia[];
+  // Profile sections for storytelling
+  profileSections: ProfileSection[];
+  // Tags
+  tags: VillageTagAssignment[];
+  // Legacy fields kept for backward compat
+  contactPhone?: string;
+  contactEmail?: string;
   website?: string;
   socialMedia?: {
     instagram?: string;

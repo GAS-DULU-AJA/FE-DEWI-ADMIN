@@ -123,15 +123,28 @@ export function ExperienceWizard() {
             <div className="space-y-3">
               <div className="space-y-2">
                 <Label>{t("experiences.wizard.coverPhotoHint")}</Label>
-                <Input value={coverPhoto} onChange={(e) => setCoverPhoto(e.target.value)} placeholder="https://..." />
+                <Input
+                  value={coverPhoto}
+                  onChange={(e) => setCoverPhoto(e.target.value)}
+                  placeholder={t("experiences.wizard.coverPhotoPlaceholder")}
+                />
               </div>
               <div className="space-y-2">
                 <Label>{t("experiences.wizard.galleryHint")}</Label>
-                <Textarea rows={3} value={gallery} onChange={(e) => setGallery(e.target.value)} placeholder="https://..., https://..." />
+                <Textarea
+                  rows={3}
+                  value={gallery}
+                  onChange={(e) => setGallery(e.target.value)}
+                  placeholder={t("experiences.wizard.galleryPlaceholder")}
+                />
               </div>
               <div className="space-y-2">
                 <Label>{t("experiences.wizard.videoUrl")}</Label>
-                <Input value={videoUrl} onChange={(e) => setVideoUrl(e.target.value)} placeholder="https://youtube.com/..." />
+                <Input
+                  value={videoUrl}
+                  onChange={(e) => setVideoUrl(e.target.value)}
+                  placeholder={t("experiences.wizard.videoPlaceholder")}
+                />
               </div>
             </div>
           </div>

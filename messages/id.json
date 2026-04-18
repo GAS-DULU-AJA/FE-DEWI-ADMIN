@@ -106,7 +106,11 @@
     "analytics": "Analitik",
     "calendar": "Kalender",
     "villageData": "Data Desa",
+    "villageManagement": "Kelola Desa",
+    "bankAccount": "Rekening Bank",
     "facilities": "Fasilitas",
+    "facilityManagement": "Manajemen Fasilitas",
+    "addFacility": "Tambah Fasilitas",
     "facilityReservations": "Reservasi Fasilitas",
     "experiences": "Pengalaman",
     "partnerVerification": "Verifikasi Mitra",
@@ -701,6 +705,7 @@
       "subtitle": "Kelola profil resmi desa, informasi kontak, galeri media, dan rekening pencairan.",
       "profileTitle": "Profil Desa",
       "bankTitle": "Pengaturan Rekening Bank",
+      "bankSubtitle": "Kelola informasi rekening bank dan NPWP untuk pencairan dana.",
       "tabs": {
         "profile": "Profil",
         "locationContact": "Lokasi & Kontak",
@@ -733,6 +738,79 @@
       "contactEmail": "Email Kontak",
       "website": "Website",
       "socialMedia": "Media Sosial",
+      "contacts": {
+        "title": "Daftar Kontak",
+        "add": "Tambah Kontak",
+        "empty": "Belum ada kontak.",
+        "type": "Jenis",
+        "label": "Label",
+        "value": "Nilai Kontak",
+        "primary": "Jadikan kontak utama",
+        "primaryBadge": "Utama",
+        "labelPlaceholder": "Contoh: Telepon Utama",
+        "valuePlaceholderEmail": "admin@desa.id",
+        "valuePlaceholderDefault": "+62 812-xxxx-xxxx",
+        "types": {
+          "phone": "Telepon",
+          "email": "Email",
+          "whatsapp": "WhatsApp",
+          "fax": "Faks",
+          "hotline": "Hotline",
+          "other": "Lainnya"
+        }
+      },
+      "socialMediaEditor": {
+        "title": "Daftar Media Sosial",
+        "add": "Tambah Media Sosial",
+        "empty": "Belum ada media sosial.",
+        "platform": "Platform",
+        "label": "Label",
+        "url": "URL",
+        "username": "Username",
+        "labelPlaceholder": "Contoh: Instagram Resmi",
+        "urlPlaceholder": "https://...",
+        "usernamePlaceholder": "@username",
+        "platforms": {
+          "instagram": "Instagram",
+          "facebook": "Facebook",
+          "youtube": "YouTube",
+          "tiktok": "TikTok",
+          "twitter": "Twitter / X",
+          "website": "Website",
+          "other": "Lainnya"
+        }
+      },
+      "profileSections": {
+        "title": "Bagian Profil",
+        "add": "Tambah Bagian",
+        "empty": "Belum ada bagian profil.",
+        "type": "Tipe Bagian",
+        "sectionTitle": "Judul Bagian",
+        "content": "Konten",
+        "contentPlaceholder": "Tulis konten bagian ini...",
+        "vision": "Visi",
+        "visionPlaceholder": "Tuliskan visi desa...",
+        "mission": "Misi",
+        "missionPlaceholder": "Tulis satu misi per baris",
+        "missionHint": "Gunakan baris baru untuk setiap poin misi.",
+        "visible": "Tampilkan di profil publik",
+        "types": {
+          "history": "Sejarah",
+          "vision_mission": "Visi & Misi",
+          "culture": "Budaya & Tradisi",
+          "geography": "Geografi",
+          "custom": "Kustom"
+        }
+      },
+      "tags": {
+        "title": "Tag Desa",
+        "categories": {
+          "theme": "Tema",
+          "attraction": "Daya Tarik",
+          "certification": "Sertifikasi",
+          "custom": "Kustom"
+        }
+      },
       "governmentServices": {
         "title": "Fasilitas Layanan Pemerintah",
         "description": "Tambahkan layanan penting seperti puskesmas, rumah sakit, damkar, polisi, atau layanan pendukung lainnya agar pengunjung merasa lebih aman.",
@@ -794,12 +872,27 @@
       "bankAccountName": "Nama Pemilik Rekening",
       "bankName": "Nama Bank",
       "bankAccountNumber": "Nomor Rekening",
-      "maskedPreview": "Pratinjau Tersamarkan"
+      "maskedPreview": "Pratinjau Tersamarkan",
+      "days": {
+        "monday": "Senin",
+        "tuesday": "Selasa",
+        "wednesday": "Rabu",
+        "thursday": "Kamis",
+        "friday": "Jumat",
+        "saturday": "Sabtu",
+        "sunday": "Minggu"
+      },
+      "operatingHours": {
+        "is24Hours": "24 Jam",
+        "openTime": "Jam Buka",
+        "closeTime": "Jam Tutup"
+      }
     },
     "facilities": {
       "title": "Manajemen Fasilitas",
       "subtitle": "Kelola fasilitas publik, keamanan, transportasi, dan fasilitas yang dapat dimonetisasi.",
       "addFacility": "Tambah atau Perbarui Fasilitas",
+      "addFacilityDesc": "Tambahkan fasilitas baru agar bisa tampil dan dikelola pada daftar fasilitas desa.",
       "editFacility": "Edit Fasilitas",
       "updateFacility": "Perbarui Fasilitas",
       "manageReservations": "Kelola Reservasi Fasilitas",
@@ -820,6 +913,18 @@
       "notMonetizable": "Fasilitas non-monetisasi",
       "rental": "Sewa",
       "utilizationLabel": "Utilisasi",
+      "utilizationPlaceholder": "0-100",
+      "geotagging": {
+        "show": "📍 Tampilkan Geo-tagging",
+        "hide": "🗺️ Sembunyikan Geo-tagging",
+        "title": "Geo-tagging",
+        "description": "Klik pada peta untuk memilih lokasi atau gunakan tombol lokasi saat ini.",
+        "useCurrentLocation": "📍 Gunakan Lokasi Saat Ini",
+        "gettingLocation": "Mengambil lokasi...",
+        "popupFallback": "Lokasi Fasilitas",
+        "geolocationUnsupported": "Geolocation tidak didukung oleh browser Anda",
+        "getLocationFailed": "Gagal mendapatkan lokasi. Pastikan Anda telah memberikan izin akses."
+      },
       "reservations": {
         "title": "Reservasi Penggunaan Fasilitas",
         "subtitle": "Tinjau dan proses permintaan penggunaan fasilitas desa dari mitra dan komunitas.",
@@ -832,6 +937,12 @@
         "complete": "Tandai Selesai",
         "conflictTitle": "Konflik Jadwal",
         "conflictError": "Fasilitas ini sudah dipesan untuk periode yang sama. Pemesanan dari {conflictingReservation} untuk tanggal {conflictingDate} sudah tersedia. Silakan cek ulang tanggal.",
+        "confirmApproveTitle": "Setujui Reservasi",
+        "confirmApproveMessage": "Setujui permintaan reservasi fasilitas {facility}?",
+        "confirmRejectTitle": "Tolak Reservasi",
+        "confirmRejectMessage": "Tolak permintaan reservasi fasilitas {facility}?",
+        "confirmCompleteTitle": "Tandai Selesai",
+        "confirmCompleteMessage": "Apakah Anda yakin ingin menandai reservasi fasilitas {facility} sebagai selesai?",
         "status": {
           "pending": "Menunggu",
           "approved": "Disetujui",
@@ -881,6 +992,7 @@
       "statuses": {
         "all": "Semua",
         "draft": "Draf",
+        "under_review": "Sedang Ditinjau",
         "published": "Dipublikasi",
         "ticket_sales_open": "Tiket Dijual",
         "ongoing": "Sedang Berjalan",
@@ -913,8 +1025,11 @@
         "autoConfirm": "Konfirmasi pesanan otomatis",
         "mediaTitle": "Media & Galeri",
         "coverPhotoHint": "URL Foto Sampul",
+        "coverPhotoPlaceholder": "https://...",
         "galleryHint": "URL Foto Galeri (pisahkan dengan koma)",
+        "galleryPlaceholder": "https://..., https://...",
         "videoUrl": "YouTube / URL Video",
+        "videoPlaceholder": "https://youtube.com/...",
         "reviewTitle": "Tinjau & Publikasikan",
         "publishNote": "Setelah dipublikasi, peserta dapat melihat dan memesan pengalaman ini.",
         "readyLabel": "Siap dipublikasi?"
@@ -1032,6 +1147,7 @@
       "subtitle": "Ajukan pencairan ke rekening bank desa yang terdaftar.",
       "requestTitle": "Pengajuan Pencairan Baru",
       "amount": "Jumlah Pencairan (IDR)",
+      "amountPlaceholder": "0",
       "bankInfo": "Rekening Bank",
       "historyTitle": "Riwayat Pencairan",
       "noHistory": "Belum ada pengajuan pencairan.",
@@ -1066,7 +1182,8 @@
       "partners": "Mitra",
       "reviews": "Ulasan",
       "analytics": "Analitik",
-      "finance": "Keuangan"
+      "finance": "Keuangan",
+      "bankAccount": "Rekening Bank"
     }
   },
   "experience": {

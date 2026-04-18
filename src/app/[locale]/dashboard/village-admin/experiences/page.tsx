@@ -31,7 +31,7 @@ export default function ExperiencesPage() {
         ]}
         action={
           <div className="flex gap-2">
-            <Button asChild variant="outline"><Link href="/dashboard/village-admin/experiences/calendar">{t("nav.calendar")}</Link></Button>
+            <Button asChild variant="outline"><Link href="/dashboard/village-admin/experiences/calendar">{t("breadcrumbs.calendar")}</Link></Button>
             <Button asChild variant="outline"><Link href="/dashboard/village-admin/experiences/analytics">{t("experiences.analyticsTitle")}</Link></Button>
             <Button asChild variant="outline"><Link href="/dashboard/village-admin/experiences/attendees">{t("experiences.attendeesTitle")}</Link></Button>
             <Button asChild><Link href="/dashboard/village-admin/experiences/add">{t("actions.addExperience")}</Link></Button>
