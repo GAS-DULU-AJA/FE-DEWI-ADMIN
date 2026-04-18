@@ -23,7 +23,7 @@ export default function ExperienceCalendarPage() {
       <div className="rounded-xl border border-stone-200 bg-white p-4">
         <div className="mb-3 space-y-1">
           <p className="text-sm font-medium text-stone-900">{t("experiences.calendarTitle")}</p>
-          <p className="text-xs text-stone-500">{experiences.length} {t("experiences.totalEvents")}</p>
+          <p className="text-xs text-stone-500">{t("experiences.totalEvents", { count: experiences.length })}</p>
         </div>
         <div className="grid grid-cols-7 gap-1 text-center">
           {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((d) => (

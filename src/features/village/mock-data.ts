@@ -4,10 +4,89 @@ import type {
   Facility,
   FacilityReservation,
   PartnerApplication,
+  ProfileSection,
+  VillageContact,
   VillageDashboardKpi,
   VillageProfile,
   VillageReview,
+  VillageSocialMedia,
+  VillageTag,
+  VillageTagAssignment,
 } from "./types";
+
+export const VILLAGE_CONTACTS: VillageContact[] = [
+  { id: "vc-1", type: "phone", label: "Phone Utama", value: "+62 812-1111-2222", isPrimary: true, sortOrder: 0 },
+  { id: "vc-2", type: "email", label: "Email Admin", value: "admin@sarialam.id", isPrimary: true, sortOrder: 1 },
+  { id: "vc-3", type: "whatsapp", label: "WhatsApp CS", value: "+62 813-9999-8888", isPrimary: false, sortOrder: 2 },
+  { id: "vc-4", type: "hotline", label: "Hotline Darurat", value: "+62 265-110", isPrimary: false, sortOrder: 3 },
+];
+
+export const VILLAGE_SOCIAL_MEDIA: VillageSocialMedia[] = [
+  { id: "vsm-1", platform: "instagram", label: "Instagram Official", url: "https://instagram.com/sarialam.village", username: "@sarialam.village", sortOrder: 0 },
+  { id: "vsm-2", platform: "facebook", label: "Facebook Page", url: "https://facebook.com/SariAlamVillage", username: "Sari Alam Village", sortOrder: 1 },
+  { id: "vsm-3", platform: "youtube", url: "https://youtube.com/@sarialam", sortOrder: 2 },
+  { id: "vsm-4", platform: "tiktok", url: "https://tiktok.com/@sarialam", username: "@sarialam", sortOrder: 3 },
+  { id: "vsm-5", platform: "website", label: "Website Resmi", url: "https://sarialam.id", sortOrder: 4 },
+];
+
+export const VILLAGE_PROFILE_SECTIONS: ProfileSection[] = [
+  {
+    id: "vps-1",
+    type: "history",
+    title: "Sejarah Desa",
+    content: { text: "Sari Alam has grown from an agricultural village into a tourism ecosystem focused on cultural preservation since 1985." },
+    sortOrder: 0,
+    isVisible: true,
+  },
+  {
+    id: "vps-2",
+    type: "vision_mission",
+    title: "Visi & Misi",
+    content: {
+      vision: "Menjadi desa wisata unggulan berbasis budaya dan alam yang berkelanjutan.",
+      mission: [
+        "Melestarikan budaya lokal melalui pariwisata.",
+        "Memberdayakan ekonomi masyarakat desa.",
+        "Menjaga kelestarian lingkungan alam.",
+      ],
+    },
+    sortOrder: 1,
+    isVisible: true,
+  },
+  {
+    id: "vps-3",
+    type: "culture",
+    title: "Budaya & Tradisi",
+    content: { text: "Desa Sari Alam memiliki tradisi batik tulis, tari topeng, dan upacara panen raya yang digelar setiap tahun." },
+    sortOrder: 2,
+    isVisible: true,
+  },
+  {
+    id: "vps-4",
+    type: "geography",
+    title: "Geografi",
+    content: { text: "Terletak di kaki Gunung Manglayang, ketinggian 650 mdpl, suhu rata-rata 22°C. Luas wilayah 350 hektar." },
+    sortOrder: 3,
+    isVisible: true,
+  },
+];
+
+export const AVAILABLE_TAGS: VillageTag[] = [
+  { id: "tag-1", name: "Agro Tourism", category: "theme", icon: "leaf", isActive: true },
+  { id: "tag-2", name: "Cultural Heritage", category: "theme", icon: "landmark", isActive: true },
+  { id: "tag-3", name: "Eco Village", category: "certification", icon: "award", isActive: true },
+  { id: "tag-4", name: "Craft Village", category: "attraction", icon: "palette", isActive: true },
+  { id: "tag-5", name: "Nature Walk", category: "attraction", icon: "trees", isActive: true },
+  { id: "tag-6", name: "Culinary Destination", category: "attraction", icon: "utensils", isActive: true },
+  { id: "tag-7", name: "Community Based Tourism", category: "certification", icon: "users", isActive: true },
+];
+
+export const VILLAGE_TAG_ASSIGNMENTS: VillageTagAssignment[] = [
+  { id: "vta-1", tagId: "tag-1", tag: AVAILABLE_TAGS[0], assignedAt: "2026-01-15" },
+  { id: "vta-2", tagId: "tag-2", tag: AVAILABLE_TAGS[1], assignedAt: "2026-01-15" },
+  { id: "vta-3", tagId: "tag-3", tag: AVAILABLE_TAGS[2], assignedAt: "2026-02-01" },
+  { id: "vta-4", tagId: "tag-4", tag: AVAILABLE_TAGS[3], assignedAt: "2026-03-10" },
+];
 
 export const VILLAGE_PROFILE: VillageProfile = {
   villageName: "Sari Alam Tourism Village",
@@ -16,6 +95,10 @@ export const VILLAGE_PROFILE: VillageProfile = {
   longitude: 107.6191,
   history: "Sari Alam has grown from an agricultural village into a tourism ecosystem focused on cultural preservation.",
   description: "A tourism village offering nature, culture, craft, and culinary experiences managed by local communities.",
+  contacts: VILLAGE_CONTACTS,
+  socialMediaLinks: VILLAGE_SOCIAL_MEDIA,
+  profileSections: VILLAGE_PROFILE_SECTIONS,
+  tags: VILLAGE_TAG_ASSIGNMENTS,
   contactPhone: "+62 812-1111-2222",
   contactEmail: "admin@sarialam.id",
   website: "https://sarialam.id",

@@ -5,6 +5,7 @@ import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from "react-leaf
 import { LatLngExpression } from "leaflet";
 import L from "leaflet";
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -50,6 +51,7 @@ export function GeotaggingPicker({
   onLocationChange,
   onGetCurrentLocation,
 }: GeotaggingPickerProps) {
+  const t = useTranslations("village");
   const [mapCenter, setMapCenter] = useState<LatLngExpression>(
     latitude && longitude ? [latitude, longitude] : [-6.9175, 107.6191]
   );
@@ -58,7 +60,7 @@ export function GeotaggingPicker({
 
   const handleGetCurrentLocation = () => {
     if (!navigator.geolocation) {
-      alert("Geolocation tidak didukung oleh browser Anda");
+      alert(t("facilities.geotagging.geolocationUnsupported"));
       return;
     }
 
@@ -71,7 +73,7 @@ export function GeotaggingPicker({
         setIsGettingLocation(false);
       },
       () => {
-        alert("Gagal mendapatkan lokasi. Pastikan Anda telah memberikan izin akses.");
+        alert(t("facilities.geotagging.getLocationFailed"));
         setIsGettingLocation(false);
       }
     );
@@ -88,13 +90,13 @@ export function GeotaggingPicker({
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <MapPin className="h-4 w-4" />
-          Geo-tagging
+          {t("facilities.geotagging.title")}
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="text-sm text-stone-600">
           {address && <p className="font-medium mb-2">{address}</p>}
-          <p>Klik pada peta untuk memilih lokasi atau gunakan tombol "Lokasi Saat Ini"</p>
+          <p>{t("facilities.geotagging.description")}</p>
         </div>
 
         <Button
@@ -104,7 +106,9 @@ export function GeotaggingPicker({
           disabled={isGettingLocation}
           className="w-full"
         >
-          {isGettingLocation ? "Mengambil lokasi..." : "📍 Gunakan Lokasi Saat Ini"}
+          {isGettingLocation
+            ? t("facilities.geotagging.gettingLocation")
+            : t("facilities.geotagging.useCurrentLocation")}
         </Button>
 
         <div className="overflow-hidden rounded-lg border border-stone-200" style={{ height: "300px" }}>
@@ -120,7 +124,7 @@ export function GeotaggingPicker({
             />
             {latitude && longitude && (
               <Marker position={[latitude, longitude]}>
-                <Popup>{address || "Lokasi Fasilitas"}</Popup>
+                <Popup>{address || t("facilities.geotagging.popupFallback")}</Popup>
               </Marker>
             )}
             <MapClickHandler onLocationChange={onLocationChange} />
@@ -129,7 +133,7 @@ export function GeotaggingPicker({
 
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="latitude">Latitude</Label>
+            <Label htmlFor="latitude">{t("villageData.latitude")}</Label>
             <Input
               id="latitude"
               type="number"
@@ -140,7 +144,7 @@ export function GeotaggingPicker({
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="longitude">Longitude</Label>
+            <Label htmlFor="longitude">{t("villageData.longitude")}</Label>
             <Input
               id="longitude"
               type="number"

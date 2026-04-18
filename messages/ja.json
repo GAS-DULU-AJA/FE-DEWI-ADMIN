@@ -109,6 +109,8 @@
     "villageManagement": "村管理",
     "bankAccount": "銀行口座",
     "facilities": "施設",
+    "facilityManagement": "施設管理",
+    "addFacility": "施設を追加",
     "facilityReservations": "施設予約",
     "experiences": "体験",
     "partnerVerification": "パートナー審査",
@@ -736,6 +738,79 @@
       "contactEmail": "連絡先メール",
       "website": "ウェブサイト",
       "socialMedia": "ソーシャルメディア",
+      "contacts": {
+        "title": "連絡先一覧",
+        "add": "連絡先を追加",
+        "empty": "連絡先がまだありません。",
+        "type": "種別",
+        "label": "ラベル",
+        "value": "連絡先情報",
+        "primary": "主要連絡先に設定",
+        "primaryBadge": "主要",
+        "labelPlaceholder": "例: メイン電話",
+        "valuePlaceholderEmail": "admin@village.id",
+        "valuePlaceholderDefault": "+62 812-xxxx-xxxx",
+        "types": {
+          "phone": "電話",
+          "email": "メール",
+          "whatsapp": "WhatsApp",
+          "fax": "FAX",
+          "hotline": "ホットライン",
+          "other": "その他"
+        }
+      },
+      "socialMediaEditor": {
+        "title": "ソーシャルメディア一覧",
+        "add": "ソーシャルメディアを追加",
+        "empty": "ソーシャルメディアリンクがまだありません。",
+        "platform": "プラットフォーム",
+        "label": "ラベル",
+        "url": "URL",
+        "username": "ユーザー名",
+        "labelPlaceholder": "例: 公式Instagram",
+        "urlPlaceholder": "https://...",
+        "usernamePlaceholder": "@username",
+        "platforms": {
+          "instagram": "Instagram",
+          "facebook": "Facebook",
+          "youtube": "YouTube",
+          "tiktok": "TikTok",
+          "twitter": "Twitter / X",
+          "website": "Webサイト",
+          "other": "その他"
+        }
+      },
+      "profileSections": {
+        "title": "プロフィールセクション",
+        "add": "セクションを追加",
+        "empty": "プロフィールセクションがまだありません。",
+        "type": "セクション種別",
+        "sectionTitle": "セクションタイトル",
+        "content": "内容",
+        "contentPlaceholder": "このセクションの内容を入力してください...",
+        "vision": "ビジョン",
+        "visionPlaceholder": "村のビジョンを入力してください...",
+        "mission": "ミッション",
+        "missionPlaceholder": "1行に1つずつミッションを入力",
+        "missionHint": "ミッションの各項目は改行で区切ってください。",
+        "visible": "公開プロフィールに表示",
+        "types": {
+          "history": "歴史",
+          "vision_mission": "ビジョン・ミッション",
+          "culture": "文化・伝統",
+          "geography": "地理",
+          "custom": "カスタム"
+        }
+      },
+      "tags": {
+        "title": "村タグ",
+        "categories": {
+          "theme": "テーマ",
+          "attraction": "見どころ",
+          "certification": "認証",
+          "custom": "カスタム"
+        }
+      },
       "governmentServices": {
         "title": "公共サービス施設",
         "description": "保健所、病院、消防、警察などの重要な公共サービスを追加し、訪問者の安心感を高めます。",
@@ -817,6 +892,7 @@
       "title": "施設管理",
       "subtitle": "公共・安全・交通・収益化施設を管理します。",
       "addFacility": "施設を追加または更新",
+      "addFacilityDesc": "新しい施設を追加すると、村の施設一覧で管理できるようになります。",
       "editFacility": "施設を編集",
       "updateFacility": "施設を更新",
       "manageReservations": "施設予約を管理",
@@ -837,6 +913,18 @@
       "notMonetizable": "非収益化施設",
       "rental": "レンタル",
       "utilizationLabel": "稼働率",
+      "utilizationPlaceholder": "0-100",
+      "geotagging": {
+        "show": "📍 ジオタグを表示",
+        "hide": "🗺️ ジオタグを非表示",
+        "title": "ジオタグ",
+        "description": "地図をクリックして位置を選択するか、現在地ボタンを使用してください。",
+        "useCurrentLocation": "📍 現在地を使用",
+        "gettingLocation": "位置情報を取得中...",
+        "popupFallback": "施設の位置",
+        "geolocationUnsupported": "お使いのブラウザはGeolocationに対応していません",
+        "getLocationFailed": "位置情報の取得に失敗しました。位置情報の許可設定を確認してください。"
+      },
       "reservations": {
         "title": "施設利用予約",
         "subtitle": "パートナーやコミュニティからの施設利用申請を確認・処理します。",
@@ -904,6 +992,7 @@
       "statuses": {
         "all": "すべて",
         "draft": "下書き",
+        "under_review": "審査中",
         "published": "公開中",
         "ticket_sales_open": "チケット販売中",
         "ongoing": "進行中",
@@ -936,8 +1025,11 @@
         "autoConfirm": "予約自動承認",
         "mediaTitle": "メディア・ギャラリー",
         "coverPhotoHint": "カバー写真URL",
+        "coverPhotoPlaceholder": "https://...",
         "galleryHint": "ギャラリー写真URL（カンマ区切り）",
+        "galleryPlaceholder": "https://..., https://...",
         "videoUrl": "YouTube / 動画URL",
+        "videoPlaceholder": "https://youtube.com/...",
         "reviewTitle": "確認・公開",
         "publishNote": "公開後、参加者がこの体験を閲覧・予約できるようになります。",
         "readyLabel": "公開準備はできていますか？"
@@ -1055,6 +1147,7 @@
       "subtitle": "登録済みの村銀行口座への出金を申請します。",
       "requestTitle": "新規出金申請",
       "amount": "出金金額（IDR）",
+      "amountPlaceholder": "0",
       "bankInfo": "銀行口座",
       "historyTitle": "出金履歴",
       "noHistory": "出金申請はまだありません。",

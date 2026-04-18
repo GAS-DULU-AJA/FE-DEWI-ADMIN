@@ -8,6 +8,7 @@ import { ConfirmationDialog } from "@/components/ui/confirmation-dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { SegmentedTabs } from "@/components/ui/segmented-tabs";
 
 const STATUS_BADGE_CLASS: Record<string, string> = {
   pending: "bg-amber-100 text-amber-800",
@@ -18,6 +19,7 @@ const STATUS_BADGE_CLASS: Record<string, string> = {
 
 export default function VillageFacilityReservationsPage() {
   const t = useTranslations("village");
+  const tc = useTranslations("common");
   const [status, setStatus] = useState("all");
   const [conflictWarning, setConflictWarning] = useState<{ show: boolean; message: string }>({
     show: false,
@@ -69,18 +71,18 @@ export default function VillageFacilityReservationsPage() {
         ]}
       />
 
-      <div className="flex flex-wrap gap-2">
-        {["all", "pending", "approved", "rejected", "completed"].map((item) => (
-          <button
-            key={item}
-            type="button"
-            onClick={() => setStatus(item)}
-            className={`rounded-full px-3 py-1 text-xs ${status === item ? "bg-emerald-600 text-white" : "bg-stone-100 text-stone-600"}`}
-          >
-            {item}
-          </button>
-        ))}
-      </div>
+      <SegmentedTabs
+        tabs={[
+          { id: "all", label: tc("all") },
+          { id: "pending", label: t("facilities.reservations.status.pending") },
+          { id: "approved", label: t("facilities.reservations.status.approved") },
+          { id: "rejected", label: t("facilities.reservations.status.rejected") },
+          { id: "completed", label: t("facilities.reservations.status.completed") },
+        ]}
+        active={status}
+        onChange={setStatus}
+        sticky
+      />
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         {list.map((reservation) => (
@@ -153,7 +155,7 @@ export default function VillageFacilityReservationsPage() {
         open={conflictWarning.show}
         title={t("facilities.reservations.conflictTitle")}
         description={conflictWarning.message}
-        confirmText={t("common.ok")}
+        confirmText={tc("ok")}
         onConfirm={() => setConflictWarning({ show: false, message: "" })}
         onCancel={() => setConflictWarning({ show: false, message: "" })}
       />

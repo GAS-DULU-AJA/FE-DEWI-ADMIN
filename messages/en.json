@@ -109,6 +109,8 @@
     "villageManagement": "Village Management",
     "bankAccount": "Bank Account",
     "facilities": "Facilities",
+    "facilityManagement": "Facility Management",
+    "addFacility": "Add Facility",
     "facilityReservations": "Facility Reservations",
     "experiences": "Experiences",
     "partnerVerification": "Partner Verification",
@@ -736,6 +738,79 @@
       "contactEmail": "Contact Email",
       "website": "Website",
       "socialMedia": "Social Media",
+      "contacts": {
+        "title": "Contact List",
+        "add": "Add Contact",
+        "empty": "No contacts yet.",
+        "type": "Type",
+        "label": "Label",
+        "value": "Contact Value",
+        "primary": "Set as primary contact",
+        "primaryBadge": "Primary",
+        "labelPlaceholder": "e.g. Main Phone",
+        "valuePlaceholderEmail": "admin@village.id",
+        "valuePlaceholderDefault": "+62 812-xxxx-xxxx",
+        "types": {
+          "phone": "Phone",
+          "email": "Email",
+          "whatsapp": "WhatsApp",
+          "fax": "Fax",
+          "hotline": "Hotline",
+          "other": "Other"
+        }
+      },
+      "socialMediaEditor": {
+        "title": "Social Media List",
+        "add": "Add Social Media",
+        "empty": "No social media links yet.",
+        "platform": "Platform",
+        "label": "Label",
+        "url": "URL",
+        "username": "Username",
+        "labelPlaceholder": "e.g. Official Instagram",
+        "urlPlaceholder": "https://...",
+        "usernamePlaceholder": "@username",
+        "platforms": {
+          "instagram": "Instagram",
+          "facebook": "Facebook",
+          "youtube": "YouTube",
+          "tiktok": "TikTok",
+          "twitter": "Twitter / X",
+          "website": "Website",
+          "other": "Other"
+        }
+      },
+      "profileSections": {
+        "title": "Profile Sections",
+        "add": "Add Section",
+        "empty": "No profile sections yet.",
+        "type": "Section Type",
+        "sectionTitle": "Section Title",
+        "content": "Content",
+        "contentPlaceholder": "Write section content...",
+        "vision": "Vision",
+        "visionPlaceholder": "Write village vision...",
+        "mission": "Mission",
+        "missionPlaceholder": "Write one mission per line",
+        "missionHint": "Use a new line for each mission point.",
+        "visible": "Show in public profile",
+        "types": {
+          "history": "History",
+          "vision_mission": "Vision & Mission",
+          "culture": "Culture & Tradition",
+          "geography": "Geography",
+          "custom": "Custom"
+        }
+      },
+      "tags": {
+        "title": "Village Tags",
+        "categories": {
+          "theme": "Theme",
+          "attraction": "Attraction",
+          "certification": "Certification",
+          "custom": "Custom"
+        }
+      },
       "governmentServices": {
         "title": "Government Service Facilities",
         "description": "Add essential nearby services such as clinics, hospitals, fire departments, police, or other public services to improve visitor safety confidence.",
@@ -817,6 +892,7 @@
       "title": "Facility Management",
       "subtitle": "Manage public, security, transportation, and monetizable village facilities.",
       "addFacility": "Add or Update Facility",
+      "addFacilityDesc": "Add a new facility so it can be managed from the village facilities list.",
       "editFacility": "Edit Facility",
       "updateFacility": "Update Facility",
       "manageReservations": "Manage Facility Reservations",
@@ -837,6 +913,18 @@
       "notMonetizable": "Non-monetizable facility",
       "rental": "Rental",
       "utilizationLabel": "Utilization",
+      "utilizationPlaceholder": "0-100",
+      "geotagging": {
+        "show": "📍 Show Geo-tagging",
+        "hide": "🗺️ Hide Geo-tagging",
+        "title": "Geo-tagging",
+        "description": "Click on the map to choose a location or use the current location button.",
+        "useCurrentLocation": "📍 Use Current Location",
+        "gettingLocation": "Getting location...",
+        "popupFallback": "Facility Location",
+        "geolocationUnsupported": "Geolocation is not supported by your browser",
+        "getLocationFailed": "Failed to get location. Please ensure you granted location permission."
+      },
       "reservations": {
         "title": "Facility Usage Reservations",
         "subtitle": "Review and process facility usage requests from partners and communities.",
@@ -904,6 +992,7 @@
       "statuses": {
         "all": "All",
         "draft": "Draft",
+        "under_review": "Under Review",
         "published": "Published",
         "ticket_sales_open": "Tickets on Sale",
         "ongoing": "Ongoing",
@@ -936,8 +1025,11 @@
         "autoConfirm": "Auto-confirm bookings",
         "mediaTitle": "Media & Gallery",
         "coverPhotoHint": "Cover Photo URL",
+        "coverPhotoPlaceholder": "https://...",
         "galleryHint": "Photo Gallery URLs (comma-separated)",
+        "galleryPlaceholder": "https://..., https://...",
         "videoUrl": "YouTube / Video URL",
+        "videoPlaceholder": "https://youtube.com/...",
         "reviewTitle": "Review & Publish",
         "publishNote": "Once published, participants can browse and book this experience.",
         "readyLabel": "Ready to publish?"
@@ -1055,6 +1147,7 @@
       "subtitle": "Request payout to the registered village bank account.",
       "requestTitle": "New Withdrawal Request",
       "amount": "Withdrawal Amount (IDR)",
+      "amountPlaceholder": "0",
       "bankInfo": "Bank Account",
       "historyTitle": "Withdrawal History",
       "noHistory": "No withdrawal requests yet.",

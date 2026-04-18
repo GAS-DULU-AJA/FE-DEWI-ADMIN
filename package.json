@@ -8,6 +8,7 @@
     "build:cf": "npx @cloudflare/next-on-pages",
     "start": "next start",
     "lint": "next lint",
+    "i18n:audit": "node scripts/i18n-audit.js",
     "test": "vitest run",
     "test:watch": "vitest",
     "type-check": "tsc --noEmit"

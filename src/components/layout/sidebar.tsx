@@ -59,7 +59,9 @@ function getNavItems(role: PartnerRole, t: ReturnType<typeof useTranslations>): 
       { href: `${base}/village-admin`, label: t("nav.dashboard"), icon: <LayoutDashboard className="h-4 w-4" /> },
       { href: `${base}/village-admin/village-data`, label: t("nav.villageManagement"), icon: <Building2 className="h-4 w-4" /> },
       { href: `${base}/village-admin/bank-account`, label: t("nav.bankAccount"), icon: <Wallet className="h-4 w-4" /> },
+      { type: "section", label: t("nav.facilityManagement") },
       { href: `${base}/village-admin/facilities`, label: t("nav.facilities"), icon: <BarChart3 className="h-4 w-4" /> },
+      { href: `${base}/village-admin/facilities/add`, label: t("nav.addFacility"), icon: <Plus className="h-4 w-4" /> },
       { href: `${base}/village-admin/facilities/reservations`, label: t("nav.facilityReservations"), icon: <ClipboardList className="h-4 w-4" /> },
       { type: "section", label: t("nav.experiences") },
       { href: `${base}/village-admin/experiences`, label: t("nav.experiences"), icon: <CalendarDays className="h-4 w-4" /> },
@@ -147,31 +149,34 @@ export function DashboardSidebar({ onClose }: { onClose?: () => void }) {
   };
 
   return (
-    <aside className="flex h-full w-64 flex-col bg-stone-950 text-stone-100">
+    <aside className="flex h-full w-72 flex-col border-r border-stone-800 bg-stone-950 text-stone-100 lg:w-64">
       {/* Logo */}
-      <div className="flex h-16 items-center gap-2 border-b border-stone-800 px-4">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-600">
+      <div className="flex h-16 items-center gap-3 border-b border-stone-800 px-4">
+        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-600 shadow-lg shadow-emerald-800/30">
           <Leaf className="h-5 w-5 text-white" />
         </div>
-        <span className="text-base font-bold text-white">Mitra Dewi</span>
+        <div className="min-w-0">
+          <p className="truncate text-base font-bold text-white">Mitra Dewi</p>
+          <p className="truncate text-[11px] text-stone-400">Admin Panel</p>
+        </div>
       </div>
 
       {/* Role Badge */}
       <div className="px-4 py-3">
-        <div className={cn("inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium text-white", roleColors[user.role])}>
+        <div className={cn("inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium text-white shadow-sm", roleColors[user.role])}>
           {t(`partner.${user.role === "VILLAGE_ADMIN" ? "villageAdmin" : user.role === "ACCOMMODATION" ? "accommodation" : user.role === "UMKM" ? "umkm" : "eventOrganizer"}`)}
         </div>
       </div>
 
       {/* Nav Items */}
-      <nav className="flex-1 overflow-y-auto px-3 pb-4">
+      <nav className="flex-1 overflow-y-auto px-3 pb-4 [scrollbar-color:#57534e_transparent] [scrollbar-width:thin]">
         <ul className="space-y-0.5">
           {navItems.map((element, idx) => {
             // Handle section headers
             if ("type" in element && element.type === "section") {
               return (
                 <li key={`section-${idx}`} className="pt-3 pb-1.5 first:pt-1.5">
-                  <p className="px-3 text-xs font-semibold text-stone-400 uppercase tracking-wider">
+                  <p className="px-3 text-[10px] font-semibold uppercase tracking-[0.14em] text-stone-400/90">
                     {element.label}
                   </p>
                 </li>
@@ -189,14 +194,20 @@ export function DashboardSidebar({ onClose }: { onClose?: () => void }) {
                   href={item.href}
                   onClick={onClose}
                   className={cn(
-                    "flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors",
+                    "group relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-all duration-200",
                     isActive
-                      ? "bg-emerald-600 text-white font-medium"
-                      : "text-stone-400 hover:bg-stone-800 hover:text-stone-100"
+                      ? "bg-emerald-600 text-white font-medium shadow-sm shadow-emerald-950/30"
+                      : "text-stone-400 hover:bg-stone-800/90 hover:text-stone-100"
                   )}
                 >
+                  <span
+                    className={cn(
+                      "absolute left-0 top-1/2 h-5 w-1 -translate-y-1/2 rounded-r-full transition-all",
+                      isActive ? "bg-white/90" : "bg-transparent group-hover:bg-stone-500"
+                    )}
+                  />
                   {item.icon}
-                  {item.label}
+                  <span className="truncate">{item.label}</span>
                 </Link>
               </li>
             );
@@ -206,7 +217,7 @@ export function DashboardSidebar({ onClose }: { onClose?: () => void }) {
 
       {/* User & Logout */}
       <div className="border-t border-stone-800 p-3">
-        <div className="flex items-center gap-3 rounded-lg px-2 py-2 mb-1">
+        <div className="mb-1 flex items-center gap-3 rounded-xl border border-stone-800 bg-stone-900/70 px-2.5 py-2.5">
           <div className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-600 text-white text-xs font-bold shrink-0">
             {user.fullName.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase()}
           </div>
@@ -217,7 +228,7 @@ export function DashboardSidebar({ onClose }: { onClose?: () => void }) {
         </div>
         <button
           onClick={() => logout()}
-          className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-stone-400 hover:bg-stone-800 hover:text-red-400 transition-colors"
+          className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-stone-400 transition-colors hover:bg-stone-800 hover:text-red-400"
         >
           <LogOut className="h-4 w-4" />
           {t("common.logout")}

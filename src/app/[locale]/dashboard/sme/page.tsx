@@ -16,7 +16,8 @@ export default function UmkmDashboard() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="rounded-2xl border border-stone-200/80 bg-white/80 p-4 shadow-sm backdrop-blur sm:p-5">
+        <div className="flex items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold text-stone-900">{t("title")}</h1>
           <p className="text-sm text-stone-500 mt-0.5">{t("subtitle")}</p>
@@ -30,6 +31,7 @@ export default function UmkmDashboard() {
             <Package className="h-4 w-4" />
             {t("actions.viewOrders")}
           </Button>
+        </div>
         </div>
       </div>
 
@@ -66,7 +68,7 @@ export default function UmkmDashboard() {
             {lowStockItems.map((product) => (
               <div
                 key={product.id}
-                className="flex items-center justify-between rounded-xl border border-stone-100 bg-stone-50 p-3"
+                className="flex items-center justify-between rounded-xl border border-stone-100 bg-stone-50 p-3 transition-colors hover:border-amber-200 hover:bg-amber-50/30"
               >
                 <div>
                   <p className="text-sm font-semibold text-stone-800">{product.name}</p>
@@ -80,7 +82,7 @@ export default function UmkmDashboard() {
             {SME_ORDERS.filter((order) => order.status === "ready_for_pickup").map((order) => (
               <div
                 key={order.id}
-                className="flex items-center justify-between rounded-xl border border-emerald-100 bg-emerald-50 p-3"
+                className="flex items-center justify-between rounded-xl border border-emerald-100 bg-emerald-50 p-3 transition-colors hover:border-emerald-200 hover:bg-emerald-100/50"
               >
                 <div>
                   <p className="text-sm font-semibold text-stone-800">{t("orderNumber", { id: order.id })}</p>

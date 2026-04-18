@@ -10,13 +10,21 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
-import { VILLAGE_PROFILE } from "../mock-data";
+import { VILLAGE_PROFILE, VILLAGE_CONTACTS, VILLAGE_SOCIAL_MEDIA, VILLAGE_PROFILE_SECTIONS, AVAILABLE_TAGS, VILLAGE_TAG_ASSIGNMENTS } from "../mock-data";
 import { OperatingHoursEditor } from "./operating-hours-editor";
+import { ContactListEditor } from "./contact-list-editor";
+import { SocialMediaListEditor } from "./social-media-list-editor";
+import { ProfileSectionEditor } from "./profile-section-editor";
+import { TagSelector } from "./tag-selector";
 import type {
   GovernmentServiceFacility,
   GovernmentServicePriority,
   OperatingHoursSchedule,
   VillageProfile,
+  VillageContact,
+  VillageSocialMedia,
+  ProfileSection,
+  VillageTagAssignment,
 } from "../types";
 const VillageLocationPicker = dynamic(() => import("./village-location-picker").then(m => m.VillageLocationPicker), { ssr: false, loading: () => <div className="h-[400px] bg-muted animate-pulse rounded-lg" /> });
 
@@ -75,6 +83,10 @@ export function VillageDataForm() {
   const t = useTranslations("village");
   const [activeTab, setActiveTab] = useState<Tab>("profile");
   const [form, setForm] = useState<VillageProfile>(VILLAGE_PROFILE);
+  const [contacts, setContacts] = useState<VillageContact[]>(VILLAGE_CONTACTS);
+  const [socialMedia, setSocialMedia] = useState<VillageSocialMedia[]>(VILLAGE_SOCIAL_MEDIA);
+  const [profileSections, setProfileSections] = useState<ProfileSection[]>(VILLAGE_PROFILE_SECTIONS);
+  const [tagAssignments, setTagAssignments] = useState<VillageTagAssignment[]>(VILLAGE_TAG_ASSIGNMENTS);
   const [savedTab, setSavedTab] = useState<Tab | null>(null);
   const [locationValidationError, setLocationValidationError] = useState("");
   const [expandedServices, setExpandedServices] = useState<Set<string>>(new Set());
@@ -274,6 +286,32 @@ export function VillageDataForm() {
                   onChange={(e) => setForm({ ...form, history: e.target.value })}
                 />
               </div>
+
+              <div className="border-t pt-5">
+                <ProfileSectionEditor sections={profileSections} onChange={setProfileSections} />
+              </div>
+
+              <div className="border-t pt-5">
+                <TagSelector
+                  availableTags={AVAILABLE_TAGS}
+                  assignments={tagAssignments}
+                  onAssign={(tagId) => {
+                    const tag = AVAILABLE_TAGS.find((t) => t.id === tagId);
+                    if (!tag) return;
+                    setTagAssignments([
+                      ...tagAssignments,
+                      {
+                        id: `vta-${Date.now()}`,
+                        tagId,
+                        tag,
+                        assignedAt: new Date().toISOString(),
+                      },
+                    ]);
+                  }}
+                  onRemove={(tagId) => setTagAssignments(tagAssignments.filter((a) => a.tagId !== tagId))}
+                />
+              </div>
+
               <div className="flex justify-end pt-2">
                 <Button onClick={() => handleSave("profile")}>
                   {savedTab === "profile" ? `✓ ${t("villageData.saved")}` : t("actions.saveProfile")}
@@ -340,56 +378,12 @@ export function VillageDataForm() {
                   }))}
               />
 
-              <div className="border-t pt-5 grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label>{t("villageData.contactPhone")}</Label>
-                  <Input
-                    type="tel"
-                    value={form.contactPhone}
-                    onChange={(e) => setForm({ ...form, contactPhone: e.target.value })}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label>{t("villageData.contactEmail")}</Label>
-                  <Input
-                    type="email"
-                    value={form.contactEmail}
-                    onChange={(e) => setForm({ ...form, contactEmail: e.target.value })}
-                  />
-                </div>
-                <div className="space-y-2 col-span-2">
-                  <Label>{t("villageData.website")}</Label>
-                  <Input
-                    type="url"
-                    value={form.website ?? ""}
-                    onChange={(e) => setForm({ ...form, website: e.target.value })}
-                  />
-                </div>
+              <div className="border-t pt-5">
+                <ContactListEditor contacts={contacts} onChange={setContacts} />
               </div>
 
-              <div className="border-t pt-5 space-y-3">
-                <p className="text-sm font-medium">{t("villageData.socialMedia")}</p>
-                {(
-                  [
-                    { key: "instagram", placeholder: "@namaakun" },
-                    { key: "facebook", placeholder: "Nama halaman atau URL" },
-                    { key: "youtube", placeholder: "https://youtube.com/@channel" },
-                  ] as const
-                ).map(({ key, placeholder }) => (
-                  <div key={key} className="flex items-center gap-3">
-                    <span className="w-24 text-sm text-muted-foreground capitalize">{key}</span>
-                    <Input
-                      placeholder={placeholder}
-                      value={form.socialMedia?.[key] ?? ""}
-                      onChange={(e) =>
-                        setForm({
-                          ...form,
-                          socialMedia: { ...form.socialMedia, [key]: e.target.value },
-                        })
-                      }
-                    />
-                  </div>
-                ))}
+              <div className="border-t pt-5">
+                <SocialMediaListEditor items={socialMedia} onChange={setSocialMedia} />
               </div>
 
               <div className="border-t pt-5 space-y-4">

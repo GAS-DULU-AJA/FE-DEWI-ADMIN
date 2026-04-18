@@ -14,7 +14,10 @@ import {
 
 const iconMap: Record<string, React.ReactNode> = {
   users: <Users className="h-5 w-5" />,
+  visitors: <Users className="h-5 w-5" />,
+  partners: <Users className="h-5 w-5" />,
   shopping: <ShoppingBag className="h-5 w-5" />,
+  products: <ShoppingBag className="h-5 w-5" />,
   bed: <BedDouble className="h-5 w-5" />,
   calendar: <CalendarDays className="h-5 w-5" />,
   revenue: <DollarSign className="h-5 w-5" />,
@@ -72,9 +75,9 @@ export function StatCard({
   const isPositive = change !== undefined && change >= 0;
 
   return (
-    <div className={cn("rounded-xl border border-stone-200 bg-white p-5 shadow-sm hover:shadow-md transition-shadow", c.bg)}>
+    <div className={cn("group rounded-xl border border-stone-200/90 bg-white p-5 shadow-sm transition-[box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:shadow-md", c.bg)}>
       <div className="flex items-start justify-between">
-        <div className={cn("flex h-10 w-10 items-center justify-center rounded-lg", c.icon)}>
+        <div className={cn("flex h-10 w-10 items-center justify-center rounded-lg transition-transform duration-200 group-hover:scale-105", c.icon)}>
           {iconMap[icon] ?? <Package className="h-5 w-5" />}
         </div>
         {change !== undefined && (
@@ -97,7 +100,7 @@ export function StatCard({
         <p className="text-2xl font-bold text-stone-900">
           {value}{suffix && <span className="ml-1 text-base font-medium text-stone-500">{suffix}</span>}
         </p>
-        <p className="mt-0.5 text-sm text-stone-500">{label}</p>
+        <p className="mt-0.5 text-sm text-stone-600">{label}</p>
       </div>
     </div>
   );
