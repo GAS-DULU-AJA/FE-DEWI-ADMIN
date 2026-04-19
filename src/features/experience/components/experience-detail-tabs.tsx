@@ -11,6 +11,7 @@ import { SpeakerCard } from "@/features/experience/components/speaker-card";
 import { DocumentManager } from "@/features/experience/components/document-manager";
 import { NotificationManager } from "@/features/experience/components/notification-manager";
 import { AttendeeTable } from "@/features/experience/components/attendee-table";
+import { ExperienceStaffManager } from "@/features/experience/components/experience-staff-manager";
 import type { ExperienceItem, ExperienceReservation } from "@/features/experience/types";
 
 type DetailTab =
@@ -18,6 +19,7 @@ type DetailTab =
   | "tickets"
   | "itinerary"
   | "speakers"
+  | "staff"
   | "attendees"
   | "documents"
   | "notifications"
@@ -41,6 +43,7 @@ export function ExperienceDetailTabs({
       { key: "tickets" as const, label: isId ? "Tiket" : "Tickets" },
       { key: "itinerary" as const, label: t("components.itinerary") },
       { key: "speakers" as const, label: t("speakers.title") },
+      { key: "staff" as const, label: isId ? "Pelaksana" : "Staff" },
       { key: "attendees" as const, label: t("attendees.title") },
       { key: "documents" as const, label: t("documents.title") },
       { key: "notifications" as const, label: t("notifications.title") },
@@ -136,6 +139,8 @@ export function ExperienceDetailTabs({
           )}
         </div>
       )}
+
+      {activeTab === "staff" && <ExperienceStaffManager isId={isId} />}
 
       {activeTab === "attendees" && <AttendeeTable reservations={reservations} />}
       {activeTab === "documents" && <DocumentManager documents={experience.documents} />}

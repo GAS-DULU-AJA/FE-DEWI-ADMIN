@@ -1,10 +1,12 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { Button } from "@/components/ui/button";
 import { SpeakerCard } from "@/features/experience/components/speaker-card";
 import { SpeakerForm } from "@/features/experience/components/speaker-form";
 import type { Speaker } from "@/features/experience/types";
 import { useLocale } from "next-intl";
+import { Plus } from "lucide-react";
 
 type SpeakerFormValue = {
   name: string;
@@ -20,6 +22,7 @@ export function SpeakersCrudManager({ initialSpeakers }: { initialSpeakers: Spea
   const isId = locale === "id";
   const [speakers, setSpeakers] = useState<Speaker[]>(initialSpeakers);
   const [editingSpeakerId, setEditingSpeakerId] = useState<string | null>(null);
+  const [showCreateForm, setShowCreateForm] = useState(false);
 
   const editingSpeaker = useMemo(
     () => speakers.find((item) => item.id === editingSpeakerId),
@@ -88,15 +91,28 @@ export function SpeakersCrudManager({ initialSpeakers }: { initialSpeakers: Spea
 
   return (
     <div className="space-y-6">
-      {editingSpeaker ? (
+      <div className="flex justify-end">
+        <Button size="sm" onClick={() => setShowCreateForm(true)}>
+          <Plus className="h-4 w-4" />
+          {isId ? "Tambah Speaker" : "Add Speaker"}
+        </Button>
+      </div>
+
+      <SpeakerForm
+        open={showCreateForm}
+        onOpenChange={setShowCreateForm}
+        mode="create"
+        onSubmit={handleCreateSpeaker}
+      />
+
+      {editingSpeaker && (
         <SpeakerForm
+          open={!!editingSpeakerId}
+          onOpenChange={(open) => { if (!open) setEditingSpeakerId(null); }}
           mode="edit"
           initialValue={editingSpeaker}
           onSubmit={handleUpdateSpeaker}
-          onCancel={() => setEditingSpeakerId(null)}
         />
-      ) : (
-        <SpeakerForm mode="create" onSubmit={handleCreateSpeaker} />
       )}
 
       {speakers.length > 0 ? (

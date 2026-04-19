@@ -3,12 +3,16 @@
 import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { DataTable, type ColumnDef } from "@/components/ui/data-table";
 import { AccommodationPageHeader } from "@/features/accommodation/components/page-header";
 import { RoomStatusBadge } from "@/features/accommodation/components/room-status-badge";
 import { ACCOMMODATIONS } from "@/features/accommodation/mock-data";
 import { getAllRooms } from "@/features/accommodation/utils";
 import { formatCurrency } from "@/lib/utils";
 import { RoomAvailabilityBarChart } from "@/features/accommodation/components/dashboard-charts";
+import { Eye, Pencil, Trash2 } from "lucide-react";
+
+type RoomRow = ReturnType<typeof getAllRooms>[number];
 
 export default function KamarPage() {
   const searchParams = useSearchParams();
@@ -174,67 +178,87 @@ export default function KamarPage() {
       </div>
 
       {/* ── Tabel Kamar ── */}
-      <Card>
-        <CardContent className="overflow-x-auto p-0">
-          {filteredRooms.length === 0 ? (
-            <p className="py-10 text-center text-sm text-stone-400">
-              Tidak ada data kamar untuk kombinasi filter yang dipilih.
-            </p>
-          ) : (
-            <table className="w-full text-sm">
-              <thead className="border-b border-stone-100 bg-stone-50">
-                <tr>
-                  {["Kamar", "Kode", "Tipe", "Penginapan", "Kapasitas", "Harga / Malam", "Stok", "View", "Fasilitas", "Status"].map((h) => (
-                    <th key={h} className="px-3 py-2.5 text-left text-xs font-medium text-stone-500 whitespace-nowrap">
-                      {h}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-stone-100">
-                {filteredRooms.map((room) => {
-                  const accommodation = ACCOMMODATIONS.find((item) => item.id === room.accommodationId);
-                  const stockColor =
-                    room.availableUnits === 0
-                      ? "text-red-600"
-                      : room.availableUnits < room.totalUnits
-                        ? "text-amber-600"
-                        : "text-emerald-700";
-                  return (
-                    <tr key={room.id} className="hover:bg-stone-50">
-                      <td className="px-3 py-3">
-                        <p className="font-medium text-stone-900">{room.name}</p>
-                        <p className="text-xs text-stone-400">{room.bedType}</p>
-                      </td>
-                      <td className="px-3 py-3 font-mono text-xs text-stone-500">{room.roomCode}</td>
-                      <td className="px-3 py-3 text-xs text-stone-600">{room.type}</td>
-                      <td className="px-3 py-3 text-xs text-stone-600 whitespace-nowrap">
-                        {accommodation?.name ?? "-"}
-                      </td>
-                      <td className="px-3 py-3 text-center text-xs text-stone-600">
-                        {room.capacity} tamu
-                      </td>
-                      <td className="px-3 py-3 font-medium text-stone-900 whitespace-nowrap">
-                        {formatCurrency(room.pricePerNight)}
-                      </td>
-                      <td className={`px-3 py-3 text-center font-semibold text-xs ${stockColor}`}>
-                        {room.availableUnits}/{room.totalUnits}
-                      </td>
-                      <td className="px-3 py-3 text-xs text-stone-500">{room.view}</td>
-                      <td className="px-3 py-3 text-xs text-stone-500 max-w-40">
-                        {room.amenities.join(", ")}
-                      </td>
-                      <td className="px-3 py-3">
-                        <RoomStatusBadge status={room.status} />
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          )}
-        </CardContent>
-      </Card>
+      <DataTable<RoomRow>
+        data={filteredRooms}
+        columns={[
+          {
+            id: "name",
+            header: "Kamar",
+            accessorFn: (row) => (
+              <div>
+                <p className="font-medium text-stone-900">{row.name}</p>
+                <p className="text-xs text-stone-400">{row.bedType}</p>
+              </div>
+            ),
+            sortable: true,
+          },
+          { id: "roomCode", header: "Kode", accessorKey: "roomCode" as keyof RoomRow, className: "font-mono text-xs text-stone-500", hideOnMobile: true },
+          { id: "type", header: "Tipe", accessorKey: "type" as keyof RoomRow, sortable: true, hideOnMobile: true },
+          {
+            id: "accommodation",
+            header: "Penginapan",
+            accessorFn: (row) => ACCOMMODATIONS.find((a) => a.id === row.accommodationId)?.name ?? "-",
+            hideOnMobile: true,
+          },
+          {
+            id: "capacity",
+            header: "Kapasitas",
+            accessorFn: (row) => `${row.capacity} tamu`,
+            sortable: true,
+            hideOnMobile: true,
+          },
+          {
+            id: "price",
+            header: "Harga / Malam",
+            accessorFn: (row) => (
+              <span className="font-medium text-stone-900 whitespace-nowrap">
+                {formatCurrency(row.pricePerNight)}
+              </span>
+            ),
+            sortable: true,
+          },
+          {
+            id: "stock",
+            header: "Stok",
+            accessorFn: (row) => {
+              const color =
+                row.availableUnits === 0
+                  ? "text-red-600"
+                  : row.availableUnits < row.totalUnits
+                    ? "text-amber-600"
+                    : "text-emerald-700";
+              return <span className={`font-semibold ${color}`}>{row.availableUnits}/{row.totalUnits}</span>;
+            },
+            sortable: true,
+            hideOnMobile: true,
+          },
+          { id: "view", header: "View", accessorKey: "view" as keyof RoomRow, hideOnMobile: true },
+          {
+            id: "amenities",
+            header: "Fasilitas",
+            accessorFn: (row) => <span className="max-w-40 truncate">{row.amenities.join(", ")}</span>,
+            hideOnMobile: true,
+          },
+          {
+            id: "status",
+            header: "Status",
+            accessorFn: (row) => <RoomStatusBadge status={row.status} />,
+            sortable: true,
+          },
+        ] satisfies ColumnDef<RoomRow>[]}
+        keyExtractor={(row) => row.id}
+        searchPlaceholder="Cari kamar..."
+        searchableFields={["name" as keyof RoomRow, "roomCode" as keyof RoomRow, "type" as keyof RoomRow]}
+        actions={(row) => [
+          { label: "Lihat Detail", icon: <Eye className="h-4 w-4" />, onClick: () => {} },
+          { label: "Edit", icon: <Pencil className="h-4 w-4" />, onClick: () => {} },
+          { label: "Hapus", icon: <Trash2 className="h-4 w-4" />, onClick: () => {}, variant: "destructive" },
+        ]}
+        emptyState={{
+          title: "Tidak ada kamar ditemukan",
+          description: "Tidak ada data kamar untuk kombinasi filter yang dipilih.",
+        }}
+      />
     </div>
   );
 }

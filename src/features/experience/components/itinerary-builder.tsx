@@ -1,11 +1,18 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import type { ItineraryItem } from "@/features/experience/types";
+import type { ItineraryItem, Speaker } from "@/features/experience/types";
 import { useTranslations } from "next-intl";
 
-export function ItineraryBuilder({ items }: { items: ItineraryItem[] }) {
+export function ItineraryBuilder({
+  items,
+  speakers = [],
+}: {
+  items: ItineraryItem[];
+  speakers?: Speaker[];
+}) {
   const t = useTranslations("experience");
+  const speakersById = new Map(speakers.map((speaker) => [speaker.id, speaker]));
 
   return (
     <Card>
@@ -20,6 +27,11 @@ export function ItineraryBuilder({ items }: { items: ItineraryItem[] }) {
             </p>
             <p className="text-stone-700">{item.activity}</p>
             {item.location ? <p className="text-stone-500">{item.location}</p> : null}
+            {item.speakerId && speakersById.get(item.speakerId) ? (
+              <p className="text-stone-500">
+                {t("speakers.title")}: {speakersById.get(item.speakerId)?.name}
+              </p>
+            ) : null}
           </div>
         ))}
       </CardContent>

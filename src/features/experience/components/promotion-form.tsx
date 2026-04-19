@@ -1,24 +1,32 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { FormModal } from "@/components/ui/form-modal";
 import { useTranslations } from "next-intl";
 
 const TYPES = ["early_bird", "group_discount", "last_chance", "returning_customer", "promo_code", "bundle"] as const;
 
-export function ExperiencePromotionForm() {
+interface ExperiencePromotionFormProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}
+
+export function ExperiencePromotionForm({ open, onOpenChange }: ExperiencePromotionFormProps) {
   const t = useTranslations("experience");
   const [type, setType] = useState<(typeof TYPES)[number]>("early_bird");
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="text-base">{t("components.createPromotion")}</CardTitle>
-      </CardHeader>
-      <CardContent className="grid grid-cols-1 gap-3 md:grid-cols-2">
+    <FormModal
+      open={open}
+      onOpenChange={onOpenChange}
+      title={t("components.createPromotion")}
+      size="md"
+      submitLabel={t("components.create")}
+      onSubmit={() => onOpenChange(false)}
+    >
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
         <div className="space-y-2">
           <Label>{t("components.name")}</Label>
           <Input placeholder={t("components.campaignNamePlaceholder")} />
@@ -41,10 +49,7 @@ export function ExperiencePromotionForm() {
             <Input placeholder={t("components.promoCodeSample")} />
           </div>
         ) : null}
-        <div className="md:col-span-2 flex justify-end">
-          <Button>{t("components.create")}</Button>
-        </div>
-      </CardContent>
-    </Card>
+      </div>
+    </FormModal>
   );
 }

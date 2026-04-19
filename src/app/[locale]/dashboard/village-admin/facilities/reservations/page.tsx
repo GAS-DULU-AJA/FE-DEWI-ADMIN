@@ -9,6 +9,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { SegmentedTabs } from "@/components/ui/segmented-tabs";
+import { DataTable, type ColumnDef } from "@/components/ui/data-table";
+import { CheckCircle, XCircle, CheckCheck } from "lucide-react";
 
 const STATUS_BADGE_CLASS: Record<string, string> = {
   pending: "bg-amber-100 text-amber-800",
@@ -84,72 +86,82 @@ export default function VillageFacilityReservationsPage() {
         sticky
       />
 
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-        {list.map((reservation) => (
-          <Card key={reservation.id}>
-            <CardHeader className="pb-2">
-              <div className="flex items-start justify-between gap-2">
-                <div>
-                  <CardTitle className="text-base">{reservation.facilityName}</CardTitle>
-                  <p className="text-sm text-stone-500">{reservation.requesterName}</p>
-                </div>
-                <Badge className={STATUS_BADGE_CLASS[reservation.status]}>
-                  {t(`facilities.reservations.status.${reservation.status}`)}
-                </Badge>
+      <DataTable<(typeof reservations)[0]>
+        data={list}
+        columns={[
+          {
+            id: "facility",
+            header: t("facilities.reservations.facilityLabel") || "Fasilitas",
+            accessorFn: (row) => (
+              <div>
+                <p className="font-medium text-stone-900">{row.facilityName}</p>
+                <p className="text-xs text-stone-500">{row.requesterName}</p>
               </div>
-            </CardHeader>
-            <CardContent className="space-y-2 text-sm text-stone-700">
-              <p>
-                <span className="font-medium">{t("facilities.reservations.periodLabel")}:</span>{" "}
-                {reservation.startDate} - {reservation.endDate}
-              </p>
-              <p>
-                <span className="font-medium">{t("facilities.reservations.participantsLabel")}:</span>{" "}
-                {reservation.participants}
-              </p>
-              <p>
-                <span className="font-medium">{t("facilities.reservations.purposeLabel")}:</span>{" "}
-                {reservation.purpose}
-              </p>
-              {reservation.notes ? (
-                <p>
-                  <span className="font-medium">{t("facilities.reservations.notesLabel")}:</span>{" "}
-                  {reservation.notes}
-                </p>
-              ) : null}
-
-              <div className="flex flex-wrap gap-2 pt-2">
-                {reservation.status === "pending" && (
-                  <>
-                    <Button
-                      size="sm"
-                      onClick={() => setConfirmAction({ type: "approve", reservation })}
-                    >
-                      {t("facilities.reservations.approve")}
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="destructive"
-                      onClick={() => setConfirmAction({ type: "reject", reservation })}
-                    >
-                      {t("facilities.reservations.reject")}
-                    </Button>
-                  </>
-                )}
-                {reservation.status === "approved" && (
-                  <Button
-                    size="sm"
-                    className="bg-blue-600 hover:bg-blue-700 text-white"
-                    onClick={() => setConfirmAction({ type: "complete", reservation })}
-                  >
-                    {t("facilities.reservations.complete")}
-                  </Button>
-                )}
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+            ),
+            sortable: true,
+          },
+          {
+            id: "period",
+            header: t("facilities.reservations.periodLabel") || "Periode",
+            accessorFn: (row) => `${row.startDate} - ${row.endDate}`,
+            sortable: true,
+          },
+          {
+            id: "participants",
+            header: t("facilities.reservations.participantsLabel") || "Peserta",
+            accessorKey: "participants",
+            sortable: true,
+            hideOnMobile: true,
+          },
+          {
+            id: "purpose",
+            header: t("facilities.reservations.purposeLabel") || "Tujuan",
+            accessorKey: "purpose",
+            hideOnMobile: true,
+          },
+          {
+            id: "status",
+            header: "Status",
+            accessorFn: (row) => (
+              <Badge className={STATUS_BADGE_CLASS[row.status]}>
+                {t(`facilities.reservations.status.${row.status}`)}
+              </Badge>
+            ),
+            sortable: true,
+          },
+        ] satisfies ColumnDef<(typeof reservations)[0]>[]}
+        keyExtractor={(row) => row.id}
+        searchPlaceholder={t("facilities.reservations.searchPlaceholder") || "Cari reservasi..."}
+        searchableFields={["facilityName", "requesterName", "purpose"] as (keyof (typeof reservations)[0])[]}
+        actions={(row) => {
+          const items: { label: string; icon?: React.ReactNode; onClick: () => void; variant?: "default" | "destructive" }[] = [];
+          if (row.status === "pending") {
+            items.push({
+              label: t("facilities.reservations.approve"),
+              icon: <CheckCircle className="h-4 w-4" />,
+              onClick: () => setConfirmAction({ type: "approve", reservation: row }),
+            });
+            items.push({
+              label: t("facilities.reservations.reject"),
+              icon: <XCircle className="h-4 w-4" />,
+              onClick: () => setConfirmAction({ type: "reject", reservation: row }),
+              variant: "destructive",
+            });
+          }
+          if (row.status === "approved") {
+            items.push({
+              label: t("facilities.reservations.complete"),
+              icon: <CheckCheck className="h-4 w-4" />,
+              onClick: () => setConfirmAction({ type: "complete", reservation: row }),
+            });
+          }
+          return items;
+        }}
+        emptyState={{
+          title: t("facilities.reservations.noData") || "Tidak ada reservasi",
+          description: t("facilities.reservations.noDataDescription") || "Belum ada reservasi fasilitas.",
+        }}
+      />
 
       <ConfirmationDialog
         open={conflictWarning.show}

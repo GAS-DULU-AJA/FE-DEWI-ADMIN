@@ -1,57 +1,111 @@
 "use client";
 
 import { useState } from "react";
+import { useLocale } from "next-intl";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { SPEAKERS } from "@/features/experience/mock-data";
+import { CalendarDays, CheckCircle2, Image as ImageIcon, Mic2, Ticket, Sparkles } from "lucide-react";
 
-const STEPS = ["basic", "schedule", "tickets", "media", "review"] as const;
+const STEPS = ["basic", "schedule", "speakers", "tickets", "media", "review"] as const;
+
+type StepKey = (typeof STEPS)[number];
+
+const STEP_ICONS: Record<StepKey, React.ReactNode> = {
+  basic: <Sparkles className="h-4 w-4" />,
+  schedule: <CalendarDays className="h-4 w-4" />,
+  speakers: <Mic2 className="h-4 w-4" />,
+  tickets: <Ticket className="h-4 w-4" />,
+  media: <ImageIcon className="h-4 w-4" />,
+  review: <CheckCircle2 className="h-4 w-4" />,
+};
 
 export function ExperienceWizard() {
   const t = useTranslations("village");
+  const locale = useLocale();
+  const isId = locale === "id";
   const [stepIndex, setStepIndex] = useState(0);
 
-  // Step 2 — Ticket state
+  const [name, setName] = useState("");
+  const [category, setCategory] = useState("cultural");
+  const [description, setDescription] = useState("");
+  const [startsAt, setStartsAt] = useState("");
+  const [endsAt, setEndsAt] = useState("");
+  const [capacity, setCapacity] = useState(50);
+  const [pricePerPerson, setPricePerPerson] = useState(0);
+  const [selectedSpeakers, setSelectedSpeakers] = useState<string[]>([]);
+
   const [priceAdult, setPriceAdult] = useState(0);
   const [priceChild, setPriceChild] = useState(0);
   const [maxPerBooking, setMaxPerBooking] = useState(10);
   const [bookingDeadline, setBookingDeadline] = useState(24);
   const [autoConfirm, setAutoConfirm] = useState(false);
 
-  // Step 3 — Media state
   const [coverPhoto, setCoverPhoto] = useState("");
   const [gallery, setGallery] = useState("");
   const [videoUrl, setVideoUrl] = useState("");
 
+  const progress = ((stepIndex + 1) / STEPS.length) * 100;
+
+  function toggleSpeaker(id: string) {
+    setSelectedSpeakers((prev) => (prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]));
+  }
+
+  const selectedSpeakerNames = SPEAKERS.filter((item) => selectedSpeakers.includes(item.id)).map((item) => item.name);
+
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{t("experiences.wizardTitle")}</CardTitle>
+    <Card className="overflow-hidden border-stone-200">
+      <CardHeader className="border-b border-stone-200 bg-gradient-to-br from-emerald-50 via-white to-teal-50">
+        <CardTitle className="text-xl text-stone-900">{t("experiences.wizardTitle")}</CardTitle>
+        <p className="text-sm text-stone-600">
+          {isId
+            ? "Alur pengajuan experience dibuat bertahap agar data operasional, speaker, dan tiket lebih rapi sejak awal."
+            : "The submission flow is step-based so operational data, speakers, and tickets stay structured from the start."}
+        </p>
+        <div className="space-y-2 pt-2">
+          <div className="flex items-center justify-between text-xs text-stone-500">
+            <span>{isId ? "Progress Pengajuan" : "Submission Progress"}</span>
+            <span>{Math.round(progress)}%</span>
+          </div>
+          <div className="h-2 w-full overflow-hidden rounded-full bg-stone-200">
+            <div className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 transition-all" style={{ width: `${progress}%` }} />
+          </div>
+        </div>
       </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="flex gap-2 text-xs">
+      <CardContent className="space-y-6 p-6">
+        <div className="grid grid-cols-2 gap-2 md:grid-cols-3 xl:grid-cols-6">
           {STEPS.map((step, idx) => (
-            <span
+            <button
               key={step}
-              className={`rounded-full px-3 py-1 ${idx === stepIndex ? "bg-emerald-600 text-white" : "bg-stone-100 text-stone-600"}`}
+              type="button"
+              onClick={() => setStepIndex(idx)}
+              className={`flex items-center justify-center gap-2 rounded-xl border px-2.5 py-2 text-xs transition ${
+                idx === stepIndex
+                  ? "border-emerald-500 bg-emerald-600 text-white"
+                  : idx < stepIndex
+                    ? "border-emerald-200 bg-emerald-50 text-emerald-700"
+                    : "border-stone-200 bg-white text-stone-600 hover:border-emerald-200"
+              }`}
             >
+              {STEP_ICONS[step]}
               {t(`experiences.steps.${step}`)}
-            </span>
+            </button>
           ))}
         </div>
 
         {stepIndex === 0 ? (
-          <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div className="space-y-2">
               <Label>{t("common.name")}</Label>
-              <Input />
+              <Input value={name} onChange={(e) => setName(e.target.value)} placeholder={isId ? "Contoh: Jelajah Budaya Subak" : "Example: Subak Cultural Journey"} />
             </div>
             <div className="space-y-2">
               <Label>{t("experiences.category")}</Label>
-              <select className="h-10 w-full rounded-lg border border-stone-200 px-3 text-sm">
+              <select className="h-10 w-full rounded-lg border border-stone-200 px-3 text-sm" value={category} onChange={(e) => setCategory(e.target.value)}>
                 <option value="cultural">{t("experiences.categories.cultural")}</option>
                 <option value="nature">{t("experiences.categories.nature")}</option>
                 <option value="culinary">{t("experiences.categories.culinary")}</option>
@@ -63,33 +117,65 @@ export function ExperienceWizard() {
             </div>
             <div className="space-y-2 md:col-span-2">
               <Label>{t("common.description")}</Label>
-              <Textarea rows={4} />
+              <Textarea rows={5} value={description} onChange={(e) => setDescription(e.target.value)} placeholder={isId ? "Tuliskan manfaat experience, alur peserta, dan nilai unik desa." : "Describe participant flow, key benefits, and village uniqueness."} />
             </div>
           </div>
         ) : null}
 
         {stepIndex === 1 ? (
-          <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div className="space-y-2">
               <Label>{t("experiences.startsAt")}</Label>
-              <Input type="datetime-local" />
+              <Input type="datetime-local" value={startsAt} onChange={(e) => setStartsAt(e.target.value)} />
             </div>
             <div className="space-y-2">
               <Label>{t("experiences.endsAt")}</Label>
-              <Input type="datetime-local" />
+              <Input type="datetime-local" value={endsAt} onChange={(e) => setEndsAt(e.target.value)} />
             </div>
             <div className="space-y-2">
               <Label>{t("experiences.capacity")}</Label>
-              <Input type="number" min={1} />
+              <Input type="number" min={1} value={capacity} onChange={(e) => setCapacity(Number(e.target.value))} />
             </div>
             <div className="space-y-2">
               <Label>{t("experiences.pricePerPerson")}</Label>
-              <Input type="number" min={0} />
+              <Input type="number" min={0} value={pricePerPerson} onChange={(e) => setPricePerPerson(Number(e.target.value))} />
+            </div>
+            <div className="rounded-xl border border-emerald-100 bg-emerald-50/70 p-3 text-xs text-emerald-800 md:col-span-2">
+              {isId
+                ? "Tips: selaraskan kapasitas dengan ketersediaan pemandu, fasilitas, dan keamanan lokasi."
+                : "Tip: align capacity with guide availability, facility readiness, and site safety."}
             </div>
           </div>
         ) : null}
 
         {stepIndex === 2 ? (
+          <div className="space-y-4">
+            <div className="rounded-xl border border-stone-200 bg-stone-50 p-3 text-sm text-stone-600">
+              {isId
+                ? "Pilih pengisi acara dari daftar yang sudah dikelola. Di sini hanya pemilihan, tanpa tambah/edit data pembicara."
+                : "Choose speakers from managed records. This step is selection-only without create/edit actions."}
+            </div>
+            <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+              {SPEAKERS.map((speaker) => {
+                const active = selectedSpeakers.includes(speaker.id);
+                return (
+                  <button
+                    key={speaker.id}
+                    type="button"
+                    onClick={() => toggleSpeaker(speaker.id)}
+                    className={`rounded-xl border p-3 text-left transition ${active ? "border-emerald-500 bg-emerald-50" : "border-stone-200 bg-white hover:border-emerald-300"}`}
+                  >
+                    <p className="text-sm font-semibold text-stone-900">{speaker.name}</p>
+                    <p className="mt-1 text-xs text-stone-500 line-clamp-2">{speaker.bio}</p>
+                    <p className="mt-2 text-xs text-stone-600">{speaker.topics.join(" · ")}</p>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        ) : null}
+
+        {stepIndex === 3 ? (
           <div className="space-y-4">
             <p className="text-sm font-medium text-stone-700">{t("experiences.wizard.ticketsTitle")}</p>
             <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
@@ -117,7 +203,7 @@ export function ExperienceWizard() {
           </div>
         ) : null}
 
-        {stepIndex === 3 ? (
+        {stepIndex === 4 ? (
           <div className="space-y-4">
             <p className="text-sm font-medium text-stone-700">{t("experiences.wizard.mediaTitle")}</p>
             <div className="space-y-3">
@@ -150,10 +236,26 @@ export function ExperienceWizard() {
           </div>
         ) : null}
 
-        {stepIndex === 4 ? (
+        {stepIndex === 5 ? (
           <div className="space-y-3">
             <p className="text-sm font-medium text-stone-700">{t("experiences.wizard.reviewTitle")}</p>
-            <div className="rounded-lg border border-stone-200 bg-stone-50 p-4 text-sm text-stone-600">
+            <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+              <div className="rounded-lg border border-stone-200 bg-stone-50 p-4 text-sm text-stone-700">
+                <p className="font-medium text-stone-900">{isId ? "Ringkasan Experience" : "Experience Summary"}</p>
+                <p className="mt-2">{name || "-"}</p>
+                <p className="text-xs text-stone-500">{description || "-"}</p>
+                <p className="mt-2 text-xs text-stone-600">{startsAt || "-"} - {endsAt || "-"}</p>
+                <p className="text-xs text-stone-600">{isId ? "Kapasitas" : "Capacity"}: {capacity}</p>
+              </div>
+              <div className="rounded-lg border border-stone-200 bg-stone-50 p-4 text-sm text-stone-700">
+                <p className="font-medium text-stone-900">{isId ? "Operasional & Harga" : "Operational & Pricing"}</p>
+                <p className="mt-2 text-xs text-stone-600">{isId ? "Harga dewasa" : "Adult price"}: Rp {priceAdult.toLocaleString("id-ID")}</p>
+                <p className="text-xs text-stone-600">{isId ? "Harga anak" : "Child price"}: Rp {priceChild.toLocaleString("id-ID")}</p>
+                <p className="text-xs text-stone-600">{isId ? "Maks. per booking" : "Max per booking"}: {maxPerBooking}</p>
+                <p className="text-xs text-stone-600">{isId ? "Speaker terpilih" : "Selected speakers"}: {selectedSpeakerNames.length > 0 ? selectedSpeakerNames.join(", ") : "-"}</p>
+              </div>
+            </div>
+            <div className="rounded-lg border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-800">
               {t("experiences.wizard.publishNote")}
             </div>
             <label className="flex items-center gap-2 text-sm text-stone-700">
@@ -163,7 +265,7 @@ export function ExperienceWizard() {
           </div>
         ) : null}
 
-        <div className="flex justify-between">
+        <div className="flex flex-wrap justify-between gap-2">
           <Button variant="outline" disabled={stepIndex === 0} onClick={() => setStepIndex((v) => Math.max(0, v - 1))}>
             {t("common.previous")}
           </Button>

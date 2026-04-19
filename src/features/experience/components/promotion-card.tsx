@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import type { ExperiencePromotion } from "@/features/experience";
 import { useTranslations } from "next-intl";
 
-export function ExperiencePromotionCard({ promotion }: { promotion: ExperiencePromotion }) {
+export function ExperiencePromotionCard({ promotion, experienceName }: { promotion: ExperiencePromotion; experienceName?: string }) {
   const t = useTranslations("experience");
 
   return (
@@ -15,6 +15,9 @@ export function ExperiencePromotionCard({ promotion }: { promotion: ExperiencePr
           <CardTitle className="text-base">{promotion.name}</CardTitle>
           <Badge variant={promotion.status === "active" ? "default" : "secondary"}>{t(`status.${promotion.status}`)}</Badge>
         </div>
+        {experienceName && (
+          <p className="text-xs text-stone-500">{experienceName}</p>
+        )}
       </CardHeader>
       <CardContent className="text-sm text-stone-600">
         <p>{t(`promotionTypes.${promotion.type}`)}</p>

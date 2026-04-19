@@ -3,16 +3,22 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { AlertTriangle, Package, Plus, Tag } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
+import { useLocale } from "next-intl";
 import { useTranslations } from "next-intl";
+import { ProposalStatusTracker } from "@/features/shared/proposals/components/proposal-status-tracker";
+import { getProposalsForRole } from "@/features/shared/proposals/utils";
 import { SME_ORDERS, SME_PRODUCTS, SME_PROFILE } from "@/features/sme/mock-data";
 import { SmeDashboardCharts } from "@/features/sme/components/dashboard-charts";
 import { SmeProfileForm } from "@/features/sme/components/sme-profile-form";
 import { getSmeDashboardMetrics } from "@/features/sme/utils";
 
 export default function UmkmDashboard() {
+  const locale = useLocale();
+  const isId = locale === "id";
   const t = useTranslations("sme.dashboard");
   const metrics = getSmeDashboardMetrics();
   const lowStockItems = SME_PRODUCTS.filter((product) => product.stock <= 5);
+  const proposalTrackers = getProposalsForRole("UMKM");
 
   return (
     <div className="space-y-6">
@@ -55,6 +61,25 @@ export default function UmkmDashboard() {
       </div>
 
       <SmeDashboardCharts />
+
+      {proposalTrackers.length > 0 ? (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">{isId ? "Tracker Pengajuan Proposal" : "Proposal Submission Tracker"}</CardTitle>
+          </CardHeader>
+          <CardContent className="grid grid-cols-1 gap-3 xl:grid-cols-2">
+            {proposalTrackers.map((proposal) => (
+              <ProposalStatusTracker
+                key={proposal.id}
+                status={proposal.status}
+                timeline={proposal.timeline}
+                rejectionReason={proposal.rejectionReason}
+                isId={isId}
+              />
+            ))}
+          </CardContent>
+        </Card>
+      ) : null}
 
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-[1.3fr_0.7fr]">
         <Card>

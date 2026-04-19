@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { DataTable, type ColumnDef } from "@/components/ui/data-table";
 import { ACCOMMODATIONS } from "@/features/accommodation/mock-data";
 import { AccommodationPageHeader } from "@/features/accommodation/components/page-header";
 import {
@@ -14,6 +15,9 @@ import {
   ReservationStatusDonutChart,
   RevenueByPropertyChart,
 } from "@/features/accommodation/components/dashboard-charts";
+import { Eye } from "lucide-react";
+
+type ReservationRow = ReturnType<typeof getAllReservations>[number];
 
 const RESERVATION_STATUS_META: Record<string, { label: string; className: string }> = {
   pending: { label: "Pending", className: "bg-amber-100 text-amber-700" },
@@ -216,67 +220,89 @@ export default function ReservasiPage() {
       </div>
 
       {/* ── Tabel Reservasi ── */}
-      <Card>
-        <CardContent className="overflow-x-auto p-0">
-          {filteredReservations.length === 0 ? (
-            <p className="py-10 text-center text-sm text-stone-400">
-              Tidak ada data reservasi untuk kombinasi filter yang dipilih.
-            </p>
-          ) : (
-            <table className="w-full text-sm">
-              <thead className="border-b border-stone-100 bg-stone-50">
-                <tr>
-                  {["No", "Tamu", "Penginapan", "Kamar", "Check-In", "Check-Out", "Malam", "Nilai", "Status Reservasi", "Status Bayar"].map((h) => (
-                    <th key={h} className="px-3 py-2.5 text-left text-xs font-medium text-stone-500 whitespace-nowrap">
-                      {h}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-stone-100">
-                {filteredReservations.map((reservation, index) => {
-                  const accommodation = ACCOMMODATIONS.find((item) => item.id === reservation.accommodationId);
-                  const statusMeta = RESERVATION_STATUS_META[reservation.status];
-                  const payMeta = PAYMENT_STATUS_META[reservation.paymentStatus];
-                  const nights = Math.round(
-                    (new Date(reservation.checkOut).getTime() - new Date(reservation.checkIn).getTime()) /
-                      (1000 * 60 * 60 * 24)
-                  );
-                  return (
-                    <tr key={reservation.id} className="hover:bg-stone-50">
-                      <td className="px-3 py-3 text-xs text-stone-400">{index + 1}</td>
-                      <td className="px-3 py-3">
-                        <p className="font-medium text-stone-900">{reservation.guestName}</p>
-                        <p className="text-xs text-stone-400">{reservation.guestEmail}</p>
-                      </td>
-                      <td className="px-3 py-3 text-xs text-stone-600 whitespace-nowrap">
-                        {accommodation?.name ?? "-"}
-                      </td>
-                      <td className="px-3 py-3 text-xs text-stone-600">{reservation.roomName}</td>
-                      <td className="px-3 py-3 text-xs text-stone-500 whitespace-nowrap">
-                        {formatDateShort(reservation.checkIn)}
-                      </td>
-                      <td className="px-3 py-3 text-xs text-stone-500 whitespace-nowrap">
-                        {formatDateShort(reservation.checkOut)}
-                      </td>
-                      <td className="px-3 py-3 text-center text-xs text-stone-600">{nights}</td>
-                      <td className="px-3 py-3 font-semibold text-stone-900 whitespace-nowrap">
-                        {formatCurrency(reservation.totalPrice)}
-                      </td>
-                      <td className="px-3 py-3">
-                        <Badge className={statusMeta.className}>{statusMeta.label}</Badge>
-                      </td>
-                      <td className="px-3 py-3">
-                        <Badge className={payMeta.className}>{payMeta.label}</Badge>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          )}
-        </CardContent>
-      </Card>
+      <DataTable<ReservationRow>
+        data={filteredReservations}
+        columns={[
+          {
+            id: "guest",
+            header: "Tamu",
+            accessorFn: (row) => (
+              <div>
+                <p className="font-medium text-stone-900">{row.guestName}</p>
+                <p className="text-xs text-stone-400">{row.guestEmail}</p>
+              </div>
+            ),
+            sortable: true,
+          },
+          {
+            id: "accommodation",
+            header: "Penginapan",
+            accessorFn: (row) => ACCOMMODATIONS.find((a) => a.id === row.accommodationId)?.name ?? "-",
+            hideOnMobile: true,
+          },
+          { id: "room", header: "Kamar", accessorKey: "roomName" as keyof ReservationRow, hideOnMobile: true },
+          {
+            id: "checkIn",
+            header: "Check-In",
+            accessorFn: (row) => formatDateShort(row.checkIn),
+            sortable: true,
+          },
+          {
+            id: "checkOut",
+            header: "Check-Out",
+            accessorFn: (row) => formatDateShort(row.checkOut),
+            sortable: true,
+            hideOnMobile: true,
+          },
+          {
+            id: "nights",
+            header: "Malam",
+            accessorFn: (row) => Math.round(
+              (new Date(row.checkOut).getTime() - new Date(row.checkIn).getTime()) / (1000 * 60 * 60 * 24)
+            ),
+            hideOnMobile: true,
+          },
+          {
+            id: "value",
+            header: "Nilai",
+            accessorFn: (row) => (
+              <span className="font-semibold text-stone-900 whitespace-nowrap">
+                {formatCurrency(row.totalPrice)}
+              </span>
+            ),
+            sortable: true,
+          },
+          {
+            id: "status",
+            header: "Status Reservasi",
+            accessorFn: (row) => {
+              const meta = RESERVATION_STATUS_META[row.status];
+              return <Badge className={meta.className}>{meta.label}</Badge>;
+            },
+            sortable: true,
+          },
+          {
+            id: "payment",
+            header: "Status Bayar",
+            accessorFn: (row) => {
+              const meta = PAYMENT_STATUS_META[row.paymentStatus];
+              return <Badge className={meta.className}>{meta.label}</Badge>;
+            },
+            sortable: true,
+            hideOnMobile: true,
+          },
+        ] satisfies ColumnDef<ReservationRow>[]}
+        keyExtractor={(row) => row.id}
+        searchPlaceholder="Cari tamu..."
+        searchableFields={["guestName" as keyof ReservationRow, "guestEmail" as keyof ReservationRow, "roomName" as keyof ReservationRow]}
+        actions={(row) => [
+          { label: "Lihat Detail", icon: <Eye className="h-4 w-4" />, onClick: () => {} },
+        ]}
+        emptyState={{
+          title: "Tidak ada reservasi ditemukan",
+          description: "Tidak ada data reservasi untuk kombinasi filter yang dipilih.",
+        }}
+      />
     </div>
   );
 }

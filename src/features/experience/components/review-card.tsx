@@ -4,11 +4,12 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { FormModal } from "@/components/ui/form-modal";
 import type { ExperienceReview } from "@/features/experience/types";
 import { useTranslations } from "next-intl";
 import { MessageSquare, Send } from "lucide-react";
 
-export function ExperienceReviewCard({ review }: { review: ExperienceReview }) {
+export function ExperienceReviewCard({ review, experienceName }: { review: ExperienceReview; experienceName?: string }) {
   const t = useTranslations("experience");
   const [isReplying, setIsReplying] = useState(false);
   const [replyText, setReplyText] = useState("");
@@ -25,6 +26,9 @@ export function ExperienceReviewCard({ review }: { review: ExperienceReview }) {
   return (
     <Card>
       <CardHeader className="space-y-1 pb-2">
+        {experienceName && (
+          <p className="text-xs font-medium text-emerald-700">{experienceName}</p>
+        )}
         <div className="flex items-center justify-between gap-3">
           <CardTitle className="text-base">{review.reviewerName}</CardTitle>
           <Badge variant={review.rating >= 4.5 ? "default" : "secondary"}>{review.rating.toFixed(1)} {t("components.outOfFive")}</Badge>
@@ -43,32 +47,30 @@ export function ExperienceReviewCard({ review }: { review: ExperienceReview }) {
             variant="outline"
             size="sm"
             className="text-xs h-7"
-            onClick={() => setIsReplying(!isReplying)}
+            onClick={() => setIsReplying(true)}
           >
             <MessageSquare className="h-3 w-3" />
             {t("reviews.reply")}
           </Button>
         )}
-        {isReplying && (
-          <div className="space-y-2">
-            <textarea
-              rows={3}
-              className="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:border-emerald-400"
-              placeholder={t("reviews.replyPlaceholder")}
-              value={replyText}
-              onChange={(e) => setReplyText(e.target.value)}
-            />
-            <div className="flex gap-2">
-              <Button size="sm" className="text-xs h-7" onClick={handleSubmit} disabled={!replyText.trim()}>
-                <Send className="h-3 w-3 mr-1" />
-                {t("reviews.sendReply")}
-              </Button>
-              <Button size="sm" variant="outline" className="text-xs h-7" onClick={() => setIsReplying(false)}>
-                {t("reviews.cancel")}
-              </Button>
-            </div>
-          </div>
-        )}
+        <FormModal
+          open={isReplying}
+          onOpenChange={setIsReplying}
+          title={t("reviews.reply")}
+          description={`${review.reviewerName} — "${review.comment.slice(0, 80)}${review.comment.length > 80 ? "…" : ""}"`}
+          size="sm"
+          onSubmit={handleSubmit}
+          submitLabel={t("reviews.sendReply")}
+          submitDisabled={!replyText.trim()}
+        >
+          <textarea
+            rows={3}
+            className="w-full rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:border-emerald-400"
+            placeholder={t("reviews.replyPlaceholder")}
+            value={replyText}
+            onChange={(e) => setReplyText(e.target.value)}
+          />
+        </FormModal>
       </CardContent>
     </Card>
   );

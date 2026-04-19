@@ -8,15 +8,19 @@ import { PropertyDetailTabs } from "@/features/accommodation/components/property
 import { SubmissionDisclaimer } from "@/features/accommodation/components/submission-disclaimer";
 import { SubmissionStatusBadge } from "@/features/accommodation/components/status-badge";
 import { SubmissionTimeline } from "@/features/accommodation/components/submission-timeline";
+import { ProposalStatusTracker } from "@/features/shared/proposals/components/proposal-status-tracker";
+import { getProposalsForRole } from "@/features/shared/proposals/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default async function SubmissionStatusPage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id: string; locale: string }>;
 }) {
-  const { id } = await params;
+  const { id, locale } = await params;
+  const isId = locale === "id";
   const accommodation = getAccommodationById(id);
+  const tracker = getProposalsForRole("ACCOMMODATION")[0];
 
   if (!accommodation) {
     notFound();
@@ -60,6 +64,15 @@ export default async function SubmissionStatusPage({
           )}
         </CardContent>
       </Card>
+
+      {tracker ? (
+        <ProposalStatusTracker
+          status={tracker.status}
+          timeline={tracker.timeline}
+          rejectionReason={tracker.rejectionReason}
+          isId={isId}
+        />
+      ) : null}
 
       <Card>
         <CardHeader>

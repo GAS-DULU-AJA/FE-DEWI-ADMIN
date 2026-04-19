@@ -1,15 +1,19 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { SmeReviewCard } from "@/features/sme/components/review-card";
-import { getSmeReviews } from "@/features/sme/utils";
+import { getSmeReviews, getSmeProducts } from "@/features/sme/utils";
 import { useTranslations } from "next-intl";
 
 export default function SmeReviewsPage() {
   const t = useTranslations("sme.reviews");
   const reviews = getSmeReviews();
+  const products = getSmeProducts();
   const avg =
     reviews.length === 0
       ? 0
       : reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length;
+
+  const getProductName = (targetId: string) =>
+    products.find((p) => p.id === targetId)?.name;
 
   return (
     <div className="space-y-6">
@@ -37,7 +41,11 @@ export default function SmeReviewsPage() {
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         {reviews.map((review) => (
-          <SmeReviewCard key={review.id} review={review} />
+          <SmeReviewCard
+            key={review.id}
+            review={review}
+            productName={getProductName(review.targetId)}
+          />
         ))}
       </div>
     </div>
