@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { FormModal } from "@/components/ui/form-modal";
 import type { EventDocument, EventDocumentType } from "@/features/experience/types";
 import { EVENT_DOCUMENT_TYPES } from "@/features/experience/constants";
 import { useTranslations } from "next-intl";
@@ -34,40 +35,41 @@ export function DocumentManager({ documents }: { documents: EventDocument[] }) {
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle className="text-base">{t("documents.title")}</CardTitle>
-          <Button variant="outline" size="sm" onClick={() => setShowUpload(!showUpload)}>
-            {showUpload ? t("common.cancel") : t("documents.upload")}
+          <Button variant="outline" size="sm" onClick={() => setShowUpload(true)}>
+            {t("documents.upload")}
           </Button>
         </div>
       </CardHeader>
       <CardContent className="space-y-3">
-        {showUpload && (
-          <div className="rounded-lg border border-dashed border-stone-300 bg-stone-50 p-4 space-y-3">
-            <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
-              <div className="space-y-2">
-                <Label>{t("documents.fileName")}</Label>
-                <Input placeholder={t("documents.fileNamePlaceholder")} />
-              </div>
-              <div className="space-y-2">
-                <Label>{t("documents.docType")}</Label>
-                <select
-                  className="h-10 w-full rounded-lg border border-stone-200 px-3 text-sm"
-                  value={uploadType}
-                  onChange={(e) => setUploadType(e.target.value as EventDocumentType)}
-                >
-                  {EVENT_DOCUMENT_TYPES.map((dt) => (
-                    <option key={dt} value={dt}>{t(`documents.types.${dt}`)}</option>
-                  ))}
-                </select>
-              </div>
+        <FormModal
+          open={showUpload}
+          onOpenChange={setShowUpload}
+          title={t("documents.upload")}
+          size="md"
+          submitLabel={t("documents.uploadFile")}
+        >
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+            <div className="space-y-2">
+              <Label>{t("documents.fileName")}</Label>
+              <Input placeholder={t("documents.fileNamePlaceholder")} />
             </div>
-            <div className="rounded-lg border border-dashed border-stone-300 bg-white p-6 text-center text-sm text-stone-500">
-              {t("documents.dropzone")}
-            </div>
-            <div className="flex justify-end">
-              <Button size="sm">{t("documents.uploadFile")}</Button>
+            <div className="space-y-2">
+              <Label>{t("documents.docType")}</Label>
+              <select
+                className="h-10 w-full rounded-lg border border-stone-200 px-3 text-sm"
+                value={uploadType}
+                onChange={(e) => setUploadType(e.target.value as EventDocumentType)}
+              >
+                {EVENT_DOCUMENT_TYPES.map((dt) => (
+                  <option key={dt} value={dt}>{t(`documents.types.${dt}`)}</option>
+                ))}
+              </select>
             </div>
           </div>
-        )}
+          <div className="rounded-lg border border-dashed border-stone-300 bg-white p-6 text-center text-sm text-stone-500">
+            {t("documents.dropzone")}
+          </div>
+        </FormModal>
 
         {documents.length === 0 ? (
           <p className="text-sm text-stone-500">{t("documents.empty")}</p>

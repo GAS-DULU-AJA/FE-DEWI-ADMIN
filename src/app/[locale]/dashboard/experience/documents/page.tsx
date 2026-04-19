@@ -11,7 +11,6 @@ export default async function ExperienceDocumentsPage({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "experience" });
   const experiences = getExperiences();
-  const allDocuments = experiences.flatMap((e) => e.documents);
   const allNotifications = experiences.flatMap((e) => e.notifications);
 
   return (
@@ -21,7 +20,13 @@ export default async function ExperienceDocumentsPage({
         <p className="mt-1 text-sm text-stone-500">{t("documents.pageSubtitle")}</p>
       </div>
 
-      <DocumentManager documents={allDocuments} />
+      {experiences.map((experience) => (
+        <div key={experience.id} className="space-y-2">
+          <h2 className="text-sm font-semibold text-stone-700">{experience.name}</h2>
+          <DocumentManager documents={experience.documents} />
+        </div>
+      ))}
+
       <NotificationManager notifications={allNotifications} />
     </div>
   );

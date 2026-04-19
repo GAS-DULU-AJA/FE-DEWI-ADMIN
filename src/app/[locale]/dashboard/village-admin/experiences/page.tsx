@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -11,6 +11,8 @@ import { getExperiences } from "@/features/experience/utils";
 import type { ExperienceItem } from "@/features/experience/types";
 
 export default function ExperiencesPage() {
+  const locale = useLocale();
+  const isId = locale === "id";
   const t = useTranslations("village");
   const experiences = getExperiences();
   const [status, setStatus] = useState("all");
@@ -24,17 +26,23 @@ export default function ExperiencesPage() {
     <div className="space-y-6">
       <VillagePageHeader
         title={t("experiences.title")}
-        description={t("experiences.subtitle")}
+        description={
+          isId
+            ? "Kelola experience milik desa. Experience yang dibuat oleh pengelola desa tidak perlu approval tambahan."
+            : "Manage village-owned experiences. Experiences created by village managers do not require additional approval."
+        }
         breadcrumbs={[
           { label: t("breadcrumbs.home"), href: "/dashboard/village-admin" },
           { label: t("breadcrumbs.experiences") },
         ]}
         action={
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
+            <Button asChild variant="outline"><Link href="/dashboard/village-admin/experiences/proposals">{isId ? "Persetujuan Proposal" : "Proposal Approvals"}</Link></Button>
+            <Button asChild variant="outline"><Link href="/dashboard/village-admin/experiences/speakers">Speakers</Link></Button>
             <Button asChild variant="outline"><Link href="/dashboard/village-admin/experiences/calendar">{t("breadcrumbs.calendar")}</Link></Button>
             <Button asChild variant="outline"><Link href="/dashboard/village-admin/experiences/analytics">{t("experiences.analyticsTitle")}</Link></Button>
             <Button asChild variant="outline"><Link href="/dashboard/village-admin/experiences/attendees">{t("experiences.attendeesTitle")}</Link></Button>
-            <Button asChild><Link href="/dashboard/village-admin/experiences/add">{t("actions.addExperience")}</Link></Button>
+            <Button asChild><Link href="/dashboard/village-admin/experiences/add">{isId ? "Buat Experience Desa" : "Create Village Experience"}</Link></Button>
           </div>
         }
       />

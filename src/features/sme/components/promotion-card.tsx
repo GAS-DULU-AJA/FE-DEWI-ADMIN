@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { SmePromotion } from "@/features/sme/types";
 import { useLocale, useTranslations } from "next-intl";
 
-export function SmePromotionCard({ promotion }: { promotion: SmePromotion }) {
+export function SmePromotionCard({ promotion, productNames }: { promotion: SmePromotion; productNames?: string[] }) {
   const t = useTranslations("sme.promotions");
   const locale = useLocale();
 
@@ -10,6 +10,11 @@ export function SmePromotionCard({ promotion }: { promotion: SmePromotion }) {
     <Card>
       <CardHeader className="pb-2">
         <CardTitle className="text-base">{promotion.name}</CardTitle>
+        {productNames && productNames.length > 0 && (
+          <p className="text-xs text-stone-500">
+            {productNames.length <= 2 ? productNames.join(", ") : `${productNames.length} products`}
+          </p>
+        )}
       </CardHeader>
       <CardContent className="space-y-1 text-sm text-stone-600">
         <p>{t(`types.${promotion.type}`)}</p>

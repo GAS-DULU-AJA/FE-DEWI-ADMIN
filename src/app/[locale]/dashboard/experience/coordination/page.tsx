@@ -3,6 +3,8 @@ import { FacilityBrowser } from "@/features/experience/components/facility-brows
 import { FacilityAvailabilityCalendar } from "@/features/experience/components/facility-availability-calendar";
 import { PaymentMilestoneTracker } from "@/features/experience/components/payment-milestone-tracker";
 import { RevenueShareDisplay } from "@/features/experience/components/revenue-share-display";
+import { ProposalStatusTracker } from "@/features/shared/proposals/components/proposal-status-tracker";
+import { getProposalsForRole } from "@/features/shared/proposals/utils";
 import { VILLAGE_FACILITIES } from "@/features/experience/mock-data";
 import { getExperienceCoordinations } from "@/features/experience/utils";
 import { getTranslations } from "next-intl/server";
@@ -13,15 +15,29 @@ export default async function ExperienceCoordinationPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  const isId = locale === "id";
   const t = await getTranslations({ locale, namespace: "experience" });
   const coordinations = getExperienceCoordinations();
   const active = coordinations[0];
+  const proposalTrackers = getProposalsForRole("EVENT_ORGANIZER");
 
   return (
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-stone-900">{t("coordination.title")}</h1>
         <p className="mt-1 text-sm text-stone-500">{t("coordination.subtitle")}</p>
+      </div>
+
+      <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
+        {proposalTrackers.map((proposal) => (
+          <ProposalStatusTracker
+            key={proposal.id}
+            status={proposal.status}
+            timeline={proposal.timeline}
+            rejectionReason={proposal.rejectionReason}
+            isId={isId}
+          />
+        ))}
       </div>
 
       <CoordinationPanel coordinations={coordinations} />

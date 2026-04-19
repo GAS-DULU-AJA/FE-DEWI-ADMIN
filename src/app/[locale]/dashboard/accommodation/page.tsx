@@ -3,6 +3,7 @@
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { StatCard } from "@/components/dashboard/stat-card";
 import {
   ACCOMMODATIONS,
 } from "@/features/accommodation/mock-data";
@@ -18,9 +19,11 @@ import {
   ReservationStatusDonutChart,
 } from "@/features/accommodation/components/dashboard-charts";
 import { formatCurrency, formatDateShort } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 import { Plus, BedDouble, CheckCircle } from "lucide-react";
 
 export default function PenginapanDashboard() {
+  const t = useTranslations("dashboard");
   const rooms = getAllRooms();
   const reservations = getAllReservations();
 
@@ -49,14 +52,14 @@ export default function PenginapanDashboard() {
   return (
     <div className="space-y-6">
       <AccommodationPageHeader
-        title="Dashboard Penginapan"
-        description="Kelola seluruh properti penginapan, kamar, reservasi, dan performa occupancy"
-        breadcrumbs={[{ label: "Dashboard" }, { label: "Penginapan" }]}
+        title={t("accommodationDashboard")}
+        description={t("accommodationDescription")}
+        breadcrumbs={[{ label: t("title") }, { label: t("accommodation") }]}
         action={
           <Button asChild size="sm">
             <Link href="/dashboard/accommodation/add">
               <Plus className="mr-1 h-4 w-4" />
-              Ajukan Penginapan
+              {t("addAccommodation")}
             </Link>
           </Button>
         }
@@ -64,53 +67,11 @@ export default function PenginapanDashboard() {
 
       {/* ── KPI Cards ── */}
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-xs text-stone-500">Properti Aktif</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold text-blue-600">{activeProperties}</p>
-            <p className="mt-1 text-xs text-stone-400">dari {totalProperties} total</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-xs text-stone-500">Total Kamar</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold text-emerald-600">{totalRooms}</p>
-            <p className="mt-1 text-xs text-stone-400">{totalUnits} unit</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-xs text-stone-500">Occupancy Rate</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold text-amber-600">{avgOccupancy}%</p>
-            <p className="mt-1 text-xs text-stone-400">rata-rata</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-xs text-stone-500">Reservasi Aktif</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-2xl font-bold text-violet-600">{confirmedReservations}</p>
-            <p className="mt-1 text-xs text-stone-400">dari {totalReservations} total</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-xs text-stone-500">Revenue (Lunas)</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-lg font-bold text-stone-900">
-              {formatCurrency(paidRevenue).split(",")[0].slice(0, -3)}
-            </p>
-            <p className="mt-1 text-xs text-stone-400">yang sudah settled</p>
-          </CardContent>
-        </Card>
+        <StatCard label={t("activeProperties")} value={activeProperties} icon="bed" color="blue" suffix={`/ ${totalProperties}`} />
+        <StatCard label={t("totalRooms")} value={totalRooms} icon="bed" color="emerald" suffix={`(${totalUnits} unit)`} />
+        <StatCard label={t("occupancyRate")} value={`${avgOccupancy}%`} icon="calendar" color="amber" />
+        <StatCard label={t("activeReservations")} value={confirmedReservations} icon="approval" color="violet" suffix={`/ ${totalReservations}`} />
+        <StatCard label={t("totalRevenue")} value={formatCurrency(paidRevenue)} icon="revenue" color="emerald" />
       </div>
 
       {/* ── Charts ── */}
@@ -118,9 +79,9 @@ export default function PenginapanDashboard() {
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-semibold text-stone-900">
-              Tren Pendapatan Bulanan
+              {t("monthlyRevenueTrend")}
             </CardTitle>
-            <p className="text-xs text-stone-400">Riwayat 6 bulan terakhir</p>
+            <p className="text-xs text-stone-400">{t("last6Months")}</p>
           </CardHeader>
           <CardContent className="pb-4 pr-2">
             <MonthlyRevenueTrendChart />
@@ -129,9 +90,9 @@ export default function PenginapanDashboard() {
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-semibold text-stone-900">
-              Status Reservasi
+              {t("reservationStatus")}
             </CardTitle>
-            <p className="text-xs text-stone-400">Distribusi status booking</p>
+            <p className="text-xs text-stone-400">{t("bookingDistribution")}</p>
           </CardHeader>
           <CardContent className="pb-4">
             <ReservationStatusDonutChart />
@@ -145,8 +106,8 @@ export default function PenginapanDashboard() {
           <Link href="/dashboard/accommodation/add" className="flex w-full items-center gap-3">
             <Plus className="h-5 w-5" />
             <div className="text-left">
-              <p className="text-sm font-medium">Ajukan Penginapan</p>
-              <p className="text-xs text-stone-500">Tambah properti baru</p>
+              <p className="text-sm font-medium">{t("addAccommodation")}</p>
+              <p className="text-xs text-stone-500">{t("addAccommodationDesc")}</p>
             </div>
           </Link>
         </Button>
@@ -154,8 +115,8 @@ export default function PenginapanDashboard() {
           <Link href="/dashboard/accommodation/rooms" className="flex w-full items-center gap-3">
             <BedDouble className="h-5 w-5" />
             <div className="text-left">
-              <p className="text-sm font-medium">Manajemen Kamar</p>
-              <p className="text-xs text-stone-500">Kelola tipe & stok kamar</p>
+              <p className="text-sm font-medium">{t("roomManagement")}</p>
+              <p className="text-xs text-stone-500">{t("roomManagementDesc")}</p>
             </div>
           </Link>
         </Button>
@@ -163,8 +124,8 @@ export default function PenginapanDashboard() {
           <Link href="/dashboard/accommodation/reservations" className="flex w-full items-center gap-3">
             <CheckCircle className="h-5 w-5" />
             <div className="text-left">
-              <p className="text-sm font-medium">Reservasi</p>
-              <p className="text-xs text-stone-500">Lihat semua booking</p>
+              <p className="text-sm font-medium">{t("reservations")}</p>
+              <p className="text-xs text-stone-500">{t("reservationsDesc")}</p>
             </div>
           </Link>
         </Button>
@@ -172,7 +133,7 @@ export default function PenginapanDashboard() {
 
       {/* ── Properties Grid ── */}
       <div className="rounded-2xl border border-stone-200/80 bg-white/70 p-4 shadow-sm sm:p-5">
-        <h2 className="mb-4 text-lg font-semibold text-stone-900">Properti Penginapan Anda</h2>
+        <h2 className="mb-4 text-lg font-semibold text-stone-900">{t("yourProperties")}</h2>
         <PropertySwitcher accommodations={ACCOMMODATIONS} />
         <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
           {ACCOMMODATIONS.map((accommodation) => (

@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { StatCard } from "@/components/dashboard/stat-card";
 import { Button } from "@/components/ui/button";
 import {
   PARTNER_APPLICATIONS,
@@ -52,23 +53,12 @@ export default function PengelolaDesaDashboard() {
       </div>
 
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-6">
-        {[
-          { label: t("dashboard.kpi.totalPartners"), value: VILLAGE_KPI.totalPartners },
-          { label: t("dashboard.kpi.pendingApprovals"), value: VILLAGE_KPI.pendingApprovals },
-          { label: t("dashboard.kpi.activeExperiences"), value: VILLAGE_KPI.activeExperiences },
-          { label: t("dashboard.kpi.monthlyRevenue"), value: formatCurrency(VILLAGE_KPI.monthlyRevenue) },
-          { label: t("dashboard.kpi.utilizationRate"), value: `${VILLAGE_KPI.facilityUtilizationRate}%` },
-          { label: t("dashboard.kpi.averageRating"), value: `${VILLAGE_KPI.averageVillageRating} / 5` },
-        ].map((kpi) => (
-          <Card key={kpi.label} className="group">
-            <CardHeader className="pb-1">
-              <CardTitle className="text-xs text-stone-500">{kpi.label}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-lg font-semibold text-stone-900 transition-colors group-hover:text-emerald-700">{kpi.value}</p>
-            </CardContent>
-          </Card>
-        ))}
+        <StatCard label={t("dashboard.kpi.totalPartners")} value={VILLAGE_KPI.totalPartners} icon="partners" color="blue" />
+        <StatCard label={t("dashboard.kpi.pendingApprovals")} value={VILLAGE_KPI.pendingApprovals} icon="approval" color="amber" />
+        <StatCard label={t("dashboard.kpi.activeExperiences")} value={VILLAGE_KPI.activeExperiences} icon="calendar" color="violet" />
+        <StatCard label={t("dashboard.kpi.monthlyRevenue")} value={formatCurrency(VILLAGE_KPI.monthlyRevenue)} icon="revenue" color="emerald" />
+        <StatCard label={t("dashboard.kpi.utilizationRate")} value={`${VILLAGE_KPI.facilityUtilizationRate}%`} icon="package" color="rose" />
+        <StatCard label={t("dashboard.kpi.averageRating")} value={`${VILLAGE_KPI.averageVillageRating} / 5`} icon="star" color="amber" />
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">

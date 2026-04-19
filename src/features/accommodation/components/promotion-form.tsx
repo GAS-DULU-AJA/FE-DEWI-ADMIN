@@ -1,22 +1,30 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { FormModal } from "@/components/ui/form-modal";
 import { PROMOTION_TYPES } from "@/features/accommodation";
 import type { PromotionType } from "@/types";
 
-export function PromotionForm() {
+interface PromotionFormProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}
+
+export function PromotionForm({ open, onOpenChange }: PromotionFormProps) {
   const [type, setType] = useState<PromotionType>(PROMOTION_TYPES[0]);
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Create Promotion</CardTitle>
-      </CardHeader>
-      <CardContent className="grid grid-cols-1 gap-4 md:grid-cols-2">
+    <FormModal
+      open={open}
+      onOpenChange={onOpenChange}
+      title="Create Promotion"
+      size="md"
+      submitLabel="Create Promotion"
+      onSubmit={() => onOpenChange(false)}
+    >
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div className="space-y-2">
           <Label>Name</Label>
           <Input placeholder="Promotion name" />
@@ -54,10 +62,7 @@ export function PromotionForm() {
             <Input placeholder="STAY10" />
           </div>
         ) : null}
-        <div className="md:col-span-2 flex justify-end">
-          <Button>Create Promotion</Button>
-        </div>
-      </CardContent>
-    </Card>
+      </div>
+    </FormModal>
   );
 }

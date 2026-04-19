@@ -1,5 +1,5 @@
 import { ExperienceReviewCard } from "@/features/experience/components/review-card";
-import { getExperienceReviews } from "@/features/experience/utils";
+import { getExperienceReviews, getExperiences } from "@/features/experience/utils";
 import { getTranslations } from "next-intl/server";
 
 export default async function ExperienceReviewsPage({
@@ -10,7 +10,11 @@ export default async function ExperienceReviewsPage({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "experience" });
   const reviews = getExperienceReviews();
+  const experiences = getExperiences();
   const average = reviews.length === 0 ? 0 : reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length;
+
+  const getExperienceName = (experienceId: string) =>
+    experiences.find((e) => e.id === experienceId)?.name;
 
   return (
     <div className="space-y-6">
@@ -21,7 +25,11 @@ export default async function ExperienceReviewsPage({
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         {reviews.map((review) => (
-          <ExperienceReviewCard key={review.id} review={review} />
+          <ExperienceReviewCard
+            key={review.id}
+            review={review}
+            experienceName={getExperienceName(review.experienceId)}
+          />
         ))}
       </div>
     </div>

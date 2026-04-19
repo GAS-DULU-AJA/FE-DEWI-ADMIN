@@ -3,9 +3,12 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
 import { PARTNER_APPLICATIONS } from "@/features/village/mock-data";
 import { VillagePageHeader } from "@/features/village/components/page-header";
+import { DataTable, type ColumnDef } from "@/components/ui/data-table";
+import { Eye } from "lucide-react";
+
+type PartnerRow = (typeof PARTNER_APPLICATIONS)[number];
 
 export default function VillageAdminPartnersPage() {
   const t = useTranslations("village");
@@ -21,36 +24,65 @@ export default function VillageAdminPartnersPage() {
         ]}
       />
 
-      {PARTNER_APPLICATIONS.length === 0 ? (
-        <p className="text-sm text-stone-500">{t("partners.noData")}</p>
-      ) : (
-        <div className="space-y-3">
-          {PARTNER_APPLICATIONS.map((partner) => (
-            <Link
-              key={partner.id}
-              href={`/dashboard/village-admin/partners/${partner.id}`}
-              className="block"
-            >
-              <Card className="transition-shadow hover:shadow-md">
-                <CardContent className="flex flex-wrap items-center justify-between gap-3 pt-4">
-                  <div className="space-y-0.5">
-                    <p className="font-medium text-stone-900">{partner.organizationName}</p>
-                    <p className="text-xs text-stone-500">{partner.ownerName}</p>
-                  </div>
-                  <div className="flex flex-wrap items-center gap-3 text-sm text-stone-600">
-                    <span>{t("partners.role")}: {t(`partners.roles.${partner.role}`)}</span>
-                    <span>{t("partners.submittedAt")}: {partner.submittedAt}</span>
-                    <span>{t("partners.completionScore")}: {partner.completionScore}%</span>
-                    <Badge variant={partner.status === "approved" ? "default" : "secondary"}>
-                      {t(`approval.statuses.${partner.status}`)}
-                    </Badge>
-                  </div>
-                </CardContent>
-              </Card>
-            </Link>
-          ))}
-        </div>
-      )}
+      <DataTable<PartnerRow>
+        data={PARTNER_APPLICATIONS}
+        columns={[
+          {
+            id: "organization",
+            header: t("partners.organizationLabel") || "Organisasi",
+            accessorFn: (row) => (
+              <div>
+                <p className="font-medium text-stone-900">{row.organizationName}</p>
+                <p className="text-xs text-stone-500">{row.ownerName}</p>
+              </div>
+            ),
+            sortable: true,
+          },
+          {
+            id: "role",
+            header: t("partners.role") || "Peran",
+            accessorFn: (row) => t(`partners.roles.${row.role}`),
+            sortable: true,
+            hideOnMobile: true,
+          },
+          {
+            id: "submittedAt",
+            header: t("partners.submittedAt") || "Tanggal",
+            accessorKey: "submittedAt" as keyof PartnerRow,
+            sortable: true,
+            hideOnMobile: true,
+          },
+          {
+            id: "completion",
+            header: t("partners.completionScore") || "Kelengkapan",
+            accessorFn: (row) => (
+              <span className="text-sm font-medium">{row.completionScore}%</span>
+            ),
+            sortable: true,
+            hideOnMobile: true,
+          },
+          {
+            id: "status",
+            header: "Status",
+            accessorFn: (row) => (
+              <Badge variant={row.status === "approved" ? "default" : "secondary"}>
+                {t(`approval.statuses.${row.status}`)}
+              </Badge>
+            ),
+            sortable: true,
+          },
+        ] satisfies ColumnDef<PartnerRow>[]}
+        keyExtractor={(row) => row.id}
+        searchPlaceholder={t("partners.searchPlaceholder") || "Cari mitra..."}
+        searchableFields={["organizationName" as keyof PartnerRow, "ownerName" as keyof PartnerRow]}
+        actions={(row) => [
+          { label: t("partners.viewDetail") || "Lihat Detail", icon: <Eye className="h-4 w-4" />, onClick: () => {} },
+        ]}
+        emptyState={{
+          title: t("partners.noData") || "Tidak ada mitra",
+          description: t("partners.noDataDescription") || "Belum ada pengajuan mitra.",
+        }}
+      />
     </div>
   );
 }

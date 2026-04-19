@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { FormModal } from "@/components/ui/form-modal";
 import type { EventNotification, NotificationType } from "@/features/experience/types";
 import { NOTIFICATION_TYPES } from "@/features/experience/constants";
 import { useTranslations } from "next-intl";
@@ -28,46 +29,46 @@ export function NotificationManager({ notifications }: { notifications: EventNot
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle className="text-base">{t("notifications.title")}</CardTitle>
-          <Button variant="outline" size="sm" onClick={() => setShowForm(!showForm)}>
-            {showForm ? t("common.cancel") : t("notifications.create")}
+          <Button variant="outline" size="sm" onClick={() => setShowForm(true)}>
+            {t("notifications.create")}
           </Button>
         </div>
       </CardHeader>
       <CardContent className="space-y-3">
-        {showForm && (
-          <div className="rounded-lg border border-stone-200 bg-stone-50 p-4 space-y-3">
-            <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
-              <div className="space-y-2">
-                <Label>{t("notifications.notifTitle")}</Label>
-                <Input placeholder={t("notifications.titlePlaceholder")} />
-              </div>
-              <div className="space-y-2">
-                <Label>{t("notifications.type")}</Label>
-                <select
-                  className="h-10 w-full rounded-lg border border-stone-200 px-3 text-sm"
-                  value={notifType}
-                  onChange={(e) => setNotifType(e.target.value as NotificationType)}
-                >
-                  {NOTIFICATION_TYPES.map((nt) => (
-                    <option key={nt} value={nt}>{t(`notifications.types.${nt}`)}</option>
-                  ))}
-                </select>
-              </div>
+        <FormModal
+          open={showForm}
+          onOpenChange={setShowForm}
+          title={t("notifications.create")}
+          size="md"
+          submitLabel={t("notifications.scheduleNow")}
+        >
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+            <div className="space-y-2">
+              <Label>{t("notifications.notifTitle")}</Label>
+              <Input placeholder={t("notifications.titlePlaceholder")} />
             </div>
             <div className="space-y-2">
-              <Label>{t("notifications.message")}</Label>
-              <Textarea rows={3} placeholder={t("notifications.messagePlaceholder")} />
-            </div>
-            <div className="space-y-2">
-              <Label>{t("notifications.scheduleAt")}</Label>
-              <Input type="datetime-local" />
-            </div>
-            <div className="flex justify-end gap-2">
-              <Button variant="outline" size="sm">{t("notifications.saveDraft")}</Button>
-              <Button size="sm">{t("notifications.scheduleNow")}</Button>
+              <Label>{t("notifications.type")}</Label>
+              <select
+                className="h-10 w-full rounded-lg border border-stone-200 px-3 text-sm"
+                value={notifType}
+                onChange={(e) => setNotifType(e.target.value as NotificationType)}
+              >
+                {NOTIFICATION_TYPES.map((nt) => (
+                  <option key={nt} value={nt}>{t(`notifications.types.${nt}`)}</option>
+                ))}
+              </select>
             </div>
           </div>
-        )}
+          <div className="space-y-2">
+            <Label>{t("notifications.message")}</Label>
+            <Textarea rows={3} placeholder={t("notifications.messagePlaceholder")} />
+          </div>
+          <div className="space-y-2">
+            <Label>{t("notifications.scheduleAt")}</Label>
+            <Input type="datetime-local" />
+          </div>
+        </FormModal>
 
         {notifications.length === 0 ? (
           <p className="text-sm text-stone-500">{t("notifications.empty")}</p>

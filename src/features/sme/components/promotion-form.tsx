@@ -1,24 +1,32 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { FormModal } from "@/components/ui/form-modal";
 import { SME_PROMOTION_TYPES } from "@/features/sme/constants";
 import { useTranslations } from "next-intl";
 
-export function SmePromotionForm() {
+interface SmePromotionFormProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}
+
+export function SmePromotionForm({ open, onOpenChange }: SmePromotionFormProps) {
   const [type, setType] = useState(SME_PROMOTION_TYPES[0]);
   const t = useTranslations("sme.promotions");
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{t("formTitle")}</CardTitle>
-      </CardHeader>
-      <CardContent className="grid grid-cols-1 gap-3 md:grid-cols-2">
-        <div className="space-y-2 md:col-span-2">
+    <FormModal
+      open={open}
+      onOpenChange={onOpenChange}
+      title={t("formTitle")}
+      size="sm"
+      submitLabel={t("create")}
+      onSubmit={() => onOpenChange(false)}
+    >
+      <div className="grid grid-cols-1 gap-3">
+        <div className="space-y-2">
           <Label>{t("name")}</Label>
           <Input placeholder={t("namePlaceholder")} />
         </div>
@@ -40,10 +48,7 @@ export function SmePromotionForm() {
           <Label>{t("discountValue")}</Label>
           <Input type="number" min={0} />
         </div>
-        <div className="md:col-span-2 flex justify-end">
-          <Button>{t("create")}</Button>
-        </div>
-      </CardContent>
-    </Card>
+      </div>
+    </FormModal>
   );
 }

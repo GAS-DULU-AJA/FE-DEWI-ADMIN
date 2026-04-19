@@ -1,9 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { ShoppingBag, Plus, Pencil, Trash2, X } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { SmeProductForm } from "@/features/sme/components/product-form";
@@ -11,8 +10,11 @@ import { SmeProductCard } from "@/features/sme/components/product-card";
 import { getSmeProducts } from "@/features/sme/utils";
 import { useTranslations } from "next-intl";
 import { ConfirmationDialog } from "@/components/ui/confirmation-dialog";
+import { DataTable, type ColumnDef } from "@/components/ui/data-table";
 
 const categories = ["all", "food", "craft", "service"] as const;
+
+type ProductRow = ReturnType<typeof getSmeProducts>[number];
 
 export default function ProdukPage() {
   const t = useTranslations("sme.products");
@@ -63,72 +65,95 @@ export default function ProdukPage() {
       </div>
 
       {/* Filters */}
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-        <Input
-          placeholder={t("searchPlaceholder")}
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="sm:max-w-xs"
-        />
-        <div className="flex gap-2 flex-wrap">
-          {categories.map((c) => (
-            <button
-              key={c}
-              onClick={() => setSelectedCategory(c)}
-              className={`rounded-full px-3 py-1 text-xs font-medium transition-all ${
-                selectedCategory === c
-                  ? "bg-amber-500 text-white"
-                  : "bg-stone-100 text-stone-600 hover:bg-stone-200"
-              }`}
-            >
-              {t(`categories.${c}`)}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Product Grid */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
-        {filtered.map((product) => (
-          <Card key={product.id} className="hover:shadow-md transition-shadow">
-            <CardContent className="pt-4">
-              <div className="flex items-start justify-between mb-3">
-                <div className="rounded-lg bg-amber-100 p-2">
-                  <ShoppingBag className="h-5 w-5 text-amber-600" />
-                </div>
-                <span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${
-                  product.approvalStatus === "approved"
-                    ? "bg-emerald-100 text-emerald-700"
-                    : "bg-stone-100 text-stone-600"
-                }`}>
-                  {product.approvalStatus === "approved" ? t("status.approved") : t("status.pending")}
-                </span>
-              </div>
-              <h3 className="font-semibold text-stone-900 text-sm">{product.name}</h3>
-              <p className="text-xs text-stone-500 mt-0.5">{product.category}</p>
-              <p className="text-xs text-stone-400 mt-1 line-clamp-2">{product.description}</p>
-              <div className="flex items-center justify-between mt-2">
-                <p className="text-sm font-semibold text-amber-700">{formatCurrency(product.price)}</p>
-                <span className={`text-xs font-medium ${product.stock <= 5 ? "text-red-600" : "text-emerald-600"}`}>
-                  {t("stockValue", { value: product.stock })}
-                </span>
-              </div>
-              <p className="text-xs text-stone-400 mt-0.5">{t("partnerValue", { name: product.partnerName })}</p>
-              <div className="flex gap-2 mt-3 pt-3 border-t border-stone-100">
-                <Button variant="outline" size="sm" className="flex-1">
-                  <Pencil className="h-3 w-3" />
-                  {t("edit")}
-                </Button>
-                <Button variant="destructive" size="sm" onClick={() => setDeleteTarget(product.id)}>
-                  <Trash2 className="h-3 w-3" />
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+      <div className="flex gap-2 flex-wrap">
+        {categories.map((c) => (
+          <button
+            key={c}
+            onClick={() => setSelectedCategory(c)}
+            className={`rounded-full px-3 py-1 text-xs font-medium transition-all ${
+              selectedCategory === c
+                ? "bg-amber-500 text-white"
+                : "bg-stone-100 text-stone-600 hover:bg-stone-200"
+            }`}
+          >
+            {t(`categories.${c}`)}
+          </button>
         ))}
       </div>
 
-      {showForm && <SmeProductForm />}
+      {/* Product DataTable */}
+      <DataTable<ProductRow>
+        data={filtered}
+        columns={[
+          {
+            id: "name",
+            header: t("tableHeaders.product") || "Produk",
+            accessorFn: (row) => (
+              <div className="flex items-center gap-3">
+                <div className="rounded-lg bg-amber-100 p-2">
+                  <ShoppingBag className="h-4 w-4 text-amber-600" />
+                </div>
+                <div>
+                  <p className="font-semibold text-stone-900 text-sm">{row.name}</p>
+                  <p className="text-xs text-stone-500">{row.category}</p>
+                </div>
+              </div>
+            ),
+            sortable: true,
+          },
+          {
+            id: "price",
+            header: t("tableHeaders.price") || "Harga",
+            accessorFn: (row) => (
+              <span className="text-sm font-semibold text-amber-700">{formatCurrency(row.price)}</span>
+            ),
+            sortable: true,
+          },
+          {
+            id: "stock",
+            header: t("tableHeaders.stock") || "Stok",
+            accessorFn: (row) => (
+              <span className={`text-xs font-medium ${row.stock <= 5 ? "text-red-600" : "text-emerald-600"}`}>
+                {row.stock}
+              </span>
+            ),
+            sortable: true,
+          },
+          {
+            id: "partner",
+            header: t("tableHeaders.partner") || "Mitra",
+            accessorKey: "partnerName" as keyof ProductRow,
+            hideOnMobile: true,
+          },
+          {
+            id: "status",
+            header: "Status",
+            accessorFn: (row) => (
+              <span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${
+                row.approvalStatus === "approved"
+                  ? "bg-emerald-100 text-emerald-700"
+                  : "bg-stone-100 text-stone-600"
+              }`}>
+                {row.approvalStatus === "approved" ? t("status.approved") : t("status.pending")}
+              </span>
+            ),
+            sortable: true,
+          },
+        ] satisfies ColumnDef<ProductRow>[]}
+        keyExtractor={(row) => row.id}
+        searchPlaceholder={t("searchPlaceholder")}
+        searchableFields={["name" as keyof ProductRow, "category" as keyof ProductRow, "partnerName" as keyof ProductRow]}
+        actions={(row) => [
+          { label: t("edit"), icon: <Pencil className="h-4 w-4" />, onClick: () => {} },
+          { label: t("deleteConfirmButton"), icon: <Trash2 className="h-4 w-4" />, onClick: () => setDeleteTarget(row.id), variant: "destructive" },
+        ]}
+        emptyState={{
+          title: t("emptyTitle") || "Tidak ada produk",
+          description: t("emptyDescription") || "Belum ada produk yang sesuai filter.",
+        }}
+      />
+
+      <SmeProductForm open={showForm} onOpenChange={setShowForm} />
 
       <ConfirmationDialog
         open={!!deleteTarget}
