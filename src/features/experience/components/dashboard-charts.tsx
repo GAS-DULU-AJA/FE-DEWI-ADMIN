@@ -32,7 +32,7 @@ function useIsClient() {
 }
 
 function ChartSkeleton({ height = 240 }: { height?: number }) {
-  return <div style={{ height }} className="animate-pulse rounded-lg bg-stone-100" />;
+  return <div style={{ height }} className="animate-pulse rounded-lg bg-surface-container" />;
 }
 
 function formatCompactNumber(value: number) {
@@ -58,7 +58,7 @@ function ChartCard({
     <Card className={className}>
       <CardHeader className="pb-2">
         <CardTitle className="text-sm">{title}</CardTitle>
-        <p className="text-xs text-stone-500">{subtitle}</p>
+        <p className="text-xs text-on-surface/60">{subtitle}</p>
       </CardHeader>
       <CardContent>{children}</CardContent>
     </Card>

@@ -20,7 +20,7 @@ export function ExperienceCard({ experience }: { experience: ExperienceItem }) {
           </Badge>
         </div>
       </CardHeader>
-      <CardContent className="space-y-1 text-sm text-stone-600">
+      <CardContent className="space-y-1 text-sm text-on-surface/70">
         <p>{experience.shortDescription}</p>
         <p>{experience.locationName}</p>
         <p>{t("components.bookings")}: {experience.totalBookings}/{experience.totalCapacity} ({utilization}%)</p>

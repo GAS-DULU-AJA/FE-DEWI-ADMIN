@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { LanguageSwitcher } from "./language-switcher";
+import { ThemeToggle } from "./theme-toggle";
 import { Leaf, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -19,16 +20,16 @@ export function Navbar() {
   ];
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-stone-200/60 bg-white/90 backdrop-blur-md">
+    <header className="sticky top-0 z-40 w-full border-b border-surface-container-high/60 bg-surface-container-lowest/90 backdrop-blur-md">
       <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 group">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-600 group-hover:bg-emerald-700 transition-colors">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary group-hover:brightness-110 transition-colors">
             <Leaf className="h-5 w-5 text-white" />
           </div>
           <div className="flex flex-col leading-none">
-            <span className="text-base font-bold text-emerald-700">Mitra Dewi</span>
-            <span className="hidden text-[10px] text-stone-500 sm:block">Desa Wisata Digital</span>
+            <span className="text-base font-bold text-primary">Mitra Dewi</span>
+            <span className="hidden text-[10px] text-on-surface/60 sm:block">Desa Wisata Digital</span>
           </div>
         </Link>
 
@@ -38,7 +39,7 @@ export function Navbar() {
             <a
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-stone-600 hover:text-emerald-700 transition-colors"
+              className="text-sm font-medium text-on-surface/70 hover:text-primary transition-colors"
             >
               {link.label}
             </a>
@@ -48,6 +49,7 @@ export function Navbar() {
         {/* Right Actions */}
         <div className="flex items-center gap-2">
           <LanguageSwitcher />
+          <ThemeToggle />
           <div className="hidden items-center gap-2 sm:flex">
             <Link href="/login">
               <Button variant="outline" size="sm">{t("common.login")}</Button>
@@ -59,7 +61,7 @@ export function Navbar() {
 
           {/* Mobile Menu Toggle */}
           <button
-            className="flex md:hidden h-9 w-9 items-center justify-center rounded-lg text-stone-600 hover:bg-stone-100"
+            className="flex md:hidden h-9 w-9 items-center justify-center rounded-lg text-on-surface/70 hover:bg-surface-container"
             onClick={() => setMobileOpen((v) => !v)}
           >
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -71,21 +73,21 @@ export function Navbar() {
       <div
         className={cn(
           "overflow-hidden transition-all duration-300 md:hidden",
-          mobileOpen ? "max-h-64 border-b border-stone-200" : "max-h-0"
+          mobileOpen ? "max-h-64 border-b border-surface-container-high" : "max-h-0"
         )}
       >
-        <nav className="flex flex-col gap-1 bg-white px-4 py-3">
+        <nav className="flex flex-col gap-1 bg-surface-container-lowest px-4 py-3">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="rounded-lg px-3 py-2 text-sm font-medium text-stone-600 hover:bg-emerald-50 hover:text-emerald-700 transition-colors"
+              className="rounded-lg px-3 py-2 text-sm font-medium text-on-surface/70 hover:bg-primary/10 hover:text-primary transition-colors"
               onClick={() => setMobileOpen(false)}
             >
               {link.label}
             </a>
           ))}
-          <div className="mt-2 flex gap-2 border-t border-stone-100 pt-2">
+          <div className="mt-2 flex gap-2 border-t border-surface-container pt-2">
             <Link href="/login" className="flex-1">
               <Button variant="outline" size="sm" className="w-full">{t("common.login")}</Button>
             </Link>

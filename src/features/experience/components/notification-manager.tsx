@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { DataTable, type ColumnDef } from "@/components/ui/data-table";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -14,15 +15,69 @@ import { useTranslations } from "next-intl";
 
 export function NotificationManager({ notifications }: { notifications: EventNotification[] }) {
   const t = useTranslations("experience");
+  const tc = useTranslations("common");
   const [showForm, setShowForm] = useState(false);
   const [notifType, setNotifType] = useState<NotificationType>("reminder");
 
   const statusColors: Record<string, string> = {
-    draft: "bg-stone-100 text-stone-600",
+    draft: "bg-surface-container text-on-surface/70",
     scheduled: "bg-blue-100 text-blue-700",
-    sent: "bg-emerald-100 text-emerald-700",
+    sent: "bg-primary/10 text-primary",
     failed: "bg-red-100 text-red-700",
   };
+
+  const columns: ColumnDef<EventNotification>[] = [
+    {
+      id: "title",
+      header: t("notifications.notifTitle"),
+      accessorKey: "title",
+      sortable: true,
+    },
+    {
+      id: "type",
+      header: t("notifications.type"),
+      accessorKey: "type",
+      sortable: true,
+      filterable: true,
+      filterOptions: NOTIFICATION_TYPES.map((type) => ({
+        value: type,
+        label: t(`notifications.types.${type}`),
+      })),
+      accessorFn: (row) => t(`notifications.types.${row.type}`),
+    },
+    {
+      id: "status",
+      header: tc("status"),
+      accessorKey: "status",
+      sortable: true,
+      filterable: true,
+      filterOptions: [
+        { value: "draft", label: t("notifications.statuses.draft") },
+        { value: "scheduled", label: t("notifications.statuses.scheduled") },
+        { value: "sent", label: t("notifications.statuses.sent") },
+        { value: "failed", label: t("notifications.statuses.failed") },
+      ],
+      accessorFn: (row) => t(`notifications.statuses.${row.status}`),
+    },
+    {
+      id: "recipientCount",
+      header: "Recipients",
+      accessorFn: (row) => String(row.recipientCount),
+      sortable: true,
+    },
+    {
+      id: "sentAt",
+      header: tc("date"),
+      accessorFn: (row) =>
+        row.sentAt
+          ? new Date(row.sentAt).toLocaleString()
+          : row.scheduledAt
+            ? new Date(row.scheduledAt).toLocaleString()
+            : "-",
+      sortable: true,
+      hideOnMobile: true,
+    },
+  ];
 
   return (
     <Card>
@@ -50,7 +105,7 @@ export function NotificationManager({ notifications }: { notifications: EventNot
             <div className="space-y-2">
               <Label>{t("notifications.type")}</Label>
               <select
-                className="h-10 w-full rounded-lg border border-stone-200 px-3 text-sm"
+                className="h-10 w-full rounded-lg border border-surface-container-high px-3 text-sm"
                 value={notifType}
                 onChange={(e) => setNotifType(e.target.value as NotificationType)}
               >
@@ -70,25 +125,28 @@ export function NotificationManager({ notifications }: { notifications: EventNot
           </div>
         </FormModal>
 
-        {notifications.length === 0 ? (
-          <p className="text-sm text-stone-500">{t("notifications.empty")}</p>
-        ) : (
-          notifications.map((notif) => (
-            <div key={notif.id} className="rounded-lg border border-stone-200 p-3 text-sm">
+        <DataTable
+          data={notifications}
+          columns={columns}
+          keyExtractor={(row) => row.id}
+          searchableFields={["title", "message", "type", "status"]}
+          searchPlaceholder={`${tc("search")}...`}
+          pageSize={10}
+          emptyState={{ title: t("notifications.empty") }}
+          mobileCardRenderer={(notif) => (
+            <div className="rounded-lg border border-surface-container-high p-3 text-sm">
               <div className="flex items-center justify-between">
-                <p className="font-medium text-stone-900">{notif.title}</p>
+                <p className="font-medium text-on-surface">{notif.title}</p>
                 <Badge className={statusColors[notif.status] ?? ""}>{t(`notifications.statuses.${notif.status}`)}</Badge>
               </div>
-              <p className="mt-1 text-stone-600">{notif.message}</p>
-              <div className="mt-1.5 flex gap-3 text-xs text-stone-500">
+              <p className="mt-1 text-on-surface/70">{notif.message}</p>
+              <div className="mt-1.5 flex gap-3 text-xs text-on-surface/60">
                 <span>{t(`notifications.types.${notif.type}`)}</span>
                 <span>{t("notifications.recipients", { count: notif.recipientCount })}</span>
-                {notif.sentAt && <span>{t("notifications.sentAt")}: {new Date(notif.sentAt).toLocaleString()}</span>}
-                {notif.scheduledAt && !notif.sentAt && <span>{t("notifications.scheduledFor")}: {new Date(notif.scheduledAt).toLocaleString()}</span>}
               </div>
             </div>
-          ))
-        )}
+          )}
+        />
       </CardContent>
     </Card>
   );

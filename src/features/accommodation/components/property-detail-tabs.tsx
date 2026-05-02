@@ -12,14 +12,14 @@ const TABS = [
 
 export function PropertyDetailTabs({ propertyId, activeKey }: { propertyId: string; activeKey?: (typeof TABS)[number]["key"] }) {
   return (
-    <div className="flex flex-wrap gap-2 rounded-xl border border-stone-200 bg-white p-2">
+    <div className="flex flex-wrap gap-2 rounded-xl border border-surface-container-high bg-surface-container-lowest p-2">
       {TABS.map((tab) => (
         <Link
           key={tab.key}
           href={tab.getHref(propertyId)}
           className={cn(
             "rounded-lg px-3 py-2 text-sm transition-colors",
-            activeKey === tab.key ? "bg-emerald-600 text-white" : "text-stone-600 hover:bg-stone-100"
+            activeKey === tab.key ? "bg-primary text-primary-foreground" : "text-on-surface/70 hover:bg-surface-container"
           )}
         >
           {tab.label}

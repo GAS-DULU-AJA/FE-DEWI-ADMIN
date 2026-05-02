@@ -40,20 +40,20 @@ export function SpeakerSelector({
 
   return (
     <div className="space-y-4">
-      <Card className="border-stone-200 shadow-sm">
+      <Card className="border-surface-container-high shadow-ambient">
         <CardHeader className="pb-3">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
               <CardTitle className="text-base">
                 {isId ? "Pilih Pengisi Acara" : "Select Event Speakers"}
               </CardTitle>
-              <p className="mt-1 text-sm text-stone-500">
+              <p className="mt-1 text-sm text-on-surface/60">
                 {isId
                   ? "Pengisi acara diambil dari menu Pembicara. Di wizard ini hanya pilih, bukan tambah atau edit."
                   : "Speakers are sourced from the Speakers menu. In this wizard you only select them, not create or edit them."}
               </p>
             </div>
-            <div className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700">
+            <div className="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
               {isId
                 ? `${selectedSpeakerIds.length} dipilih`
                 : `${selectedSpeakerIds.length} selected`}
@@ -72,8 +72,8 @@ export function SpeakerSelector({
           />
 
           {selectedSpeakers.length > 0 ? (
-            <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4">
-              <p className="mb-3 text-sm font-semibold text-emerald-900">
+            <div className="rounded-2xl border border-primary/200 bg-primary/10 p-4">
+              <p className="mb-3 text-sm font-semibold text-primary">
                 {isId ? "Pengisi acara terpilih" : "Selected speakers"}
               </p>
               <div className="flex flex-wrap gap-2">
@@ -82,10 +82,10 @@ export function SpeakerSelector({
                     key={speaker.id}
                     type="button"
                     onClick={() => onToggleSpeaker(speaker.id)}
-                    className="inline-flex items-center gap-2 rounded-full border border-emerald-300 bg-white px-3 py-2 text-left text-xs text-emerald-900"
+                    className="inline-flex items-center gap-2 rounded-full border border-primary/300 bg-surface-container-lowest px-3 py-2 text-left text-xs text-primary"
                   >
                     <span className="font-semibold">{speaker.name}</span>
-                    <span className="text-emerald-700">{speaker.title}</span>
+                    <span className="text-primary">{speaker.title}</span>
                   </button>
                 ))}
               </div>
@@ -101,13 +101,13 @@ export function SpeakerSelector({
                   key={speaker.id}
                   className={`rounded-2xl border p-4 transition ${
                     selected
-                      ? "border-emerald-300 bg-emerald-50 shadow-sm"
-                      : "border-stone-200 bg-white hover:border-stone-300"
+                      ? "border-primary/300 bg-primary/10 shadow-ambient"
+                      : "border-surface-container-high bg-surface-container-lowest hover:border-surface-container-high"
                   }`}
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex items-center gap-3">
-                      <div className="flex h-11 w-11 items-center justify-center rounded-full bg-stone-100 text-sm font-bold text-stone-700">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-full bg-surface-container text-sm font-bold text-on-surface/80">
                         {speaker.name
                           .split(" ")
                           .map((chunk) => chunk[0])
@@ -116,8 +116,8 @@ export function SpeakerSelector({
                           .toUpperCase()}
                       </div>
                       <div>
-                        <p className="font-semibold text-stone-900">{speaker.name}</p>
-                        <p className="text-sm text-stone-500">{speaker.title}</p>
+                        <p className="font-semibold text-on-surface">{speaker.name}</p>
+                        <p className="text-sm text-on-surface/60">{speaker.title}</p>
                       </div>
                     </div>
                     <Button
@@ -130,17 +130,17 @@ export function SpeakerSelector({
                     </Button>
                   </div>
 
-                  <p className="mt-3 text-sm leading-6 text-stone-600">{speaker.bio}</p>
+                  <p className="mt-3 text-sm leading-6 text-on-surface/70">{speaker.bio}</p>
 
                   <div className="mt-3 flex flex-wrap gap-2">
                     {speaker.topics.map((topic) => (
-                      <Badge key={topic} variant="secondary" className="rounded-full bg-stone-100 px-2.5 py-1 text-[11px] text-stone-700">
+                      <Badge key={topic} variant="secondary" className="rounded-full bg-surface-container px-2.5 py-1 text-[11px] text-on-surface/80">
                         {topic}
                       </Badge>
                     ))}
                   </div>
 
-                  <div className="mt-3 flex flex-wrap gap-3 text-xs text-stone-500">
+                  <div className="mt-3 flex flex-wrap gap-3 text-xs text-on-surface/60">
                     {speaker.email ? <span>{speaker.email}</span> : null}
                     {speaker.phone ? <span>{speaker.phone}</span> : null}
                   </div>
@@ -150,7 +150,7 @@ export function SpeakerSelector({
           </div>
 
           {filteredSpeakers.length === 0 ? (
-            <div className="rounded-2xl border border-dashed border-stone-300 bg-stone-50 p-6 text-sm text-stone-500">
+            <div className="rounded-2xl border border-dashed border-surface-container-high bg-surface-container-low p-6 text-sm text-on-surface/60">
               {isId ? "Tidak ada pembicara yang cocok dengan pencarian." : "No speakers match your search."}
             </div>
           ) : null}

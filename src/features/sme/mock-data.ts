@@ -188,6 +188,9 @@ export const SME_REVIEWS: SmeReview[] = [
 
 export const SME_PROFILE: SmeProfile = {
   id: "sme-profile-1",
+  villageId: "village-sari-alam",
+  villageName: "Desa Sari Alam",
+  villageApprovalStatus: "approved",
   businessName: "Sentra Produk Desa",
   businessType: "food",
   description: "SME collective focusing on food and craft products from local artisans.",

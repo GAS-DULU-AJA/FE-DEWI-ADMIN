@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { Badge } from "@/components/ui/badge";
 import { PARTNER_APPLICATIONS } from "@/features/village/mock-data";
 import { VillagePageHeader } from "@/features/village/components/page-header";
@@ -12,6 +12,8 @@ type PartnerRow = (typeof PARTNER_APPLICATIONS)[number];
 
 export default function VillageAdminPartnersPage() {
   const t = useTranslations("village");
+  const tc = useTranslations("common");
+  const router = useRouter();
 
   return (
     <div className="space-y-6">
@@ -29,32 +31,32 @@ export default function VillageAdminPartnersPage() {
         columns={[
           {
             id: "organization",
-            header: t("partners.organizationLabel") || "Organisasi",
+            header: t("partners.organizationLabel"),
             accessorFn: (row) => (
               <div>
-                <p className="font-medium text-stone-900">{row.organizationName}</p>
-                <p className="text-xs text-stone-500">{row.ownerName}</p>
+                <p className="font-medium text-on-surface">{row.organizationName}</p>
+                <p className="text-xs text-on-surface/60">{row.ownerName}</p>
               </div>
             ),
             sortable: true,
           },
           {
             id: "role",
-            header: t("partners.role") || "Peran",
+            header: t("partners.role"),
             accessorFn: (row) => t(`partners.roles.${row.role}`),
             sortable: true,
             hideOnMobile: true,
           },
           {
             id: "submittedAt",
-            header: t("partners.submittedAt") || "Tanggal",
+            header: t("partners.submittedAt"),
             accessorKey: "submittedAt" as keyof PartnerRow,
             sortable: true,
             hideOnMobile: true,
           },
           {
             id: "completion",
-            header: t("partners.completionScore") || "Kelengkapan",
+            header: t("partners.completionScore"),
             accessorFn: (row) => (
               <span className="text-sm font-medium">{row.completionScore}%</span>
             ),
@@ -63,7 +65,7 @@ export default function VillageAdminPartnersPage() {
           },
           {
             id: "status",
-            header: "Status",
+            header: tc("status"),
             accessorFn: (row) => (
               <Badge variant={row.status === "approved" ? "default" : "secondary"}>
                 {t(`approval.statuses.${row.status}`)}
@@ -73,14 +75,19 @@ export default function VillageAdminPartnersPage() {
           },
         ] satisfies ColumnDef<PartnerRow>[]}
         keyExtractor={(row) => row.id}
-        searchPlaceholder={t("partners.searchPlaceholder") || "Cari mitra..."}
+        onRowClick={(row) => router.push(`/dashboard/village-admin/partners/${row.id}`)}
+        searchPlaceholder={t("partners.searchPlaceholder")}
         searchableFields={["organizationName" as keyof PartnerRow, "ownerName" as keyof PartnerRow]}
         actions={(row) => [
-          { label: t("partners.viewDetail") || "Lihat Detail", icon: <Eye className="h-4 w-4" />, onClick: () => {} },
+          {
+            label: t("partners.viewDetail"),
+            icon: <Eye className="h-4 w-4" />,
+            onClick: () => router.push(`/dashboard/village-admin/partners/${row.id}`),
+          },
         ]}
         emptyState={{
-          title: t("partners.noData") || "Tidak ada mitra",
-          description: t("partners.noDataDescription") || "Belum ada pengajuan mitra.",
+          title: t("partners.noData"),
+          description: t("partners.noDataDescription"),
         }}
       />
     </div>

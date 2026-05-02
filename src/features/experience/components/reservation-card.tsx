@@ -15,7 +15,7 @@ export function ReservationCard({ reservation }: { reservation: ExperienceReserv
           </Badge>
         </div>
       </CardHeader>
-      <CardContent className="space-y-1 text-sm text-stone-600">
+      <CardContent className="space-y-1 text-sm text-on-surface/70">
         <p>{reservation.experienceName}</p>
         <p>{reservation.ticketTypeName} · {t("components.qty")} {reservation.quantity}</p>
         <p>{t("components.booking")}: {t(`bookingStatus.${reservation.bookingStatus}`)}</p>

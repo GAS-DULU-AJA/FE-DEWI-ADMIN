@@ -15,8 +15,8 @@ export default async function ExperienceAttendeesPage({
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-stone-900">{t("attendees.pageTitle")}</h1>
-        <p className="mt-1 text-sm text-stone-500">{t("attendees.pageSubtitle")}</p>
+        <h1 className="font-display text-title-lg font-bold text-on-surface tracking-tight">{t("attendees.pageTitle")}</h1>
+        <p className="mt-2 font-body text-sm text-on-surface/60 leading-relaxed">{t("attendees.pageSubtitle")}</p>
       </div>
 
       <QRCheckInScanner reservations={reservations} />

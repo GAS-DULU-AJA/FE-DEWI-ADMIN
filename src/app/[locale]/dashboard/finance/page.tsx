@@ -52,55 +52,55 @@ export default async function FinanceOverviewPage({
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-stone-900">{t("title")}</h1>
-        <p className="mt-0.5 text-sm text-stone-500">{t("subtitle")}</p>
+        <h1 className="font-display text-title-lg font-bold text-on-surface tracking-tight">{t("title")}</h1>
+        <p className="mt-0.5 text-sm text-on-surface/60">{t("subtitle")}</p>
       </div>
 
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-xs text-stone-500">{t("kpi.totalRevenue")}</CardTitle>
+            <CardTitle className="text-xs text-on-surface/60">{t("kpi.totalRevenue")}</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-xl font-bold text-stone-900">
+            <p className="text-xl font-bold text-on-surface">
               {formatCurrency(consolidated.totalRevenue).split(",")[0].slice(0, -3)}
             </p>
-            <p className="mt-1 text-xs text-stone-400">
+            <p className="mt-1 text-xs text-on-surface/40">
               {t("kpi.transactions", { count: consolidated.totalTransactions })}
             </p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-xs text-stone-500">{t("kpi.settled")}</CardTitle>
+            <CardTitle className="text-xs text-on-surface/60">{t("kpi.settled")}</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-xl font-bold text-emerald-700">
+            <p className="text-xl font-bold text-primary">
               {formatCurrency(paidTotal).split(",")[0].slice(0, -3)}
             </p>
-            <p className="mt-1 text-xs text-stone-400">{t("kpi.settledHint")}</p>
+            <p className="mt-1 text-xs text-on-surface/40">{t("kpi.settledHint")}</p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-xs text-stone-500">{t("kpi.pending")}</CardTitle>
+            <CardTitle className="text-xs text-on-surface/60">{t("kpi.pending")}</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-xl font-bold text-amber-600">
               {formatCurrency(pendingTotal).split(",")[0].slice(0, -3)}
             </p>
-            <p className="mt-1 text-xs text-stone-400">{t("kpi.pendingHint")}</p>
+            <p className="mt-1 text-xs text-on-surface/40">{t("kpi.pendingHint")}</p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-xs text-stone-500">{t("kpi.estimatedFee")}</CardTitle>
+            <CardTitle className="text-xs text-on-surface/60">{t("kpi.estimatedFee")}</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-xl font-bold text-stone-700">
+            <p className="text-xl font-bold text-on-surface/80">
               {formatCurrency(estimatedFee).split(",")[0].slice(0, -3)}
             </p>
-            <p className="mt-1 text-xs text-stone-400">
+            <p className="mt-1 text-xs text-on-surface/40">
               {t("kpi.feeRate", { rate: (platformFeeRate * 100).toFixed(0) })}
             </p>
           </CardContent>
@@ -108,18 +108,18 @@ export default async function FinanceOverviewPage({
       </div>
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-        <Card className="border-emerald-200 bg-emerald-50">
+        <Card className="border-primary/200 bg-primary/10">
           <CardHeader className="pb-2">
-            <CardTitle className="flex items-center gap-2 text-sm font-semibold text-emerald-900">
+            <CardTitle className="flex items-center gap-2 text-sm font-semibold text-primary">
               <CheckCircle className="h-4 w-4" />
               {t("netBalance.title")}
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold text-emerald-700">
+            <p className="text-2xl font-bold text-primary">
               {formatCurrency(netRevenue).split(",")[0].slice(0, -3)}
             </p>
-            <p className="mt-2 text-xs text-emerald-600">{t("netBalance.hint")}</p>
+            <p className="mt-2 text-xs text-primary">{t("netBalance.hint")}</p>
           </CardContent>
         </Card>
         <Card className="border-amber-200 bg-amber-50">
@@ -140,28 +140,28 @@ export default async function FinanceOverviewPage({
             </p>
           </CardContent>
         </Card>
-        <Card className="border-stone-200 bg-stone-50">
+        <Card className="border-surface-container-high bg-surface-container-low">
           <CardHeader className="pb-2">
-            <CardTitle className="flex items-center gap-2 text-sm font-semibold text-stone-900">
+            <CardTitle className="flex items-center gap-2 text-sm font-semibold text-on-surface">
               <Wallet className="h-4 w-4" />
               {t("statusSummary.title")}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
             <div className="flex justify-between text-xs">
-              <span className="text-stone-600">{t("statusSummary.paid")}</span>
-              <Badge variant="outline" className="bg-emerald-100 text-emerald-700">
+              <span className="text-on-surface/70">{t("statusSummary.paid")}</span>
+              <Badge variant="outline" className="bg-primary/10 text-primary">
                 {paidCount}
               </Badge>
             </div>
             <div className="flex justify-between text-xs">
-              <span className="text-stone-600">{t("statusSummary.pending")}</span>
+              <span className="text-on-surface/70">{t("statusSummary.pending")}</span>
               <Badge variant="outline" className="bg-amber-100 text-amber-700">
                 {pendingCount}
               </Badge>
             </div>
             <div className="flex justify-between text-xs">
-              <span className="text-stone-600">{t("statusSummary.failedRefund")}</span>
+              <span className="text-on-surface/70">{t("statusSummary.failedRefund")}</span>
               <Badge variant="outline" className="bg-red-100 text-red-700">
                 {failedCount}
               </Badge>
@@ -172,30 +172,30 @@ export default async function FinanceOverviewPage({
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-sm font-semibold text-stone-900">
+          <CardTitle className="text-sm font-semibold text-on-surface">
             {t("villageBreakdown.title")}
           </CardTitle>
-          <p className="text-xs text-stone-400">{t("villageBreakdown.subtitle")}</p>
+          <p className="text-xs text-on-surface/40">{t("villageBreakdown.subtitle")}</p>
         </CardHeader>
         <CardContent className="grid grid-cols-1 gap-3 md:grid-cols-3">
-          <div className="rounded-lg border border-stone-200 bg-stone-50 p-3">
-            <p className="text-xs text-stone-500">{t("villageBreakdown.experiences")}</p>
-            <p className="mt-1 text-lg font-semibold text-stone-900">
+          <div className="rounded-lg border-0 bg-surface-container-low p-3">
+            <p className="text-xs text-on-surface/60">{t("villageBreakdown.experiences")}</p>
+            <p className="mt-1 text-lg font-semibold text-on-surface">
               {formatCurrency(Math.round(VILLAGE_KPI.monthlyRevenue * 0.52))}
             </p>
           </div>
-          <div className="rounded-lg border border-stone-200 bg-stone-50 p-3">
-            <p className="text-xs text-stone-500">{t("villageBreakdown.facilityRentals")}</p>
-            <p className="mt-1 text-lg font-semibold text-stone-900">
+          <div className="rounded-lg border-0 bg-surface-container-low p-3">
+            <p className="text-xs text-on-surface/60">{t("villageBreakdown.facilityRentals")}</p>
+            <p className="mt-1 text-lg font-semibold text-on-surface">
               {formatCurrency(Math.round(VILLAGE_KPI.monthlyRevenue * 0.31))}
             </p>
           </div>
-          <div className="rounded-lg border border-stone-200 bg-stone-50 p-3">
-            <p className="text-xs text-stone-500">{t("villageBreakdown.externalSharing")}</p>
-            <p className="mt-1 text-lg font-semibold text-stone-900">
+          <div className="rounded-lg border-0 bg-surface-container-low p-3">
+            <p className="text-xs text-on-surface/60">{t("villageBreakdown.externalSharing")}</p>
+            <p className="mt-1 text-lg font-semibold text-on-surface">
               {formatCurrency(Math.round(VILLAGE_KPI.monthlyRevenue * 0.17))}
             </p>
-            <p className="mt-1 text-[11px] text-stone-500">
+            <p className="mt-1 text-[11px] text-on-surface/60">
               {t("villageBreakdown.activeCoordinations", {
                 count: COORDINATION_REQUESTS.filter(
                   (item) => item.status !== "completed" && item.status !== "rejected",
@@ -209,10 +209,10 @@ export default async function FinanceOverviewPage({
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-semibold text-stone-900">
+            <CardTitle className="text-sm font-semibold text-on-surface">
               {t("charts.revenueTrend")}
             </CardTitle>
-            <p className="text-xs text-stone-400">{t("charts.revenueTrendHint")}</p>
+            <p className="text-xs text-on-surface/40">{t("charts.revenueTrendHint")}</p>
           </CardHeader>
           <CardContent className="pb-4 pr-2">
             <MonthlyRevenueTrendChart />
@@ -220,10 +220,10 @@ export default async function FinanceOverviewPage({
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-semibold text-stone-900">
+            <CardTitle className="text-sm font-semibold text-on-surface">
               {t("charts.paymentDistribution")}
             </CardTitle>
-            <p className="text-xs text-stone-400">{t("charts.paymentDistributionHint")}</p>
+            <p className="text-xs text-on-surface/40">{t("charts.paymentDistributionHint")}</p>
           </CardHeader>
           <CardContent className="pb-4">
             <PaymentStatusDonutChart />
@@ -237,7 +237,7 @@ export default async function FinanceOverviewPage({
             <TrendingUp className="h-5 w-5" />
             <div className="text-left">
               <p className="text-sm font-medium">{t("quickActions.reports")}</p>
-              <p className="text-xs text-stone-500">{t("quickActions.reportsHint")}</p>
+              <p className="text-xs text-on-surface/60">{t("quickActions.reportsHint")}</p>
             </div>
           </Link>
         </Button>
@@ -246,7 +246,7 @@ export default async function FinanceOverviewPage({
             <Wallet className="h-5 w-5" />
             <div className="text-left">
               <p className="text-sm font-medium">{t("quickActions.management")}</p>
-              <p className="text-xs text-stone-500">{t("quickActions.managementHint")}</p>
+              <p className="text-xs text-on-surface/60">{t("quickActions.managementHint")}</p>
             </div>
           </Link>
         </Button>

@@ -63,8 +63,8 @@ export function ExperienceDetailTabs({
       {activeTab === "overview" && (
         <div className="space-y-6">
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-            <div className="space-y-1 rounded-lg border border-stone-200 bg-white p-4 text-sm text-stone-700">
-              <p className="font-medium text-stone-900">{t("detail.eventInfo")}</p>
+            <div className="space-y-1 rounded-lg border border-surface-container-high bg-surface-container-lowest p-4 text-sm text-on-surface/80">
+              <p className="font-medium text-on-surface">{t("detail.eventInfo")}</p>
               <p>{t("detail.location")}: {experience.locationName}</p>
               <p>{t("detail.address")}: {experience.locationAddress}</p>
               <p>{t("detail.schedule")}: {new Date(experience.scheduleStart).toLocaleString()} - {new Date(experience.scheduleEnd).toLocaleString()}</p>
@@ -73,8 +73,8 @@ export function ExperienceDetailTabs({
               <p>{t("detail.locationType")}: {t(`locationType.${experience.locationType}`)}</p>
               {experience.onlineUrl && <p>{t("detail.onlineUrl")}: {experience.onlineUrl}</p>}
             </div>
-            <div className="space-y-1 rounded-lg border border-stone-200 bg-white p-4 text-sm text-stone-700">
-              <p className="font-medium text-stone-900">{t("detail.contactInfo")}</p>
+            <div className="space-y-1 rounded-lg border border-surface-container-high bg-surface-container-lowest p-4 text-sm text-on-surface/80">
+              <p className="font-medium text-on-surface">{t("detail.contactInfo")}</p>
               <p>{t("detail.contactPerson")}: {experience.contactPerson}</p>
               <p>{t("detail.contactPhone")}: {experience.contactPhone}</p>
               <p>{t("detail.contactEmail")}: {experience.contactEmail}</p>
@@ -86,30 +86,30 @@ export function ExperienceDetailTabs({
           </div>
 
           <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
-            <div className="rounded-lg border border-stone-200 bg-white p-3 text-center">
-              <p className="text-xs text-stone-500">{t("detail.totalBookings")}</p>
-              <p className="text-lg font-bold text-stone-900">{experience.totalBookings}</p>
+            <div className="rounded-lg border border-surface-container-high bg-surface-container-lowest p-3 text-center">
+              <p className="text-xs text-on-surface/60">{t("detail.totalBookings")}</p>
+              <p className="text-lg font-bold text-on-surface">{experience.totalBookings}</p>
             </div>
-            <div className="rounded-lg border border-stone-200 bg-white p-3 text-center">
-              <p className="text-xs text-stone-500">{t("detail.checkedIn")}</p>
-              <p className="text-lg font-bold text-emerald-600">{experience.totalCheckedIn}</p>
+            <div className="rounded-lg border border-surface-container-high bg-surface-container-lowest p-3 text-center">
+              <p className="text-xs text-on-surface/60">{t("detail.checkedIn")}</p>
+              <p className="text-lg font-bold text-primary">{experience.totalCheckedIn}</p>
             </div>
-            <div className="rounded-lg border border-stone-200 bg-white p-3 text-center">
-              <p className="text-xs text-stone-500">{t("detail.noShow")}</p>
+            <div className="rounded-lg border border-surface-container-high bg-surface-container-lowest p-3 text-center">
+              <p className="text-xs text-on-surface/60">{t("detail.noShow")}</p>
               <p className="text-lg font-bold text-red-600">{experience.totalNoShow}</p>
             </div>
-            <div className="rounded-lg border border-stone-200 bg-white p-3 text-center">
-              <p className="text-xs text-stone-500">{t("detail.rating")}</p>
+            <div className="rounded-lg border border-surface-container-high bg-surface-container-lowest p-3 text-center">
+              <p className="text-xs text-on-surface/60">{t("detail.rating")}</p>
               <p className="text-lg font-bold text-amber-600">{experience.averageRating}/5</p>
             </div>
-            <div className="rounded-lg border border-stone-200 bg-white p-3 text-center">
-              <p className="text-xs text-stone-500">{t("detail.capacity")}</p>
-              <p className="text-lg font-bold text-stone-900">{experience.totalBookings}/{experience.totalCapacity}</p>
+            <div className="rounded-lg border border-surface-container-high bg-surface-container-lowest p-3 text-center">
+              <p className="text-xs text-on-surface/60">{t("detail.capacity")}</p>
+              <p className="text-lg font-bold text-on-surface">{experience.totalBookings}/{experience.totalCapacity}</p>
             </div>
           </div>
 
-          <div className="rounded-lg border border-stone-200 bg-white p-4 text-sm text-stone-700">
-            <p className="font-medium text-stone-900">{isId ? "Status Event" : "Event Status"}</p>
+          <div className="rounded-lg border border-surface-container-high bg-surface-container-lowest p-4 text-sm text-on-surface/80">
+            <p className="font-medium text-on-surface">{isId ? "Status Event" : "Event Status"}</p>
             <div className="mt-2">
               <Badge variant={experience.status === "ticket_sales_open" || experience.status === "published" ? "default" : "secondary"}>
                 {t(`status.${experience.status}`)}
@@ -125,7 +125,7 @@ export function ExperienceDetailTabs({
 
       {activeTab === "speakers" && (
         <div className="space-y-3">
-          <h2 className="text-lg font-semibold text-stone-900">{t("speakers.sectionTitle")}</h2>
+          <h2 className="text-lg font-semibold text-on-surface">{t("speakers.sectionTitle")}</h2>
           {experience.speakers.length > 0 ? (
             <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
               {experience.speakers.map((speaker) => (
@@ -133,7 +133,7 @@ export function ExperienceDetailTabs({
               ))}
             </div>
           ) : (
-            <div className="rounded-lg border border-stone-200 bg-white p-4 text-sm text-stone-600">
+            <div className="rounded-lg border border-surface-container-high bg-surface-container-lowest p-4 text-sm text-on-surface/70">
               {isId ? "Belum ada pembicara yang ditambahkan." : "No speakers added yet."}
             </div>
           )}

@@ -44,25 +44,25 @@ export default function ExperienceDetailPage() {
       />
 
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
-        <div className="rounded-lg border border-stone-200 bg-white p-3 text-center">
-          <p className="text-xs text-stone-500">{t("experiences.capacity")}</p>
-          <p className="text-lg font-bold text-stone-900">{item.totalBookings}/{item.totalCapacity}</p>
+        <div className="rounded-lg border-0 bg-surface-container-lowest p-3 text-center">
+          <p className="text-xs text-on-surface/60">{t("experiences.capacity")}</p>
+          <p className="text-lg font-bold text-on-surface">{item.totalBookings}/{item.totalCapacity}</p>
         </div>
-        <div className="rounded-lg border border-stone-200 bg-white p-3 text-center">
-          <p className="text-xs text-stone-500">{t("experiences.checkedIn")}</p>
-          <p className="text-lg font-bold text-emerald-600">{item.totalCheckedIn}</p>
+        <div className="rounded-lg border-0 bg-surface-container-lowest p-3 text-center">
+          <p className="text-xs text-on-surface/60">{t("experiences.checkedIn")}</p>
+          <p className="text-lg font-bold text-primary">{item.totalCheckedIn}</p>
         </div>
-        <div className="rounded-lg border border-stone-200 bg-white p-3 text-center">
-          <p className="text-xs text-stone-500">{t("experiences.noShow")}</p>
+        <div className="rounded-lg border-0 bg-surface-container-lowest p-3 text-center">
+          <p className="text-xs text-on-surface/60">{t("experiences.noShow")}</p>
           <p className="text-lg font-bold text-red-600">{item.totalNoShow}</p>
         </div>
-        <div className="rounded-lg border border-stone-200 bg-white p-3 text-center">
-          <p className="text-xs text-stone-500">{t("experiences.rating")}</p>
+        <div className="rounded-lg border-0 bg-surface-container-lowest p-3 text-center">
+          <p className="text-xs text-on-surface/60">{t("experiences.rating")}</p>
           <p className="text-lg font-bold text-amber-600">{item.averageRating}/5</p>
         </div>
-        <div className="rounded-lg border border-stone-200 bg-white p-3 text-center">
-          <p className="text-xs text-stone-500">{t("experiences.revenue")}</p>
-          <p className="text-lg font-bold text-stone-900">{formatCurrency(item.monthlyRevenue)}</p>
+        <div className="rounded-lg border-0 bg-surface-container-lowest p-3 text-center">
+          <p className="text-xs text-on-surface/60">{t("experiences.revenue")}</p>
+          <p className="text-lg font-bold text-on-surface">{formatCurrency(item.monthlyRevenue)}</p>
         </div>
       </div>
 
@@ -70,7 +70,7 @@ export default function ExperienceDetailPage() {
         <CardHeader>
           <CardTitle className="text-base">{t("experiences.detailTitle")}</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-2 text-sm text-stone-700">
+        <CardContent className="space-y-2 text-sm text-on-surface/80">
           <p>{item.description}</p>
           <p><span className="font-medium">{te("categories." + item.category)}</span></p>
           <p><span className="font-medium">{t("experiences.scheduleLabel")}:</span> {new Date(item.scheduleStart).toLocaleString()} – {new Date(item.scheduleEnd).toLocaleString()}</p>
@@ -87,14 +87,14 @@ export default function ExperienceDetailPage() {
         <CardContent>
           <div className="space-y-2">
             {item.ticketTypes.map((ticket) => (
-              <div key={ticket.id} className="flex items-center justify-between rounded-lg border border-stone-200 p-3 text-sm">
+              <div key={ticket.id} className="flex items-center justify-between rounded-lg border-0 p-3 text-sm">
                 <div>
-                  <p className="font-medium text-stone-900">{ticket.name}</p>
-                  <p className="text-xs text-stone-500">{ticket.description}</p>
+                  <p className="font-medium text-on-surface">{ticket.name}</p>
+                  <p className="text-xs text-on-surface/60">{ticket.description}</p>
                 </div>
                 <div className="text-right">
-                  <p className="font-medium text-stone-900">{formatCurrency(ticket.price)}</p>
-                  <p className="text-xs text-stone-500">{ticket.sold}/{ticket.quota}</p>
+                  <p className="font-medium text-on-surface">{formatCurrency(ticket.price)}</p>
+                  <p className="text-xs text-on-surface/60">{ticket.sold}/{ticket.quota}</p>
                 </div>
               </div>
             ))}
@@ -104,7 +104,7 @@ export default function ExperienceDetailPage() {
 
       {item.speakers.length > 0 && (
         <div className="space-y-3">
-          <h2 className="text-lg font-semibold text-stone-900">{t("experiences.speakersTitle")}</h2>
+          <h2 className="text-lg font-semibold text-on-surface">{t("experiences.speakersTitle")}</h2>
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
             {item.speakers.map((speaker) => (
               <SpeakerCard key={speaker.id} speaker={speaker} />

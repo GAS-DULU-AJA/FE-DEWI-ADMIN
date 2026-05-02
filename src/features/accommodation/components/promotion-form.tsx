@@ -31,7 +31,7 @@ export function PromotionForm({ open, onOpenChange }: PromotionFormProps) {
         </div>
         <div className="space-y-2">
           <Label>Type</Label>
-          <select value={type} onChange={(e) => setType(e.target.value as (typeof PROMOTION_TYPES)[number])} className="h-10 w-full rounded-lg border border-stone-200 bg-white px-3 text-sm">
+          <select value={type} onChange={(e) => setType(e.target.value as (typeof PROMOTION_TYPES)[number])} className="h-10 w-full rounded-lg border border-surface-container-high bg-surface-container-lowest px-3 text-sm">
             {PROMOTION_TYPES.map((item) => (
               <option key={item} value={item}>{item}</option>
             ))}
@@ -43,7 +43,7 @@ export function PromotionForm({ open, onOpenChange }: PromotionFormProps) {
         </div>
         <div className="space-y-2">
           <Label>Discount Type</Label>
-          <select className="h-10 w-full rounded-lg border border-stone-200 bg-white px-3 text-sm">
+          <select className="h-10 w-full rounded-lg border border-surface-container-high bg-surface-container-lowest px-3 text-sm">
             <option value="percentage">Percentage</option>
             <option value="fixed">Fixed amount</option>
           </select>

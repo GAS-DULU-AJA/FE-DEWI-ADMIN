@@ -120,11 +120,11 @@ export function LocationPicker({ latitude, longitude, onLocationChange }: Locati
 
   return (
     <div className="space-y-3">
-      <div className="rounded-lg border border-stone-200 p-3">
-        <label className="mb-2 block text-xs font-medium text-stone-600">Cari Lokasi di Peta</label>
+      <div className="rounded-lg border border-surface-container-high p-3">
+        <label className="mb-2 block text-xs font-medium text-on-surface/70">Cari Lokasi di Peta</label>
         <div className="flex flex-col gap-2 sm:flex-row">
           <div className="relative flex-1">
-            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-stone-400" />
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-on-surface/40" />
             <input
               type="text"
               value={query}
@@ -135,7 +135,7 @@ export function LocationPicker({ latitude, longitude, onLocationChange }: Locati
                   void handleSearch();
                 }
               }}
-              className="h-10 w-full rounded-lg border border-stone-200 bg-white pl-9 pr-3 text-sm"
+              className="h-10 w-full rounded-lg border border-surface-container-high bg-surface-container-lowest pl-9 pr-3 text-sm"
               placeholder="Cari alamat, nama tempat, atau area..."
             />
           </div>
@@ -143,7 +143,7 @@ export function LocationPicker({ latitude, longitude, onLocationChange }: Locati
             type="button"
             onClick={() => void handleSearch()}
             disabled={isSearching}
-            className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-emerald-600 px-4 text-sm font-medium text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-70"
+            className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-70"
           >
             {isSearching ? <Loader2 className="h-4 w-4 animate-spin" /> : <MapPinned className="h-4 w-4" />}
             Cari
@@ -153,7 +153,7 @@ export function LocationPicker({ latitude, longitude, onLocationChange }: Locati
         {searchError ? <p className="mt-2 text-xs text-amber-600">{searchError}</p> : null}
 
         {results.length > 0 ? (
-          <div className="mt-2 max-h-40 space-y-1 overflow-y-auto rounded-md border border-stone-100 bg-stone-50 p-1.5">
+          <div className="mt-2 max-h-40 space-y-1 overflow-y-auto rounded-md border border-surface-container bg-surface-container-low p-1.5">
             {results.map((result) => (
               <button
                 key={result.place_id}
@@ -163,7 +163,7 @@ export function LocationPicker({ latitude, longitude, onLocationChange }: Locati
                   setQuery(result.display_name);
                   setResults([]);
                 }}
-                className="w-full rounded-md px-2 py-1.5 text-left text-xs text-stone-700 hover:bg-emerald-50"
+                className="w-full rounded-md px-2 py-1.5 text-left text-xs text-on-surface/80 hover:bg-primary/10"
               >
                 {result.display_name}
               </button>
@@ -172,7 +172,7 @@ export function LocationPicker({ latitude, longitude, onLocationChange }: Locati
         ) : null}
       </div>
 
-      <div className="overflow-hidden rounded-lg border border-stone-200">
+      <div className="overflow-hidden rounded-lg border border-surface-container-high">
         <MapContainer
           center={position}
           zoom={currentLatLng ? 15 : 5}
@@ -209,7 +209,7 @@ export function LocationPicker({ latitude, longitude, onLocationChange }: Locati
         </MapContainer>
       </div>
 
-      <p className="text-xs text-stone-500">
+      <p className="text-xs text-on-surface/60">
         Klik peta untuk menandai lokasi presisi, lalu geser pin jika perlu.
       </p>
     </div>

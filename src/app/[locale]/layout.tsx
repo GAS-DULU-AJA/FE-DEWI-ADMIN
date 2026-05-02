@@ -4,6 +4,22 @@ import type { Metadata } from "next";
 import { hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
+import { Plus_Jakarta_Sans, Manrope } from "next/font/google";
+import { ThemeProvider } from "@/components/providers/theme-provider";
+
+const displayFont = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-display",
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
+});
+
+const bodyFont = Manrope({
+  subsets: ["latin"],
+  variable: "--font-body",
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
 
 export const runtime = "edge";
 
@@ -63,8 +79,15 @@ export default async function LocaleLayout({
   const messages = await getMessages({ locale });
 
   return (
-    <NextIntlClientProvider messages={messages} locale={locale}>
-      {children}
-    </NextIntlClientProvider>
+    <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
+      <NextIntlClientProvider messages={messages} locale={locale}>
+        <div
+          lang={locale}
+          className={`${displayFont.variable} ${bodyFont.variable} font-body antialiased`}
+        >
+          {children}
+        </div>
+      </NextIntlClientProvider>
+    </ThemeProvider>
   );
 }

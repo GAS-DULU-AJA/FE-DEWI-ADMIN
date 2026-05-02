@@ -30,15 +30,15 @@ export function FacilityAvailabilityCalendar({
     <Card>
       <CardHeader>
         <CardTitle className="text-base">{t("coordination.facilityCalendarTitle")}</CardTitle>
-        <p className="text-xs text-stone-500">{t("coordination.facilityCalendarSubtitle")}</p>
+        <p className="text-xs text-on-surface/60">{t("coordination.facilityCalendarSubtitle")}</p>
       </CardHeader>
       <CardContent className="overflow-x-auto">
         <table className="w-full min-w-[640px] text-sm">
           <thead>
-            <tr className="border-b border-stone-200 text-left text-xs text-stone-500">
+            <tr className="border-b border-surface-container-high text-left text-xs text-on-surface/60">
               <th className="px-2 py-2">{t("components.facility")}</th>
               {days.map((day) => (
-                <th key={day.toISOString()} className="px-2 py-2 font-medium text-stone-600">
+                <th key={day.toISOString()} className="px-2 py-2 font-medium text-on-surface/70">
                   {day.toLocaleDateString(undefined, { weekday: "short", day: "2-digit", month: "short" })}
                 </th>
               ))}
@@ -46,8 +46,8 @@ export function FacilityAvailabilityCalendar({
           </thead>
           <tbody>
             {facilities.map((facility) => (
-              <tr key={facility.id} className="border-b border-stone-100">
-                <td className="px-2 py-2 font-medium text-stone-900">{facility.name}</td>
+              <tr key={facility.id} className="border-b border-surface-container">
+                <td className="px-2 py-2 font-medium text-on-surface">{facility.name}</td>
                 {days.map((day) => {
                   const dayKey = toYmd(day);
                   const match = reservations.find(
@@ -60,7 +60,7 @@ export function FacilityAvailabilityCalendar({
                           {t("coordination.reservedHours", { hours: match.hours })}
                         </span>
                       ) : (
-                        <span className="inline-flex rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-700">
+                        <span className="inline-flex rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
                           {t("coordination.open")}
                         </span>
                       )}

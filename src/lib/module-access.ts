@@ -5,6 +5,7 @@ export type ModulePermission =
   | "experience.submit"
   | "experience.approve"
   | "experience.analytics"
+  | "transport.manage"
   | "facility.manage"
   | "accommodation.manage"
   | "sme.manage"
@@ -60,8 +61,14 @@ export const SUPER_ADMIN_MODULE_POLICIES: ModulePolicy[] = [
   {
     moduleKey: "finance-dashboard",
     managedBy: "SUPER_ADMIN",
-    allowedRoles: ["VILLAGE_ADMIN", "ACCOMMODATION", "UMKM", "EVENT_ORGANIZER"],
+    allowedRoles: ["VILLAGE_ADMIN", "ACCOMMODATION", "UMKM", "EVENT_ORGANIZER", "TRANSPORT"],
     requiredPermission: "finance.view",
+  },
+  {
+    moduleKey: "transport-management",
+    managedBy: "SUPER_ADMIN",
+    allowedRoles: ["TRANSPORT"],
+    requiredPermission: "transport.manage",
   },
 ];
 
@@ -96,6 +103,12 @@ const ROLE_PERMISSIONS: Record<PartnerRole, ModulePermission[]> = {
     "experience.manage",
     "experience.submit",
     "experience.analytics",
+    "finance.view",
+    "chat.access",
+    "settings.manage",
+  ],
+  TRANSPORT: [
+    "transport.manage",
     "finance.view",
     "chat.access",
     "settings.manage",

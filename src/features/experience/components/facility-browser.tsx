@@ -17,10 +17,10 @@ export function FacilityBrowser({ facilities }: { facilities: FacilityRow[] }) {
       </CardHeader>
       <CardContent className="space-y-2">
         {facilities.map((facility) => (
-          <div key={facility.id} className="flex items-center justify-between rounded-lg border border-stone-200 p-3 text-sm">
+          <div key={facility.id} className="flex items-center justify-between rounded-lg border border-surface-container-high p-3 text-sm">
             <div>
-              <p className="font-medium text-stone-900">{facility.name}</p>
-              <p className="text-stone-500">{facility.price.toLocaleString("id-ID")}</p>
+              <p className="font-medium text-on-surface">{facility.name}</p>
+              <p className="text-on-surface/60">{facility.price.toLocaleString("id-ID")}</p>
             </div>
             <Badge className={FACILITY_COLORS[facility.availability]}>{t(`availability.${facility.availability}`)}</Badge>
           </div>

@@ -1,53 +1,74 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo } from "react";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
-import { Button } from "@/components/ui/button";
+import { useRouter } from "@/i18n/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { DataTable, type ColumnDef } from "@/components/ui/data-table";
 import { COORDINATION_REQUESTS } from "../mock-data";
-import type { CoordinationStatus } from "../types";
-
-const STATUS_FILTERS = ["all", "under_review", "terms_agreed", "active", "completed"] as const;
+import type { CoordinationRequest, CoordinationStatus } from "../types";
 
 export function CoordinationInbox() {
   const t = useTranslations("village");
-  const [activeStatus, setActiveStatus] = useState<string>("all");
+  const router = useRouter();
 
-  const list =
-    activeStatus === "all"
-      ? COORDINATION_REQUESTS
-      : COORDINATION_REQUESTS.filter((item) => item.status === activeStatus);
+  const columns = useMemo((): ColumnDef<CoordinationRequest>[] => [
+    {
+      id: "eventName",
+      header: t("coordination.inbox"),
+      accessorKey: "eventName",
+      sortable: true,
+    },
+    {
+      id: "organizerName",
+      header: "Organizer",
+      accessorKey: "organizerName",
+      sortable: true,
+    },
+    {
+      id: "requestedDate",
+      header: "Date",
+      accessorKey: "requestedDate",
+      sortable: true,
+      hideOnMobile: true,
+    },
+    {
+      id: "status",
+      header: t("coordination.all"),
+      accessorKey: "status",
+      sortable: true,
+      filterable: true,
+      filterOptions: (["under_review", "terms_agreed", "active", "completed"] as CoordinationStatus[]).map((s) => ({
+        value: s,
+        label: t(`coordination.statuses.${s}`),
+      })),
+      accessorFn: (row) => (
+        <span className="rounded-full bg-surface-container px-2 py-0.5 text-xs text-on-surface/70">
+          {t(`coordination.statuses.${row.status}`)}
+        </span>
+      ),
+    },
+  ], [t]);
 
   return (
     <Card>
       <CardHeader>
         <CardTitle>{t("coordination.inbox")}</CardTitle>
       </CardHeader>
-      <CardContent className="space-y-3">
-        <div className="flex flex-wrap gap-2">
-          {STATUS_FILTERS.map((status) => (
-            <button
-              key={status}
-              onClick={() => setActiveStatus(status)}
-              className={`rounded-full px-3 py-1 text-xs ${activeStatus === status ? "bg-emerald-600 text-white" : "bg-stone-100 text-stone-600"}`}
-            >
-              {status === "all" ? t("coordination.all") : t(`coordination.statuses.${status as CoordinationStatus}`)}
-            </button>
-          ))}
-        </div>
-        {list.map((item) => (
-          <div key={item.id} className="rounded-lg border border-stone-200 bg-white p-3">
-            <p className="text-sm font-semibold text-stone-900">{item.eventName}</p>
-            <p className="text-xs text-stone-500">{item.organizerName}</p>
-            <p className="text-xs text-stone-400">{t(`coordination.statuses.${item.status}`)}</p>
-            <div className="mt-2">
-              <Button asChild variant="outline" size="sm">
-                <Link href={`/dashboard/village-admin/coordination/${item.id}`}>{t("coordination.openDetail")}</Link>
-              </Button>
-            </div>
-          </div>
-        ))}
+      <CardContent>
+        <DataTable
+          data={COORDINATION_REQUESTS}
+          columns={columns}
+          keyExtractor={(r) => r.id}
+          searchableFields={["eventName", "organizerName"]}
+          searchPlaceholder="Cari koordinasi..."
+          pageSize={10}
+          onRowClick={(row) => router.push(`/dashboard/village-admin/coordination/${row.id}`)}
+          emptyState={{ title: "Tidak ada koordinasi" }}
+          actions={(row) => [
+            { label: t("coordination.openDetail"), onClick: () => router.push(`/dashboard/village-admin/coordination/${row.id}`) },
+          ]}
+        />
       </CardContent>
     </Card>
   );

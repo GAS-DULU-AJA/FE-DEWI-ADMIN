@@ -10,7 +10,7 @@ export function PaymentRecommendations() {
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-3">
-        <p className="text-sm text-stone-600">
+        <p className="text-sm text-on-surface/70">
           Untuk skenario reservasi dengan add-on lintas mitra, gunakan model
           transaksi marketplace dengan split settlement agar dana langsung
           terdistribusi ke setiap mitra yang terlibat.
@@ -19,14 +19,14 @@ export function PaymentRecommendations() {
           {PAYMENT_GATEWAY_RECOMMENDATIONS.map((gateway) => (
             <div
               key={gateway.name}
-              className="rounded-lg border border-stone-200 bg-stone-50 p-3"
+              className="rounded-lg border border-surface-container-high bg-surface-container-low p-3"
             >
-              <p className="text-sm font-semibold text-stone-900">{gateway.name}</p>
-              <p className="mt-1 text-xs text-stone-600">{gateway.reason}</p>
-              <p className="mt-2 text-xs font-medium text-stone-700">
+              <p className="text-sm font-semibold text-on-surface">{gateway.name}</p>
+              <p className="mt-1 text-xs text-on-surface/70">{gateway.reason}</p>
+              <p className="mt-2 text-xs font-medium text-on-surface/80">
                 Metode pembayaran:
               </p>
-              <ul className="mt-1 list-disc space-y-1 pl-5 text-xs text-stone-600">
+              <ul className="mt-1 list-disc space-y-1 pl-5 text-xs text-on-surface/70">
                 {gateway.methods.map((method) => (
                   <li key={method}>{method}</li>
                 ))}

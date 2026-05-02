@@ -126,24 +126,24 @@ export function ExperienceStaffManager({ isId }: { isId: boolean }) {
         <CardHeader>
           <CardTitle>{isId ? "Pengaturan Pelaksana Event" : "Event Staff Assignment"}</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-3 text-sm text-stone-600">
+        <CardContent className="space-y-3 text-sm text-on-surface/70">
           <p>
             {isId
               ? "Kelola penugasan Pelaksana dan izin fitur per-event. Akses keuangan tetap terkunci dan tidak dapat didelegasikan."
               : "Manage staff assignment and per-event feature access. Financial access remains locked and cannot be delegated."}
           </p>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-            <div className="rounded-lg border border-stone-200 bg-stone-50 p-3">
-              <p className="text-xs text-stone-500">{isId ? "Total Pelaksana" : "Total Staff"}</p>
-              <p className="text-xl font-bold text-stone-900">{staffList.length}</p>
+            <div className="rounded-lg border border-surface-container-high bg-surface-container-low p-3">
+              <p className="text-xs text-on-surface/60">{isId ? "Total Pelaksana" : "Total Staff"}</p>
+              <p className="text-xl font-bold text-on-surface">{staffList.length}</p>
             </div>
-            <div className="rounded-lg border border-stone-200 bg-stone-50 p-3">
-              <p className="text-xs text-stone-500">{isId ? "Aktif" : "Active"}</p>
-              <p className="text-xl font-bold text-emerald-600">{activeCount}</p>
+            <div className="rounded-lg border border-surface-container-high bg-surface-container-low p-3">
+              <p className="text-xs text-on-surface/60">{isId ? "Aktif" : "Active"}</p>
+              <p className="text-xl font-bold text-primary">{activeCount}</p>
             </div>
-            <div className="rounded-lg border border-red-200 bg-red-50 p-3">
+            <div className="rounded-lg border border-red-500/30 bg-red-500/10 p-3">
               <p className="text-xs text-red-600">{isId ? "Akses Keuangan" : "Financial Access"}</p>
-              <p className="text-sm font-semibold text-red-700">{isId ? "SELALU TERTUTUP" : "ALWAYS LOCKED"}</p>
+              <p className="text-sm font-semibold text-red-600">{isId ? "SELALU TERTUTUP" : "ALWAYS LOCKED"}</p>
             </div>
           </div>
         </CardContent>
@@ -169,7 +169,7 @@ export function ExperienceStaffManager({ isId }: { isId: boolean }) {
               {isId ? "Tambahkan" : "Add"}
             </Button>
           </div>
-          <p className="mt-2 text-xs text-stone-500">
+          <p className="mt-2 text-xs text-on-surface/60">
             {isId
               ? "UI ini belum tersambung ke API. Perubahan hanya tersimpan di state lokal halaman."
               : "This UI is not connected to API yet. Changes are stored in local page state only."}
@@ -183,8 +183,8 @@ export function ExperienceStaffManager({ isId }: { isId: boolean }) {
             <CardContent className="pt-5">
               <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                 <div>
-                  <p className="text-sm font-semibold text-stone-900">{staff.name}</p>
-                  <p className="text-xs text-stone-500">{staff.email}</p>
+                  <p className="text-sm font-semibold text-on-surface">{staff.name}</p>
+                  <p className="text-xs text-on-surface/60">{staff.email}</p>
                   <div className="mt-2 flex items-center gap-2">
                     <Badge variant={staff.isActive ? "default" : "secondary"}>
                       {staff.isActive
@@ -224,12 +224,12 @@ export function ExperienceStaffManager({ isId }: { isId: boolean }) {
                   return (
                     <label
                       key={permissionKey}
-                      className="flex items-center justify-between rounded-lg border border-stone-200 bg-stone-50 px-3 py-2"
+                      className="flex items-center justify-between rounded-lg border border-surface-container-high bg-surface-container-low px-3 py-2"
                     >
-                      <span className="text-sm text-stone-700">{isId ? label.id : label.en}</span>
+                      <span className="text-sm text-on-surface/80">{isId ? label.id : label.en}</span>
                       <input
                         type="checkbox"
-                        className="h-4 w-4 accent-emerald-600"
+                        className="h-4 w-4 accent-primary"
                         checked={staff.permissions[permissionKey]}
                         onChange={() => togglePermission(staff.id, permissionKey)}
                         disabled={!staff.isActive}

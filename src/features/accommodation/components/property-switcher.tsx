@@ -20,10 +20,10 @@ export function PropertySwitcher({
   if (accommodations.length === 0) return null;
 
   return (
-    <div className="rounded-xl border border-stone-200 bg-white p-3">
-      <p className="mb-2 text-xs font-medium text-stone-500">Penginapan aktif</p>
+    <div className="rounded-xl border border-surface-container-high bg-surface-container-lowest p-3">
+      <p className="mb-2 text-xs font-medium text-on-surface/60">Penginapan aktif</p>
       <select
-        className="h-10 w-full rounded-lg border border-stone-200 bg-white px-3 text-sm"
+        className="h-10 w-full rounded-lg border border-surface-container-high bg-surface-container-lowest px-3 text-sm"
         value={activeAccommodationId}
         onChange={(event) => {
           const selectedId = event.target.value;

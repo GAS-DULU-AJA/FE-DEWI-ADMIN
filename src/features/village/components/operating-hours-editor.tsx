@@ -49,12 +49,12 @@ export function OperatingHoursEditor({ value, onChange }: OperatingHoursEditorPr
               <span
                 className={cn(
                   "inline-flex h-5 w-9 shrink-0 items-center rounded-full transition-colors",
-                  s.enabled ? "bg-emerald-500" : "bg-stone-300",
+                  s.enabled ? "bg-primary/100" : "bg-surface-container-highest",
                 )}
               >
                 <span
                   className={cn(
-                    "h-4 w-4 rounded-full bg-white shadow transition-transform",
+                    "h-4 w-4 rounded-full bg-surface-container-lowest shadow transition-transform",
                     s.enabled ? "translate-x-4" : "translate-x-0.5",
                   )}
                 />
@@ -73,7 +73,7 @@ export function OperatingHoursEditor({ value, onChange }: OperatingHoursEditorPr
                   className={cn(
                     "rounded-full border px-3 py-1 text-xs transition-colors",
                     s.is24Hours
-                      ? "border-emerald-500 bg-emerald-50 text-emerald-700"
+                      ? "border-primary/500 bg-primary/10 text-primary"
                       : "border-border bg-background text-muted-foreground hover:text-foreground",
                   )}
                 >

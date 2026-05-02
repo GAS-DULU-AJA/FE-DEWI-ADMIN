@@ -17,12 +17,12 @@ interface EmptyStateProps {
 function EmptyState({ icon, title, description, action, className }: EmptyStateProps) {
   return (
     <div className={cn("flex flex-col items-center justify-center py-12 px-4 text-center", className)}>
-      <div className="flex h-16 w-16 items-center justify-center rounded-full bg-stone-100 mb-4">
-        {icon || <PackageOpen className="h-8 w-8 text-stone-400" />}
+      <div className="flex h-16 w-16 items-center justify-center rounded-full bg-surface-container mb-4">
+        {icon || <PackageOpen className="h-8 w-8 text-on-surface/40" />}
       </div>
-      <h3 className="text-base font-semibold text-stone-900 mb-1">{title}</h3>
+      <h3 className="text-base font-semibold text-on-surface mb-1">{title}</h3>
       {description && (
-        <p className="text-sm text-stone-500 max-w-sm mb-4">{description}</p>
+        <p className="text-sm text-on-surface/60 max-w-sm mb-4">{description}</p>
       )}
       {action && (
         <Button size="sm" onClick={action.onClick}>

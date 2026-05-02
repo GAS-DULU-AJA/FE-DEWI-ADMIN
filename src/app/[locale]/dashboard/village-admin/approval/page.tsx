@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { ApprovalPanel } from "@/features/village/components/approval-panel";
+import { DocumentGateBanner } from "@/features/village/components/document-gate-banner";
 import { VillagePageHeader } from "@/features/village/components/page-header";
 
 export default function ApprovalPage() {
@@ -17,6 +18,7 @@ export default function ApprovalPage() {
           { label: t("breadcrumbs.approval") },
         ]}
       />
+      <DocumentGateBanner />
       <ApprovalPanel />
     </div>
   );

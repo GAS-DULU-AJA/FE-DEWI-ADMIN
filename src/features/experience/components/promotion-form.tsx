@@ -33,7 +33,7 @@ export function ExperiencePromotionForm({ open, onOpenChange }: ExperiencePromot
         </div>
         <div className="space-y-2">
           <Label>{t("components.type")}</Label>
-          <select className="h-10 w-full rounded-lg border border-stone-200 px-3 text-sm" value={type} onChange={(e) => setType(e.target.value as (typeof TYPES)[number])}>
+          <select className="h-10 w-full rounded-lg border border-surface-container-high px-3 text-sm" value={type} onChange={(e) => setType(e.target.value as (typeof TYPES)[number])}>
             {TYPES.map((item) => (
               <option key={item} value={item}>{t(`promotionTypes.${item}`)}</option>
             ))}

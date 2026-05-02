@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { DataTable, type ActionItem, type ColumnDef } from "@/components/ui/data-table";
 import { SpeakerCard } from "@/features/experience/components/speaker-card";
 import { SpeakerForm } from "@/features/experience/components/speaker-form";
 import type { Speaker } from "@/features/experience/types";
@@ -89,6 +90,47 @@ export function SpeakersCrudManager({ initialSpeakers }: { initialSpeakers: Spea
     }
   };
 
+  const columns = useMemo<ColumnDef<Speaker>[]>(
+    () => [
+      {
+        id: "name",
+        header: isId ? "Nama" : "Name",
+        accessorKey: "name",
+        sortable: true,
+      },
+      {
+        id: "title",
+        header: isId ? "Jabatan" : "Title",
+        accessorKey: "title",
+        sortable: true,
+      },
+      {
+        id: "topics",
+        header: isId ? "Topik" : "Topics",
+        accessorFn: (row) => row.topics.join(", "),
+      },
+      {
+        id: "contact",
+        header: isId ? "Kontak" : "Contact",
+        accessorFn: (row) => row.email ?? row.phone ?? "-",
+        hideOnMobile: true,
+      },
+    ],
+    [isId],
+  );
+
+  const actions = (speaker: Speaker): ActionItem[] => [
+    {
+      label: isId ? "Edit" : "Edit",
+      onClick: () => setEditingSpeakerId(speaker.id),
+    },
+    {
+      label: isId ? "Hapus" : "Delete",
+      onClick: () => handleDeleteSpeaker(speaker.id),
+      variant: "destructive",
+    },
+  ];
+
   return (
     <div className="space-y-6">
       <div className="flex justify-end">
@@ -115,22 +157,28 @@ export function SpeakersCrudManager({ initialSpeakers }: { initialSpeakers: Spea
         />
       )}
 
-      {speakers.length > 0 ? (
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-          {speakers.map((speaker) => (
-            <SpeakerCard
-              key={speaker.id}
-              speaker={speaker}
-              onEdit={() => setEditingSpeakerId(speaker.id)}
-              onDelete={() => handleDeleteSpeaker(speaker.id)}
-            />
-          ))}
-        </div>
-      ) : (
-        <div className="rounded-lg border border-stone-200 bg-white p-4 text-sm text-stone-600">
-          {isId ? "Belum ada speaker. Tambahkan speaker pertama Anda." : "No speakers yet. Add your first speaker."}
-        </div>
-      )}
+      <DataTable
+        data={speakers}
+        columns={columns}
+        keyExtractor={(row) => row.id}
+        searchableFields={["name", "title", "bio", "email", "phone"]}
+        searchPlaceholder={isId ? "Cari speaker..." : "Search speakers..."}
+        pageSize={10}
+        actions={actions}
+        emptyState={{
+          title: isId ? "Belum ada speaker" : "No speakers yet",
+          description: isId
+            ? "Tambahkan speaker pertama Anda."
+            : "Add your first speaker.",
+        }}
+        mobileCardRenderer={(speaker) => (
+          <SpeakerCard
+            speaker={speaker}
+            onEdit={() => setEditingSpeakerId(speaker.id)}
+            onDelete={() => handleDeleteSpeaker(speaker.id)}
+          />
+        )}
+      />
     </div>
   );
 }

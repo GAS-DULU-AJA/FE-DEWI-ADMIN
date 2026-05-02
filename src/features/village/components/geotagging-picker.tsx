@@ -94,7 +94,7 @@ export function GeotaggingPicker({
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="text-sm text-stone-600">
+        <div className="text-sm text-on-surface/70">
           {address && <p className="font-medium mb-2">{address}</p>}
           <p>{t("facilities.geotagging.description")}</p>
         </div>
@@ -111,7 +111,7 @@ export function GeotaggingPicker({
             : t("facilities.geotagging.useCurrentLocation")}
         </Button>
 
-        <div className="overflow-hidden rounded-lg border border-stone-200" style={{ height: "300px" }}>
+        <div className="overflow-hidden rounded-lg border border-surface-container-high" style={{ height: "300px" }}>
           <MapContainer
             center={mapCenter}
             zoom={13}
@@ -140,7 +140,7 @@ export function GeotaggingPicker({
               step="0.000001"
               value={latitude ?? ""}
               readOnly
-              className="bg-stone-50"
+              className="bg-surface-container-low"
             />
           </div>
           <div className="space-y-2">
@@ -151,7 +151,7 @@ export function GeotaggingPicker({
               step="0.000001"
               value={longitude ?? ""}
               readOnly
-              className="bg-stone-50"
+              className="bg-surface-container-low"
             />
           </div>
         </div>

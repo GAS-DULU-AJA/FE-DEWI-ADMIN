@@ -18,22 +18,22 @@ function Breadcrumb({ items, className }: BreadcrumbProps) {
     <nav aria-label="Breadcrumb" className={cn("flex items-center gap-1 text-sm", className)}>
       <Link
         href="/dashboard"
-        className="flex items-center text-stone-400 hover:text-emerald-600 transition-colors"
+        className="flex items-center text-on-surface/40 hover:text-primary transition-colors"
       >
         <Home className="h-3.5 w-3.5" />
       </Link>
       {items.map((item, idx) => (
         <React.Fragment key={idx}>
-          <ChevronRight className="h-3.5 w-3.5 text-stone-300 shrink-0" />
+          <ChevronRight className="h-3.5 w-3.5 text-on-surface/30 shrink-0" />
           {item.href && idx < items.length - 1 ? (
             <Link
               href={item.href}
-              className="text-stone-500 hover:text-emerald-600 transition-colors truncate max-w-[200px]"
+              className="text-on-surface/60 hover:text-primary transition-colors truncate max-w-[200px]"
             >
               {item.label}
             </Link>
           ) : (
-            <span className="font-medium text-stone-900 truncate max-w-[200px]">
+            <span className="font-medium text-on-surface truncate max-w-[200px]">
               {item.label}
             </span>
           )}

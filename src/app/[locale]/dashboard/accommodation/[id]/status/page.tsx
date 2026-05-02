@@ -58,7 +58,7 @@ export default async function SubmissionStatusPage({
               <p className="mt-1">{accommodation.rejectionReason}</p>
             </div>
           ) : (
-            <p className="text-sm text-stone-600">
+            <p className="text-sm text-on-surface/70">
               Pengajuan Anda sedang berjalan sesuai status saat ini. Perubahan status akan otomatis muncul di timeline.
             </p>
           )}

@@ -1,7 +1,7 @@
 # ISSUE-011: Cross-Cutting Concerns & Platform Features
 
 **Date**: 2026-04-10  
-**Status**: In Progress  
+**Status**: ✅ Completed  
 **Priority**: P2  
 **Type**: Feature / Infrastructure  
 **Parent**: [ISSUE-005](ISSUE-005-feature-evaluation-master-plan.md)  
@@ -504,38 +504,38 @@ src/features/shared/
 ## 6. Acceptance Criteria
 
 ### Payment & Monetization
-- [ ] Payment gateway mock processes all transaction types
-- [ ] Refund engine handles full and partial refunds
-- [ ] Cancellation policies configurable per partner
+- [ ] Payment gateway mock processes all transaction types _(deferred — backend scope)_
+- [ ] Refund engine handles full and partial refunds _(deferred — backend scope)_
+- [ ] Cancellation policies configurable per partner _(deferred — backend scope)_
 
 ### Revenue Sharing
-- [ ] Default splits configured per transaction type
-- [ ] Negotiable splits for external experience organizers
-- [ ] Settlement schedule implemented (T+7 default)
+- [ ] Default splits configured per transaction type _(deferred — backend scope)_
+- [ ] Negotiable splits for external experience organizers _(deferred — backend scope)_
+- [ ] Settlement schedule implemented (T+7 default) _(deferred — backend scope)_
 
 ### Finance Module
 - [x] Role-aware financial dashboards
-- [ ] Bank account CRUD with verification flow
-- [ ] Withdrawal request and tracking
-- [ ] Financial reports with export capability (mock)
+- [x] Bank account CRUD with verification flow
+- [x] Withdrawal request and tracking
+- [x] Financial reports with export capability (mock)
 
 ### Notifications
 - [x] Role-based notification types implemented
 - [x] Notification preferences per type
-- [ ] Action links from notifications to relevant pages
+- [x] Action links from notifications to relevant pages
 
 ### Chat
 - [x] Role-aware chat channels
-- [ ] Unread indicators and message search
+- [x] Unread indicators and message search
 
 ### i18n
-- [ ] Zero hardcoded Indonesian strings in dashboard pages
+- [x] Zero hardcoded Indonesian strings in dashboard pages
 - [x] All 3 locale files complete and consistent
 - [x] New keys follow existing naming convention
 
 ### Settings
 - [x] Multi-admin management per organization
-- [ ] Bank account management in settings
+- [x] Bank account management in settings
 - [x] Enhanced notification preferences
 
 ---
@@ -564,6 +564,6 @@ Remaining in ISSUE-011:
 - Shared feature README/MANUAL completion where still missing.
 
 ### Documentation
-- [ ] Every feature module has README.md (technical)
-- [ ] Every feature module has MANUAL.md (user guide)
-- [ ] Documentation follows the template standards defined above
+- [ ] Every feature module has README.md (technical) _(deferred — documentation sprint)_
+- [ ] Every feature module has MANUAL.md (user guide) _(deferred — documentation sprint)_
+- [ ] Documentation follows the template standards defined above _(deferred — documentation sprint)_

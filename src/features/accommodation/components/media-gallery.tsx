@@ -24,18 +24,18 @@ export function MediaGallery({ images }: { images: AccommodationImage[] }) {
         <CardTitle>Media Gallery</CardTitle>
       </CardHeader>
       <CardContent className="space-y-3">
-        <div className="rounded-lg border border-dashed border-stone-300 bg-stone-50 p-4 text-sm text-stone-500">
+        <div className="rounded-lg border border-dashed border-surface-container-high bg-surface-container-low p-4 text-sm text-on-surface/60">
           Drag and drop upload area is mocked in this implementation.
         </div>
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
           {items.map((image) => (
-            <div key={image.id} className="rounded-lg border border-stone-200 p-3">
+            <div key={image.id} className="rounded-lg border border-surface-container-high p-3">
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <p className="text-sm font-medium text-stone-900">{image.caption ?? image.category}</p>
-                  <p className="text-xs text-stone-500">{image.category} • {image.width}x{image.height} • {image.sizeKb}KB</p>
-                  <p className="text-xs text-stone-500">Quality: {image.qualityScore ?? 0}</p>
-                  {image.isPrimary ? <p className="text-xs font-medium text-emerald-700">Cover Photo</p> : null}
+                  <p className="text-sm font-medium text-on-surface">{image.caption ?? image.category}</p>
+                  <p className="text-xs text-on-surface/60">{image.category} • {image.width}x{image.height} • {image.sizeKb}KB</p>
+                  <p className="text-xs text-on-surface/60">Quality: {image.qualityScore ?? 0}</p>
+                  {image.isPrimary ? <p className="text-xs font-medium text-primary">Cover Photo</p> : null}
                 </div>
                 <div className="flex gap-2">
                   <Button variant="outline" size="sm" onClick={() => moveItem(image.id, -1)}>Up</Button>

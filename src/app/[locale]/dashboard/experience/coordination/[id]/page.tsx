@@ -20,11 +20,11 @@ export default async function CoordinationDetailPage({
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-stone-900">{t("coordination.detailTitle", { id: coordination.id })}</h1>
-        <p className="mt-1 text-sm text-stone-500">{t("coordination.targetVillage")}: {coordination.targetVillage}</p>
+        <h1 className="font-display text-title-lg font-bold text-on-surface tracking-tight">{t("coordination.detailTitle", { id: coordination.id })}</h1>
+        <p className="mt-2 font-body text-sm text-on-surface/60 leading-relaxed">{t("coordination.targetVillage")}: {coordination.targetVillage}</p>
       </div>
 
-      <div className="rounded-lg border border-stone-200 bg-white p-4 text-sm text-stone-700">
+      <div className="rounded-lg border-0 bg-surface-container-lowest p-4 text-sm text-on-surface/80">
         <p>{t("detail.status")}: {t(`status.${coordination.status}`)}</p>
         <p>{t("coordination.messages")}: {coordination.messages.length}</p>
         <p>{t("coordination.facilitiesRequested")}: {coordination.facilityRequests.length}</p>

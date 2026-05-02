@@ -7,18 +7,15 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { cn, formatCurrency, formatDateShort } from "@/lib/utils";
+import { DataTable, type ColumnDef, type ActionItem } from "@/components/ui/data-table";
+import { cn, formatCurrency } from "@/lib/utils";
 import type { Room, RoomStatus } from "@/types";
 import {
-  BedDouble,
   CheckCircle2,
   DoorOpen,
   Pencil,
   Plus,
-  Search,
   Settings2,
-  Sparkles,
-  Wrench,
 } from "lucide-react";
 import { RoomStatusBadge } from "./room-status-badge";
 
@@ -102,26 +99,9 @@ export function RoomManagement({
   initialRooms,
 }: RoomManagementProps) {
   const [rooms, setRooms] = useState(initialRooms);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [statusFilter, setStatusFilter] = useState<RoomStatus | "all">("all");
   const [editingRoomId, setEditingRoomId] = useState<string | null>(null);
   const [formState, setFormState] = useState<RoomFormState>(() => toFormState());
   const [errors, setErrors] = useState<Partial<Record<keyof RoomFormState, string>>>({});
-
-  const filteredRooms = useMemo(() => {
-    return rooms.filter((room) => {
-      const matchesStatus = statusFilter === "all" || room.status === statusFilter;
-      const normalizedSearch = searchQuery.trim().toLowerCase();
-      const matchesSearch =
-        normalizedSearch.length === 0 ||
-        [room.name, room.roomCode, room.type, room.floor, room.view]
-          .join(" ")
-          .toLowerCase()
-          .includes(normalizedSearch);
-
-      return matchesStatus && matchesSearch;
-    });
-  }, [rooms, searchQuery, statusFilter]);
 
   const summary = useMemo(() => {
     const totalTypes = rooms.length;
@@ -143,6 +123,106 @@ export function RoomManagement({
     () => rooms.find((room) => room.id === editingRoomId),
     [rooms, editingRoomId]
   );
+
+  const columns = useMemo((): ColumnDef<Room>[] => [
+    {
+      id: "name",
+      header: "Kamar",
+      accessorKey: "name",
+      sortable: true,
+      accessorFn: (room) => (
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="font-semibold text-on-surface">{room.name}</span>
+          <Badge variant="outline">{room.roomCode}</Badge>
+          <RoomStatusBadge status={room.status} />
+        </div>
+      ),
+    },
+    {
+      id: "type",
+      header: "Tipe",
+      accessorKey: "type",
+      sortable: true,
+      filterable: true,
+      hideOnMobile: true,
+    },
+    {
+      id: "pricePerNight",
+      header: "Harga/malam",
+      accessorKey: "pricePerNight",
+      sortable: true,
+      accessorFn: (room) => <span className="font-medium text-on-surface">{formatCurrency(room.pricePerNight)}</span>,
+    },
+    {
+      id: "capacity",
+      header: "Kapasitas",
+      accessorKey: "capacity",
+      sortable: true,
+      hideOnMobile: true,
+      accessorFn: (room) => <span>{room.capacity} tamu</span>,
+    },
+    {
+      id: "inventory",
+      header: "Inventaris",
+      accessorKey: "totalUnits",
+      sortable: true,
+      accessorFn: (room) => (
+        <span className={room.availableUnits === 0 ? "text-red-600 font-medium" : "text-primary font-medium"}>
+          {room.availableUnits}/{room.totalUnits}
+        </span>
+      ),
+    },
+    {
+      id: "status",
+      header: "Status",
+      accessorKey: "status",
+      sortable: true,
+      filterable: true,
+      filterOptions: [
+        { value: "available", label: "Tersedia" },
+        { value: "booked", label: "Penuh Dipesan" },
+        { value: "maintenance", label: "Perawatan" },
+      ],
+      hideOnMobile: true,
+      accessorFn: (room) => <RoomStatusBadge status={room.status} />,
+    },
+  ], []);
+
+  const roomActions = (room: Room): ActionItem[] => [
+    { label: "Edit", icon: <Pencil className="h-3.5 w-3.5" />, onClick: () => startEdit(room) },
+    { label: "Ubah Status", icon: <Settings2 className="h-3.5 w-3.5" />, onClick: () => updateRoomStatus(room.id) },
+  ];
+
+  const roomMobileCard = (room: Room, actions?: ActionItem[]) => {
+    const occupiedUnits = room.totalUnits - room.availableUnits;
+    const occupancyPercent = room.totalUnits > 0 ? Math.round((occupiedUnits / room.totalUnits) * 100) : 0;
+    return (
+      <div className="space-y-2 p-1">
+        <div className="flex items-start justify-between gap-2">
+          <div>
+            <div className="flex flex-wrap items-center gap-1.5">
+              <span className="font-semibold text-on-surface">{room.name}</span>
+              <Badge variant="outline">{room.roomCode}</Badge>
+            </div>
+            <p className="text-xs text-on-surface/60">{room.type} · {room.bedType} · {room.floor}</p>
+          </div>
+          <RoomStatusBadge status={room.status} />
+        </div>
+        <p className="text-sm font-medium text-on-surface">{formatCurrency(room.pricePerNight)}/malam</p>
+        <div className="h-1.5 rounded-full bg-surface-container">
+          <div
+            className={cn("h-1.5 rounded-full", room.status === "maintenance" ? "bg-red-500" : room.status === "booked" ? "bg-amber-500" : "bg-primary")}
+            style={{ width: `${Math.min(100, Math.max(8, occupancyPercent || 8))}%` }}
+          />
+        </div>
+        <div className="flex gap-2">
+          {actions?.map((a) => (
+            <Button key={a.label} variant="outline" size="sm" onClick={a.onClick}>{a.label}</Button>
+          ))}
+        </div>
+      </div>
+    );
+  };
 
   function resetForm(room?: Room) {
     setErrors({});
@@ -246,18 +326,14 @@ export function RoomManagement({
 
   return (
     <div className="space-y-6">
-      <Card className="border-emerald-200 bg-emerald-50/70">
-        <CardContent className="flex flex-wrap items-center justify-between gap-3 p-6">
+      <Card className="border-primary/200 bg-primary/10/70">
+        <CardContent className="p-6">
           <div>
-            <p className="text-sm font-medium text-emerald-800">Operasional Kamar {accommodationName}</p>
-            <p className="mt-1 text-sm text-emerald-700">
+            <p className="text-sm font-medium text-primary">Operasional Kamar {accommodationName}</p>
+            <p className="mt-1 text-sm text-primary">
               Kelola inventaris, harga, kapasitas, fasilitas, dan status operasional tiap tipe kamar dalam satu layar.
             </p>
           </div>
-          <Button onClick={startCreate}>
-            <Plus className="h-4 w-4" />
-            Tambah Kamar
-          </Button>
         </CardContent>
       </Card>
 
@@ -277,7 +353,7 @@ export function RoomManagement({
         <Card>
           <CardHeader className="pb-3">
             <CardDescription>Unit Siap Jual</CardDescription>
-            <CardTitle className="text-2xl text-emerald-700">{summary.availableInventory}</CardTitle>
+            <CardTitle className="text-2xl text-primary">{summary.availableInventory}</CardTitle>
           </CardHeader>
         </Card>
         <Card>
@@ -291,157 +367,33 @@ export function RoomManagement({
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-[1.5fr_1fr]">
         <div className="space-y-6">
           <Card>
-            <CardHeader className="gap-4 md:flex-row md:items-end md:justify-between md:space-y-0">
-              <div>
-                <CardTitle className="text-base">Daftar Kamar</CardTitle>
-                <CardDescription>
-                  Gunakan pencarian dan filter status untuk memeriksa kesiapan inventaris kamar.
-                </CardDescription>
-              </div>
-              <div className="grid w-full gap-3 md:w-auto md:grid-cols-[260px_180px]">
-                <div className="relative">
-                  <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-stone-400" />
-                  <Input
-                    value={searchQuery}
-                    onChange={(event) => setSearchQuery(event.target.value)}
-                    placeholder="Cari nama, kode, tipe..."
-                    className="pl-9"
-                  />
-                </div>
-                <select
-                  value={statusFilter}
-                  onChange={(event) => setStatusFilter(event.target.value as RoomStatus | "all")}
-                  className="h-10 rounded-lg border border-stone-200 bg-white px-3 text-sm text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
-                >
-                  <option value="all">Semua Status</option>
-                  {STATUS_OPTIONS.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
+            <CardHeader>
+              <CardTitle className="text-base">Daftar Kamar</CardTitle>
+              <CardDescription>
+                Gunakan pencarian dan filter status untuk memeriksa kesiapan inventaris kamar.
+              </CardDescription>
             </CardHeader>
             <CardContent>
-              {filteredRooms.length === 0 ? (
-                <div className="rounded-xl border border-dashed border-stone-300 bg-stone-50 p-8 text-center">
-                  <p className="text-sm font-medium text-stone-900">Tidak ada kamar yang cocok dengan filter.</p>
-                  <p className="mt-1 text-sm text-stone-500">Ubah kata kunci pencarian atau tambahkan kamar baru.</p>
-                </div>
-              ) : (
-                <div className="space-y-4">
-                  {filteredRooms.map((room) => {
-                    const occupiedUnits = room.totalUnits - room.availableUnits;
-                    const occupancyPercent = room.totalUnits > 0
-                      ? Math.round((occupiedUnits / room.totalUnits) * 100)
-                      : 0;
-
-                    return (
-                      <div
-                        key={room.id}
-                        className="rounded-xl border border-stone-200 p-4 transition-shadow hover:shadow-sm"
-                      >
-                        <div className="flex flex-wrap items-start justify-between gap-3">
-                          <div>
-                            <div className="flex flex-wrap items-center gap-2">
-                              <h3 className="text-base font-semibold text-stone-900">{room.name}</h3>
-                              <Badge variant="outline">{room.roomCode}</Badge>
-                              <RoomStatusBadge status={room.status} />
-                            </div>
-                            <p className="mt-1 text-sm text-stone-500">
-                              {room.type} · {room.bedType} · {room.floor} · View {room.view}
-                            </p>
-                          </div>
-                          <div className="flex flex-wrap gap-2">
-                            <Button variant="outline" size="sm" onClick={() => startEdit(room)}>
-                              <Pencil className="h-4 w-4" />
-                              Edit
-                            </Button>
-                            <Button variant="outline" size="sm" onClick={() => updateRoomStatus(room.id)}>
-                              <Settings2 className="h-4 w-4" />
-                              Ubah Status
-                            </Button>
-                          </div>
-                        </div>
-
-                        <p className="mt-3 text-sm leading-relaxed text-stone-600">{room.description}</p>
-
-                        <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-4">
-                          <div className="rounded-lg bg-stone-50 p-3">
-                            <p className="text-xs text-stone-500">Harga / malam</p>
-                            <p className="mt-1 font-semibold text-stone-900">{formatCurrency(room.pricePerNight)}</p>
-                          </div>
-                          <div className="rounded-lg bg-stone-50 p-3">
-                            <p className="text-xs text-stone-500">Kapasitas</p>
-                            <p className="mt-1 font-semibold text-stone-900">{room.capacity} tamu</p>
-                          </div>
-                          <div className="rounded-lg bg-stone-50 p-3">
-                            <p className="text-xs text-stone-500">Ukuran</p>
-                            <p className="mt-1 font-semibold text-stone-900">{room.sizeSqm} m2</p>
-                          </div>
-                          <div className="rounded-lg bg-stone-50 p-3">
-                            <p className="text-xs text-stone-500">Inventaris</p>
-                            <p className="mt-1 font-semibold text-stone-900">
-                              {room.availableUnits}/{room.totalUnits} unit
-                            </p>
-                          </div>
-                        </div>
-
-                        <div className="mt-4 space-y-2">
-                          <div className="flex items-center justify-between text-xs text-stone-500">
-                            <span>Utilisasi inventaris</span>
-                            <span>{occupancyPercent}% terpakai</span>
-                          </div>
-                          <div className="h-2 rounded-full bg-stone-100">
-                            <div
-                              className={cn(
-                                "h-2 rounded-full transition-all",
-                                room.status === "maintenance"
-                                  ? "bg-red-500"
-                                  : room.status === "booked"
-                                    ? "bg-amber-500"
-                                    : "bg-emerald-500"
-                              )}
-                              style={{ width: `${Math.min(100, Math.max(8, occupancyPercent || 8))}%` }}
-                            />
-                          </div>
-                        </div>
-
-                        <div className="mt-4 flex flex-wrap gap-2">
-                          {room.breakfastIncluded ? <Badge variant="blue">Sarapan termasuk</Badge> : null}
-                          {room.smokingAllowed ? <Badge variant="amber">Ramah perokok</Badge> : <Badge variant="secondary">Non-smoking</Badge>}
-                          {room.amenities.map((amenity) => (
-                            <Badge key={amenity} variant="outline">
-                              {amenity}
-                            </Badge>
-                          ))}
-                        </div>
-
-                        <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-stone-100 pt-4 text-xs text-stone-500">
-                          <div className="flex flex-wrap items-center gap-3">
-                            <span className="inline-flex items-center gap-1">
-                              <BedDouble className="h-3.5 w-3.5" />
-                              {occupiedUnits} unit terisi
-                            </span>
-                            {room.lastCleanedAt ? (
-                              <span className="inline-flex items-center gap-1">
-                                <Sparkles className="h-3.5 w-3.5" />
-                                Dibersihkan {formatDateShort(room.lastCleanedAt)}
-                              </span>
-                            ) : null}
-                          </div>
-                          {room.maintenanceNote ? (
-                            <span className="inline-flex items-center gap-1 text-red-600">
-                              <Wrench className="h-3.5 w-3.5" />
-                              {room.maintenanceNote}
-                            </span>
-                          ) : null}
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
+              <DataTable
+                data={rooms}
+                columns={columns}
+                keyExtractor={(r) => r.id}
+                searchableFields={["name", "roomCode", "type", "floor"]}
+                searchPlaceholder="Cari nama, kode, tipe..."
+                pageSize={10}
+                actions={roomActions}
+                mobileCardRenderer={roomMobileCard}
+                emptyState={{
+                  title: "Tidak ada kamar",
+                  description: "Tambahkan tipe kamar baru menggunakan form di samping.",
+                }}
+                toolbarExtra={
+                  <Button size="sm" onClick={startCreate}>
+                    <Plus className="h-4 w-4" />
+                    Tambah Kamar
+                  </Button>
+                }
+              />
             </CardContent>
           </Card>
         </div>
@@ -483,7 +435,7 @@ export function RoomManagement({
                       id="room-type"
                       value={formState.type}
                       onChange={(event) => setFormState((current) => ({ ...current, type: event.target.value }))}
-                      className="h-10 w-full rounded-lg border border-stone-200 bg-white px-3 text-sm text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+                      className="h-10 w-full rounded-lg border border-surface-container-high bg-surface-container-lowest px-3 text-sm text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                     >
                       {ROOM_TYPE_OPTIONS.map((option) => (
                         <option key={option} value={option}>
@@ -498,7 +450,7 @@ export function RoomManagement({
                       id="room-status"
                       value={formState.status}
                       onChange={(event) => setFormState((current) => ({ ...current, status: event.target.value as RoomStatus }))}
-                      className="h-10 w-full rounded-lg border border-stone-200 bg-white px-3 text-sm text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+                      className="h-10 w-full rounded-lg border border-surface-container-high bg-surface-container-lowest px-3 text-sm text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                     >
                       {STATUS_OPTIONS.map((option) => (
                         <option key={option.value} value={option.value}>
@@ -625,7 +577,7 @@ export function RoomManagement({
                 </div>
 
                 <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                  <label className="flex items-center gap-3 rounded-lg border border-stone-200 px-3 py-2 text-sm text-stone-700">
+                  <label className="flex items-center gap-3 rounded-lg border border-surface-container-high px-3 py-2 text-sm text-on-surface/80">
                     <input
                       type="checkbox"
                       checked={formState.breakfastIncluded}
@@ -633,7 +585,7 @@ export function RoomManagement({
                     />
                     Sarapan termasuk
                   </label>
-                  <label className="flex items-center gap-3 rounded-lg border border-stone-200 px-3 py-2 text-sm text-stone-700">
+                  <label className="flex items-center gap-3 rounded-lg border border-surface-container-high px-3 py-2 text-sm text-on-surface/80">
                     <input
                       type="checkbox"
                       checked={formState.smokingAllowed}
@@ -643,15 +595,15 @@ export function RoomManagement({
                   </label>
                 </div>
 
-                <div className="rounded-lg bg-stone-50 p-3 text-xs text-stone-600">
-                  <p className="font-medium text-stone-800">Ringkasan draft kamar</p>
+                <div className="rounded-lg bg-surface-container-low p-3 text-xs text-on-surface/70">
+                  <p className="font-medium text-on-surface">Ringkasan draft kamar</p>
                   <div className="mt-2 grid grid-cols-2 gap-2">
                     <span>Potensi omzet / malam</span>
-                    <span className="text-right font-medium text-stone-900">
+                    <span className="text-right font-medium text-on-surface">
                       {formatCurrency(formState.pricePerNight * Math.max(formState.totalUnits, 0))}
                     </span>
                     <span>Unit dapat dijual</span>
-                    <span className="text-right font-medium text-stone-900">{formState.availableUnits} unit</span>
+                    <span className="text-right font-medium text-on-surface">{formState.availableUnits} unit</span>
                   </div>
                 </div>
 

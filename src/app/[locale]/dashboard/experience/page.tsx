@@ -3,6 +3,7 @@ import { ExperienceDashboardSectionsTabs } from "@/features/experience/component
 import { getExperiences } from "@/features/experience/utils";
 import { formatCurrency } from "@/lib/utils";
 import { getTranslations } from "next-intl/server";
+import { VillageApprovalBanner } from "@/features/shared/components/village-approval-banner";
 
 export default async function ExperienceDashboardPage({
   params,
@@ -15,15 +16,26 @@ export default async function ExperienceDashboardPage({
   const totalBookings = experiences.reduce((sum, item) => sum + item.totalBookings, 0);
   const totalRevenue = experiences.reduce((sum, item) => sum + item.monthlyRevenue, 0);
   const pendingApprovals = experiences.filter((item) => item.status === "under_review").length;
+  // Show village approval banner if any experience is awaiting village approval
+  const pendingVillageApproval = experiences.find(
+    (item) => item.villageApprovalStatus !== "approved" && item.villageId
+  );
 
   return (
     <div className="space-y-6">
-      <div className="rounded-2xl border border-stone-200/80 bg-white/80 p-4 shadow-sm backdrop-blur sm:p-5">
-        <h1 className="text-2xl font-bold text-stone-900">{t("dashboard.title")}</h1>
-        <p className="mt-1 text-sm text-stone-500">{t("dashboard.subtitle")}</p>
+      {pendingVillageApproval ? (
+        <VillageApprovalBanner
+          villageName={pendingVillageApproval.targetVillage}
+          status={pendingVillageApproval.villageApprovalStatus}
+        />
+      ) : null}
+
+      <div className="rounded-2xl border border-surface-container-high/80 bg-white/80 p-4 shadow-ambient backdrop-blur sm:p-5">
+        <h1 className="font-display text-title-lg font-bold text-on-surface tracking-tight">{t("dashboard.title")}</h1>
+        <p className="mt-2 font-body text-sm text-on-surface/60 leading-relaxed">{t("dashboard.subtitle")}</p>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 rounded-2xl border border-stone-200/70 bg-white/70 p-4 sm:grid-cols-2 sm:p-5 xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 rounded-2xl border border-surface-container-high/70 bg-white/70 p-4 sm:grid-cols-2 sm:p-5 xl:grid-cols-4">
         <StatCard label={t("dashboard.kpi.totalExperiences")} value={experiences.length} icon="calendar" color="violet" />
         <StatCard label={t("dashboard.kpi.totalBookings")} value={totalBookings} icon="visitors" color="emerald" />
         <StatCard label={t("dashboard.kpi.monthlyRevenue")} value={formatCurrency(totalRevenue)} icon="revenue" color="amber" />

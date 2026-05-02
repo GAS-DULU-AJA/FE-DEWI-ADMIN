@@ -5,7 +5,7 @@ const STATUS_LABEL: Record<ProposalStatus, { id: string; en: string; className: 
   submitted: { id: "Diajukan", en: "Submitted", className: "bg-blue-100 text-blue-800" },
   under_review: { id: "Direview", en: "Under Review", className: "bg-amber-100 text-amber-800" },
   changes_requested: { id: "Perlu Revisi", en: "Changes Requested", className: "bg-orange-100 text-orange-800" },
-  approved: { id: "Disetujui", en: "Approved", className: "bg-emerald-100 text-emerald-800" },
+  approved: { id: "Disetujui", en: "Approved", className: "bg-primary/10 text-primary" },
   rejected: { id: "Ditolak", en: "Rejected", className: "bg-rose-100 text-rose-800" },
 };
 
@@ -27,15 +27,15 @@ export function ProposalStatusTracker({
   isId: boolean;
 }) {
   return (
-    <div className="space-y-3 rounded-xl border border-stone-200 bg-white p-4">
+    <div className="space-y-3 rounded-xl border border-surface-container-high bg-surface-container-lowest p-4">
       <div className="flex items-center justify-between gap-2">
-        <p className="text-sm font-semibold text-stone-900">{isId ? "Progress Pengajuan" : "Submission Progress"}</p>
+        <p className="text-sm font-semibold text-on-surface">{isId ? "Progress Pengajuan" : "Submission Progress"}</p>
         <Badge className={STATUS_LABEL[status].className}>{isId ? STATUS_LABEL[status].id : STATUS_LABEL[status].en}</Badge>
       </div>
 
       <ol className="space-y-2">
         {timeline.map((point, index) => (
-          <li key={`${point.key}-${index}`} className="flex items-center justify-between rounded-lg border border-stone-200 bg-stone-50 px-3 py-2 text-xs text-stone-700">
+          <li key={`${point.key}-${index}`} className="flex items-center justify-between rounded-lg border border-surface-container-high bg-surface-container-low px-3 py-2 text-xs text-on-surface/80">
             <span>{isId ? TIMELINE_LABEL[point.key].id : TIMELINE_LABEL[point.key].en}</span>
             <span>{point.date}</span>
           </li>

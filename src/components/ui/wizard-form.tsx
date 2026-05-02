@@ -61,9 +61,9 @@ function WizardForm({
   return (
     <div className={cn("space-y-6", className)}>
       {/* Progress Bar */}
-      <div className="h-1.5 w-full rounded-full bg-stone-200 overflow-hidden">
+      <div className="h-1.5 w-full rounded-full bg-surface-container-high overflow-hidden">
         <div
-          className="h-full rounded-full bg-emerald-600 transition-all duration-300"
+          className="h-full rounded-full bg-primary transition-all duration-300"
           style={{ width: `${progressPercent}%` }}
         />
       </div>
@@ -80,17 +80,17 @@ function WizardForm({
               onClick={() => goToStep(idx)}
               className={cn(
                 "flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition-colors",
-                isCurrent && "bg-emerald-50 text-emerald-700 font-medium",
-                isCompleted && "text-emerald-600",
-                !isCurrent && !isCompleted && "text-stone-400"
+                isCurrent && "bg-primary/10 text-primary font-medium",
+                isCompleted && "text-primary",
+                !isCurrent && !isCompleted && "text-on-surface/40"
               )}
             >
               <span
                 className={cn(
                   "flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold",
-                  isCurrent && "bg-emerald-600 text-white",
-                  isCompleted && "bg-emerald-100 text-emerald-700",
-                  !isCurrent && !isCompleted && "bg-stone-200 text-stone-500"
+                  isCurrent && "bg-primary text-primary-foreground",
+                  isCompleted && "bg-primary/10 text-primary",
+                  !isCurrent && !isCompleted && "bg-surface-container-high text-on-surface/60"
                 )}
               >
                 {isCompleted ? <Check className="h-3.5 w-3.5" /> : idx + 1}
@@ -103,17 +103,17 @@ function WizardForm({
 
       {/* Mobile Step Label */}
       <div className="sm:hidden text-center">
-        <p className="text-xs text-stone-500">
+        <p className="text-xs text-on-surface/60">
           Step {currentStep + 1} of {steps.length}
         </p>
-        <p className="text-sm font-medium text-stone-900">{steps[currentStep]?.title}</p>
+        <p className="text-sm font-medium text-on-surface">{steps[currentStep]?.title}</p>
       </div>
 
       {/* Step Content */}
       <div className="min-h-[200px]">{steps[currentStep]?.content}</div>
 
       {/* Navigation */}
-      <div className="flex items-center justify-between border-t border-stone-200 pt-4">
+      <div className="flex items-center justify-between border-t border-surface-container-high pt-4">
         <Button
           type="button"
           variant="outline"
@@ -123,7 +123,7 @@ function WizardForm({
           Previous
         </Button>
 
-        <span className="text-xs text-stone-400">
+        <span className="text-xs text-on-surface/40">
           {currentStep + 1} / {steps.length}
         </span>
 

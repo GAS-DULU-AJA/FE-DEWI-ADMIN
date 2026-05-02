@@ -1,9 +1,10 @@
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import type { Facility } from "../types";
 
 export function FacilityCard({ facility }: { facility: Facility }) {
+  const locale = useLocale();
   const t = useTranslations("village");
   return (
     <Card>
@@ -15,12 +16,12 @@ export function FacilityCard({ facility }: { facility: Facility }) {
           </Badge>
         </div>
       </CardHeader>
-      <CardContent className="space-y-2 text-sm text-stone-600">
+      <CardContent className="space-y-2 text-sm text-on-surface/70">
         <p>{facility.description}</p>
         <p>{facility.address}</p>
         <p>
           {facility.isMonetizable
-            ? `${t("facilities.rental")}: ${new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(facility.rentalPrice ?? 0)}`
+            ? `${t("facilities.rental")}: ${new Intl.NumberFormat(locale, { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(facility.rentalPrice ?? 0)}`
             : t("facilities.notMonetizable")}
         </p>
       </CardContent>

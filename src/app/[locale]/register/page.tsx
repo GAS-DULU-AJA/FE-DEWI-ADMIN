@@ -12,26 +12,26 @@ export default async function RegisterPage({
   const tc = await getTranslations({ locale, namespace: "common" });
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-emerald-50 via-stone-50 to-amber-50 py-12 px-4">
+    <div className="min-h-screen bg-linear-to-br from-primary/10 via-surface-container-low to-amber-50 py-12 px-4">
       <div className="mx-auto max-w-2xl">
         {/* Header */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 mb-4">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-600">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary">
               <Leaf className="h-6 w-6 text-white" />
             </div>
-            <span className="text-xl font-bold text-emerald-800">Mitra Dewi</span>
+            <span className="text-xl font-bold text-primary">Mitra Dewi</span>
           </div>
-          <h1 className="text-2xl font-bold text-stone-900">{t("registerTitle")}</h1>
-          <p className="mt-1 text-stone-500">{t("registerSubtitle")}</p>
+          <h1 className="font-display text-title-lg font-bold text-on-surface tracking-tight">{t("registerTitle")}</h1>
+          <p className="mt-1 text-on-surface/60">{t("registerSubtitle")}</p>
         </div>
 
         {/* Form Card */}
-        <div className="rounded-2xl border border-stone-200 bg-white p-8 shadow-sm">
+        <div className="rounded-2xl border border-surface-container-high bg-surface-container-lowest p-8 shadow-ambient">
           <RegisterForm />
         </div>
 
-        <p className="mt-6 text-center text-xs text-stone-400">
+        <p className="mt-6 text-center text-xs text-on-surface/40">
           {tc("appTagline")} &bull; © {new Date().getFullYear()} Mitra Dewi
         </p>
       </div>

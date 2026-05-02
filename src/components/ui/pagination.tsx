@@ -43,7 +43,7 @@ function Pagination({
 
   return (
     <div className={cn("flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between", className)}>
-      <div className="flex items-center gap-2 text-sm text-stone-500">
+      <div className="flex items-center gap-2 text-sm text-on-surface/60">
         {totalItems !== undefined && (
           <span>{totalItems} item{totalItems !== 1 ? "s" : ""}</span>
         )}
@@ -51,7 +51,7 @@ function Pagination({
           <select
             value={pageSize}
             onChange={(e) => onPageSizeChange(Number(e.target.value))}
-            className="h-8 rounded-md border border-stone-300 bg-white px-2 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="h-8 rounded-md border border-surface-container-high bg-surface-container-lowest px-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary"
           >
             {pageSizeOptions.map((size) => (
               <option key={size} value={size}>
@@ -67,14 +67,14 @@ function Pagination({
           type="button"
           disabled={currentPage <= 1}
           onClick={() => onPageChange(currentPage - 1)}
-          className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-stone-300 text-stone-600 transition-colors hover:bg-stone-50 disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-surface-container-high text-on-surface/70 transition-colors hover:bg-surface-container-low disabled:cursor-not-allowed disabled:opacity-50"
         >
           <ChevronLeft className="h-4 w-4" />
         </button>
 
         {getVisiblePages().map((page, idx) =>
           page === "ellipsis" ? (
-            <span key={`ellipsis-${idx}`} className="px-1 text-stone-400">
+            <span key={`ellipsis-${idx}`} className="px-1 text-on-surface/40">
               ...
             </span>
           ) : (
@@ -85,8 +85,8 @@ function Pagination({
               className={cn(
                 "inline-flex h-8 min-w-[32px] items-center justify-center rounded-md px-2 text-sm transition-colors",
                 page === currentPage
-                  ? "bg-emerald-600 text-white font-medium"
-                  : "border border-stone-300 text-stone-600 hover:bg-stone-50"
+                  ? "bg-primary text-primary-foreground font-medium"
+                  : "border border-surface-container-high text-on-surface/70 hover:bg-surface-container-low"
               )}
             >
               {page}
@@ -98,7 +98,7 @@ function Pagination({
           type="button"
           disabled={currentPage >= totalPages}
           onClick={() => onPageChange(currentPage + 1)}
-          className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-stone-300 text-stone-600 transition-colors hover:bg-stone-50 disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-surface-container-high text-on-surface/70 transition-colors hover:bg-surface-container-low disabled:cursor-not-allowed disabled:opacity-50"
         >
           <ChevronRight className="h-4 w-4" />
         </button>

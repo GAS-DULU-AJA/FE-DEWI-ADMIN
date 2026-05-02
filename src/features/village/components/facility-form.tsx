@@ -105,7 +105,7 @@ export function FacilityForm({ initialFacility, onSubmit, onCancel }: FacilityFo
             <select
               value={form.category}
               onChange={(e) => setForm({ ...form, category: e.target.value as FacilityInput["category"] })}
-              className="h-10 w-full rounded-lg border border-stone-200 bg-white px-3 text-sm"
+              className="h-10 w-full rounded-lg border border-surface-container-high bg-surface-container-lowest px-3 text-sm"
             >
               <option value="public">{t("facilities.categories.public")}</option>
               <option value="security">{t("facilities.categories.security")}</option>
@@ -199,7 +199,7 @@ export function FacilityForm({ initialFacility, onSubmit, onCancel }: FacilityFo
             />
           </div>
 
-          <label className="flex items-center gap-2 text-sm text-stone-700 md:col-span-2">
+          <label className="flex items-center gap-2 text-sm text-on-surface/80 md:col-span-2">
             <input
               type="checkbox"
               checked={form.isMonetizable}

@@ -29,14 +29,14 @@ function DatePicker({ value, onChange, placeholder = "Select date", min, max, cl
         disabled={disabled}
         placeholder={placeholder}
         className={cn(
-          "h-10 w-full rounded-lg border border-stone-300 bg-white px-3 pr-10 text-sm text-stone-900",
-          "focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors",
+          "h-10 w-full rounded-lg border border-surface-container-high bg-surface-container-lowest px-3 pr-10 text-sm text-on-surface",
+          "focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-colors",
           "disabled:cursor-not-allowed disabled:opacity-50",
-          !value && "text-stone-400"
+          !value && "text-on-surface/40"
         )}
       />
       <Calendar
-        className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-stone-400 pointer-events-none"
+        className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-on-surface/40 pointer-events-none"
       />
     </div>
   );
@@ -60,7 +60,7 @@ function DateRangePicker({ startDate, endDate, onStartChange, onEndChange, class
         placeholder="Start date"
         className="flex-1"
       />
-      <span className="text-sm text-stone-400">—</span>
+      <span className="text-sm text-on-surface/40">—</span>
       <DatePicker
         value={endDate}
         onChange={onEndChange}

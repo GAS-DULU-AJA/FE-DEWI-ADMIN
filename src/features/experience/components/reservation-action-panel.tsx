@@ -26,13 +26,13 @@ export function ReservationActionPanel({ reservations }: { reservations: Experie
     <Card>
       <CardHeader>
         <CardTitle className="text-base">{t("reservations.actionsTitle")}</CardTitle>
-        <p className="text-xs text-stone-500">{t("reservations.actionsSubtitle")}</p>
+        <p className="text-xs text-on-surface/60">{t("reservations.actionsSubtitle")}</p>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="space-y-2">
           <Label>{t("reservations.selectReservation")}</Label>
           <select
-            className="h-10 w-full rounded-lg border border-stone-200 px-3 text-sm"
+            className="h-10 w-full rounded-lg border border-surface-container-high px-3 text-sm"
             value={reservationId}
             onChange={(event) => setReservationId(event.target.value)}
           >
@@ -65,10 +65,10 @@ export function ReservationActionPanel({ reservations }: { reservations: Experie
           </div>
         </div>
 
-        <div className="rounded-lg border border-stone-200 bg-stone-50 p-3 text-sm">
-          <p className="text-stone-600">{t("reservations.projectedRefund")}</p>
-          <p className="text-lg font-semibold text-stone-900">{formatCurrency(projectedRefund)}</p>
-          <p className="text-xs text-stone-500">{t("reservations.simulationNote")}</p>
+        <div className="rounded-lg border border-surface-container-high bg-surface-container-low p-3 text-sm">
+          <p className="text-on-surface/70">{t("reservations.projectedRefund")}</p>
+          <p className="text-lg font-semibold text-on-surface">{formatCurrency(projectedRefund)}</p>
+          <p className="text-xs text-on-surface/60">{t("reservations.simulationNote")}</p>
         </div>
 
         <div className="flex flex-wrap gap-2">
@@ -77,7 +77,7 @@ export function ReservationActionPanel({ reservations }: { reservations: Experie
           <Button>{t("reservations.processRefund")}</Button>
         </div>
 
-        {reason ? <p className="text-xs text-stone-500">{t("reservations.reasonCaptured")}: {reason}</p> : null}
+        {reason ? <p className="text-xs text-on-surface/60">{t("reservations.reasonCaptured")}: {reason}</p> : null}
       </CardContent>
     </Card>
   );

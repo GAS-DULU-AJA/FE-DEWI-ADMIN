@@ -11,11 +11,11 @@ export function PosterUpload() {
       <CardHeader>
         <CardTitle className="text-base">{t("components.promotionalMaterial")}</CardTitle>
       </CardHeader>
-      <CardContent className="space-y-2 text-sm text-stone-600">
-        <div className="rounded-lg border border-dashed border-stone-300 bg-stone-50 p-4">
+      <CardContent className="space-y-2 text-sm text-on-surface/70">
+        <div className="rounded-lg border border-dashed border-surface-container-high bg-surface-container-low p-4">
           {t("components.posterPlaceholder")}
         </div>
-        <div className="rounded-lg border border-dashed border-stone-300 bg-stone-50 p-4">
+        <div className="rounded-lg border border-dashed border-surface-container-high bg-surface-container-low p-4">
           {t("components.bannerPlaceholder")}
         </div>
       </CardContent>

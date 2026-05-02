@@ -31,7 +31,7 @@ function ChartSkeleton({ height = 220 }: { height?: number }) {
   return (
     <div
       style={{ height }}
-      className="animate-pulse rounded-lg bg-stone-100"
+      className="animate-pulse rounded-lg bg-surface-container"
     />
   );
 }

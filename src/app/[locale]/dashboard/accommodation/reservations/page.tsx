@@ -22,14 +22,14 @@ type ReservationRow = ReturnType<typeof getAllReservations>[number];
 const RESERVATION_STATUS_META: Record<string, { label: string; className: string }> = {
   pending: { label: "Pending", className: "bg-amber-100 text-amber-700" },
   confirmed: { label: "Confirmed", className: "bg-blue-100 text-blue-700" },
-  checked_in: { label: "Aktif", className: "bg-emerald-100 text-emerald-700" },
-  checked_out: { label: "Selesai", className: "bg-stone-100 text-stone-700" },
+  checked_in: { label: "Aktif", className: "bg-primary/10 text-primary" },
+  checked_out: { label: "Selesai", className: "bg-surface-container text-on-surface/80" },
   cancelled: { label: "Dibatalkan", className: "bg-red-100 text-red-700" },
 };
 
 const PAYMENT_STATUS_META: Record<string, { label: string; className: string }> = {
   pending: { label: "Pending", className: "bg-amber-100 text-amber-700" },
-  success: { label: "Lunas", className: "bg-emerald-100 text-emerald-700" },
+  success: { label: "Lunas", className: "bg-primary/10 text-primary" },
   failed: { label: "Gagal", className: "bg-red-100 text-red-700" },
   refunded: { label: "Refunded", className: "bg-violet-100 text-violet-700" },
 };
@@ -87,8 +87,8 @@ export default function ReservasiPage() {
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-semibold text-stone-900">Status Reservasi</CardTitle>
-            <p className="text-xs text-stone-400">Distribusi status seluruh booking</p>
+            <CardTitle className="text-sm font-semibold text-on-surface">Status Reservasi</CardTitle>
+            <p className="text-xs text-on-surface/40">Distribusi status seluruh booking</p>
           </CardHeader>
           <CardContent className="pb-4">
             <ReservationStatusDonutChart />
@@ -96,8 +96,8 @@ export default function ReservasiPage() {
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-semibold text-stone-900">Pendapatan Per Properti</CardTitle>
-            <p className="text-xs text-stone-400">Revenue lunas per penginapan</p>
+            <CardTitle className="text-sm font-semibold text-on-surface">Pendapatan Per Properti</CardTitle>
+            <p className="text-xs text-on-surface/40">Revenue lunas per penginapan</p>
           </CardHeader>
           <CardContent className="pb-4 pr-2">
             <RevenueByPropertyChart />
@@ -112,11 +112,11 @@ export default function ReservasiPage() {
         </CardHeader>
         <CardContent className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-5">
           <div className="space-y-1">
-            <label className="text-xs font-medium text-stone-600">Penginapan</label>
+            <label className="text-xs font-medium text-on-surface/70">Penginapan</label>
             <select
               value={selectedAccommodationId}
               onChange={(event) => setSelectedAccommodationId(event.target.value)}
-              className="h-10 w-full rounded-lg border border-stone-200 bg-white px-3 text-sm"
+              className="h-10 w-full rounded-lg border-0 bg-surface-container-lowest px-3 text-sm"
             >
               <option value="all">Semua Penginapan</option>
               {ACCOMMODATIONS.map((accommodation) => (
@@ -128,7 +128,7 @@ export default function ReservasiPage() {
           </div>
 
           <div className="space-y-1">
-            <label className="text-xs font-medium text-stone-600">Status Reservasi</label>
+            <label className="text-xs font-medium text-on-surface/70">Status Reservasi</label>
             <select
               value={selectedStatus}
               onChange={(event) =>
@@ -142,7 +142,7 @@ export default function ReservasiPage() {
                     | "cancelled"
                 )
               }
-              className="h-10 w-full rounded-lg border border-stone-200 bg-white px-3 text-sm"
+              className="h-10 w-full rounded-lg border-0 bg-surface-container-lowest px-3 text-sm"
             >
               <option value="all">Semua Status</option>
               <option value="pending">Pending</option>
@@ -154,7 +154,7 @@ export default function ReservasiPage() {
           </div>
 
           <div className="space-y-1">
-            <label className="text-xs font-medium text-stone-600">Status Pembayaran</label>
+            <label className="text-xs font-medium text-on-surface/70">Status Pembayaran</label>
             <select
               value={selectedPaymentStatus}
               onChange={(event) =>
@@ -162,7 +162,7 @@ export default function ReservasiPage() {
                   event.target.value as "all" | "pending" | "success" | "failed" | "refunded"
                 )
               }
-              className="h-10 w-full rounded-lg border border-stone-200 bg-white px-3 text-sm"
+              className="h-10 w-full rounded-lg border-0 bg-surface-container-lowest px-3 text-sm"
             >
               <option value="all">Semua Pembayaran</option>
               <option value="pending">Pending</option>
@@ -173,24 +173,24 @@ export default function ReservasiPage() {
           </div>
 
           <div className="space-y-1">
-            <label className="text-xs font-medium text-stone-600">Harga Minimum</label>
+            <label className="text-xs font-medium text-on-surface/70">Harga Minimum</label>
             <input
               type="number"
               min={0}
               value={priceMin}
               onChange={(event) => setPriceMin(Number(event.target.value) || 0)}
-              className="h-10 w-full rounded-lg border border-stone-200 bg-white px-3 text-sm"
+              className="h-10 w-full rounded-lg border-0 bg-surface-container-lowest px-3 text-sm"
             />
           </div>
 
           <div className="space-y-1">
-            <label className="text-xs font-medium text-stone-600">Harga Maksimum</label>
+            <label className="text-xs font-medium text-on-surface/70">Harga Maksimum</label>
             <input
               type="number"
               min={0}
               value={priceMax}
               onChange={(event) => setPriceMax(Number(event.target.value) || 0)}
-              className="h-10 w-full rounded-lg border border-stone-200 bg-white px-3 text-sm"
+              className="h-10 w-full rounded-lg border-0 bg-surface-container-lowest px-3 text-sm"
             />
           </div>
         </CardContent>
@@ -201,19 +201,19 @@ export default function ReservasiPage() {
           <CardHeader>
             <CardTitle className="text-sm">Total Reservasi</CardTitle>
           </CardHeader>
-          <CardContent className="text-2xl font-semibold text-stone-900">{summary.total}</CardContent>
+          <CardContent className="text-2xl font-semibold text-on-surface">{summary.total}</CardContent>
         </Card>
         <Card>
           <CardHeader>
             <CardTitle className="text-sm">Reservasi Aktif</CardTitle>
           </CardHeader>
-          <CardContent className="text-2xl font-semibold text-emerald-700">{summary.active}</CardContent>
+          <CardContent className="text-2xl font-semibold text-primary">{summary.active}</CardContent>
         </Card>
         <Card>
           <CardHeader>
             <CardTitle className="text-sm">Nilai Reservasi</CardTitle>
           </CardHeader>
-          <CardContent className="text-2xl font-semibold text-stone-900">
+          <CardContent className="text-2xl font-semibold text-on-surface">
             {formatCurrency(summary.totalValue)}
           </CardContent>
         </Card>
@@ -228,8 +228,8 @@ export default function ReservasiPage() {
             header: "Tamu",
             accessorFn: (row) => (
               <div>
-                <p className="font-medium text-stone-900">{row.guestName}</p>
-                <p className="text-xs text-stone-400">{row.guestEmail}</p>
+                <p className="font-medium text-on-surface">{row.guestName}</p>
+                <p className="text-xs text-on-surface/40">{row.guestEmail}</p>
               </div>
             ),
             sortable: true,
@@ -266,7 +266,7 @@ export default function ReservasiPage() {
             id: "value",
             header: "Nilai",
             accessorFn: (row) => (
-              <span className="font-semibold text-stone-900 whitespace-nowrap">
+              <span className="font-semibold text-on-surface whitespace-nowrap">
                 {formatCurrency(row.totalPrice)}
               </span>
             ),

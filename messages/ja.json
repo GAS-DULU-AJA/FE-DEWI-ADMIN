@@ -115,13 +115,15 @@
     "experiences": "体験",
     "partnerVerification": "パートナー審査",
     "externalCoordination": "外部連携",
+    "media": "メディア",
     "general": "一般",
     "speakers": "スピーカー",
     "attendees": "参加者",
     "experienceAnalytics": "体験分析",
     "documents": "ドキュメント",
     "postEvent": "イベント後",
-    "insights": "インサイト"
+    "insights": "インサイト",
+    "testimonials": "テスティモニアル"
   },
   "landing": {
     "heroTitle": "Mitra Dewiへようこそ",
@@ -205,7 +207,9 @@
     "umkm": "中小企業（SME）",
     "umkmDesc": "ビジネスの商品、在庫、販売を管理",
     "eventOrganizer": "イベントオーガナイザー",
-    "eventOrganizerDesc": "観光活動のイベント、登録、プロモーションを管理"
+    "eventOrganizerDesc": "観光活動のイベント、登録、プロモーションを管理",
+    "transport": "交通サービス提供者",
+    "transportDesc": "村の観光交通の車両とスケジュールを管理"
   },
   "dashboard": {
     "title": "ダッシュボード",
@@ -314,6 +318,7 @@
     "markAllRead": "すべて既読にする",
     "clearRead": "既読をクリア",
     "noNotifications": "通知はありません",
+    "viewDetail": "詳細",
     "newOrder": "新しい注文",
     "newReservation": "新しい予約",
     "approvalUpdate": "承認更新",
@@ -608,6 +613,9 @@
       "success": "支払い済み",
       "failed": "失敗",
       "refunded": "返金済み"
+    },
+    "export": {
+      "csv": "CSVエクスポート"
     }
   },
   "financeManagement": {
@@ -629,6 +637,12 @@
       "accommodation": "宿泊施設",
       "amount": "金額",
       "payment": "支払い"
+    },
+    "paymentStatus": {
+      "pending": "保留中",
+      "success": "支払済",
+      "failed": "失敗",
+      "refunded": "返金済"
     },
     "withdraw": {
       "title": "出金申請",
@@ -726,7 +740,8 @@
         "profile": "プロフィール",
         "locationContact": "所在地・連絡先",
         "media": "メディア・ギャラリー",
-        "bank": "銀行口座"
+        "bank": "銀行口座",
+        "highlights": "ハイライト"
       },
       "villageName": "村名",
       "address": "住所",
@@ -902,7 +917,40 @@
         "is24Hours": "24時間",
         "openTime": "開店時間",
         "closeTime": "閉店時間"
+      },
+      "isFeatured": "ホームページに掲載",
+      "isFeaturedHint": "このvillages をホームページのおすすめセクションに表示します",
+      "isPopular": "人気スポットとしてマーク",
+      "isPopularHint": "このvillagesを人気の目的地セクションに表示します",
+      "bookingInfo": {
+        "title": "予約パッケージ情報",
+        "duration": "期間",
+        "durationPlaceholder": "例: 2日1泊",
+        "groupSize": "グループサイズ",
+        "groupSizePlaceholder": "例: 10〜50人",
+        "startingPrice": "開始価格（IDR）",
+        "includes": "含まれるもの",
+        "addInclude": "+ 項目を追加",
+        "includesPlaceholder": "例: 宿泊施設",
+        "removeInclude": "削除"
+      },
+      "highlights": {
+        "title": "ハイライトアトラクション",
+        "add": "+ アトラクションを追加",
+        "empty": "ハイライトアトラクションはまだありません。",
+        "itemTitle": "アトラクションタイトル",
+        "itemTitlePlaceholder": "例: 伝統的な織物ワークショップ",
+        "itemTag": "タグ",
+        "itemTagPlaceholder": "例: 文化",
+        "itemDescription": "簡単な説明",
+        "itemDescriptionPlaceholder": "アトラクションの簡単な説明",
+        "itemImage": "画像URL",
+        "itemImagePlaceholder": "https://...",
+        "remove": "削除"
       }
+    },
+    "media": {
+      "subtitle": "透かし自動処理付きで、村のギャラリー用に写真・動画をアップロードします。"
     },
     "facilities": {
       "title": "施設管理",
@@ -914,7 +962,9 @@
       "manageReservations": "施設予約を管理",
       "deleteConfirmTitle": "施設を削除",
       "deleteConfirmDescription": "施設 '{name}' を削除してよろしいですか？この操作は取り消すことができません。",
+      "name": "施設名",
       "category": "カテゴリ",
+      "status": "ステータス",
       "namePlaceholder": "施設名",
       "descriptionPlaceholder": "施設の説明",
       "addressPlaceholder": "施設住所",
@@ -944,9 +994,13 @@
       "reservations": {
         "title": "施設利用予約",
         "subtitle": "パートナーやコミュニティからの施設利用申請を確認・処理します。",
+        "facilityLabel": "施設",
         "periodLabel": "期間",
         "participantsLabel": "想定参加人数",
         "purposeLabel": "利用目的",
+        "searchPlaceholder": "予約を検索...",
+        "noData": "予約データがありません",
+        "noDataDescription": "施設予約はまだありません。",
         "notesLabel": "メモ",
         "approve": "承認",
         "reject": "却下",
@@ -1059,6 +1113,17 @@
       "searchPlaceholder": "組織名または担当者名で検索",
       "feedbackPlaceholder": "審査コメント、修正指示、要約を入力",
       "noSelection": "申請が選択されていません",
+      "openDocument": "書類を開く",
+      "openMap": "地図を開く",
+      "noDocuments": "書類がありません。",
+      "noMedia": "メディアがありません。",
+      "sections": {
+        "businessInfo": "ビジネス情報",
+        "documents": "書類",
+        "location": "場所",
+        "financial": "財務",
+        "media": "メディア"
+      },
       "statuses": {
         "pending": "保留中",
         "under_review": "審査中",
@@ -1127,9 +1192,19 @@
     "partners": {
       "title": "パートナー管理",
       "subtitle": "登録済み村パートナーを確認・管理します。",
+      "organizationLabel": "組織",
       "role": "役割",
+      "ownerName": "代表者名",
+      "ownerEmail": "代表者メール",
+      "ownerPhone": "代表者電話",
+      "businessType": "事業タイプ",
+      "businessAddress": "事業住所",
+      "descriptionLabel": "説明",
+      "currentStatus": "現在のステータス",
       "submittedAt": "申請日",
       "completionScore": "完成度",
+      "searchPlaceholder": "パートナーを検索...",
+      "viewDetail": "詳細を見る",
       "checklist": "審査チェックリスト",
       "checklistFields": {
         "businessInfo": "ビジネス情報",
@@ -1140,6 +1215,21 @@
       },
       "latestNote": "最新メモ",
       "noData": "パートナーが見つかりません。",
+      "noDataDescription": "パートナー申請はまだありません。",
+      "progressTitle": "申請進捗",
+      "activityLog": "活動履歴",
+      "noActivity": "活動履歴はまだありません。",
+      "financialInfo": "財務情報",
+      "bankName": "銀行名",
+      "accountHolder": "口座名義",
+      "accountNumber": "口座番号",
+      "progress": {
+        "submitted": "申請",
+        "documentReview": "書類審査",
+        "locationVerification": "所在地確認",
+        "approval": "承認",
+        "active": "有効"
+      },
       "roles": {
         "accommodation": "宿泊",
         "sme": "UMKM",
@@ -1199,7 +1289,48 @@
       "reviews": "レビュー",
       "analytics": "分析",
       "finance": "財務",
-      "bankAccount": "銀行口座"
+      "bankAccount": "銀行口座",
+      "testimonials": "テスティモニアル"
+    },
+    "testimonials": {
+      "title": "テスティモニアル",
+      "subtitle": "ホームページに表示するテスティモニアルを管理します",
+      "addTestimonial": "テスティモニアルを追加",
+      "editTestimonial": "テスティモニアルを編集",
+      "empty": "テスティモニアルはまだありません。追加して始めましょう。",
+      "saved": "保存済み",
+      "columns": {
+        "name": "名前",
+        "role": "役職",
+        "rating": "評価",
+        "content": "内容",
+        "isPinned": "固定",
+        "createdAt": "日付"
+      },
+      "fields": {
+        "name": "名前",
+        "namePlaceholder": "例: Budi Santoso",
+        "role": "役割 / 出身",
+        "rolePlaceholder": "例: ジャカルタからの訪問者",
+        "avatar": "アバターURL",
+        "avatarPlaceholder": "https://...",
+        "content": "テスティモニアル",
+        "contentPlaceholder": "テスティモニアルをここに書いてください...",
+        "rating": "評価（1〜5）",
+        "isPinned": "ホームページに固定",
+        "isPinnedHint": "固定されたテスティモニアルはホームページのヒーローセクションに表示されます"
+      },
+      "actions": {
+        "pin": "固定",
+        "unpin": "固定解除",
+        "edit": "編集",
+        "delete": "削除",
+        "save": "テスティモニアルを保存",
+        "cancel": "キャンセル"
+      },
+      "deleteConfirm": "このテスティモニアルを削除してもよろしいですか？",
+      "pinnedBadge": "固定済み",
+      "maxPinnedWarning": "ホームページには最大3件のテスティモニアルを固定できます"
     }
   },
   "experience": {
@@ -1372,6 +1503,7 @@
         "media": "メディア",
         "review": "確認"
       },
+      "experience": "体験",
       "name": "名称",
       "experienceNamePlaceholder": "体験名",
       "category": "カテゴリ",
@@ -1381,6 +1513,7 @@
       "next": "次へ",
       "submitProposal": "提案を送信",
       "coordinationProposals": "連携提案",
+      "noCoordinations": "連携はまだありません",
       "village": "村",
       "messages": "メッセージ",
       "bookings": "予約",
@@ -1668,6 +1801,12 @@
         "lowStock": "在庫少"
       },
       "searchPlaceholder": "商品を検索...",
+      "tableHeaders": {
+        "product": "商品",
+        "price": "価格",
+        "stock": "在庫",
+        "partner": "パートナー"
+      },
       "categories": {
         "all": "すべて",
         "food": "食品",

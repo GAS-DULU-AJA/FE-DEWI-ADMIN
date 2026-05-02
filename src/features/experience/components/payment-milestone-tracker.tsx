@@ -15,10 +15,10 @@ export function PaymentMilestoneTracker({ milestones }: { milestones: PaymentMil
       </CardHeader>
       <CardContent className="space-y-2">
         {milestones.map((item) => (
-          <div key={item.milestone} className="flex items-center justify-between rounded-lg border border-stone-200 p-3 text-sm">
+          <div key={item.milestone} className="flex items-center justify-between rounded-lg border border-surface-container-high p-3 text-sm">
             <div>
-              <p className="font-medium text-stone-900">{t(`milestones.${item.milestone}`)}</p>
-              <p className="text-stone-500">{item.percent}% · {t("components.due")}: {item.dueDate}</p>
+              <p className="font-medium text-on-surface">{t(`milestones.${item.milestone}`)}</p>
+              <p className="text-on-surface/60">{item.percent}% · {t("components.due")}: {item.dueDate}</p>
             </div>
             <Badge variant={item.paid ? "default" : "secondary"}>{item.paid ? t("components.paid") : t("components.pending")}</Badge>
           </div>

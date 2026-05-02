@@ -28,27 +28,27 @@ const iconMap: Record<string, React.ReactNode> = {
 
 const colorVariants = {
   emerald: {
-    bg: "bg-emerald-50",
-    icon: "bg-emerald-100 text-emerald-700",
-    text: "text-emerald-700",
+    bg: "bg-surface-container-lowest",
+    icon: "bg-primary/10 text-primary",
+    text: "text-primary",
   },
   amber: {
-    bg: "bg-amber-50",
+    bg: "bg-surface-container-lowest",
     icon: "bg-amber-100 text-amber-700",
     text: "text-amber-700",
   },
   blue: {
-    bg: "bg-blue-50",
-    icon: "bg-blue-100 text-blue-700",
-    text: "text-blue-700",
+    bg: "bg-surface-container-lowest",
+    icon: "bg-primary/10 text-primary",
+    text: "text-primary",
   },
   rose: {
-    bg: "bg-rose-50",
+    bg: "bg-surface-container-lowest",
     icon: "bg-rose-100 text-rose-700",
     text: "text-rose-700",
   },
   violet: {
-    bg: "bg-violet-50",
+    bg: "bg-surface-container-lowest",
     icon: "bg-violet-100 text-violet-700",
     text: "text-violet-700",
   },
@@ -75,16 +75,16 @@ export function StatCard({
   const isPositive = change !== undefined && change >= 0;
 
   return (
-    <div className={cn("group rounded-xl border border-stone-200/90 bg-white p-5 shadow-sm transition-[box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:shadow-md", c.bg)}>
+    <div className={cn("group rounded-xl border-0 p-5 shadow-ambient transition-[box-shadow,transform] duration-200 hover:-translate-y-0.5", c.bg)}>
       <div className="flex items-start justify-between">
-        <div className={cn("flex h-10 w-10 items-center justify-center rounded-lg transition-transform duration-200 group-hover:scale-105", c.icon)}>
+        <div className={cn("flex h-10 w-10 items-center justify-center rounded-xl transition-transform duration-200 group-hover:scale-105", c.icon)}>
           {iconMap[icon] ?? <Package className="h-5 w-5" />}
         </div>
         {change !== undefined && (
           <div
             className={cn(
               "flex items-center gap-1 text-xs font-medium",
-              isPositive ? "text-emerald-600" : "text-red-500"
+              isPositive ? "text-primary" : "text-red-500"
             )}
           >
             {isPositive ? (
@@ -97,10 +97,10 @@ export function StatCard({
         )}
       </div>
       <div className="mt-3">
-        <p className="text-2xl font-bold text-stone-900">
-          {value}{suffix && <span className="ml-1 text-base font-medium text-stone-500">{suffix}</span>}
+        <p className="font-display text-display-md font-bold text-on-surface">
+          {value}{suffix && <span className="ml-1 text-base font-medium text-on-surface/50">{suffix}</span>}
         </p>
-        <p className="mt-0.5 text-sm text-stone-600">{label}</p>
+        <p className="label-sm mt-0.5 text-on-surface/60">{label}</p>
       </div>
     </div>
   );

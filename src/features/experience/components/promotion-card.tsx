@@ -16,10 +16,10 @@ export function ExperiencePromotionCard({ promotion, experienceName }: { promoti
           <Badge variant={promotion.status === "active" ? "default" : "secondary"}>{t(`status.${promotion.status}`)}</Badge>
         </div>
         {experienceName && (
-          <p className="text-xs text-stone-500">{experienceName}</p>
+          <p className="text-xs text-on-surface/60">{experienceName}</p>
         )}
       </CardHeader>
-      <CardContent className="text-sm text-stone-600">
+      <CardContent className="text-sm text-on-surface/70">
         <p>{t(`promotionTypes.${promotion.type}`)}</p>
         <p>{promotion.discountType === "percentage" ? `${promotion.discountValue}%` : promotion.discountValue.toLocaleString("id-ID")}</p>
       </CardContent>

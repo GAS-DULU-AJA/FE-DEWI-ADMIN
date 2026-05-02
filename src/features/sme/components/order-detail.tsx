@@ -13,14 +13,14 @@ export function SmeOrderDetail({ order }: { order: SmeOrder }) {
       </CardHeader>
       <CardContent className="space-y-3 text-sm">
         <div>
-          <p className="font-medium text-stone-900">{order.customerName}</p>
-          <p className="text-stone-500">{order.customerPhone} · {order.customerEmail}</p>
+          <p className="font-medium text-on-surface">{order.customerName}</p>
+          <p className="text-on-surface/60">{order.customerPhone} · {order.customerEmail}</p>
         </div>
         <div className="space-y-2">
           {order.items.map((item) => (
-            <div key={`${order.id}-${item.productId}`} className="flex items-center justify-between rounded-lg border border-stone-200 p-2">
+            <div key={`${order.id}-${item.productId}`} className="flex items-center justify-between rounded-lg border border-surface-container-high p-2">
               <span>{t("itemRow", { name: item.productName, qty: item.quantity })}</span>
-              <span className="font-medium text-stone-900">{formatCurrency(item.subtotal)}</span>
+              <span className="font-medium text-on-surface">{formatCurrency(item.subtotal)}</span>
             </div>
           ))}
         </div>

@@ -23,8 +23,8 @@ export default async function ExperienceDetailPage({
     <div className="space-y-6">
       <div className="flex items-start justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-stone-900">{experience.name}</h1>
-          <p className="mt-1 text-sm text-stone-500">{experience.shortDescription}</p>
+          <h1 className="font-display text-title-lg font-bold text-on-surface tracking-tight">{experience.name}</h1>
+          <p className="mt-2 font-body text-sm text-on-surface/60 leading-relaxed">{experience.shortDescription}</p>
         </div>
         <Badge variant={experience.status === "ticket_sales_open" || experience.status === "published" ? "default" : "secondary"}>
           {t(`status.${experience.status}`)}

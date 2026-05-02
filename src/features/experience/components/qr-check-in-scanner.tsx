@@ -49,12 +49,12 @@ export function QRCheckInScanner({ reservations }: { reservations: ExperienceRes
     <Card>
       <CardHeader>
         <CardTitle className="text-base">{t("qrScanner.title")}</CardTitle>
-        <p className="text-xs text-stone-500">
+        <p className="text-xs text-on-surface/60">
           {t("qrScanner.progress", { checked: checkedCount, total: totalCount })}
         </p>
-        <div className="h-2 overflow-hidden rounded-full bg-stone-100">
+        <div className="h-2 overflow-hidden rounded-full bg-surface-container">
           <div
-            className="h-full rounded-full bg-emerald-500 transition-all"
+            className="h-full rounded-full bg-primary/100 transition-all"
             style={{ width: `${totalCount === 0 ? 0 : (checkedCount / totalCount) * 100}%` }}
           />
         </div>
@@ -75,10 +75,10 @@ export function QRCheckInScanner({ reservations }: { reservations: ExperienceRes
           <div
             className={`rounded-lg border p-3 text-sm ${
               scanResult.status === "success"
-                ? "border-emerald-200 bg-emerald-50 text-emerald-700"
+                ? "border-primary/200 bg-primary/10 text-primary"
                 : scanResult.status === "already_checked"
-                  ? "border-amber-200 bg-amber-50 text-amber-700"
-                  : "border-red-200 bg-red-50 text-red-700"
+                  ? "border-amber-500/30 bg-amber-500/10 text-amber-600"
+                  : "border-red-500/30 bg-red-500/10 text-red-600"
             }`}
           >
             <p className="font-medium">{scanResult.message}</p>
@@ -92,12 +92,12 @@ export function QRCheckInScanner({ reservations }: { reservations: ExperienceRes
 
         {recentScans.length > 0 && (
           <div className="space-y-2">
-            <p className="text-xs font-medium text-stone-500">{t("qrScanner.recentScans")}</p>
+            <p className="text-xs font-medium text-on-surface/60">{t("qrScanner.recentScans")}</p>
             {recentScans.map((scan, idx) => (
-              <div key={idx} className="flex items-center justify-between rounded-lg border border-stone-200 p-2 text-sm">
-                <span className="text-stone-700">{scan.name}</span>
+              <div key={idx} className="flex items-center justify-between rounded-lg border border-surface-container-high p-2 text-sm">
+                <span className="text-on-surface/80">{scan.name}</span>
                 <div className="flex items-center gap-2">
-                  <span className="text-xs text-stone-500">{scan.time}</span>
+                  <span className="text-xs text-on-surface/60">{scan.time}</span>
                   <Badge variant="default">{t("bookingStatus.checked_in")}</Badge>
                 </div>
               </div>

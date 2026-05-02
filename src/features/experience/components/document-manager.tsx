@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { DataTable, type ColumnDef } from "@/components/ui/data-table";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FormModal } from "@/components/ui/form-modal";
@@ -19,16 +20,51 @@ function formatFileSize(bytes: number): string {
 
 export function DocumentManager({ documents }: { documents: EventDocument[] }) {
   const t = useTranslations("experience");
+  const tc = useTranslations("common");
   const [showUpload, setShowUpload] = useState(false);
   const [uploadType, setUploadType] = useState<EventDocumentType>("other");
 
   const typeColors: Record<string, string> = {
     contract: "bg-blue-100 text-blue-700",
     rundown: "bg-violet-100 text-violet-700",
-    permit: "bg-emerald-100 text-emerald-700",
+    permit: "bg-primary/10 text-primary",
     invoice: "bg-amber-100 text-amber-700",
-    other: "bg-stone-100 text-stone-600",
+    other: "bg-surface-container text-on-surface/70",
   };
+
+  const columns: ColumnDef<EventDocument>[] = [
+    {
+      id: "name",
+      header: t("documents.fileName"),
+      accessorKey: "name",
+      sortable: true,
+    },
+    {
+      id: "type",
+      header: t("documents.docType"),
+      accessorKey: "type",
+      sortable: true,
+      filterable: true,
+      filterOptions: EVENT_DOCUMENT_TYPES.map((type) => ({
+        value: type,
+        label: t(`documents.types.${type}`),
+      })),
+      accessorFn: (row) => t(`documents.types.${row.type}`),
+    },
+    {
+      id: "size",
+      header: "Size",
+      accessorFn: (row) => (row.fileSize ? formatFileSize(row.fileSize) : "-"),
+      sortable: true,
+    },
+    {
+      id: "uploadedAt",
+      header: tc("date"),
+      accessorKey: "uploadedAt",
+      accessorFn: (row) => new Date(row.uploadedAt).toLocaleDateString(),
+      sortable: true,
+    },
+  ];
 
   return (
     <Card>
@@ -56,7 +92,7 @@ export function DocumentManager({ documents }: { documents: EventDocument[] }) {
             <div className="space-y-2">
               <Label>{t("documents.docType")}</Label>
               <select
-                className="h-10 w-full rounded-lg border border-stone-200 px-3 text-sm"
+                className="h-10 w-full rounded-lg border border-surface-container-high px-3 text-sm"
                 value={uploadType}
                 onChange={(e) => setUploadType(e.target.value as EventDocumentType)}
               >
@@ -66,31 +102,34 @@ export function DocumentManager({ documents }: { documents: EventDocument[] }) {
               </select>
             </div>
           </div>
-          <div className="rounded-lg border border-dashed border-stone-300 bg-white p-6 text-center text-sm text-stone-500">
+          <div className="rounded-lg border border-dashed border-surface-container-high bg-surface-container-lowest p-6 text-center text-sm text-on-surface/60">
             {t("documents.dropzone")}
           </div>
         </FormModal>
 
-        {documents.length === 0 ? (
-          <p className="text-sm text-stone-500">{t("documents.empty")}</p>
-        ) : (
-          documents.map((doc) => (
-            <div key={doc.id} className="flex items-center justify-between rounded-lg border border-stone-200 p-3 text-sm">
-              <div className="space-y-0.5">
-                <p className="font-medium text-stone-900">{doc.name}</p>
-                <div className="flex items-center gap-2 text-xs text-stone-500">
-                  <Badge className={typeColors[doc.type] ?? typeColors.other}>{t(`documents.types.${doc.type}`)}</Badge>
-                  {doc.fileSize ? <span>{formatFileSize(doc.fileSize)}</span> : null}
-                  <span>{new Date(doc.uploadedAt).toLocaleDateString()}</span>
-                </div>
-              </div>
-              <div className="flex gap-1">
-                <Button variant="ghost" size="sm">{t("documents.view")}</Button>
-                <Button variant="ghost" size="sm">{t("documents.download")}</Button>
+        <DataTable
+          data={documents}
+          columns={columns}
+          keyExtractor={(row) => row.id}
+          searchableFields={["name", "type"]}
+          searchPlaceholder={`${tc("search")}...`}
+          pageSize={10}
+          emptyState={{ title: t("documents.empty") }}
+          actions={() => [
+            { label: t("documents.view"), onClick: () => {} },
+            { label: t("documents.download"), onClick: () => {} },
+          ]}
+          mobileCardRenderer={(doc) => (
+            <div className="rounded-lg border border-surface-container-high p-3 text-sm">
+              <p className="font-medium text-on-surface">{doc.name}</p>
+              <div className="mt-1 flex items-center gap-2 text-xs text-on-surface/60">
+                <Badge className={typeColors[doc.type] ?? typeColors.other}>{t(`documents.types.${doc.type}`)}</Badge>
+                {doc.fileSize ? <span>{formatFileSize(doc.fileSize)}</span> : null}
+                <span>{new Date(doc.uploadedAt).toLocaleDateString()}</span>
               </div>
             </div>
-          ))
-        )}
+          )}
+        />
       </CardContent>
     </Card>
   );

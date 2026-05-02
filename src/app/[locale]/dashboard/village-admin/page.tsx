@@ -16,6 +16,7 @@ import {
   PartnerTrendChart,
   FacilityUtilizationDonutLike,
 } from "@/features/village/components/dashboard-charts";
+import { DocumentGateBanner } from "@/features/village/components/document-gate-banner";
 import { formatCurrency } from "@/lib/utils";
 import { Building2, CalendarDays, CheckSquare, Wallet } from "lucide-react";
 
@@ -40,17 +41,20 @@ export default function PengelolaDesaDashboard() {
 
   return (
     <div className="space-y-6">
-      <div className="rounded-2xl border border-stone-200/80 bg-white/80 p-4 shadow-sm backdrop-blur sm:p-5">
+      <div className="rounded-2xl border border-surface-container-high/80 bg-white/80 p-4 shadow-ambient backdrop-blur sm:p-5">
         <div className="flex items-center justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold text-stone-900">{t("dashboard.title")}</h1>
-            <p className="mt-0.5 text-sm text-stone-500">{t("dashboard.subtitle")}</p>
+            <h1 className="font-display text-title-lg font-bold text-on-surface tracking-tight">{t("dashboard.title")}</h1>
+            <p className="mt-0.5 text-sm text-on-surface/60">{t("dashboard.subtitle")}</p>
           </div>
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100">
-            <Building2 className="h-5 w-5 text-emerald-700" />
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10">
+            <Building2 className="h-5 w-5 text-primary" />
           </div>
         </div>
       </div>
+
+      {/* Document Gate Banner — fitur transaksi belum aktif sampai dokumen terverifikasi */}
+      <DocumentGateBanner />
 
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-6">
         <StatCard label={t("dashboard.kpi.totalPartners")} value={VILLAGE_KPI.totalPartners} icon="partners" color="blue" />
@@ -74,9 +78,9 @@ export default function PengelolaDesaDashboard() {
           </CardHeader>
           <CardContent className="space-y-2">
             {recentActivity.map((item) => (
-              <div key={item.id} className="rounded-lg border border-stone-200 p-3 transition-colors hover:border-emerald-200 hover:bg-emerald-50/30">
-                <p className="text-sm font-medium text-stone-900">{item.title}</p>
-                <p className="text-xs text-stone-500">{item.date}</p>
+              <div key={item.id} className="rounded-lg border-0 p-3 transition-colors hover:border-primary/200 hover:bg-primary/10/30">
+                <p className="text-sm font-medium text-on-surface">{item.title}</p>
+                <p className="text-xs text-on-surface/60">{item.date}</p>
               </div>
             ))}
           </CardContent>

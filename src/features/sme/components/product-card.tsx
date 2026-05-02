@@ -11,9 +11,9 @@ export function SmeProductCard({ product }: { product: SmeProduct }) {
       <CardHeader className="pb-2">
         <CardTitle className="text-base">{product.name}</CardTitle>
       </CardHeader>
-      <CardContent className="space-y-1 text-sm text-stone-600">
+      <CardContent className="space-y-1 text-sm text-on-surface/70">
         <p>{product.category}</p>
-        <p className="font-medium text-stone-900">{formatCurrency(product.price)}</p>
+        <p className="font-medium text-on-surface">{formatCurrency(product.price)}</p>
         <p>{t("stockValue", { value: product.stock })}</p>
       </CardContent>
     </Card>

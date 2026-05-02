@@ -1,4 +1,4 @@
-import type { PaymentStatus, Product, Review } from "@/types";
+import type { PaymentStatus, Product, Review, VillageApprovalStatus } from "@/types";
 
 export type SmeBusinessType =
   | "food"
@@ -49,6 +49,13 @@ export interface SmeOrder {
 
 export interface SmeProfile {
   id: string;
+  /** FK → VillageProfile.id — the village this SME belongs to */
+  villageId: string;
+  /** Denormalized village display name */
+  villageName: string;
+  /** Village Admin must approve before SME can display under village name */
+  villageApprovalStatus: VillageApprovalStatus;
+  villageApprovalNote?: string;
   businessName: string;
   businessType: SmeBusinessType;
   description: string;

@@ -38,10 +38,9 @@ export default function DashboardLayout({
   if (!isHydrated || !isAuthenticated || (user && !user.isApproved)) return null;
 
   return (
-    <div className="relative flex h-screen overflow-hidden bg-stone-100">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(5,150,105,0.08),_transparent_55%)]" />
+    <div className="relative flex h-screen overflow-hidden bg-surface">
       {/* Sidebar - Desktop */}
-      <div className="hidden lg:flex lg:shrink-0 lg:border-r lg:border-stone-800/70">
+      <div className="hidden lg:flex lg:shrink-0">
         <DashboardSidebar />
       </div>
 
@@ -64,7 +63,7 @@ export default function DashboardLayout({
           onMenuToggle={() => setSidebarOpen((v) => !v)}
           sidebarOpen={sidebarOpen}
         />
-        <main className={cn("flex-1 overflow-y-auto px-4 pb-6 pt-4 sm:px-6 sm:pb-8") }>
+        <main className={cn("flex-1 overflow-y-auto bg-surface px-4 pb-8 pt-4 sm:px-6 lg:px-8 lg:pb-10")}>
           <div className="mx-auto w-full max-w-[1440px]">{children}</div>
         </main>
       </div>
