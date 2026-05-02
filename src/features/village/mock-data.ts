@@ -1,10 +1,18 @@
 import type {
+  BalanceTransaction,
+  CommissionConfig,
   CoordinationRequest,
+  DocumentVerificationState,
   Experience,
   Facility,
+  FacilityInvoice,
   FacilityReservation,
   PartnerApplication,
+  PartnerSubscription,
   ProfileSection,
+  SubscriptionTier,
+  TopPerformer,
+  VillageBalance,
   VillageContact,
   VillageDashboardKpi,
   VillageProfile,
@@ -12,6 +20,7 @@ import type {
   VillageSocialMedia,
   VillageTag,
   VillageTagAssignment,
+  VisitorStats,
 } from "./types";
 
 export const VILLAGE_CONTACTS: VillageContact[] = [
@@ -273,12 +282,86 @@ export const EXPERIENCES: Experience[] = [
 export const PARTNER_APPLICATIONS: PartnerApplication[] = [
   {
     id: "app-1",
+    villageId: "village-sari-alam",
+    villageName: "Desa Sari Alam",
+    villageApprovalStatus: "pending_review",
     organizationName: "Bukit Hijau Homestay",
     role: "accommodation",
     ownerName: "Hendra Kusuma",
+    ownerEmail: "hendra@bukithijau.id",
+    ownerPhone: "+62 812-1122-3344",
+    businessType: "Homestay & Villa",
+    description: "Homestay with 12 rooms, mountain-facing view, and local culinary packages.",
+    address: "Jl. Puncak Hijau No. 4, Sari Alam",
     submittedAt: "2026-04-05",
     status: "under_review",
+    partnerStatus: "pending",
     completionScore: 92,
+    documents: [
+      {
+        type: "KTP",
+        fileName: "ktp-hendra-kusuma.pdf",
+        fileUrl: "https://example.com/docs/ktp-hendra-kusuma.pdf",
+        uploadedAt: "2026-04-05T09:30:00",
+      },
+      {
+        type: "NIB",
+        fileName: "nib-bukit-hijau.pdf",
+        fileUrl: "https://example.com/docs/nib-bukit-hijau.pdf",
+        uploadedAt: "2026-04-05T10:00:00",
+      },
+      {
+        type: "SIUP",
+        fileName: "siup-bukit-hijau.pdf",
+        fileUrl: "https://example.com/docs/siup-bukit-hijau.pdf",
+        uploadedAt: "2026-04-05T10:15:00",
+      },
+    ],
+    location: {
+      latitude: -6.91642,
+      longitude: 107.62188,
+      address: "Jl. Puncak Hijau No. 4, Sari Alam",
+      googleMapsUrl: "https://maps.google.com/?q=-6.91642,107.62188",
+    },
+    bankAccount: {
+      bankName: "BCA",
+      accountNumber: "1234567890",
+      accountHolder: "Hendra Kusuma",
+    },
+    media: [
+      {
+        type: "photo",
+        title: "Front Building",
+        fileUrl: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1200&q=80",
+        uploadedAt: "2026-04-05T11:00:00",
+      },
+      {
+        type: "photo",
+        title: "Room Interior",
+        fileUrl: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=1200&q=80",
+        uploadedAt: "2026-04-05T11:20:00",
+      },
+      {
+        type: "video",
+        title: "Property Walkthrough",
+        fileUrl: "https://example.com/media/bukit-hijau-walkthrough.mp4",
+        uploadedAt: "2026-04-05T11:45:00",
+      },
+    ],
+    activityLog: [
+      {
+        id: "log-1-1",
+        status: "pending",
+        note: "Application submitted by partner.",
+        createdAt: "2026-04-05T08:55:00",
+      },
+      {
+        id: "log-1-2",
+        status: "under_review",
+        note: "Documents validated by village admin.",
+        createdAt: "2026-04-06T10:15:00",
+      },
+    ],
     checklist: {
       businessInfo: true,
       documents: true,
@@ -290,12 +373,56 @@ export const PARTNER_APPLICATIONS: PartnerApplication[] = [
   },
   {
     id: "app-2",
+    villageId: "village-sari-alam",
+    villageName: "Desa Sari Alam",
+    villageApprovalStatus: "not_submitted",
     organizationName: "Sari Snack Corner",
     role: "sme",
     ownerName: "Melati Dewi",
+    ownerEmail: "melati@sarisnack.id",
+    ownerPhone: "+62 813-2233-4455",
+    businessType: "Processed Food SME",
+    description: "Village snack producer focused on cassava chips and banana crackers.",
+    address: "Jl. Pasar Desa No. 9, Sari Alam",
     submittedAt: "2026-04-07",
     status: "pending",
+    partnerStatus: "pending",
     completionScore: 76,
+    documents: [
+      {
+        type: "KTP",
+        fileName: "ktp-melati-dewi.pdf",
+        fileUrl: "https://example.com/docs/ktp-melati-dewi.pdf",
+        uploadedAt: "2026-04-07T09:10:00",
+      },
+    ],
+    location: {
+      latitude: -6.91892,
+      longitude: 107.61877,
+      address: "Jl. Pasar Desa No. 9, Sari Alam",
+      googleMapsUrl: "https://maps.google.com/?q=-6.91892,107.61877",
+    },
+    bankAccount: {
+      bankName: "BRI",
+      accountNumber: "9876543210",
+      accountHolder: "Melati Dewi",
+    },
+    media: [
+      {
+        type: "photo",
+        title: "Production Area",
+        fileUrl: "https://images.unsplash.com/photo-1608198093002-ad4e005484ec?w=1200&q=80",
+        uploadedAt: "2026-04-07T10:00:00",
+      },
+    ],
+    activityLog: [
+      {
+        id: "log-2-1",
+        status: "pending",
+        note: "Application submitted and waiting for initial review.",
+        createdAt: "2026-04-07T08:40:00",
+      },
+    ],
     checklist: {
       businessInfo: true,
       documents: false,
@@ -406,3 +533,307 @@ export const VILLAGE_REVIEWS: VillageReview[] = [
     hasResponse: false,
   },
 ];
+
+export const TESTIMONIALS: import("./types").Testimonial[] = [
+  {
+    id: "tst-001",
+    name: "Sari Dewi",
+    role: "Pengunjung dari Jakarta",
+    avatar: "https://i.pravatar.cc/80?img=47",
+    content: "Pengalaman yang luar biasa! Desa ini menawarkan ketenangan yang sempurna jauh dari hiruk-pikuk kota. Warga lokal sangat ramah dan program wisatanya sangat berkesan.",
+    rating: 5,
+    isPinned: true,
+    createdAt: "2026-03-15",
+  },
+  {
+    id: "tst-002",
+    name: "Budi Hartono",
+    role: "Traveler — Surabaya",
+    avatar: "https://i.pravatar.cc/80?img=12",
+    content: "Kuliner tradisionalnya autentik dan pemandangannya menakjubkan. Sangat merekomendasikan paket 2 hari 1 malam di sini!",
+    rating: 5,
+    isPinned: true,
+    createdAt: "2026-03-20",
+  },
+  {
+    id: "tst-003",
+    name: "Maya Putri",
+    role: "Content Creator",
+    avatar: "https://i.pravatar.cc/80?img=32",
+    content: "Tempat yang perfect untuk konten! Estetika alami desa ini sangat fotogenik. Tim pengelola juga sangat kooperatif.",
+    rating: 5,
+    isPinned: true,
+    createdAt: "2026-04-01",
+  },
+  {
+    id: "tst-004",
+    name: "Andi Kurniawan",
+    role: "Wisatawan Keluarga",
+    avatar: undefined,
+    content: "Anak-anak sangat menikmati kegiatan pertanian tradisional. Ini adalah liburan keluarga terbaik kami tahun ini.",
+    rating: 4,
+    isPinned: false,
+    createdAt: "2026-04-10",
+  },
+  {
+    id: "tst-005",
+    name: "Rina Susanti",
+    role: "Peneliti Budaya — UGM",
+    avatar: "https://i.pravatar.cc/80?img=55",
+    content: "Sangat terkesan dengan pelestarian tradisi lokal. Masyarakatnya masih menjaga adat dengan baik sambil tetap terbuka untuk pariwisata.",
+    rating: 4,
+    isPinned: false,
+    createdAt: "2026-04-18",
+  },
+];
+
+// ─── Facility Invoices ───────────────────────────────────────
+
+export const FACILITY_INVOICES: FacilityInvoice[] = [
+  {
+    id: "inv-001",
+    invoiceNumber: "INV/SA/2026/001",
+    coordinationRequestId: "cor-1",
+    eventName: "Village Culture Weekend",
+    organizerName: "Nusantara Experience Co.",
+    eventDate: "2026-05-10",
+    issuedAt: "2026-04-20",
+    dueDate: "2026-04-27",
+    status: "paid",
+    paidAt: "2026-04-25",
+    paymentMethod: "Bank Transfer",
+    items: [
+      {
+        facilityId: "fac-1",
+        facilityName: "Village Hall Sari Alam",
+        rentalPrice: 1500000,
+        durationDays: 1,
+        subtotal: 1500000,
+      },
+    ],
+    totalAmount: 1500000,
+  },
+  {
+    id: "inv-002",
+    invoiceNumber: "INV/SA/2026/002",
+    coordinationRequestId: "cor-2",
+    eventName: "Eco Tourism Camp",
+    organizerName: "Green Trail Organizer",
+    eventDate: "2026-06-02",
+    issuedAt: "2026-04-28",
+    dueDate: "2026-05-05",
+    status: "pending_payment",
+    items: [
+      {
+        facilityId: "fac-3",
+        facilityName: "Village Market",
+        rentalPrice: 800000,
+        durationDays: 2,
+        subtotal: 1600000,
+      },
+    ],
+    totalAmount: 1600000,
+  },
+];
+
+// ─── Village Balance ─────────────────────────────────────────
+
+export const VILLAGE_BALANCE: VillageBalance = {
+  currentBalance: 47_500_000,
+  totalEarnedAllTime: 312_000_000,
+  pendingIncoming: 1_600_000,
+  totalWithdrawn: 264_500_000,
+  lastUpdatedAt: "2026-04-29T08:00:00",
+};
+
+export const BALANCE_TRANSACTIONS: BalanceTransaction[] = [
+  {
+    id: "bt-001",
+    type: "facility_rental",
+    description: "Sewa Village Hall — Village Culture Weekend",
+    amount: 1_500_000,
+    balanceAfter: 47_500_000,
+    referenceId: "inv-001",
+    createdAt: "2026-04-25T10:30:00",
+  },
+  {
+    id: "bt-002",
+    type: "revenue_share",
+    description: "Bagi hasil Event — Traditional Batik Workshop (25%)",
+    amount: 3_750_000,
+    balanceAfter: 46_000_000,
+    referenceId: "exp-001",
+    createdAt: "2026-04-22T14:00:00",
+  },
+  {
+    id: "bt-003",
+    type: "withdrawal",
+    description: "Penarikan ke BNI — BUMDes Sari Alam",
+    amount: -8_500_000,
+    balanceAfter: 42_250_000,
+    referenceId: "wd-2",
+    createdAt: "2026-04-01T09:00:00",
+  },
+  {
+    id: "bt-004",
+    type: "revenue_share",
+    description: "Bagi hasil Event — Eco Hiking Trail (25%)",
+    amount: 2_200_000,
+    balanceAfter: 50_750_000,
+    referenceId: "exp-002",
+    createdAt: "2026-03-28T11:45:00",
+  },
+  {
+    id: "bt-005",
+    type: "facility_rental",
+    description: "Sewa Lapangan Olahraga — Community Tournament",
+    amount: 600_000,
+    balanceAfter: 48_550_000,
+    referenceId: "inv-fac-5",
+    createdAt: "2026-03-20T08:00:00",
+  },
+  {
+    id: "bt-006",
+    type: "withdrawal",
+    description: "Penarikan ke BNI — BUMDes Sari Alam",
+    amount: -15_000_000,
+    balanceAfter: 47_950_000,
+    referenceId: "wd-1",
+    createdAt: "2026-03-15T10:00:00",
+  },
+];
+
+// ─── Visitor Stats ───────────────────────────────────────────
+
+export const VISITOR_STATS: VisitorStats = {
+  totalThisMonth: 1_243,
+  totalThisYear: 9_871,
+  domesticPercent: 84,
+  internationalPercent: 16,
+  avgDurationDays: 1.8,
+  repeatVisitorPercent: 28,
+  monthlyTrend: [
+    { month: "Nov", domestic: 620, international: 80 },
+    { month: "Des", domestic: 750, international: 95 },
+    { month: "Jan", domestic: 480, international: 60 },
+    { month: "Feb", domestic: 530, international: 70 },
+    { month: "Mar", domestic: 890, international: 120 },
+    { month: "Apr", domestic: 1045, international: 198 },
+  ],
+  demographics: [
+    { city: "Bandung", province: "Jawa Barat", count: 412, percentage: 33.1 },
+    { city: "Jakarta", province: "DKI Jakarta", count: 318, percentage: 25.6 },
+    { city: "Surabaya", province: "Jawa Timur", count: 147, percentage: 11.8 },
+    { city: "Yogyakarta", province: "DIY", count: 98, percentage: 7.9 },
+    { city: "Semarang", province: "Jawa Tengah", count: 76, percentage: 6.1 },
+    { city: "Lainnya", province: "—", count: 192, percentage: 15.5 },
+  ],
+};
+
+// ─── Top Performers ──────────────────────────────────────────
+
+export const TOP_PERFORMERS: TopPerformer[] = [
+  { id: "exp-001", name: "Traditional Batik Workshop", type: "experience", revenue: 15_000_000, bookings: 120, rating: 4.9, trend: "up", trendPercent: 22 },
+  { id: "acc-001", name: "Homestay Sari Alam Indah", type: "accommodation", revenue: 12_400_000, bookings: 87, rating: 4.7, trend: "up", trendPercent: 8 },
+  { id: "sme-001", name: "Keripik Melati", type: "sme", revenue: 8_200_000, bookings: 203, rating: 4.8, trend: "stable", trendPercent: 0 },
+  { id: "exp-002", name: "Eco Hiking Trail", type: "experience", revenue: 8_800_000, bookings: 65, rating: 4.6, trend: "up", trendPercent: 15 },
+  { id: "sme-002", name: "Batik Sari Craft", type: "sme", revenue: 5_600_000, bookings: 88, rating: 4.5, trend: "down", trendPercent: 5 },
+];
+
+// ─── Commission Config ───────────────────────────────────────
+
+export const COMMISSION_CONFIG: CommissionConfig = {
+  commissionPercent: 10,
+  convenienceFeeFlat: 3500,
+  splitOrganizer: 60,
+  splitVillage: 25,
+  splitPlatform: 15,
+};
+
+// ─── Subscription Tiers ──────────────────────────────────────
+
+export const SUBSCRIPTION_TIERS: SubscriptionTier[] = [
+  {
+    name: "free",
+    monthlyPrice: 0,
+    commissionDiscount: 0,
+    features: [
+      { label: "Dashboard dasar", included: true },
+      { label: "Manajemen produk & event", included: true },
+      { label: "Approval partner", included: true },
+      { label: "Komisi transaksi standar (10%)", included: true },
+      { label: "Dashboard Analitik Lanjutan", included: false },
+      { label: "Prioritas pencarian (SEO boost)", included: false },
+      { label: "Kode promo mandiri", included: false },
+      { label: "Laporan ekspor (PDF/Excel)", included: false },
+    ],
+  },
+  {
+    name: "pro",
+    monthlyPrice: 299_000,
+    commissionDiscount: 3,
+    features: [
+      { label: "Dashboard dasar", included: true },
+      { label: "Manajemen produk & event", included: true },
+      { label: "Approval partner", included: true },
+      { label: "Komisi transaksi lebih rendah (7%)", included: true },
+      { label: "Dashboard Analitik Lanjutan", included: true },
+      { label: "Prioritas pencarian (SEO boost)", included: true },
+      { label: "Kode promo mandiri", included: true },
+      { label: "Laporan ekspor (PDF/Excel)", included: true },
+    ],
+  },
+  {
+    name: "government",
+    monthlyPrice: 999_000,
+    commissionDiscount: 5,
+    features: [
+      { label: "Semua fitur Pro", included: true },
+      { label: "Komisi transaksi terendah (5%)", included: true },
+      { label: "Manajemen aset digital BUMDes", included: true },
+      { label: "Laporan untuk instansi pemerintah", included: true },
+      { label: "Dedicated support", included: true },
+      { label: "SLA 99.9% uptime", included: true },
+      { label: "Multi-admin access", included: true },
+      { label: "API akses data", included: true },
+    ],
+  },
+];
+
+export const PARTNER_SUBSCRIPTION: PartnerSubscription = {
+  partnerId: "village-sari-alam",
+  currentTier: "free",
+  activatedAt: "2026-01-01",
+};
+
+// ─── Document Verification ───────────────────────────────────
+
+export const DOCUMENT_VERIFICATION: DocumentVerificationState = {
+  isTransactionEnabled: false,
+  overallStatus: "pending_review",
+  documents: [
+    {
+      id: "doc-001",
+      type: "sk_kepala_desa",
+      label: "SK Kepala Desa",
+      fileUrl: "https://example.com/docs/sk-kepala-desa.pdf",
+      uploadedAt: "2026-04-10",
+      status: "pending_review",
+      reviewNote: "Sedang diverifikasi tim DeWi",
+    },
+    {
+      id: "doc-002",
+      type: "akta_bumdes",
+      label: "Akta BUMDes",
+      status: "not_uploaded",
+    },
+    {
+      id: "doc-003",
+      type: "npwp",
+      label: "NPWP BUMDes",
+      fileUrl: "https://example.com/docs/npwp.pdf",
+      uploadedAt: "2026-04-10",
+      status: "verified",
+    },
+  ],
+};

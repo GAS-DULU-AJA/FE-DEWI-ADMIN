@@ -115,13 +115,15 @@
     "experiences": "Experiences",
     "partnerVerification": "Partner Verification",
     "externalCoordination": "External Coordination",
+    "media": "Media",
     "general": "General",
     "speakers": "Speakers",
     "attendees": "Attendees",
     "experienceAnalytics": "Experience Analytics",
     "documents": "Documents",
     "postEvent": "Post-Event",
-    "insights": "Insights"
+    "insights": "Insights",
+    "testimonials": "Testimonials"
   },
   "landing": {
     "heroTitle": "Welcome to Mitra Dewi",
@@ -205,7 +207,9 @@
     "umkm": "SME (Small Business)",
     "umkmDesc": "Manage products, stock, and sales of your business",
     "eventOrganizer": "Event Organizer",
-    "eventOrganizerDesc": "Manage events, registrations, and tourism activity promotions"
+    "eventOrganizerDesc": "Manage events, registrations, and tourism activity promotions",
+    "transport": "Transport Provider",
+    "transportDesc": "Manage fleet & schedules for village tourism transport"
   },
   "dashboard": {
     "title": "Dashboard",
@@ -314,6 +318,7 @@
     "markAllRead": "Mark All as Read",
     "clearRead": "Clear Read",
     "noNotifications": "No notifications",
+    "viewDetail": "View",
     "newOrder": "New Order",
     "newReservation": "New Reservation",
     "approvalUpdate": "Approval Update",
@@ -608,6 +613,9 @@
       "success": "Paid",
       "failed": "Failed",
       "refunded": "Refunded"
+    },
+    "export": {
+      "csv": "Export CSV"
     }
   },
   "financeManagement": {
@@ -629,6 +637,12 @@
       "accommodation": "Accommodation",
       "amount": "Amount",
       "payment": "Payment"
+    },
+    "paymentStatus": {
+      "pending": "Pending",
+      "success": "Paid",
+      "failed": "Failed",
+      "refunded": "Refunded"
     },
     "withdraw": {
       "title": "Withdrawal Request",
@@ -726,7 +740,8 @@
         "profile": "Profile",
         "locationContact": "Location & Contact",
         "media": "Media & Gallery",
-        "bank": "Bank Account"
+        "bank": "Bank Account",
+        "highlights": "Highlights"
       },
       "villageName": "Village Name",
       "address": "Address",
@@ -902,7 +917,40 @@
         "is24Hours": "24 Hours",
         "openTime": "Open Time",
         "closeTime": "Close Time"
+      },
+      "isFeatured": "Featured on Homepage",
+      "isFeaturedHint": "Show this village in the featured section on the homepage",
+      "isPopular": "Mark as Popular",
+      "isPopularHint": "Show this village in the popular destinations section",
+      "bookingInfo": {
+        "title": "Booking Package Info",
+        "duration": "Duration",
+        "durationPlaceholder": "e.g. 2 Days 1 Night",
+        "groupSize": "Group Size",
+        "groupSizePlaceholder": "e.g. 10–50 people",
+        "startingPrice": "Starting Price (IDR)",
+        "includes": "Includes",
+        "addInclude": "+ Add Item",
+        "includesPlaceholder": "e.g. Accommodation",
+        "removeInclude": "Remove"
+      },
+      "highlights": {
+        "title": "Highlighted Experiences",
+        "add": "+ Add Experience",
+        "empty": "No highlighted experiences yet.",
+        "itemTitle": "Experience Title",
+        "itemTitlePlaceholder": "e.g. Traditional Weaving Workshop",
+        "itemTag": "Tag",
+        "itemTagPlaceholder": "e.g. Culture",
+        "itemDescription": "Short Description",
+        "itemDescriptionPlaceholder": "Brief description of the experience",
+        "itemImage": "Image URL",
+        "itemImagePlaceholder": "https://...",
+        "remove": "Remove"
       }
+    },
+    "media": {
+      "subtitle": "Upload photos and videos for your village gallery with automatic watermark processing."
     },
     "facilities": {
       "title": "Facility Management",
@@ -914,7 +962,9 @@
       "manageReservations": "Manage Facility Reservations",
       "deleteConfirmTitle": "Delete Facility",
       "deleteConfirmDescription": "Are you sure you want to delete the facility '{name}'? This action cannot be undone.",
+      "name": "Facility Name",
       "category": "Category",
+      "status": "Status",
       "namePlaceholder": "Facility name",
       "descriptionPlaceholder": "Facility description",
       "addressPlaceholder": "Facility address",
@@ -944,9 +994,13 @@
       "reservations": {
         "title": "Facility Usage Reservations",
         "subtitle": "Review and process facility usage requests from partners and communities.",
+        "facilityLabel": "Facility",
         "periodLabel": "Period",
         "participantsLabel": "Estimated Participants",
         "purposeLabel": "Usage Purpose",
+        "searchPlaceholder": "Search reservations...",
+        "noData": "No reservations",
+        "noDataDescription": "There are no facility reservations yet.",
         "notesLabel": "Notes",
         "approve": "Approve",
         "reject": "Reject",
@@ -1059,6 +1113,17 @@
       "searchPlaceholder": "Search by organization or owner",
       "feedbackPlaceholder": "Write review feedback, revision notes, or verification summary",
       "noSelection": "No application selected",
+      "openDocument": "Open Document",
+      "openMap": "Open Map",
+      "noDocuments": "No documents available.",
+      "noMedia": "No media uploaded.",
+      "sections": {
+        "businessInfo": "Business Information",
+        "documents": "Documents",
+        "location": "Location",
+        "financial": "Financial",
+        "media": "Media"
+      },
       "statuses": {
         "pending": "Pending",
         "under_review": "Under Review",
@@ -1127,9 +1192,19 @@
     "partners": {
       "title": "Partner Management",
       "subtitle": "View and manage all registered village partners.",
+      "organizationLabel": "Organization",
       "role": "Role",
+      "ownerName": "Owner Name",
+      "ownerEmail": "Owner Email",
+      "ownerPhone": "Owner Phone",
+      "businessType": "Business Type",
+      "businessAddress": "Business Address",
+      "descriptionLabel": "Description",
+      "currentStatus": "Current Status",
       "submittedAt": "Submitted",
       "completionScore": "Completion",
+      "searchPlaceholder": "Search partners...",
+      "viewDetail": "View Detail",
       "checklist": "Verification Checklist",
       "checklistFields": {
         "businessInfo": "Business Information",
@@ -1140,6 +1215,21 @@
       },
       "latestNote": "Latest Note",
       "noData": "No partners found.",
+      "noDataDescription": "No partner applications are available yet.",
+      "progressTitle": "Application Progress",
+      "activityLog": "Activity Log",
+      "noActivity": "No activity logs yet.",
+      "financialInfo": "Financial Information",
+      "bankName": "Bank Name",
+      "accountHolder": "Account Holder",
+      "accountNumber": "Account Number",
+      "progress": {
+        "submitted": "Submitted",
+        "documentReview": "Document Review",
+        "locationVerification": "Location Verification",
+        "approval": "Approval",
+        "active": "Active"
+      },
       "roles": {
         "accommodation": "Accommodation",
         "sme": "UMKM",
@@ -1199,7 +1289,48 @@
       "reviews": "Reviews",
       "analytics": "Analytics",
       "finance": "Finance",
-      "bankAccount": "Bank Account"
+      "bankAccount": "Bank Account",
+      "testimonials": "Testimonials"
+    },
+    "testimonials": {
+      "title": "Testimonials",
+      "subtitle": "Manage testimonials displayed on the homepage",
+      "addTestimonial": "Add Testimonial",
+      "editTestimonial": "Edit Testimonial",
+      "empty": "No testimonials yet. Add one to get started.",
+      "saved": "Saved",
+      "columns": {
+        "name": "Name",
+        "role": "Role",
+        "rating": "Rating",
+        "content": "Content",
+        "isPinned": "Pinned",
+        "createdAt": "Date"
+      },
+      "fields": {
+        "name": "Name",
+        "namePlaceholder": "e.g. Budi Santoso",
+        "role": "Role / Origin",
+        "rolePlaceholder": "e.g. Visitor from Jakarta",
+        "avatar": "Avatar URL",
+        "avatarPlaceholder": "https://...",
+        "content": "Testimonial",
+        "contentPlaceholder": "Write the testimonial here...",
+        "rating": "Rating (1–5)",
+        "isPinned": "Pin to Homepage",
+        "isPinnedHint": "Pinned testimonials appear in the homepage hero section"
+      },
+      "actions": {
+        "pin": "Pin",
+        "unpin": "Unpin",
+        "edit": "Edit",
+        "delete": "Delete",
+        "save": "Save Testimonial",
+        "cancel": "Cancel"
+      },
+      "deleteConfirm": "Are you sure you want to delete this testimonial?",
+      "pinnedBadge": "Pinned",
+      "maxPinnedWarning": "Maximum 3 testimonials can be pinned to the homepage"
     }
   },
   "experience": {
@@ -1372,6 +1503,7 @@
         "media": "Media",
         "review": "Review"
       },
+      "experience": "Experience",
       "name": "Name",
       "experienceNamePlaceholder": "Experience name",
       "category": "Category",
@@ -1381,6 +1513,7 @@
       "next": "Next",
       "submitProposal": "Submit Proposal",
       "coordinationProposals": "Coordination Proposals",
+      "noCoordinations": "No coordinations yet",
       "village": "Village",
       "messages": "Messages",
       "bookings": "Bookings",
@@ -1668,6 +1801,12 @@
         "lowStock": "Low Stock"
       },
       "searchPlaceholder": "Search products...",
+      "tableHeaders": {
+        "product": "Product",
+        "price": "Price",
+        "stock": "Stock",
+        "partner": "Partner"
+      },
       "categories": {
         "all": "All",
         "food": "Food",

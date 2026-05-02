@@ -13,20 +13,20 @@ export default async function PendingApprovalPage({
   const t = await getTranslations({ locale, namespace: "auth" });
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-amber-50 via-stone-50 to-emerald-50 px-4 py-12">
+    <div className="min-h-screen bg-surface px-4 py-12">
       <div className="mx-auto max-w-xl">
-        <Card className="border-amber-200 bg-white/95 shadow-sm">
+        <Card className="border-amber-200 bg-surface-container-lowest/95 shadow-ambient">
           <CardHeader className="text-center">
             <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-amber-100 text-amber-700">
               <Clock3 className="h-7 w-7" />
             </div>
-            <CardTitle className="text-2xl text-stone-900">{t("pendingApprovalTitle")}</CardTitle>
+            <CardTitle className="text-2xl text-on-surface">{t("pendingApprovalTitle")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-5 text-center">
-            <p className="text-sm leading-relaxed text-stone-600">{t("pendingApprovalDescription")}</p>
-            <div className="rounded-xl border border-stone-200 bg-stone-50 p-4 text-left">
-              <p className="text-xs font-semibold uppercase tracking-wide text-stone-500">{t("pendingApprovalInfoTitle")}</p>
-              <p className="mt-2 text-sm text-stone-600">{t("pendingApprovalInfoBody")}</p>
+            <p className="text-sm leading-relaxed text-on-surface/70">{t("pendingApprovalDescription")}</p>
+            <div className="rounded-xl border border-surface-container-high bg-surface-container-low p-4 text-left">
+              <p className="text-xs font-semibold uppercase tracking-wide text-on-surface/60">{t("pendingApprovalInfoTitle")}</p>
+              <p className="mt-2 text-sm text-on-surface/70">{t("pendingApprovalInfoBody")}</p>
             </div>
             <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Link href="/">

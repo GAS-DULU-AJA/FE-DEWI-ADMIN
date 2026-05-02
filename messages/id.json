@@ -115,13 +115,15 @@
     "experiences": "Pengalaman",
     "partnerVerification": "Verifikasi Mitra",
     "externalCoordination": "Koordinasi Eksternal",
+    "media": "Media",
     "general": "Umum",
     "speakers": "Pembicara",
     "attendees": "Peserta",
     "experienceAnalytics": "Analitik Pengalaman",
     "documents": "Dokumen",
     "postEvent": "Pasca-Acara",
-    "insights": "Insight"
+    "insights": "Insight",
+    "testimonials": "Testimoni"
   },
   "landing": {
     "heroTitle": "Selamat Datang di Mitra Dewi",
@@ -205,7 +207,9 @@
     "umkm": "UMKM",
     "umkmDesc": "Kelola produk, stok, dan penjualan usaha Anda",
     "eventOrganizer": "Event Organizer",
-    "eventOrganizerDesc": "Kelola acara, pendaftaran, dan promosi kegiatan wisata"
+    "eventOrganizerDesc": "Kelola acara, pendaftaran, dan promosi kegiatan wisata",
+    "transport": "Penyedia Transportasi",
+    "transportDesc": "Kelola armada & jadwal transportasi wisata desa"
   },
   "dashboard": {
     "title": "Dasbor",
@@ -314,6 +318,7 @@
     "markAllRead": "Tandai Semua Dibaca",
     "clearRead": "Hapus yang Sudah Dibaca",
     "noNotifications": "Tidak ada notifikasi",
+    "viewDetail": "Lihat",
     "newOrder": "Pesanan Baru",
     "newReservation": "Reservasi Baru",
     "approvalUpdate": "Update Persetujuan",
@@ -608,6 +613,9 @@
       "success": "Lunas",
       "failed": "Gagal",
       "refunded": "Refunded"
+    },
+    "export": {
+      "csv": "Ekspor CSV"
     }
   },
   "financeManagement": {
@@ -629,6 +637,12 @@
       "accommodation": "Penginapan",
       "amount": "Nilai",
       "payment": "Pembayaran"
+    },
+    "paymentStatus": {
+      "pending": "Pending",
+      "success": "Lunas",
+      "failed": "Gagal",
+      "refunded": "Refunded"
     },
     "withdraw": {
       "title": "Pengajuan Withdraw",
@@ -726,7 +740,8 @@
         "profile": "Profil",
         "locationContact": "Lokasi & Kontak",
         "media": "Media & Galeri",
-        "bank": "Rekening Bank"
+        "bank": "Rekening Bank",
+        "highlights": "Highlight"
       },
       "villageName": "Nama Desa",
       "address": "Alamat",
@@ -902,7 +917,40 @@
         "is24Hours": "24 Jam",
         "openTime": "Jam Buka",
         "closeTime": "Jam Tutup"
+      },
+      "isFeatured": "Tampilkan di Beranda",
+      "isFeaturedHint": "Tampilkan desa ini di bagian unggulan pada halaman beranda",
+      "isPopular": "Tandai sebagai Populer",
+      "isPopularHint": "Tampilkan desa ini di bagian destinasi populer",
+      "bookingInfo": {
+        "title": "Info Paket Booking",
+        "duration": "Durasi",
+        "durationPlaceholder": "misal: 2 Hari 1 Malam",
+        "groupSize": "Ukuran Grup",
+        "groupSizePlaceholder": "misal: 10–50 orang",
+        "startingPrice": "Harga Mulai (IDR)",
+        "includes": "Termasuk",
+        "addInclude": "+ Tambah Item",
+        "includesPlaceholder": "misal: Akomodasi",
+        "removeInclude": "Hapus"
+      },
+      "highlights": {
+        "title": "Experience Unggulan",
+        "add": "+ Tambah Experience",
+        "empty": "Belum ada experience unggulan.",
+        "itemTitle": "Judul Experience",
+        "itemTitlePlaceholder": "misal: Workshop Tenun Tradisional",
+        "itemTag": "Tag",
+        "itemTagPlaceholder": "misal: Budaya",
+        "itemDescription": "Deskripsi Singkat",
+        "itemDescriptionPlaceholder": "Deskripsi singkat experience",
+        "itemImage": "URL Gambar",
+        "itemImagePlaceholder": "https://...",
+        "remove": "Hapus"
       }
+    },
+    "media": {
+      "subtitle": "Upload foto dan video untuk galeri desa dengan pemrosesan watermark otomatis."
     },
     "facilities": {
       "title": "Manajemen Fasilitas",
@@ -914,7 +962,9 @@
       "manageReservations": "Kelola Reservasi Fasilitas",
       "deleteConfirmTitle": "Hapus Fasilitas",
       "deleteConfirmDescription": "Apakah Anda yakin ingin menghapus fasilitas '{name}'? Tindakan ini tidak dapat dibatalkan.",
+      "name": "Nama Fasilitas",
       "category": "Kategori",
+      "status": "Status",
       "namePlaceholder": "Nama fasilitas",
       "descriptionPlaceholder": "Deskripsi fasilitas",
       "addressPlaceholder": "Alamat fasilitas",
@@ -944,9 +994,13 @@
       "reservations": {
         "title": "Reservasi Penggunaan Fasilitas",
         "subtitle": "Tinjau dan proses permintaan penggunaan fasilitas desa dari mitra dan komunitas.",
+        "facilityLabel": "Fasilitas",
         "periodLabel": "Periode",
         "participantsLabel": "Perkiraan Peserta",
         "purposeLabel": "Tujuan Penggunaan",
+        "searchPlaceholder": "Cari reservasi...",
+        "noData": "Tidak ada reservasi",
+        "noDataDescription": "Belum ada reservasi fasilitas.",
         "notesLabel": "Catatan",
         "approve": "Setujui",
         "reject": "Tolak",
@@ -1059,6 +1113,17 @@
       "searchPlaceholder": "Cari berdasarkan organisasi atau pemilik",
       "feedbackPlaceholder": "Tulis umpan balik, catatan revisi, atau ringkasan verifikasi",
       "noSelection": "Belum ada pengajuan dipilih",
+      "openDocument": "Buka Dokumen",
+      "openMap": "Buka Peta",
+      "noDocuments": "Belum ada dokumen.",
+      "noMedia": "Belum ada media diunggah.",
+      "sections": {
+        "businessInfo": "Informasi Bisnis",
+        "documents": "Dokumen",
+        "location": "Lokasi",
+        "financial": "Keuangan",
+        "media": "Media"
+      },
       "statuses": {
         "pending": "Menunggu",
         "under_review": "Sedang Ditinjau",
@@ -1127,9 +1192,19 @@
     "partners": {
       "title": "Manajemen Mitra",
       "subtitle": "Lihat dan kelola semua mitra desa terdaftar.",
+      "organizationLabel": "Organisasi",
       "role": "Peran",
+      "ownerName": "Nama Pemilik",
+      "ownerEmail": "Email Pemilik",
+      "ownerPhone": "Telepon Pemilik",
+      "businessType": "Jenis Bisnis",
+      "businessAddress": "Alamat Bisnis",
+      "descriptionLabel": "Deskripsi",
+      "currentStatus": "Status Saat Ini",
       "submittedAt": "Diajukan",
       "completionScore": "Kelengkapan",
+      "searchPlaceholder": "Cari mitra...",
+      "viewDetail": "Lihat Detail",
       "checklist": "Checklist Verifikasi",
       "checklistFields": {
         "businessInfo": "Informasi Bisnis",
@@ -1140,6 +1215,21 @@
       },
       "latestNote": "Catatan Terbaru",
       "noData": "Tidak ada mitra ditemukan.",
+      "noDataDescription": "Belum ada pengajuan mitra.",
+      "progressTitle": "Progres Pengajuan",
+      "activityLog": "Riwayat Aktivitas",
+      "noActivity": "Belum ada riwayat aktivitas.",
+      "financialInfo": "Informasi Keuangan",
+      "bankName": "Nama Bank",
+      "accountHolder": "Pemilik Rekening",
+      "accountNumber": "Nomor Rekening",
+      "progress": {
+        "submitted": "Pengajuan",
+        "documentReview": "Review Dokumen",
+        "locationVerification": "Verifikasi Lokasi",
+        "approval": "Persetujuan",
+        "active": "Aktif"
+      },
       "roles": {
         "accommodation": "Akomodasi",
         "sme": "UMKM",
@@ -1167,7 +1257,7 @@
       "bankInfo": "Rekening Bank",
       "historyTitle": "Riwayat Pencairan",
       "noHistory": "Belum ada pengajuan pencairan.",
-      "estimatedSettlement": "Estimasi 1\u20133 hari kerja setelah persetujuan.",
+      "estimatedSettlement": "Estimasi 1–3 hari kerja setelah persetujuan.",
       "statuses": {
         "pending": "Diproses",
         "completed": "Selesai",
@@ -1199,7 +1289,48 @@
       "reviews": "Ulasan",
       "analytics": "Analitik",
       "finance": "Keuangan",
-      "bankAccount": "Rekening Bank"
+      "bankAccount": "Rekening Bank",
+      "testimonials": "Testimoni"
+    },
+    "testimonials": {
+      "title": "Testimoni",
+      "subtitle": "Kelola testimoni yang ditampilkan di halaman beranda",
+      "addTestimonial": "Tambah Testimoni",
+      "editTestimonial": "Edit Testimoni",
+      "empty": "Belum ada testimoni. Tambahkan satu untuk memulai.",
+      "saved": "Tersimpan",
+      "columns": {
+        "name": "Nama",
+        "role": "Peran",
+        "rating": "Rating",
+        "content": "Isi Testimoni",
+        "isPinned": "Disematkan",
+        "createdAt": "Tanggal"
+      },
+      "fields": {
+        "name": "Nama",
+        "namePlaceholder": "misal: Budi Santoso",
+        "role": "Peran / Asal",
+        "rolePlaceholder": "misal: Pengunjung dari Jakarta",
+        "avatar": "URL Avatar",
+        "avatarPlaceholder": "https://...",
+        "content": "Testimoni",
+        "contentPlaceholder": "Tulis testimoni di sini...",
+        "rating": "Rating (1–5)",
+        "isPinned": "Sematkan ke Beranda",
+        "isPinnedHint": "Testimoni yang disematkan akan muncul di bagian hero halaman beranda"
+      },
+      "actions": {
+        "pin": "Sematkan",
+        "unpin": "Lepas Sematan",
+        "edit": "Edit",
+        "delete": "Hapus",
+        "save": "Simpan Testimoni",
+        "cancel": "Batal"
+      },
+      "deleteConfirm": "Apakah Anda yakin ingin menghapus testimoni ini?",
+      "pinnedBadge": "Disematkan",
+      "maxPinnedWarning": "Maksimal 3 testimoni yang dapat disematkan ke beranda"
     }
   },
   "experience": {
@@ -1372,6 +1503,7 @@
         "media": "Media",
         "review": "Tinjau"
       },
+      "experience": "Experience",
       "name": "Nama",
       "experienceNamePlaceholder": "Nama pengalaman",
       "category": "Kategori",
@@ -1381,6 +1513,7 @@
       "next": "Selanjutnya",
       "submitProposal": "Kirim Proposal",
       "coordinationProposals": "Proposal Koordinasi",
+      "noCoordinations": "Belum ada koordinasi",
       "village": "Desa",
       "messages": "Pesan",
       "bookings": "Pemesanan",
@@ -1668,6 +1801,12 @@
         "lowStock": "Stok Rendah"
       },
       "searchPlaceholder": "Cari produk...",
+      "tableHeaders": {
+        "product": "Produk",
+        "price": "Harga",
+        "stock": "Stok",
+        "partner": "Mitra"
+      },
       "categories": {
         "all": "Semua",
         "food": "Makanan",

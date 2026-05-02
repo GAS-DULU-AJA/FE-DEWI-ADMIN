@@ -1,12 +1,25 @@
 export type Locale = "id" | "en" | "ja";
 
 export type PartnerRole =
+  | "TRANSPORT"
   | "VILLAGE_ADMIN"
   | "ACCOMMODATION"
   | "UMKM"
   | "EVENT_ORGANIZER";
 
 export type ApprovalStatus = "draft" | "pending" | "approved" | "rejected";
+
+/**
+ * Village-level membership approval status.
+ * Every SME/Accommodation/Experience must be approved by the Village Admin
+ * before they can display under the village name.
+ */
+export type VillageApprovalStatus =
+  | "not_submitted"       // partner has not applied to any village
+  | "pending_review"      // application submitted, awaiting village admin decision
+  | "approved"            // village admin approved — entity may display village name
+  | "rejected"            // village admin rejected the application
+  | "revision_requested"; // village admin requested changes before approval
 
 export type ReservationStatus =
   | "pending"
@@ -20,6 +33,22 @@ export type RoomStatus = "available" | "booked" | "maintenance";
 export type EventStatus = "upcoming" | "ongoing" | "completed" | "cancelled";
 
 export type PaymentStatus = "pending" | "success" | "failed" | "refunded";
+
+export type WatermarkType = "text" | "image";
+export type WatermarkPosition = "center" | "bottom-right" | "bottom-left" | "top-right" | "top-left" | "tiled";
+
+export interface WatermarkConfig {
+  enabled: boolean;
+  type: WatermarkType;
+  text?: string;
+  fontSize?: number;
+  fontColor?: string;
+  opacity?: number;
+  imageUrl?: string;
+  position: WatermarkPosition;
+  padding?: number;
+  scale?: number;
+}
 
 export interface User {
   id: string;
@@ -159,6 +188,7 @@ export interface Notification {
     | "general";
   isRead: boolean;
   createdAt: string;
+  actionUrl?: string;
 }
 
 export interface Review {
@@ -255,6 +285,13 @@ export interface AccommodationDocument {
 export interface Accommodation {
   id: string;
   partnerId: string;
+  /** FK → VillageProfile — the village this accommodation belongs to */
+  villageId: string;
+  /** Denormalized display name (derived from villageId) */
+  villageName: string;
+  /** Village Admin must approve before accommodation can display under village name */
+  villageApprovalStatus: VillageApprovalStatus;
+  villageApprovalNote?: string;
   name: string;
   slug: string;
   description: string;

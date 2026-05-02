@@ -14,7 +14,7 @@ import {
   calculateOccupancyRate,
 } from "@/features/accommodation/utils";
 import { MediaGallery } from "@/features/accommodation/components/media-gallery";
-import { PromotionCard } from "@/features/accommodation/components/promotion-card";
+import { PropertyPromotionsTable } from "@/features/accommodation/components/property-promotions-table";
 import { PropertyDetailTabs } from "@/features/accommodation/components/property-detail-tabs";
 import { PropertySwitcher } from "@/features/accommodation/components/property-switcher";
 import { SubmissionStatusBadge } from "@/features/accommodation/components/status-badge";
@@ -61,25 +61,25 @@ export default async function AccommodationDetailPage({
         <CardHeader className="flex flex-row items-start justify-between gap-3 space-y-0">
           <div>
             <CardTitle>{accommodation.name}</CardTitle>
-            <p className="mt-1 text-sm text-stone-500">
+            <p className="mt-2 font-body text-sm text-on-surface/60 leading-relaxed">
               {accommodation.address}, {accommodation.village}, {accommodation.regency}
             </p>
           </div>
         </CardHeader>
         <CardContent className="space-y-3">
-          <p className="text-sm text-stone-600">{accommodation.description}</p>
+          <p className="text-sm text-on-surface/70">{accommodation.description}</p>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-            <div className="rounded-lg border border-stone-200 bg-stone-50 p-3">
-              <p className="text-xs text-stone-500">Total Kamar</p>
-              <p className="mt-1 text-xl font-semibold text-stone-900">{rooms.length}</p>
+            <div className="rounded-lg border-0 bg-surface-container-low p-3">
+              <p className="text-xs text-on-surface/60">Total Kamar</p>
+              <p className="mt-1 text-xl font-semibold text-on-surface">{rooms.length}</p>
             </div>
-            <div className="rounded-lg border border-stone-200 bg-stone-50 p-3">
-              <p className="text-xs text-stone-500">Occupancy Rate</p>
-              <p className="mt-1 text-xl font-semibold text-stone-900">{occupancyRate}%</p>
+            <div className="rounded-lg border-0 bg-surface-container-low p-3">
+              <p className="text-xs text-on-surface/60">Occupancy Rate</p>
+              <p className="mt-1 text-xl font-semibold text-on-surface">{occupancyRate}%</p>
             </div>
-            <div className="rounded-lg border border-stone-200 bg-stone-50 p-3">
-              <p className="text-xs text-stone-500">Rentang Harga</p>
-              <p className="mt-1 text-sm font-semibold text-stone-900">
+            <div className="rounded-lg border-0 bg-surface-container-low p-3">
+              <p className="text-xs text-on-surface/60">Rentang Harga</p>
+              <p className="mt-1 text-sm font-semibold text-on-surface">
                 {formatCurrency(accommodation.priceRange.min)} - {formatCurrency(accommodation.priceRange.max)}
               </p>
             </div>
@@ -114,20 +114,20 @@ export default async function AccommodationDetailPage({
           <CardHeader>
             <CardTitle className="text-base">Promotion & Payout Summary</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4 text-sm text-stone-600">
-            <div className="rounded-lg border border-stone-200 bg-stone-50 p-4">
-              <p className="text-xs uppercase tracking-wide text-stone-500">Active Promotions</p>
-              <p className="mt-1 text-2xl font-semibold text-stone-900">
+          <CardContent className="space-y-4 text-sm text-on-surface/70">
+            <div className="rounded-lg border-0 bg-surface-container-low p-4">
+              <p className="text-xs uppercase tracking-wide text-on-surface/60">Active Promotions</p>
+              <p className="mt-1 text-2xl font-semibold text-on-surface">
                 {promotions.filter((promotion) => promotion.status === "active").length}
               </p>
             </div>
-            <div className="rounded-lg border border-stone-200 bg-stone-50 p-4">
-              <p className="text-xs uppercase tracking-wide text-stone-500">Pending Withdrawals</p>
-              <p className="mt-1 text-2xl font-semibold text-stone-900">{pendingWithdrawals.length}</p>
+            <div className="rounded-lg border-0 bg-surface-container-low p-4">
+              <p className="text-xs uppercase tracking-wide text-on-surface/60">Pending Withdrawals</p>
+              <p className="mt-1 text-2xl font-semibold text-on-surface">{pendingWithdrawals.length}</p>
             </div>
-            <div className="rounded-lg border border-stone-200 bg-stone-50 p-4">
-              <p className="text-xs uppercase tracking-wide text-stone-500">Primary Account</p>
-              <p className="mt-1 font-semibold text-stone-900">{bankAccount?.bankName ?? "No bank account"}</p>
+            <div className="rounded-lg border-0 bg-surface-container-low p-4">
+              <p className="text-xs uppercase tracking-wide text-on-surface/60">Primary Account</p>
+              <p className="mt-1 font-semibold text-on-surface">{bankAccount?.bankName ?? "No bank account"}</p>
               <p>{bankAccount?.accountHolderName ?? "Add a payout account in finance settings."}</p>
             </div>
             <Button asChild className="w-full">
@@ -139,12 +139,8 @@ export default async function AccommodationDetailPage({
 
       {promotions.length > 0 ? (
         <div className="space-y-3">
-          <h2 className="text-lg font-semibold text-stone-900">Promotions for This Property</h2>
-          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-            {promotions.map((promotion) => (
-              <PromotionCard key={promotion.id} promotion={promotion} />
-            ))}
-          </div>
+          <h2 className="text-lg font-semibold text-on-surface">Promotions for This Property</h2>
+          <PropertyPromotionsTable promotions={promotions} />
         </div>
       ) : null}
 

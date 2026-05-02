@@ -38,14 +38,14 @@ function DropdownMenu({ items, trigger, align = "right", className }: DropdownMe
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-stone-500 transition-colors hover:bg-stone-100 hover:text-stone-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-1"
+        className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-on-surface/60 transition-colors hover:bg-surface-container hover:text-on-surface/80 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1"
       >
         {trigger || <MoreHorizontal className="h-4 w-4" />}
       </button>
       {open && (
         <div
           className={cn(
-            "absolute z-50 mt-1 min-w-[160px] overflow-hidden rounded-lg border border-stone-200 bg-white py-1 shadow-lg",
+            "absolute z-50 mt-1 min-w-[160px] overflow-hidden rounded-lg border border-surface-container-high bg-surface-container-lowest py-1 shadow-ambient",
             align === "right" ? "right-0" : "left-0"
           )}
         >
@@ -61,8 +61,8 @@ function DropdownMenu({ items, trigger, align = "right", className }: DropdownMe
               className={cn(
                 "flex w-full items-center gap-2 px-3 py-2 text-sm transition-colors",
                 item.variant === "destructive"
-                  ? "text-red-600 hover:bg-red-50"
-                  : "text-stone-700 hover:bg-stone-50",
+                  ? "text-red-600 hover:bg-red-500/10"
+                  : "text-on-surface/80 hover:bg-surface-container-low",
                 item.disabled && "cursor-not-allowed opacity-50"
               )}
             >

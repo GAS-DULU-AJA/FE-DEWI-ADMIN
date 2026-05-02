@@ -57,14 +57,14 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
 }
 
 const toastIcons: Record<ToastType, React.ReactNode> = {
-  success: <CheckCircle className="h-5 w-5 text-emerald-500" />,
+  success: <CheckCircle className="h-5 w-5 text-primary" />,
   error: <AlertCircle className="h-5 w-5 text-red-500" />,
   warning: <AlertTriangle className="h-5 w-5 text-amber-500" />,
   info: <Info className="h-5 w-5 text-blue-500" />,
 };
 
 const toastStyles: Record<ToastType, string> = {
-  success: "border-emerald-200 bg-emerald-50",
+  success: "border-emerald-200 bg-primary/10",
   error: "border-red-200 bg-red-50",
   warning: "border-amber-200 bg-amber-50",
   info: "border-blue-200 bg-blue-50",
@@ -86,14 +86,14 @@ function ToastContainer({ toasts, onRemove }: { toasts: Toast[]; onRemove: (id: 
         >
           <span className="shrink-0 pt-0.5">{toastIcons[toast.type]}</span>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-stone-900">{toast.title}</p>
+            <p className="text-sm font-medium text-on-surface">{toast.title}</p>
             {toast.description && (
-              <p className="mt-1 text-xs text-stone-600">{toast.description}</p>
+              <p className="mt-1 text-xs text-on-surface/70">{toast.description}</p>
             )}
           </div>
           <button
             onClick={() => onRemove(toast.id)}
-            className="shrink-0 rounded-md p-1 text-stone-400 hover:text-stone-600 transition-colors"
+            className="shrink-0 rounded-md p-1 text-on-surface/40 hover:text-on-surface/70 transition-colors"
           >
             <X className="h-3.5 w-3.5" />
           </button>

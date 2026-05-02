@@ -28,7 +28,7 @@ const LocationPicker = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="rounded-lg border border-stone-200 bg-stone-50 p-4 text-sm text-stone-500">
+      <div className="rounded-lg border border-surface-container-high bg-surface-container-low p-4 text-sm text-on-surface/60">
         Memuat peta...
       </div>
     ),
@@ -213,7 +213,7 @@ function StepBasicInfo({ data, onChange }: { data: FormData; onChange: (patch: P
           id="category"
           value={data.category}
           onChange={(e) => onChange({ category: e.target.value })}
-          className="h-10 w-full rounded-lg border border-stone-200 bg-white px-3 text-sm"
+          className="h-10 w-full rounded-lg border border-surface-container-high bg-surface-container-lowest px-3 text-sm"
         >
           {ACCOMMODATION_CATEGORIES.map((cat) => (
             <option key={cat.value} value={cat.value}>
@@ -225,7 +225,7 @@ function StepBasicInfo({ data, onChange }: { data: FormData; onChange: (patch: P
       <div className="space-y-2">
         <Label htmlFor="shortDescription">
           Deskripsi Singkat{" "}
-          <span className="text-stone-400 text-xs">({data.shortDescription.length}/200 karakter)</span>
+          <span className="text-on-surface/40 text-xs">({data.shortDescription.length}/200 karakter)</span>
         </Label>
         <Input
           id="shortDescription"
@@ -238,7 +238,7 @@ function StepBasicInfo({ data, onChange }: { data: FormData; onChange: (patch: P
       <div className="space-y-2">
         <Label htmlFor="description">
           Deskripsi Lengkap{" "}
-          <span className="text-stone-400 text-xs">
+          <span className="text-on-surface/40 text-xs">
             ({data.description.length} karakter, min. 100)
           </span>
         </Label>
@@ -327,8 +327,8 @@ function StepLocation({ data, onChange }: { data: FormData; onChange: (patch: Pa
           />
         </div>
       </div>
-      <div className="space-y-3 rounded-lg border border-stone-200 bg-stone-50 p-4">
-        <p className="text-sm font-medium text-stone-700">Tag Lokasi GPS Presisi</p>
+      <div className="space-y-3 rounded-lg border border-surface-container-high bg-surface-container-low p-4">
+        <p className="text-sm font-medium text-on-surface/80">Tag Lokasi GPS Presisi</p>
         <LocationPicker
           latitude={data.latitude}
           longitude={data.longitude}
@@ -359,7 +359,7 @@ function StepLocation({ data, onChange }: { data: FormData; onChange: (patch: Pa
             />
           </div>
         </div>
-        <p className="text-xs text-stone-500">
+        <p className="text-xs text-on-surface/60">
           Koordinat dapat dipilih dari pencarian peta atau klik langsung pada peta. Admin akan
           memverifikasi ketepatan lokasi terhadap alamat yang diajukan.
         </p>
@@ -371,19 +371,19 @@ function StepLocation({ data, onChange }: { data: FormData; onChange: (patch: Pa
 function StepPhotos({ data, onChange }: { data: FormData; onChange: (patch: Partial<FormData>) => void }) {
   return (
     <div className="space-y-4">
-      <div className="rounded-lg border border-dashed border-stone-300 bg-stone-50 p-6 text-center">
-        <ImageIcon className="mx-auto h-10 w-10 text-stone-400" />
-        <p className="mt-2 text-sm font-medium text-stone-700">Upload Foto Penginapan</p>
-        <p className="mt-1 text-xs text-stone-500">Minimal 5 foto, maksimal 20 foto. JPEG, PNG, WebP, maks. 5 MB per foto.</p>
+      <div className="rounded-lg border border-dashed border-surface-container-high bg-surface-container-low p-6 text-center">
+        <ImageIcon className="mx-auto h-10 w-10 text-on-surface/40" />
+        <p className="mt-2 text-sm font-medium text-on-surface/80">Upload Foto Penginapan</p>
+        <p className="mt-1 text-xs text-on-surface/60">Minimal 5 foto, maksimal 20 foto. JPEG, PNG, WebP, maks. 5 MB per foto.</p>
         <input
           type="file"
           multiple
           accept="image/jpeg,image/png,image/webp"
-          className="mt-4 block w-full text-sm text-stone-600 file:mr-3 file:rounded-lg file:border-0 file:bg-emerald-50 file:px-3 file:py-1.5 file:text-xs file:font-medium file:text-emerald-700 hover:file:bg-emerald-100"
+          className="mt-4 block w-full text-sm text-on-surface/70 file:mr-3 file:rounded-lg file:border-0 file:bg-primary/10 file:px-3 file:py-1.5 file:text-xs file:font-medium file:text-primary hover:file:bg-primary/10"
           onChange={(e) => onChange({ photoCount: e.target.files?.length ?? 0 })}
         />
         {data.photoCount > 0 && (
-          <p className="mt-2 text-sm font-medium text-emerald-700">
+          <p className="mt-2 text-sm font-medium text-primary">
             {data.photoCount} foto dipilih{" "}
             {data.photoCount < 5 && (
               <span className="text-amber-600">(perlu {5 - data.photoCount} foto lagi)</span>
@@ -391,10 +391,10 @@ function StepPhotos({ data, onChange }: { data: FormData; onChange: (patch: Part
           </p>
         )}
       </div>
-      <div className="space-y-2 rounded-lg border border-stone-200 p-4">
-        <p className="text-sm font-medium text-stone-700">Standar Kualitas Foto</p>
-        <table className="w-full text-xs text-stone-600">
-          <tbody className="divide-y divide-stone-100">
+      <div className="space-y-2 rounded-lg border border-surface-container-high p-4">
+        <p className="text-sm font-medium text-on-surface/80">Standar Kualitas Foto</p>
+        <table className="w-full text-xs text-on-surface/70">
+          <tbody className="divide-y divide-surface-container">
             {[
               ["Resolusi minimal", "1280 × 720 px (HD)"],
               ["Format", "JPEG, PNG, WebP"],
@@ -404,7 +404,7 @@ function StepPhotos({ data, onChange }: { data: FormData; onChange: (patch: Part
             ].map(([k, v]) => (
               <tr key={k} className="flex items-center gap-2 py-1">
                 <td className="w-36 font-medium">{k}</td>
-                <td className="text-stone-500">{v}</td>
+                <td className="text-on-surface/60">{v}</td>
               </tr>
             ))}
           </tbody>
@@ -427,13 +427,13 @@ function StepFacilities({ data, onChange }: { data: FormData; onChange: (patch: 
 
   return (
     <div className="space-y-5">
-      <p className="text-sm text-stone-500">
+      <p className="text-sm text-on-surface/60">
         Pilih semua fasilitas yang tersedia di penginapan Anda. Dipilih:{" "}
         <strong>{data.facilities.length}</strong> fasilitas.
       </p>
       {FACILITY_GROUPS.map((group) => (
         <div key={group.category}>
-          <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-stone-400">
+          <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-on-surface/40">
             {group.label}
           </p>
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
@@ -446,16 +446,16 @@ function StepFacilities({ data, onChange }: { data: FormData; onChange: (patch: 
                   onClick={() => toggle(item)}
                   className={`flex items-center gap-2 rounded-lg border px-3 py-2 text-left text-xs transition-all ${
                     selected
-                      ? "border-emerald-400 bg-emerald-50 text-emerald-800"
-                      : "border-stone-200 bg-white text-stone-600 hover:border-stone-300"
+                      ? "border-primary/400 bg-primary/10 text-primary"
+                      : "border-surface-container-high bg-surface-container-lowest text-on-surface/70 hover:border-surface-container-high"
                   }`}
                 >
                   <span
                     className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border transition-all ${
-                      selected ? "border-emerald-500 bg-emerald-500" : "border-stone-300"
+                      selected ? "border-primary/500 bg-primary/100" : "border-surface-container-high"
                     }`}
                   >
-                    {selected && <Check className="h-3 w-3 text-white" />}
+                    {selected && <Check className="h-3 w-3 text-primary-foreground" />}
                   </span>
                   {item}
                 </button>
@@ -471,12 +471,12 @@ function StepFacilities({ data, onChange }: { data: FormData; onChange: (patch: 
 function StepDocuments({ data, onChange }: { data: FormData; onChange: (patch: Partial<FormData>) => void }) {
   return (
     <div className="space-y-4">
-      <p className="text-sm text-stone-500">
+      <p className="text-sm text-on-surface/60">
         Upload dokumen legal penginapan. Dokumen bertanda{" "}
         <span className="text-red-500">*</span> wajib dilampirkan.
       </p>
       {DOCUMENT_TYPES.map((doc) => (
-        <div key={doc.id} className="rounded-lg border border-stone-200 p-4">
+        <div key={doc.id} className="rounded-lg border border-surface-container-high p-4">
           <Label className="mb-2 block">
             {doc.label} {doc.required && <span className="text-red-500">*</span>}
           </Label>
@@ -484,19 +484,19 @@ function StepDocuments({ data, onChange }: { data: FormData; onChange: (patch: P
             <input
               type="file"
               accept=".pdf,image/*"
-              className="block flex-1 text-sm text-stone-600 file:mr-3 file:rounded-lg file:border-0 file:bg-stone-50 file:px-3 file:py-1.5 file:text-xs file:font-medium file:text-stone-700 hover:file:bg-stone-100"
+              className="block flex-1 text-sm text-on-surface/70 file:mr-3 file:rounded-lg file:border-0 file:bg-surface-container-low file:px-3 file:py-1.5 file:text-xs file:font-medium file:text-on-surface/80 hover:file:bg-surface-container"
               onChange={(e) => {
                 const hasFile = (e.target.files?.length ?? 0) > 0;
                 onChange({ documents: { ...data.documents, [doc.id]: hasFile } });
               }}
             />
             {data.documents[doc.id] && (
-              <span className="flex items-center gap-1 text-xs text-emerald-700">
+              <span className="flex items-center gap-1 text-xs text-primary">
                 <Check className="h-3 w-3" /> Dipilih
               </span>
             )}
           </div>
-          <p className="mt-1 text-xs text-stone-400">PDF atau gambar, maks. 10 MB</p>
+          <p className="mt-1 text-xs text-on-surface/40">PDF atau gambar, maks. 10 MB</p>
         </div>
       ))}
     </div>
@@ -642,33 +642,33 @@ function StepReview({
         <CardHeader>
           <CardTitle className="text-sm">Ringkasan Pengajuan</CardTitle>
         </CardHeader>
-        <CardContent className="divide-y divide-stone-100">
+        <CardContent className="divide-y divide-surface-container">
           {summaryRows.map((row) => (
             <div key={row.label} className="flex items-start gap-3 py-2.5">
               <span
                 className={`mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full ${
-                  row.ok ? "bg-emerald-100 text-emerald-600" : "bg-amber-100 text-amber-600"
+                  row.ok ? "bg-primary/10 text-primary" : "bg-amber-100 text-amber-600"
                 }`}
               >
                 {row.ok ? <Check className="h-2.5 w-2.5" /> : <AlertTriangle className="h-2.5 w-2.5" />}
               </span>
               <div className="flex-1">
-                <p className="text-xs font-medium text-stone-600">{row.label}</p>
-                <p className={`text-sm ${row.ok ? "text-stone-800" : "text-amber-700"}`}>{row.value}</p>
+                <p className="text-xs font-medium text-on-surface/70">{row.label}</p>
+                <p className={`text-sm ${row.ok ? "text-on-surface" : "text-amber-700"}`}>{row.value}</p>
               </div>
             </div>
           ))}
         </CardContent>
       </Card>
 
-      <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-stone-200 p-4 hover:bg-stone-50">
+      <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-surface-container-high p-4 hover:bg-surface-container-low">
         <input
           type="checkbox"
           checked={data.agreeTerms}
           onChange={(e) => onChange({ agreeTerms: e.target.checked })}
-          className="mt-0.5 h-4 w-4 accent-emerald-600"
+          className="mt-0.5 h-4 w-4 accent-primary"
         />
-        <span className="text-sm text-stone-700">
+        <span className="text-sm text-on-surface/80">
           Saya menyatakan bahwa seluruh informasi yang diberikan adalah benar dan akurat. Saya
           memahami bahwa pengajuan akan melalui proses verifikasi dan platform berhak menolak
           pengajuan yang tidak memenuhi standar.
@@ -728,19 +728,19 @@ export function AccommodationWizard() {
         <CardContent className="flex flex-col items-center py-12 text-center">
           <div
             className={`mb-4 flex h-16 w-16 items-center justify-center rounded-full ${
-              isDraft ? "bg-stone-100" : "bg-emerald-100"
+              isDraft ? "bg-surface-container" : "bg-primary/10"
             }`}
           >
             {isDraft ? (
-              <FileText className={`h-8 w-8 text-stone-500`} />
+              <FileText className={`h-8 w-8 text-on-surface/60`} />
             ) : (
-              <Send className="h-8 w-8 text-emerald-600" />
+              <Send className="h-8 w-8 text-primary" />
             )}
           </div>
-          <h2 className="text-xl font-bold text-stone-900">
+          <h2 className="text-xl font-bold text-on-surface">
             {isDraft ? "Draft Tersimpan!" : "Pengajuan Berhasil Dikirim!"}
           </h2>
-          <p className="mt-2 max-w-sm text-sm text-stone-500">
+          <p className="mt-2 max-w-sm text-sm text-on-surface/60">
             {isDraft
               ? "Data telah disimpan sebagai draft. Anda dapat melanjutkan pengajuan kapan saja."
               : "Pengajuan penginapan Anda sedang dalam antrian verifikasi. Tim admin akan meninjau dalam 3–5 hari kerja. Anda akan menerima notifikasi ketika status berubah."}
@@ -793,10 +793,10 @@ export function AccommodationWizard() {
                     disabled={!isDone}
                     className={`flex h-9 w-9 items-center justify-center rounded-full transition-all ${
                       isActive
-                        ? "bg-emerald-600 text-white shadow-sm"
+                        ? "bg-primary text-primary-foreground shadow-ambient"
                         : isDone
-                        ? "cursor-pointer bg-emerald-100 text-emerald-700 hover:bg-emerald-200"
-                        : "bg-stone-100 text-stone-400"
+                        ? "cursor-pointer bg-primary/10 text-primary hover:bg-primary/20"
+                        : "bg-surface-container text-on-surface/40"
                     }`}
                   >
                     {isDone ? (
@@ -808,10 +808,10 @@ export function AccommodationWizard() {
                   <span
                     className={`hidden w-20 text-center text-[10px] sm:block ${
                       isActive
-                        ? "font-semibold text-emerald-700"
+                        ? "font-semibold text-primary"
                         : isDone
-                        ? "text-emerald-600"
-                        : "text-stone-400"
+                        ? "text-primary"
+                        : "text-on-surface/40"
                     }`}
                   >
                     {step.label}
@@ -819,7 +819,7 @@ export function AccommodationWizard() {
                 </div>
                 {index < STEPS.length - 1 && (
                   <div
-                    className={`mb-4 h-px w-10 sm:w-12 ${step.id < currentStep ? "bg-emerald-400" : "bg-stone-200"}`}
+                    className={`mb-4 h-px w-10 sm:w-12 ${step.id < currentStep ? "bg-primary/40" : "bg-surface-container-high"}`}
                   />
                 )}
               </div>
@@ -839,7 +839,7 @@ export function AccommodationWizard() {
 
         {/* Errors */}
         {errors.length > 0 && (
-          <div className="mx-6 mb-4 rounded-lg border border-red-200 bg-red-50 p-3">
+          <div className="mx-6 mb-4 rounded-lg border border-red-500/30 bg-red-500/10 p-3">
             <p className="text-xs font-medium text-red-700">Mohon perbaiki kesalahan berikut:</p>
             <ul className="mt-1 list-inside list-disc space-y-0.5">
               {errors.map((err) => (
@@ -882,7 +882,7 @@ export function AccommodationWizard() {
         </CardFooter>
       </Card>
 
-      <p className="text-center text-xs text-stone-400">
+      <p className="text-center text-xs text-on-surface/40">
         Langkah {currentStep} dari {STEPS.length}
       </p>
     </div>

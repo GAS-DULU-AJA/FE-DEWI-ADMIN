@@ -35,7 +35,7 @@ export function SmePromotionForm({ open, onOpenChange }: SmePromotionFormProps) 
           <select
             value={type}
             onChange={(e) => setType(e.target.value as (typeof SME_PROMOTION_TYPES)[number])}
-            className="h-10 w-full rounded-lg border border-stone-200 bg-white px-3 text-sm"
+            className="h-10 w-full rounded-lg border border-surface-container-high bg-surface-container-lowest px-3 text-sm"
           >
             {SME_PROMOTION_TYPES.map((item) => (
               <option key={item} value={item}>

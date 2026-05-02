@@ -20,38 +20,38 @@ export function RevenueSharingConfig() {
       <CardContent className="space-y-3 text-sm">
         <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
           <label className="space-y-1">
-            <span className="text-stone-500">{t("coordination.revenueSharing.organizer")}</span>
+            <span className="text-on-surface/60">{t("coordination.revenueSharing.organizer")}</span>
             <input
               type="number"
               min={0}
               max={100}
               value={organizer}
               onChange={(e) => setOrganizer(Number(e.target.value) || 0)}
-              className="h-10 w-full rounded-lg border border-stone-200 px-3"
+              className="h-10 w-full rounded-lg border border-surface-container-high px-3"
             />
           </label>
           <label className="space-y-1">
-            <span className="text-stone-500">{t("coordination.revenueSharing.village")}</span>
+            <span className="text-on-surface/60">{t("coordination.revenueSharing.village")}</span>
             <input
               type="number"
               min={0}
               max={100}
               value={village}
               onChange={(e) => setVillage(Number(e.target.value) || 0)}
-              className="h-10 w-full rounded-lg border border-stone-200 px-3"
+              className="h-10 w-full rounded-lg border border-surface-container-high px-3"
             />
           </label>
           <label className="space-y-1">
-            <span className="text-stone-500">{t("coordination.revenueSharing.platformFixed")}</span>
+            <span className="text-on-surface/60">{t("coordination.revenueSharing.platformFixed")}</span>
             <input
               type="number"
               value={platform}
               disabled
-              className="h-10 w-full rounded-lg border border-stone-200 bg-stone-100 px-3"
+              className="h-10 w-full rounded-lg border border-surface-container-high bg-surface-container px-3"
             />
           </label>
         </div>
-        <p className="text-xs text-stone-500">{t("coordination.revenueSharing.total", { percent: organizer + village + platform })}</p>
+        <p className="text-xs text-on-surface/60">{t("coordination.revenueSharing.total", { percent: organizer + village + platform })}</p>
         <Button>{t("coordination.revenueSharing.save")}</Button>
       </CardContent>
     </Card>

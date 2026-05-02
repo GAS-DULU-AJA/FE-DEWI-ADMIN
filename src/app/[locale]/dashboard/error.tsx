@@ -20,13 +20,13 @@ export default function DashboardError({
       <div className="rounded-full bg-red-100 p-4 mb-4">
         <AlertTriangle className="h-8 w-8 text-red-600" />
       </div>
-      <h2 className="text-xl font-bold text-stone-900 mb-2">Terjadi Kesalahan</h2>
-      <p className="text-sm text-stone-500 max-w-md mb-6">
+      <h2 className="text-xl font-bold text-on-surface mb-2">Terjadi Kesalahan</h2>
+      <p className="text-sm text-on-surface/60 max-w-md mb-6">
         Maaf, terjadi kesalahan saat memuat halaman ini. Silakan coba lagi atau hubungi dukungan
         jika masalah berlanjut.
       </p>
       {error.digest && (
-        <p className="text-xs text-stone-400 mb-4 font-mono">
+        <p className="text-xs text-on-surface/40 mb-4 font-mono">
           Error ID: {error.digest}
         </p>
       )}

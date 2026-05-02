@@ -89,7 +89,7 @@ const CONVERSATIONS: Conversation[] = [
 ];
 
 const CHANNEL_TYPE_CLASS: Record<ChannelType, string> = {
-  village_partner: "bg-emerald-100 text-emerald-700",
+  village_partner: "bg-primary/10 text-primary",
   organizer_village: "bg-violet-100 text-violet-700",
   support: "bg-blue-100 text-blue-700",
 };
@@ -152,20 +152,20 @@ export default function ChatPage() {
   return (
     <div className="space-y-4">
       <div>
-        <h1 className="text-2xl font-bold text-stone-900">{t("title")}</h1>
-        <p className="mt-0.5 text-sm text-stone-500">{t("subtitle")}</p>
+        <h1 className="font-display text-title-lg font-bold text-on-surface tracking-tight">{t("title")}</h1>
+        <p className="mt-0.5 text-sm text-on-surface/60">{t("subtitle")}</p>
       </div>
 
-      <div className="flex h-150 overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm">
-        <div className="w-72 shrink-0 border-r border-stone-100 flex flex-col">
-          <div className="p-3 border-b border-stone-100">
+      <div className="flex h-150 overflow-hidden rounded-2xl border-0 bg-surface-container-lowest shadow-ambient">
+        <div className="w-72 shrink-0 border-r border-surface-container flex flex-col">
+          <div className="p-3 border-b border-surface-container">
             <div className="relative">
-              <Search className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-stone-400" />
+              <Search className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-on-surface/40" />
               <input
                 placeholder={t("searchPlaceholder")}
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full pl-8 pr-3 py-2 text-sm rounded-lg bg-stone-50 border border-stone-200 focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:border-emerald-400"
+                className="w-full pl-8 pr-3 py-2 text-sm rounded-lg bg-surface-container-low border-0 focus:outline-none focus:ring-2 focus:ring-primary/300 focus:border-primary/400"
               />
             </div>
           </div>
@@ -177,21 +177,21 @@ export default function ChatPage() {
                   setSelectedId(c.id);
                   if (c.unread > 0) handleMarkRead(c.id);
                 }}
-                className={`w-full text-left flex items-start gap-3 p-3 border-b border-stone-50 hover:bg-stone-50 transition-colors ${selectedId === c.id ? "bg-emerald-50 border-l-2 border-l-emerald-500" : ""}`}
+                className={`w-full text-left flex items-start gap-3 p-3 border-b border-surface-container hover:bg-surface-container-low transition-colors ${selectedId === c.id ? "bg-primary/10 border-l-2 border-l-primary" : ""}`}
               >
                 <Avatar name={c.name} size="sm" />
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between">
-                    <p className="text-sm font-semibold text-stone-800 truncate">{c.name}</p>
-                    <span className="text-[10px] text-stone-400 shrink-0 ml-1">{c.lastTime}</span>
+                    <p className="text-sm font-semibold text-on-surface truncate">{c.name}</p>
+                    <span className="text-[10px] text-on-surface/40 shrink-0 ml-1">{c.lastTime}</span>
                   </div>
                   <Badge className={`mt-0.5 text-[10px] px-1.5 py-0 ${CHANNEL_TYPE_CLASS[c.channelType]}`}>
                     {channelLabel(c.channelType)}
                   </Badge>
-                  <p className="text-xs text-stone-500 truncate mt-0.5">{c.lastMessage}</p>
+                  <p className="text-xs text-on-surface/60 truncate mt-0.5">{c.lastMessage}</p>
                 </div>
                 {c.unread > 0 && (
-                  <span className="rounded-full bg-emerald-600 text-white text-[10px] font-bold px-1.5 py-0.5 shrink-0">
+                  <span className="rounded-full bg-primary text-white text-[10px] font-bold px-1.5 py-0.5 shrink-0">
                     {c.unread}
                   </span>
                 )}
@@ -201,17 +201,17 @@ export default function ChatPage() {
         </div>
 
         <div className="flex-1 flex flex-col">
-          <div className="flex items-center justify-between gap-3 px-4 py-3 border-b border-stone-100">
+          <div className="flex items-center justify-between gap-3 px-4 py-3 border-b border-surface-container">
             <div className="flex items-center gap-3">
               <Avatar name={selected.name} size="sm" />
               <div>
-                <p className="text-sm font-semibold text-stone-900">{selected.name}</p>
-                <p className="text-xs text-stone-400">{selected.role}</p>
+                <p className="text-sm font-semibold text-on-surface">{selected.name}</p>
+                <p className="text-xs text-on-surface/40">{selected.role}</p>
               </div>
             </div>
             <button
               onClick={() => setShowPinned((v) => !v)}
-              className={`flex items-center gap-1 rounded-lg px-2 py-1 text-xs transition-colors ${showPinned ? "bg-amber-100 text-amber-700" : "text-stone-400 hover:bg-stone-100"}`}
+              className={`flex items-center gap-1 rounded-lg px-2 py-1 text-xs transition-colors ${showPinned ? "bg-amber-100 text-amber-700" : "text-on-surface/40 hover:bg-surface-container"}`}
             >
               <Pin className="h-3 w-3" />
               {t("pinned")}
@@ -220,7 +220,7 @@ export default function ChatPage() {
 
           <div className="flex-1 overflow-y-auto p-4 space-y-3">
             {showPinned && displayedMessages.length === 0 && (
-              <p className="text-center text-sm text-stone-400 py-8">{t("noPinnedMessages")}</p>
+              <p className="text-center text-sm text-on-surface/40 py-8">{t("noPinnedMessages")}</p>
             )}
             {displayedMessages.map((msg) => {
               const isMe = msg.senderId === "me";
@@ -238,13 +238,13 @@ export default function ChatPage() {
                       <div
                         className={`rounded-2xl px-4 py-2.5 text-sm ${
                           isMe
-                            ? "bg-emerald-600 text-white rounded-tr-sm"
-                            : "bg-stone-100 text-stone-800 rounded-tl-sm"
+                            ? "bg-primary text-white rounded-tr-sm"
+                            : "bg-surface-container text-on-surface rounded-tl-sm"
                         }`}
                       >
                         {msg.text}
                       </div>
-                      <p className={`text-[10px] text-stone-400 mt-1 ${isMe ? "text-right" : ""}`}>
+                      <p className={`text-[10px] text-on-surface/40 mt-1 ${isMe ? "text-right" : ""}`}>
                         {msg.time}
                       </p>
                     </div>
@@ -255,9 +255,9 @@ export default function ChatPage() {
             <div ref={bottomRef} />
           </div>
 
-          <div className="p-3 border-t border-stone-100 flex gap-2">
+          <div className="p-3 border-t border-surface-container flex gap-2">
             <input
-              className="flex-1 rounded-xl border border-stone-200 bg-stone-50 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:border-emerald-400"
+              className="flex-1 rounded-xl border-0 bg-surface-container-low px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/300 focus:border-primary/400"
               placeholder={t("messagePlaceholder")}
               value={input}
               onChange={(e) => setInput(e.target.value)}

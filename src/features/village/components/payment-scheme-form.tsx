@@ -20,7 +20,7 @@ export function PaymentSchemeForm() {
       </CardHeader>
       <CardContent className="space-y-3">
         <table className="w-full text-sm">
-          <thead className="border-b border-stone-200 text-left text-xs text-stone-500">
+          <thead className="border-b border-surface-container-high text-left text-xs text-on-surface/60">
             <tr>
               <th className="py-2">{t("coordination.paymentScheme.milestone")}</th>
               <th className="py-2">{t("coordination.paymentScheme.percent")}</th>
@@ -29,10 +29,10 @@ export function PaymentSchemeForm() {
           </thead>
           <tbody>
             {SCHEME_ROWS.map((row) => (
-              <tr key={row.milestoneKey} className="border-b border-stone-100">
-                <td className="py-2 text-stone-800">{t(`coordination.paymentScheme.${row.milestoneKey}`)}</td>
-                <td className="py-2 text-stone-600">{row.percent}%</td>
-                <td className="py-2 text-stone-600">{t(`coordination.paymentScheme.${row.timingKey}`)}</td>
+              <tr key={row.milestoneKey} className="border-b border-surface-container">
+                <td className="py-2 text-on-surface">{t(`coordination.paymentScheme.${row.milestoneKey}`)}</td>
+                <td className="py-2 text-on-surface/70">{row.percent}%</td>
+                <td className="py-2 text-on-surface/70">{t(`coordination.paymentScheme.${row.timingKey}`)}</td>
               </tr>
             ))}
           </tbody>

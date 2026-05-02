@@ -58,3 +58,4 @@ docs
 # Build
 .vercel
 .wrangler
+*.html

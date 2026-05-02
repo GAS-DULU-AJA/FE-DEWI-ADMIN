@@ -10,17 +10,17 @@ export function RevenueShareDisplay({ split }: { split: RevenueSplit }) {
         <CardTitle className="text-base">{t("components.revenueSharing")}</CardTitle>
       </CardHeader>
       <CardContent className="grid grid-cols-3 gap-3 text-sm">
-        <div className="rounded-lg border border-stone-200 p-3 text-center">
-          <p className="text-stone-500">{t("components.organizer")}</p>
-          <p className="text-lg font-semibold text-stone-900">{split.organizer}%</p>
+        <div className="rounded-lg border border-surface-container-high p-3 text-center">
+          <p className="text-on-surface/60">{t("components.organizer")}</p>
+          <p className="text-lg font-semibold text-on-surface">{split.organizer}%</p>
         </div>
-        <div className="rounded-lg border border-stone-200 p-3 text-center">
-          <p className="text-stone-500">{t("components.village")}</p>
-          <p className="text-lg font-semibold text-stone-900">{split.village}%</p>
+        <div className="rounded-lg border border-surface-container-high p-3 text-center">
+          <p className="text-on-surface/60">{t("components.village")}</p>
+          <p className="text-lg font-semibold text-on-surface">{split.village}%</p>
         </div>
-        <div className="rounded-lg border border-stone-200 p-3 text-center">
-          <p className="text-stone-500">{t("components.platform")}</p>
-          <p className="text-lg font-semibold text-stone-900">{split.platform}%</p>
+        <div className="rounded-lg border border-surface-container-high p-3 text-center">
+          <p className="text-on-surface/60">{t("components.platform")}</p>
+          <p className="text-lg font-semibold text-on-surface">{split.platform}%</p>
         </div>
       </CardContent>
     </Card>

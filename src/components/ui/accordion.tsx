@@ -38,7 +38,7 @@ function Accordion({ type = "single", defaultValue = [], className, children, ..
 
   return (
     <AccordionContext.Provider value={{ openItems, toggle, type }}>
-      <div className={cn("divide-y divide-stone-200", className)} {...props}>
+      <div className={cn("divide-y divide-surface-container-high", className)} {...props}>
         {children}
       </div>
     </AccordionContext.Provider>
@@ -70,7 +70,7 @@ function AccordionTrigger({ value, className, children, ...props }: AccordionTri
       type="button"
       onClick={() => toggle(value)}
       className={cn(
-        "flex w-full items-center justify-between py-4 text-sm font-medium text-stone-900 transition-all hover:text-emerald-700",
+        "flex w-full items-center justify-between py-4 text-sm font-medium text-on-surface transition-all hover:text-primary",
         className
       )}
       aria-expanded={isOpen}
@@ -79,7 +79,7 @@ function AccordionTrigger({ value, className, children, ...props }: AccordionTri
       {children}
       <ChevronDown
         className={cn(
-          "h-4 w-4 shrink-0 text-stone-500 transition-transform duration-200",
+          "h-4 w-4 shrink-0 text-on-surface/60 transition-transform duration-200",
           isOpen && "rotate-180"
         )}
       />
@@ -99,7 +99,7 @@ function AccordionContent({ value, className, children, ...props }: AccordionCon
 
   return (
     <div
-      className={cn("pb-4 text-sm text-stone-600", className)}
+      className={cn("pb-4 text-sm text-on-surface/70", className)}
       {...props}
     >
       {children}

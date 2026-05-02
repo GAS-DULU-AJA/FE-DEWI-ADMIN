@@ -14,7 +14,7 @@ import { CheckCircle, XCircle, CheckCheck } from "lucide-react";
 
 const STATUS_BADGE_CLASS: Record<string, string> = {
   pending: "bg-amber-100 text-amber-800",
-  approved: "bg-emerald-100 text-emerald-800",
+  approved: "bg-primary/10 text-primary",
   rejected: "bg-red-100 text-red-800",
   completed: "bg-blue-100 text-blue-800",
 };
@@ -91,37 +91,37 @@ export default function VillageFacilityReservationsPage() {
         columns={[
           {
             id: "facility",
-            header: t("facilities.reservations.facilityLabel") || "Fasilitas",
+            header: t("facilities.reservations.facilityLabel"),
             accessorFn: (row) => (
               <div>
-                <p className="font-medium text-stone-900">{row.facilityName}</p>
-                <p className="text-xs text-stone-500">{row.requesterName}</p>
+                <p className="font-medium text-on-surface">{row.facilityName}</p>
+                <p className="text-xs text-on-surface/60">{row.requesterName}</p>
               </div>
             ),
             sortable: true,
           },
           {
             id: "period",
-            header: t("facilities.reservations.periodLabel") || "Periode",
+            header: t("facilities.reservations.periodLabel"),
             accessorFn: (row) => `${row.startDate} - ${row.endDate}`,
             sortable: true,
           },
           {
             id: "participants",
-            header: t("facilities.reservations.participantsLabel") || "Peserta",
+            header: t("facilities.reservations.participantsLabel"),
             accessorKey: "participants",
             sortable: true,
             hideOnMobile: true,
           },
           {
             id: "purpose",
-            header: t("facilities.reservations.purposeLabel") || "Tujuan",
+            header: t("facilities.reservations.purposeLabel"),
             accessorKey: "purpose",
             hideOnMobile: true,
           },
           {
             id: "status",
-            header: "Status",
+            header: tc("status"),
             accessorFn: (row) => (
               <Badge className={STATUS_BADGE_CLASS[row.status]}>
                 {t(`facilities.reservations.status.${row.status}`)}
@@ -131,7 +131,7 @@ export default function VillageFacilityReservationsPage() {
           },
         ] satisfies ColumnDef<(typeof reservations)[0]>[]}
         keyExtractor={(row) => row.id}
-        searchPlaceholder={t("facilities.reservations.searchPlaceholder") || "Cari reservasi..."}
+        searchPlaceholder={t("facilities.reservations.searchPlaceholder")}
         searchableFields={["facilityName", "requesterName", "purpose"] as (keyof (typeof reservations)[0])[]}
         actions={(row) => {
           const items: { label: string; icon?: React.ReactNode; onClick: () => void; variant?: "default" | "destructive" }[] = [];
@@ -158,8 +158,8 @@ export default function VillageFacilityReservationsPage() {
           return items;
         }}
         emptyState={{
-          title: t("facilities.reservations.noData") || "Tidak ada reservasi",
-          description: t("facilities.reservations.noDataDescription") || "Belum ada reservasi fasilitas.",
+          title: t("facilities.reservations.noData"),
+          description: t("facilities.reservations.noDataDescription"),
         }}
       />
 

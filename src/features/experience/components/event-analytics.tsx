@@ -9,7 +9,7 @@ import { useTranslations } from "next-intl";
 function StatBlock({ label, value, color }: { label: string; value: string | number; color: string }) {
   return (
     <div className={`rounded-lg border p-3 text-center ${color}`}>
-      <p className="text-xs text-stone-500">{label}</p>
+      <p className="text-xs text-on-surface/60">{label}</p>
       <p className="text-lg font-bold">{value}</p>
     </div>
   );
@@ -20,10 +20,10 @@ function ProgressBar({ label, value, max, color }: { label: string; value: numbe
   return (
     <div className="space-y-1">
       <div className="flex justify-between text-xs">
-        <span className="text-stone-600">{label}</span>
-        <span className="font-medium text-stone-900">{value}/{max} ({pct}%)</span>
+        <span className="text-on-surface/70">{label}</span>
+        <span className="font-medium text-on-surface">{value}/{max} ({pct}%)</span>
       </div>
-      <div className="h-2 overflow-hidden rounded-full bg-stone-100">
+      <div className="h-2 overflow-hidden rounded-full bg-surface-container">
         <div className={`h-full rounded-full ${color}`} style={{ width: `${pct}%` }} />
       </div>
     </div>
@@ -73,7 +73,7 @@ export function EventAnalytics({
         <CardContent>
           <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
             <StatBlock label={t("analytics.totalBookings")} value={totalBookings} color="border-violet-200" />
-            <StatBlock label={t("analytics.totalRevenue")} value={formatCurrency(totalRevenue)} color="border-emerald-200" />
+            <StatBlock label={t("analytics.totalRevenue")} value={formatCurrency(totalRevenue)} color="border-primary/200" />
             <StatBlock label={t("analytics.ticketsSold")} value={totalTicketsSold} color="border-blue-200" />
             <StatBlock label={t("analytics.avgRating")} value={avgRating.toFixed(1)} color="border-amber-200" />
           </div>
@@ -113,7 +113,7 @@ export function EventAnalytics({
               label={t("analytics.checkInRate")}
               value={totalCheckedIn}
               max={totalBookings}
-              color="bg-emerald-500"
+              color="bg-primary/100"
             />
             <ProgressBar
               label={t("analytics.noShowRate")}
@@ -129,10 +129,10 @@ export function EventAnalytics({
             <CardTitle className="text-base">{t("analytics.paymentTitle")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
-            <ProgressBar label={t("analytics.paymentSuccess")} value={paymentStats.success} max={reservations.length} color="bg-emerald-500" />
+            <ProgressBar label={t("analytics.paymentSuccess")} value={paymentStats.success} max={reservations.length} color="bg-primary/100" />
             <ProgressBar label={t("analytics.paymentPending")} value={paymentStats.pending} max={reservations.length} color="bg-amber-500" />
             <ProgressBar label={t("analytics.paymentFailed")} value={paymentStats.failed} max={reservations.length} color="bg-red-500" />
-            <ProgressBar label={t("analytics.paymentRefunded")} value={paymentStats.refunded} max={reservations.length} color="bg-stone-400" />
+            <ProgressBar label={t("analytics.paymentRefunded")} value={paymentStats.refunded} max={reservations.length} color="bg-on-surface/30" />
           </CardContent>
         </Card>
       </div>
@@ -145,13 +145,13 @@ export function EventAnalytics({
           {experiences.map((e) => {
             const rev = e.ticketTypes.reduce((s, tk) => s + tk.price * tk.sold, 0);
             return (
-              <div key={e.id} className="flex items-center justify-between rounded-lg border border-stone-200 p-3 text-sm">
-                <span className="font-medium text-stone-900">{e.name}</span>
-                <span className="text-stone-700">{formatCurrency(rev)}</span>
+              <div key={e.id} className="flex items-center justify-between rounded-lg border border-surface-container-high p-3 text-sm">
+                <span className="font-medium text-on-surface">{e.name}</span>
+                <span className="text-on-surface/80">{formatCurrency(rev)}</span>
               </div>
             );
           })}
-          <div className="flex items-center justify-between rounded-lg bg-stone-900 p-3 text-sm text-white">
+          <div className="flex items-center justify-between rounded-lg bg-surface-container-highest p-3 text-sm text-on-surface">
             <span className="font-medium">{t("analytics.totalTicketRevenue")}</span>
             <span className="font-bold">{formatCurrency(ticketRevenue)}</span>
           </div>

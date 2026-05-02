@@ -22,12 +22,12 @@ export function ExperienceCalendar({ experiences }: { experiences: ExperienceIte
       </CardHeader>
       <CardContent className="space-y-3 text-sm">
         {experiences.map((item) => (
-          <div key={item.id} className="rounded-lg border border-stone-200 p-3">
-            <p className="font-medium text-stone-900">{item.name}</p>
-            <p className="text-stone-600">{new Date(item.scheduleStart).toLocaleString()} - {new Date(item.scheduleEnd).toLocaleString()}</p>
+          <div key={item.id} className="rounded-lg border border-surface-container-high p-3">
+            <p className="font-medium text-on-surface">{item.name}</p>
+            <p className="text-on-surface/70">{new Date(item.scheduleStart).toLocaleString()} - {new Date(item.scheduleEnd).toLocaleString()}</p>
           </div>
         ))}
-        <p className="text-xs text-stone-500">{t("calendar.detectedConflicts", { count: conflicts.length })}</p>
+        <p className="text-xs text-on-surface/60">{t("calendar.detectedConflicts", { count: conflicts.length })}</p>
       </CardContent>
     </Card>
   );

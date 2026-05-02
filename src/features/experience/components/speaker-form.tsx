@@ -83,7 +83,7 @@ export function SpeakerForm({
             value={topics}
             onChange={(e) => setTopics(e.target.value)}
           />
-          <p className="text-xs text-stone-500">{t("speakers.topicsHint")}</p>
+          <p className="text-xs text-on-surface/60">{t("speakers.topicsHint")}</p>
         </div>
       </div>
     </FormModal>

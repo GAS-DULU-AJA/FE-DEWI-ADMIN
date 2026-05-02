@@ -22,15 +22,15 @@ export function PostEventSurveyCard({ survey }: { survey: PostEventSurvey }) {
             {t("postEvent.responses", { count: survey.totalResponses })}
           </Badge>
         </div>
-        <p className="text-xs text-stone-500">
+        <p className="text-xs text-on-surface/60">
           {t("postEvent.avgSatisfaction", { value: survey.averageSatisfaction.toFixed(1) })}
         </p>
       </CardHeader>
       <CardContent className="space-y-2">
         {survey.questions.map((q) => (
-          <div key={q.id} className="rounded-lg border border-stone-200 p-3 text-sm">
-            <p className="font-medium text-stone-900">{q.question}</p>
-            <div className="mt-1 flex items-center gap-2 text-xs text-stone-500">
+          <div key={q.id} className="rounded-lg border border-surface-container-high p-3 text-sm">
+            <p className="font-medium text-on-surface">{q.question}</p>
+            <div className="mt-1 flex items-center gap-2 text-xs text-on-surface/60">
               <Badge variant="secondary">{t(`postEvent.questionTypes.${q.type}`)}</Badge>
               {q.options && <span>{q.options.length} {t("postEvent.options")}</span>}
             </div>
@@ -67,7 +67,7 @@ export function PostEventSurveyForm() {
         </div>
 
         {questions.map((q, idx) => (
-          <div key={idx} className="grid grid-cols-1 gap-2 rounded-lg border border-stone-200 p-3 md:grid-cols-3">
+          <div key={idx} className="grid grid-cols-1 gap-2 rounded-lg border border-surface-container-high p-3 md:grid-cols-3">
             <div className="space-y-1 md:col-span-2">
               <Label>{t("postEvent.question")} {idx + 1}</Label>
               <Input
@@ -79,7 +79,7 @@ export function PostEventSurveyForm() {
             <div className="space-y-1">
               <Label>{t("postEvent.questionType")}</Label>
               <select
-                className="h-10 w-full rounded-lg border border-stone-200 px-3 text-sm"
+                className="h-10 w-full rounded-lg border border-surface-container-high px-3 text-sm"
                 value={q.type}
                 onChange={(e) => updateQuestion(idx, "type", e.target.value)}
               >

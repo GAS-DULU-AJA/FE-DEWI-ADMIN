@@ -42,17 +42,17 @@ function Select({ options, value, onChange, placeholder = "Select...", className
         disabled={disabled}
         onClick={() => setOpen(!open)}
         className={cn(
-          "flex h-10 w-full items-center justify-between rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm ring-offset-white transition-colors",
-          "focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2",
+          "flex h-10 w-full items-center justify-between rounded-lg border border-surface-container-high bg-surface-container-lowest px-3 py-2 text-sm ring-offset-surface-container-lowest transition-colors",
+          "focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
           "disabled:cursor-not-allowed disabled:opacity-50",
-          !selected && "text-stone-500"
+          !selected && "text-on-surface/60"
         )}
       >
         <span className="truncate">{selected?.label || placeholder}</span>
-        <ChevronDown className={cn("h-4 w-4 shrink-0 text-stone-500 transition-transform", open && "rotate-180")} />
+        <ChevronDown className={cn("h-4 w-4 shrink-0 text-on-surface/60 transition-transform", open && "rotate-180")} />
       </button>
       {open && (
-        <div className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-lg border border-stone-200 bg-white py-1 shadow-lg">
+        <div className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-lg border border-surface-container-high bg-surface-container-lowest py-1 shadow-ambient">
           {options.map((option) => (
             <button
               key={option.value}
@@ -64,8 +64,8 @@ function Select({ options, value, onChange, placeholder = "Select...", className
               }}
               className={cn(
                 "flex w-full items-center gap-2 px-3 py-2 text-sm transition-colors",
-                "hover:bg-emerald-50 hover:text-emerald-700",
-                option.value === value && "bg-emerald-50 text-emerald-700 font-medium",
+                "hover:bg-primary/10 hover:text-primary",
+                option.value === value && "bg-primary/10 text-primary font-medium",
                 option.disabled && "cursor-not-allowed opacity-50"
               )}
             >

@@ -1,3 +1,5 @@
+import type { VillageApprovalStatus } from "@/types";
+
 export type FacilityCategory =
   | "public"
   | "security"
@@ -142,6 +144,21 @@ export interface GovernmentServiceFacility {
   priorities?: GovernmentServicePriority[];
 }
 
+export interface VillageHighlightedAttraction {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  tag: string;
+}
+
+export interface VillageBookingInfo {
+  duration: string;
+  groupSize: string;
+  includes: string[];
+  startingPrice?: number;
+}
+
 export interface VillageProfile {
   villageName: string;
   address: string;
@@ -157,6 +174,13 @@ export interface VillageProfile {
   profileSections: ProfileSection[];
   // Tags
   tags: VillageTagAssignment[];
+  // Homepage curation flags
+  isFeatured?: boolean;
+  isPopular?: boolean;
+  // Highlighted attractions shown on destination detail page
+  highlightedAttractions?: VillageHighlightedAttraction[];
+  // Booking / package info shown on destination detail sidebar
+  bookingInfo?: VillageBookingInfo;
   // Legacy fields kept for backward compat
   contactPhone?: string;
   contactEmail?: string;
@@ -215,12 +239,58 @@ export interface Experience {
 
 export interface PartnerApplication {
   id: string;
+  /** FK → VillageProfile.id — the village this partner is applying to */
+  villageId: string;
+  /** Denormalized village display name */
+  villageName: string;
+  /** Whether the Village Admin has approved this partner as an official village member */
+  villageApprovalStatus: VillageApprovalStatus;
+  /** Optional note from Village Admin (e.g. reason for rejection/revision) */
+  villageApprovalNote?: string;
+  /** Timestamp when village admin approved */
+  villageApprovedAt?: string;
   organizationName: string;
   role: "accommodation" | "sme" | "external_experience";
   ownerName: string;
+  ownerEmail?: string;
+  ownerPhone?: string;
+  businessType?: string;
+  description?: string;
+  address?: string;
   submittedAt: string;
   status: PartnerApplicationStatus;
   completionScore: number;
+  documents?: {
+    type: string;
+    fileName: string;
+    fileUrl: string;
+    uploadedAt: string;
+  }[];
+  location?: {
+    latitude: number;
+    longitude: number;
+    address: string;
+    googleMapsUrl?: string;
+  };
+  bankAccount?: {
+    bankName: string;
+    accountNumber: string;
+    accountHolder: string;
+  };
+  media?: {
+    type: "photo" | "video";
+    title: string;
+    fileUrl: string;
+    thumbnailUrl?: string;
+    uploadedAt: string;
+  }[];
+  activityLog?: {
+    id: string;
+    status: PartnerApplicationStatus;
+    note: string;
+    createdAt: string;
+  }[];
+  partnerStatus?: "active" | "pending" | "suspended";
   checklist: {
     businessInfo: boolean;
     documents: boolean;
@@ -276,4 +346,159 @@ export interface FacilityReservation {
   purpose: string;
   status: FacilityReservationStatus;
   notes?: string;
+}
+
+export interface Testimonial {
+  id: string;
+  name: string;
+  role: string;
+  avatar?: string;
+  content: string;
+  rating: number;
+  isPinned: boolean;
+  createdAt: string;
+}
+
+// ─── Facility Invoice ────────────────────────────────────────
+
+export type InvoiceStatus = "pending_payment" | "paid" | "cancelled" | "overdue";
+
+export interface FacilityInvoiceItem {
+  facilityId: string;
+  facilityName: string;
+  rentalPrice: number;
+  durationDays: number;
+  subtotal: number;
+}
+
+export interface FacilityInvoice {
+  id: string;
+  coordinationRequestId: string;
+  eventName: string;
+  organizerName: string;
+  eventDate: string;
+  issuedAt: string;
+  dueDate: string;
+  status: InvoiceStatus;
+  items: FacilityInvoiceItem[];
+  totalAmount: number;
+  paidAt?: string;
+  paymentMethod?: string;
+  invoiceNumber: string;
+}
+
+// ─── Village Balance ─────────────────────────────────────────
+
+export type BalanceTransactionType =
+  | "facility_rental"
+  | "revenue_share"
+  | "withdrawal"
+  | "refund";
+
+export interface BalanceTransaction {
+  id: string;
+  type: BalanceTransactionType;
+  description: string;
+  amount: number; // positive = credit, negative = debit
+  balanceAfter: number;
+  referenceId?: string;
+  createdAt: string;
+}
+
+export interface VillageBalance {
+  currentBalance: number;
+  totalEarnedAllTime: number;
+  pendingIncoming: number;
+  totalWithdrawn: number;
+  lastUpdatedAt: string;
+}
+
+// ─── Visitor Analytics ───────────────────────────────────────
+
+export interface MonthlyVisitorData {
+  month: string; // "Jan", "Feb", etc.
+  domestic: number;
+  international: number;
+}
+
+export interface VisitorDemographic {
+  city: string;
+  province: string;
+  count: number;
+  percentage: number;
+}
+
+export interface TopPerformer {
+  id: string;
+  name: string;
+  type: "experience" | "accommodation" | "sme";
+  revenue: number;
+  bookings: number;
+  rating: number;
+  trend: "up" | "down" | "stable";
+  trendPercent: number;
+}
+
+export interface VisitorStats {
+  totalThisMonth: number;
+  totalThisYear: number;
+  domesticPercent: number;
+  internationalPercent: number;
+  avgDurationDays: number;
+  repeatVisitorPercent: number;
+  monthlyTrend: MonthlyVisitorData[];
+  demographics: VisitorDemographic[];
+}
+
+// ─── Commission & Fee Config ─────────────────────────────────
+
+export interface CommissionConfig {
+  commissionPercent: number; // 5–15% dari setiap transaksi
+  convenienceFeeFlat: number; // Rp per transaksi
+  splitOrganizer: number;
+  splitVillage: number;
+  splitPlatform: number;
+}
+
+// ─── Subscription Tier ───────────────────────────────────────
+
+export type SubscriptionTierName = "free" | "pro" | "government";
+
+export interface SubscriptionTierFeature {
+  label: string;
+  included: boolean;
+}
+
+export interface SubscriptionTier {
+  name: SubscriptionTierName;
+  monthlyPrice: number; // 0 for free
+  commissionDiscount: number; // reduction in commission %
+  features: SubscriptionTierFeature[];
+}
+
+export interface PartnerSubscription {
+  partnerId: string;
+  currentTier: SubscriptionTierName;
+  renewsAt?: string;
+  activatedAt: string;
+}
+
+// ─── Document Verification ───────────────────────────────────
+
+export type LegalDocStatus = "not_uploaded" | "pending_review" | "verified" | "rejected";
+
+export interface LegalDocument {
+  id: string;
+  type: "sk_kepala_desa" | "sk_bupati" | "akta_bumdes" | "npwp" | "other";
+  label: string;
+  fileUrl?: string;
+  uploadedAt?: string;
+  status: LegalDocStatus;
+  reviewNote?: string;
+}
+
+export interface DocumentVerificationState {
+  isTransactionEnabled: boolean;
+  overallStatus: LegalDocStatus;
+  documents: LegalDocument[];
 }

@@ -1,5 +1,5 @@
-import { PostEventSurveyCard, PostEventSurveyForm } from "@/features/experience/components/post-event-survey";
-import { ExperienceReviewCard } from "@/features/experience/components/review-card";
+import { PostEventSurveyForm } from "@/features/experience/components/post-event-survey";
+import { PostEventLists } from "@/features/experience/components/post-event-lists";
 import { getExperienceReviews, getPostEventSurveys } from "@/features/experience/utils";
 import { getTranslations } from "next-intl/server";
 
@@ -16,27 +16,13 @@ export default async function PostEventPage({
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-stone-900">{t("postEvent.title")}</h1>
-        <p className="mt-1 text-sm text-stone-500">{t("postEvent.subtitle")}</p>
+        <h1 className="font-display text-title-lg font-bold text-on-surface tracking-tight">{t("postEvent.title")}</h1>
+        <p className="mt-2 font-body text-sm text-on-surface/60 leading-relaxed">{t("postEvent.subtitle")}</p>
       </div>
 
       <PostEventSurveyForm />
 
-      <div className="space-y-4">
-        <h2 className="text-lg font-semibold text-stone-900">{t("postEvent.existingSurveys")}</h2>
-        {surveys.map((survey) => (
-          <PostEventSurveyCard key={survey.id} survey={survey} />
-        ))}
-      </div>
-
-      <div className="space-y-4">
-        <h2 className="text-lg font-semibold text-stone-900">{t("postEvent.recentReviews")}</h2>
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-          {reviews.map((review) => (
-            <ExperienceReviewCard key={review.id} review={review} />
-          ))}
-        </div>
-      </div>
+      <PostEventLists surveys={surveys} reviews={reviews} />
     </div>
   );
 }

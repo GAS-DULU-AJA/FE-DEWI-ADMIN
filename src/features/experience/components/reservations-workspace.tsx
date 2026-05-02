@@ -163,26 +163,26 @@ export function ReservationsWorkspace({ reservations }: { reservations: Experien
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
         <Card>
           <CardContent className="pt-6">
-            <p className="text-xs text-stone-500">{isId ? "Total Reservasi" : "Total Reservations"}</p>
-            <p className="text-2xl font-bold text-stone-900">{reservations.length}</p>
+            <p className="text-xs text-on-surface/60">{isId ? "Total Reservasi" : "Total Reservations"}</p>
+            <p className="text-2xl font-bold text-on-surface">{reservations.length}</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="pt-6">
-            <p className="text-xs text-stone-500">{isId ? "Sudah Dibayar" : "Paid"}</p>
-            <p className="text-2xl font-bold text-emerald-600">{paidCount}</p>
+            <p className="text-xs text-on-surface/60">{isId ? "Sudah Dibayar" : "Paid"}</p>
+            <p className="text-2xl font-bold text-primary">{paidCount}</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="pt-6">
-            <p className="text-xs text-stone-500">{isId ? "Menunggu Pembayaran" : "Pending Payment"}</p>
+            <p className="text-xs text-on-surface/60">{isId ? "Menunggu Pembayaran" : "Pending Payment"}</p>
             <p className="text-2xl font-bold text-amber-600">{pendingCount}</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="pt-6">
-            <p className="text-xs text-stone-500">{isId ? "Revenue Terkonfirmasi" : "Confirmed Revenue"}</p>
-            <p className="text-xl font-bold text-stone-900">{formatCurrency(totalRevenue)}</p>
+            <p className="text-xs text-on-surface/60">{isId ? "Revenue Terkonfirmasi" : "Confirmed Revenue"}</p>
+            <p className="text-xl font-bold text-on-surface">{formatCurrency(totalRevenue)}</p>
           </CardContent>
         </Card>
       </div>
@@ -206,7 +206,7 @@ export function ReservationsWorkspace({ reservations }: { reservations: Experien
                 className="md:col-span-2"
               />
               <select
-                className="h-10 w-full rounded-lg border border-stone-200 px-3 text-sm"
+                className="h-10 w-full rounded-lg border border-surface-container-high px-3 text-sm"
                 value={paymentFilter}
                 onChange={(e) => {
                   setCurrentPage(1);
@@ -220,7 +220,7 @@ export function ReservationsWorkspace({ reservations }: { reservations: Experien
                 <option value="refunded">{t("reservationStatus.refunded")}</option>
               </select>
               <select
-                className="h-10 w-full rounded-lg border border-stone-200 px-3 text-sm"
+                className="h-10 w-full rounded-lg border border-surface-container-high px-3 text-sm"
                 value={bookingFilter}
                 onChange={(e) => {
                   setCurrentPage(1);
@@ -234,7 +234,7 @@ export function ReservationsWorkspace({ reservations }: { reservations: Experien
                 <option value="cancelled">{t("bookingStatus.cancelled")}</option>
               </select>
               <select
-                className="h-10 w-full rounded-lg border border-stone-200 px-3 text-sm"
+                className="h-10 w-full rounded-lg border border-surface-container-high px-3 text-sm"
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
               >
@@ -243,7 +243,7 @@ export function ReservationsWorkspace({ reservations }: { reservations: Experien
                 <option value="paymentStatus">{isId ? "Urutkan: Status Bayar" : "Sort: Payment Status"}</option>
               </select>
               <select
-                className="h-10 w-full rounded-lg border border-stone-200 px-3 text-sm"
+                className="h-10 w-full rounded-lg border border-surface-container-high px-3 text-sm"
                 value={sortOrder}
                 onChange={(e) => setSortOrder(e.target.value as typeof sortOrder)}
               >
@@ -252,8 +252,8 @@ export function ReservationsWorkspace({ reservations }: { reservations: Experien
               </select>
             </div>
 
-            <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-stone-200 bg-stone-50 px-3 py-2">
-              <p className="text-xs text-stone-600">
+            <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-surface-container-high bg-surface-container-low px-3 py-2">
+              <p className="text-xs text-on-surface/70">
                 {isId
                   ? `${selectedIds.length} reservasi dipilih`
                   : `${selectedIds.length} reservations selected`}
@@ -261,28 +261,28 @@ export function ReservationsWorkspace({ reservations }: { reservations: Experien
               <div className="flex gap-2">
                 <button
                   onClick={markSelectedNoShow}
-                  className="rounded-md border border-amber-300 bg-white px-2 py-1 text-xs text-amber-700"
+                  className="rounded-md border border-amber-300 bg-surface-container-lowest px-2 py-1 text-xs text-amber-700"
                 >
                   {isId ? "Bulk No-show" : "Bulk No-show"}
                 </button>
                 <button
                   onClick={exportSelectedCsv}
-                  className="rounded-md border border-blue-300 bg-white px-2 py-1 text-xs text-blue-700"
+                  className="rounded-md border border-blue-300 bg-surface-container-lowest px-2 py-1 text-xs text-blue-700"
                 >
                   {isId ? "Export Terpilih" : "Export Selected"}
                 </button>
                 <button
                   onClick={exportFilteredCsv}
-                  className="rounded-md border border-indigo-300 bg-white px-2 py-1 text-xs text-indigo-700"
+                  className="rounded-md border border-indigo-300 bg-surface-container-lowest px-2 py-1 text-xs text-indigo-700"
                 >
                   {isId ? "Export Semua Filter" : "Export Filtered"}
                 </button>
               </div>
             </div>
 
-            <div className="overflow-x-auto rounded-lg border border-stone-200">
+            <div className="overflow-x-auto rounded-lg border border-surface-container-high">
               <table className="w-full min-w-190 text-sm">
-                <thead className="bg-stone-50 text-left text-xs uppercase tracking-wide text-stone-500">
+                <thead className="bg-surface-container-low text-left text-xs uppercase tracking-wide text-on-surface/60">
                   <tr>
                     <th className="px-4 py-3">
                       <input
@@ -302,7 +302,7 @@ export function ReservationsWorkspace({ reservations }: { reservations: Experien
                 </thead>
                 <tbody>
                   {paginatedReservations.map((item) => (
-                    <tr key={item.id} className="border-t border-stone-200 align-top">
+                    <tr key={item.id} className="border-t border-surface-container-high align-top">
                       <td className="px-4 py-3">
                         <input
                           type="checkbox"
@@ -311,18 +311,18 @@ export function ReservationsWorkspace({ reservations }: { reservations: Experien
                         />
                       </td>
                       <td className="px-4 py-3">
-                        <p className="font-semibold text-stone-900">{item.id}</p>
-                        <p className="text-xs text-stone-500">{item.experienceName}</p>
+                        <p className="font-semibold text-on-surface">{item.id}</p>
+                        <p className="text-xs text-on-surface/60">{item.experienceName}</p>
                       </td>
                       <td className="px-4 py-3">
-                        <p className="font-medium text-stone-800">{item.customerName}</p>
-                        <p className="text-xs text-stone-500">{item.customerEmail}</p>
+                        <p className="font-medium text-on-surface">{item.customerName}</p>
+                        <p className="text-xs text-on-surface/60">{item.customerEmail}</p>
                       </td>
                       <td className="px-4 py-3">
-                        <p className="text-stone-800">{item.ticketTypeName}</p>
-                        <p className="text-xs text-stone-500">{t("components.qty")}: {item.quantity}</p>
+                        <p className="text-on-surface">{item.ticketTypeName}</p>
+                        <p className="text-xs text-on-surface/60">{t("components.qty")}: {item.quantity}</p>
                       </td>
-                      <td className="px-4 py-3 text-xs text-stone-600">{new Date(item.createdAt).toLocaleDateString(locale)}</td>
+                      <td className="px-4 py-3 text-xs text-on-surface/70">{new Date(item.createdAt).toLocaleDateString(locale)}</td>
                       <td className="px-4 py-3">
                         <Badge variant="blue">{t(`bookingStatus.${item.bookingStatus}`)}</Badge>
                       </td>
@@ -331,7 +331,7 @@ export function ReservationsWorkspace({ reservations }: { reservations: Experien
                           {t(`reservationStatus.${item.paymentStatus}`)}
                         </Badge>
                       </td>
-                      <td className="px-4 py-3 font-semibold text-stone-900">{formatCurrency(item.totalPrice)}</td>
+                      <td className="px-4 py-3 font-semibold text-on-surface">{formatCurrency(item.totalPrice)}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -339,21 +339,21 @@ export function ReservationsWorkspace({ reservations }: { reservations: Experien
             </div>
 
             <div className="flex items-center justify-between gap-3">
-              <p className="text-xs text-stone-500">
+              <p className="text-xs text-on-surface/60">
                 {isId
                   ? `Menampilkan ${(currentPage - 1) * pageSize + 1}-${Math.min(currentPage * pageSize, filteredReservations.length)} dari ${filteredReservations.length}`
                   : `Showing ${(currentPage - 1) * pageSize + 1}-${Math.min(currentPage * pageSize, filteredReservations.length)} of ${filteredReservations.length}`}
               </p>
               <div className="flex gap-2">
                 <button
-                  className="rounded-md border border-stone-300 bg-white px-3 py-1 text-xs text-stone-700 disabled:opacity-50"
+                  className="rounded-md border border-surface-container-high bg-surface-container-lowest px-3 py-1 text-xs text-on-surface/80 disabled:opacity-50"
                   disabled={currentPage <= 1}
                   onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                 >
                   {isId ? "Sebelumnya" : "Previous"}
                 </button>
                 <button
-                  className="rounded-md border border-stone-300 bg-white px-3 py-1 text-xs text-stone-700 disabled:opacity-50"
+                  className="rounded-md border border-surface-container-high bg-surface-container-lowest px-3 py-1 text-xs text-on-surface/80 disabled:opacity-50"
                   disabled={currentPage >= totalPages}
                   onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                 >

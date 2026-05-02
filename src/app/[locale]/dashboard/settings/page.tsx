@@ -11,14 +11,13 @@ import { Avatar } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { useAuthStore } from "@/stores/auth-store";
 import { useNotificationStore } from "@/stores/notification-store";
-import { User, Lock, Bell, Globe, Shield, Save, Building2, Users, CheckCircle2 } from "lucide-react";
+import { User, Lock, Bell, Globe, Shield, Save, Users, CheckCircle2 } from "lucide-react";
 import type { OrgAdminRole } from "@/types";
 
 const TABS = [
   { id: "profile", icon: User },
   { id: "security", icon: Lock },
   { id: "notifications", icon: Bell },
-  { id: "organization", icon: Building2 },
   { id: "adminManagement", icon: Users },
   { id: "language", icon: Globe },
   { id: "privacy", icon: Shield },
@@ -27,7 +26,7 @@ const TABS = [
 const ROLE_BADGE_CLASS: Record<OrgAdminRole, string> = {
   owner: "bg-amber-100 text-amber-700",
   admin: "bg-sky-100 text-sky-700",
-  viewer: "bg-stone-200 text-stone-700",
+  viewer: "bg-surface-container-high text-on-surface/80",
 };
 
 const NOTIFICATION_ROLE_ORDER = ["ALL", "VILLAGE_ADMIN", "ACCOMMODATION", "UMKM", "EVENT_ORGANIZER"] as const;
@@ -70,14 +69,6 @@ export default function PengaturanPage() {
     address: "Jl. Raya Desa Sukamaju No. 12",
     organizationName: user?.organizationName ?? "",
     bio: "Pengelola penginapan desa wisata dengan pengalaman 5 tahun.",
-  });
-
-  const [orgForm, setOrgForm] = useState({
-    displayName: user?.organizationName ?? "",
-    description: ts("organization.defaultDescription"),
-    website: "https://mitradesa.id",
-    instagram: "@mitradesa",
-    tiktok: "@mitradesa",
   });
 
   const [orgAdmins, setOrgAdmins] = useState<AdminMember[]>([
@@ -148,8 +139,8 @@ export default function PengaturanPage() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-stone-900">{t("dashboard.settings")}</h1>
-        <p className="mt-0.5 text-sm text-stone-500">{ts("subtitle")}</p>
+        <h1 className="font-display text-title-lg font-bold text-on-surface tracking-tight">{t("dashboard.settings")}</h1>
+        <p className="mt-0.5 text-sm text-on-surface/60">{ts("subtitle")}</p>
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-4">
@@ -163,8 +154,8 @@ export default function PengaturanPage() {
                   onClick={() => setActiveTab(tab.id)}
                   className={`flex w-full items-center gap-2.5 rounded-lg px-3 py-2.5 text-sm font-medium transition-all ${
                     activeTab === tab.id
-                      ? "bg-emerald-50 text-emerald-700"
-                      : "text-stone-600 hover:bg-stone-50"
+                      ? "bg-primary/10 text-primary"
+                      : "text-on-surface/70 hover:bg-surface-container-low"
                   }`}
                 >
                   <tab.icon className="h-4 w-4" />
@@ -187,8 +178,8 @@ export default function PengaturanPage() {
                 <div className="flex items-center gap-4">
                   <Avatar name={user?.fullName ?? "User"} size="lg" />
                   <div>
-                    <p className="text-sm font-medium text-stone-800">{user?.fullName}</p>
-                    <p className="text-xs text-stone-500">{user?.role}</p>
+                    <p className="text-sm font-medium text-on-surface">{user?.fullName}</p>
+                    <p className="text-xs text-on-surface/60">{user?.role}</p>
                     <Button variant="outline" size="sm" className="mt-2 text-xs">{ts("profile.changePhoto")}</Button>
                   </div>
                 </div>
@@ -244,15 +235,15 @@ export default function PengaturanPage() {
                 </Button>
 
                 {user?.role === "VILLAGE_ADMIN" ? (
-                  <div className="space-y-4 rounded-xl border border-stone-200 bg-stone-50 p-4">
+                  <div className="space-y-4 rounded-xl border-0 bg-surface-container-low p-4">
                     <div>
-                      <p className="text-sm font-semibold text-stone-900">{tv("settings.adminManagement")}</p>
-                      <p className="text-xs text-stone-500">{tv("settings.adminManagementDesc")}</p>
+                      <p className="text-sm font-semibold text-on-surface">{tv("settings.adminManagement")}</p>
+                      <p className="text-xs text-on-surface/60">{tv("settings.adminManagementDesc")}</p>
                     </div>
                     <div className="space-y-2">
                       {[user?.email, "coadmin@sarialam.id"].map((email) => (
-                        <div key={email} className="flex items-center justify-between rounded-lg border border-stone-200 bg-white px-3 py-2">
-                          <span className="text-sm text-stone-700">{email}</span>
+                        <div key={email} className="flex items-center justify-between rounded-lg border-0 bg-surface-container-lowest px-3 py-2">
+                          <span className="text-sm text-on-surface/80">{email}</span>
                           <Button variant="outline" size="sm">Remove</Button>
                         </div>
                       ))}
@@ -263,8 +254,8 @@ export default function PengaturanPage() {
                     </div>
 
                     <div>
-                      <p className="text-sm font-semibold text-stone-900">{tv("settings.villageNotificationRules")}</p>
-                      <p className="text-xs text-stone-500">{tv("settings.villageNotificationRulesDesc")}</p>
+                      <p className="text-sm font-semibold text-on-surface">{tv("settings.villageNotificationRules")}</p>
+                      <p className="text-xs text-on-surface/60">{tv("settings.villageNotificationRulesDesc")}</p>
                     </div>
                     <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
                       {[
@@ -273,7 +264,7 @@ export default function PengaturanPage() {
                         tv("settings.notifyNegativeReviews"),
                         tv("settings.notifySettlementDelays"),
                       ].map((label) => (
-                        <label key={label} className="flex items-center gap-2 rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-700">
+                        <label key={label} className="flex items-center gap-2 rounded-lg border-0 bg-surface-container-lowest px-3 py-2 text-sm text-on-surface/80">
                           <input type="checkbox" defaultChecked />
                           <span>{label}</span>
                         </label>
@@ -283,10 +274,10 @@ export default function PengaturanPage() {
                 ) : null}
 
                 {user?.role === "EVENT_ORGANIZER" ? (
-                  <div className="space-y-4 rounded-xl border border-stone-200 bg-stone-50 p-4">
+                  <div className="space-y-4 rounded-xl border-0 bg-surface-container-low p-4">
                     <div>
-                      <p className="text-sm font-semibold text-stone-900">{ts("organizer.bankSetupTitle")}</p>
-                      <p className="text-xs text-stone-500">{ts("organizer.bankSetupSubtitle")}</p>
+                      <p className="text-sm font-semibold text-on-surface">{ts("organizer.bankSetupTitle")}</p>
+                      <p className="text-xs text-on-surface/60">{ts("organizer.bankSetupSubtitle")}</p>
                     </div>
 
                     <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
@@ -324,9 +315,9 @@ export default function PengaturanPage() {
                       <Button variant="outline" onClick={handleSave}>{ts("organizer.saveBankAccount")}</Button>
                     </div>
 
-                    <div className="border-t border-stone-200 pt-4">
-                      <p className="text-sm font-semibold text-stone-900">{ts("organizer.withdrawRequest")}</p>
-                      <p className="mb-2 text-xs text-stone-500">{ts("organizer.withdrawHint")}</p>
+                    <div className="border-t border-surface-container-high pt-4">
+                      <p className="text-sm font-semibold text-on-surface">{ts("organizer.withdrawRequest")}</p>
+                      <p className="mb-2 text-xs text-on-surface/60">{ts("organizer.withdrawHint")}</p>
                       <div className="flex gap-2">
                         <Input
                           type="number"
@@ -340,16 +331,16 @@ export default function PengaturanPage() {
                     </div>
 
                     <div className="space-y-2">
-                      <p className="text-xs font-semibold uppercase tracking-wide text-stone-500">{ts("organizer.withdrawHistory")}</p>
+                      <p className="text-xs font-semibold uppercase tracking-wide text-on-surface/60">{ts("organizer.withdrawHistory")}</p>
                       {withdrawRequests.map((item) => (
-                        <div key={item.id} className="flex items-center justify-between rounded-lg border border-stone-200 bg-white px-3 py-2">
+                        <div key={item.id} className="flex items-center justify-between rounded-lg border-0 bg-surface-container-lowest px-3 py-2">
                           <div>
-                            <p className="text-sm font-medium text-stone-800">{item.id}</p>
-                            <p className="text-xs text-stone-500">{item.requestedAt}</p>
+                            <p className="text-sm font-medium text-on-surface">{item.id}</p>
+                            <p className="text-xs text-on-surface/60">{item.requestedAt}</p>
                           </div>
                           <div className="flex items-center gap-2">
-                            <p className="text-sm font-semibold text-stone-900">{t("common.price")} {item.amount.toLocaleString("id-ID")}</p>
-                            <Badge className={item.status === "settled" ? "bg-emerald-100 text-emerald-700" : "bg-amber-100 text-amber-700"}>
+                            <p className="text-sm font-semibold text-on-surface">{t("common.price")} {item.amount.toLocaleString("id-ID")}</p>
+                            <Badge className={item.status === "settled" ? "bg-primary/10 text-primary" : "bg-amber-100 text-amber-700"}>
                               {ts(`withdraw.status.${item.status}`)}
                             </Badge>
                           </div>
@@ -401,20 +392,20 @@ export default function PengaturanPage() {
                   if (rolePreferences.length === 0) return null;
 
                   return (
-                    <div key={role} className="rounded-xl border border-stone-200 p-3">
-                      <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-stone-500">{formatRoleLabel(role)}</p>
+                    <div key={role} className="rounded-xl border-0 p-3">
+                      <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-on-surface/60">{formatRoleLabel(role)}</p>
                       <div className="space-y-2">
                         {rolePreferences.map((item) => (
-                          <div key={item.type} className="flex items-center justify-between py-2 border-b border-stone-50 last:border-b-0">
+                          <div key={item.type} className="flex items-center justify-between py-2 border-b border-surface-container last:border-b-0">
                             <div>
-                              <p className="text-sm font-medium text-stone-800">{formatPreferenceLabel(item.type)}</p>
-                              <p className="text-xs text-stone-400">{ts("notifications.fromSharedConfig")}</p>
+                              <p className="text-sm font-medium text-on-surface">{formatPreferenceLabel(item.type)}</p>
+                              <p className="text-xs text-on-surface/40">{ts("notifications.fromSharedConfig")}</p>
                             </div>
                             <button
                               onClick={() => setPreference(item.type, !item.enabled)}
-                              className={`relative h-5 w-9 rounded-full transition-colors ${item.enabled ? "bg-emerald-500" : "bg-stone-300"}`}
+                              className={`relative h-5 w-9 rounded-full transition-colors ${item.enabled ? "bg-primary/100" : "bg-surface-container-highest"}`}
                             >
-                              <span className={`absolute top-0.5 left-0.5 h-4 w-4 rounded-full bg-white shadow transition-transform ${item.enabled ? "translate-x-4" : ""}`} />
+                              <span className={`absolute top-0.5 left-0.5 h-4 w-4 rounded-full bg-surface-container-lowest shadow transition-transform ${item.enabled ? "translate-x-4" : ""}`} />
                             </button>
                           </div>
                         ))}
@@ -430,72 +421,6 @@ export default function PengaturanPage() {
             </Card>
           )}
 
-          {activeTab === "organization" && (
-            <Card>
-              <CardHeader>
-                <CardTitle>{ts("organization.title")}</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center gap-4 rounded-xl border border-stone-200 bg-stone-50 p-4">
-                  <Avatar name={orgForm.displayName || "Organization"} size="lg" />
-                  <div>
-                    <p className="text-sm font-semibold text-stone-900">{orgForm.displayName || ts("organization.logoFallback")}</p>
-                    <p className="text-xs text-stone-500">{ts("organization.logoHint")}</p>
-                    <Button variant="outline" size="sm" className="mt-2 text-xs">{ts("organization.uploadLogo")}</Button>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <div className="space-y-1.5">
-                    <Label>{ts("organization.displayName")}</Label>
-                    <Input
-                      value={orgForm.displayName}
-                      onChange={(e) => setOrgForm((prev) => ({ ...prev, displayName: e.target.value }))}
-                    />
-                  </div>
-                  <div className="space-y-1.5">
-                    <Label>{ts("organization.website")}</Label>
-                    <Input
-                      value={orgForm.website}
-                      onChange={(e) => setOrgForm((prev) => ({ ...prev, website: e.target.value }))}
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-1.5">
-                  <Label>{ts("organization.description")}</Label>
-                  <Textarea
-                    rows={4}
-                    value={orgForm.description}
-                    onChange={(e) => setOrgForm((prev) => ({ ...prev, description: e.target.value }))}
-                  />
-                </div>
-
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <div className="space-y-1.5">
-                    <Label>{ts("organization.instagram")}</Label>
-                    <Input
-                      value={orgForm.instagram}
-                      onChange={(e) => setOrgForm((prev) => ({ ...prev, instagram: e.target.value }))}
-                    />
-                  </div>
-                  <div className="space-y-1.5">
-                    <Label>{ts("organization.tiktok")}</Label>
-                    <Input
-                      value={orgForm.tiktok}
-                      onChange={(e) => setOrgForm((prev) => ({ ...prev, tiktok: e.target.value }))}
-                    />
-                  </div>
-                </div>
-
-                <Button onClick={handleSave}>
-                  <Save className="h-4 w-4" />
-                  {saved ? ts("saved") : ts("organization.save")}
-                </Button>
-              </CardContent>
-            </Card>
-          )}
-
           {activeTab === "adminManagement" && (
             <Card>
               <CardHeader>
@@ -503,14 +428,14 @@ export default function PengaturanPage() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
-                  <p className="text-sm font-medium text-stone-800">{ts("adminManagement.currentAdmins")}</p>
+                  <p className="text-sm font-medium text-on-surface">{ts("adminManagement.currentAdmins")}</p>
                   {orgAdmins.map((admin) => (
-                    <div key={admin.id} className="flex items-center justify-between rounded-lg border border-stone-200 px-3 py-2">
+                    <div key={admin.id} className="flex items-center justify-between rounded-lg border-0 px-3 py-2">
                       <div className="flex items-center gap-2">
-                        {admin.status === "active" && <CheckCircle2 className="h-4 w-4 text-emerald-600" />}
+                        {admin.status === "active" && <CheckCircle2 className="h-4 w-4 text-primary" />}
                         <div>
-                          <p className="text-sm font-medium text-stone-800">{admin.email}</p>
-                          <p className="text-xs text-stone-500">{ts(`adminManagement.status.${admin.status}`)}</p>
+                          <p className="text-sm font-medium text-on-surface">{admin.email}</p>
+                          <p className="text-xs text-on-surface/60">{ts(`adminManagement.status.${admin.status}`)}</p>
                         </div>
                       </div>
                       <div className="flex items-center gap-2">
@@ -525,8 +450,8 @@ export default function PengaturanPage() {
                   ))}
                 </div>
 
-                <div className="rounded-xl border border-stone-200 bg-stone-50 p-4 space-y-3">
-                  <p className="text-sm font-medium text-stone-800">{ts("adminManagement.inviteTitle")}</p>
+                <div className="rounded-xl border-0 bg-surface-container-low p-4 space-y-3">
+                  <p className="text-sm font-medium text-on-surface">{ts("adminManagement.inviteTitle")}</p>
                   <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
                     <Input
                       className="sm:col-span-2"
@@ -538,7 +463,7 @@ export default function PengaturanPage() {
                     <select
                       value={inviteRole}
                       onChange={(e) => setInviteRole(e.target.value as OrgAdminRole)}
-                      className="h-10 rounded-md border border-stone-200 bg-white px-3 text-sm"
+                      className="h-10 rounded-md border-0 bg-surface-container-lowest px-3 text-sm"
                     >
                       <option value="admin">{ts("adminManagement.roles.admin")}</option>
                       <option value="viewer">{ts("adminManagement.roles.viewer")}</option>
@@ -565,14 +490,14 @@ export default function PengaturanPage() {
                     key={lang.code}
                     className={`flex w-full items-center gap-3 rounded-xl border p-4 text-left transition-all ${
                       lang.code === "id"
-                        ? "border-emerald-400 bg-emerald-50"
-                        : "border-stone-200 hover:border-stone-300 hover:bg-stone-50"
+                        ? "border-primary/400 bg-primary/10"
+                        : "border-surface-container-high hover:border-surface-container-high hover:bg-surface-container-low"
                     }`}
                   >
                     <span className="text-2xl">{lang.flag}</span>
                     <div>
-                      <p className="text-sm font-medium text-stone-800">{lang.label}</p>
-                      {lang.code === "id" && <p className="text-xs text-emerald-600">{ts("language.active")}</p>}
+                      <p className="text-sm font-medium text-on-surface">{lang.label}</p>
+                      {lang.code === "id" && <p className="text-xs text-primary">{ts("language.active")}</p>}
                     </div>
                   </button>
                 ))}
@@ -586,9 +511,9 @@ export default function PengaturanPage() {
                 <CardTitle>{ts("privacy.title")}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="rounded-xl bg-stone-50 border border-stone-200 p-4">
-                  <p className="text-sm font-medium text-stone-800 mb-1">{ts("privacy.accountDataTitle")}</p>
-                  <p className="text-xs text-stone-500 mb-3">{ts("privacy.accountDataDesc")}</p>
+                <div className="rounded-xl bg-surface-container-low border-0 p-4">
+                  <p className="text-sm font-medium text-on-surface mb-1">{ts("privacy.accountDataTitle")}</p>
+                  <p className="text-xs text-on-surface/60 mb-3">{ts("privacy.accountDataDesc")}</p>
                   <Button variant="outline" size="sm">{ts("privacy.downloadMyData")}</Button>
                 </div>
                 <div className="rounded-xl bg-red-50 border border-red-200 p-4">

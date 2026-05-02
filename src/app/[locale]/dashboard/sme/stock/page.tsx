@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { DataTable, type ActionItem, type ColumnDef } from "@/components/ui/data-table";
 import { AlertTriangle, Package, TrendingDown, RefreshCw } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { useTranslations } from "next-intl";
@@ -36,6 +37,7 @@ const STOCK_ITEMS: StockItem[] = getSmeProducts().map((product) => ({
 
 export default function StokPage() {
   const t = useTranslations("sme.stock");
+  const tc = useTranslations("common");
   const [stocks, setStocks] = useState(STOCK_ITEMS);
   const adjustments = getSmeStockAdjustments();
 
@@ -53,28 +55,72 @@ export default function StokPage() {
   const getStockPercent = (item: StockItem) =>
     Math.min(100, Math.round((item.currentStock / (item.minStock * 3)) * 100));
 
+  const columns = useMemo<ColumnDef<StockItem>[]>(
+    () => [
+      {
+        id: "name",
+        header: tc("name"),
+        accessorKey: "name",
+        sortable: true,
+      },
+      {
+        id: "category",
+        header: tc("details"),
+        accessorKey: "category",
+        sortable: true,
+      },
+      {
+        id: "stock",
+        header: t("summary.healthyStock"),
+        accessorFn: (row) => `${row.currentStock}/${row.minStock * 3} ${row.unit}`,
+        sortable: true,
+      },
+      {
+        id: "price",
+        header: tc("price"),
+        accessorFn: (row) => formatCurrency(row.price),
+        sortable: true,
+      },
+      {
+        id: "lastRestocked",
+        header: tc("date"),
+        accessorKey: "lastRestocked",
+        sortable: true,
+        hideOnMobile: true,
+      },
+    ],
+    [t, tc],
+  );
+
+  const actions = (row: StockItem): ActionItem[] => [
+    {
+      label: t("restock"),
+      onClick: () => handleRestock(row.id),
+    },
+  ];
+
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-stone-900">{t("title")}</h1>
-        <p className="mt-0.5 text-sm text-stone-500">{t("subtitle")}</p>
+        <h1 className="font-display text-title-lg font-bold text-on-surface tracking-tight">{t("title")}</h1>
+        <p className="mt-0.5 text-sm text-on-surface/60">{t("subtitle")}</p>
       </div>
 
       <div className="grid grid-cols-3 gap-4">
-        <div className="rounded-xl bg-stone-50 border border-stone-200 p-4 text-center">
-          <Package className="h-5 w-5 text-stone-500 mx-auto mb-1" />
-          <p className="text-2xl font-bold text-stone-800">{stocks.length}</p>
-          <p className="text-xs text-stone-500">{t("summary.totalProducts")}</p>
+        <div className="rounded-xl bg-surface-container-low border-0 p-4 text-center">
+          <Package className="h-5 w-5 text-on-surface/60 mx-auto mb-1" />
+          <p className="text-2xl font-bold text-on-surface">{stocks.length}</p>
+          <p className="text-xs text-on-surface/60">{t("summary.totalProducts")}</p>
         </div>
         <div className="rounded-xl bg-red-50 border border-red-100 p-4 text-center">
           <AlertTriangle className="h-5 w-5 text-red-400 mx-auto mb-1" />
           <p className="text-2xl font-bold text-red-700">{lowStock.length}</p>
           <p className="text-xs text-red-600">{t("summary.lowStock")}</p>
         </div>
-        <div className="rounded-xl bg-emerald-50 border border-emerald-100 p-4 text-center">
-          <TrendingDown className="h-5 w-5 text-emerald-500 mx-auto mb-1" />
-          <p className="text-2xl font-bold text-emerald-700">{normalStock.length}</p>
-          <p className="text-xs text-emerald-600">{t("summary.healthyStock")}</p>
+        <div className="rounded-xl bg-primary/10 border border-primary/100 p-4 text-center">
+          <TrendingDown className="h-5 w-5 text-primary mx-auto mb-1" />
+          <p className="text-2xl font-bold text-primary">{normalStock.length}</p>
+          <p className="text-xs text-primary">{t("summary.healthyStock")}</p>
         </div>
       </div>
 
@@ -90,8 +136,8 @@ export default function StokPage() {
             {lowStock.map((item) => (
               <div key={item.id} className="flex items-center justify-between rounded-lg bg-white/80 px-3 py-2.5">
                 <div>
-                  <p className="text-sm font-medium text-stone-800">{item.name}</p>
-                  <p className="text-xs text-stone-500">
+                  <p className="text-sm font-medium text-on-surface">{item.name}</p>
+                  <p className="text-xs text-on-surface/60">
                     {t("remaining", { stock: item.currentStock, unit: item.unit, min: item.minStock })}
                   </p>
                 </div>
@@ -112,35 +158,36 @@ export default function StokPage() {
             {t("fullSnapshot")}
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
-          {stocks.map((item) => {
-            const pct = getStockPercent(item);
-            const isLow = item.currentStock <= item.minStock;
-            return (
-              <div key={item.id} className="space-y-1.5">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <span className="text-sm font-medium text-stone-800">{item.name}</span>
-                    <span className="ml-2 text-xs text-stone-400">· {item.category}</span>
+        <CardContent>
+          <DataTable
+            data={stocks}
+            columns={columns}
+            keyExtractor={(row) => row.id}
+            searchableFields={["name", "category"]}
+            searchPlaceholder={`${tc("search")}...`}
+            pageSize={10}
+            actions={actions}
+            mobileCardRenderer={(item) => {
+              const pct = getStockPercent(item);
+              return (
+                <div key={item.id} className="space-y-1.5 rounded-lg border-0 p-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium text-on-surface">{item.name}</span>
+                    <span className={`text-xs font-semibold ${item.currentStock <= item.minStock ? "text-red-600" : "text-primary"}`}>
+                      {item.currentStock}/{item.minStock * 3} {item.unit}
+                    </span>
                   </div>
-                  <span className={`text-xs font-semibold ${isLow ? "text-red-600" : "text-emerald-600"}`}>
-                    {item.currentStock}/{item.minStock * 3} {item.unit}
-                  </span>
+                  <div className="h-2 w-full rounded-full bg-surface-container-high">
+                    <div
+                      className={`h-full rounded-full transition-all ${pct <= 30 ? "bg-red-500" : pct <= 60 ? "bg-amber-500" : "bg-primary/100"}`}
+                      style={{ width: `${pct}%` }}
+                    />
+                  </div>
+                  <StockIndicator stock={item.currentStock} threshold={item.minStock} />
                 </div>
-                <div className="h-2 w-full rounded-full bg-stone-200">
-                  <div
-                    className={`h-full rounded-full transition-all ${pct <= 30 ? "bg-red-500" : pct <= 60 ? "bg-amber-500" : "bg-emerald-500"}`}
-                    style={{ width: `${pct}%` }}
-                  />
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] text-stone-400">{t("priceValue", { value: formatCurrency(item.price) })}</span>
-                  <span className="text-[10px] text-stone-400">{t("lastRestock", { date: item.lastRestocked })}</span>
-                </div>
-                <StockIndicator stock={item.currentStock} threshold={item.minStock} />
-              </div>
-            );
-          })}
+              );
+            }}
+          />
         </CardContent>
       </Card>
 
@@ -150,12 +197,12 @@ export default function StokPage() {
         </CardHeader>
         <CardContent className="space-y-2">
           {adjustments.map((adjustment) => (
-            <div key={adjustment.id} className="flex items-center justify-between rounded-lg border border-stone-200 p-2 text-sm">
+            <div key={adjustment.id} className="flex items-center justify-between rounded-lg border-0 p-2 text-sm">
               <div>
-                <p className="font-medium text-stone-900">{adjustment.productName}</p>
-                <p className="text-xs text-stone-500">{adjustment.reason}</p>
+                <p className="font-medium text-on-surface">{adjustment.productName}</p>
+                <p className="text-xs text-on-surface/60">{adjustment.reason}</p>
               </div>
-              <p className={adjustment.type === "in" ? "text-emerald-700" : "text-red-700"}>
+              <p className={adjustment.type === "in" ? "text-primary" : "text-red-700"}>
                 {adjustment.type === "in" ? "+" : "-"}
                 {adjustment.quantity}
               </p>

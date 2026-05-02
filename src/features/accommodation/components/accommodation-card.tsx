@@ -21,7 +21,7 @@ export function AccommodationCard({
         <div className="flex items-start justify-between gap-3">
           <div>
             <CardTitle className="text-base">{accommodation.name}</CardTitle>
-            <p className="mt-1 text-xs text-stone-500">
+            <p className="mt-1 text-xs text-on-surface/60">
               {accommodation.village}, {accommodation.regency}
             </p>
           </div>
@@ -29,26 +29,26 @@ export function AccommodationCard({
         </div>
       </CardHeader>
       <CardContent className="space-y-3">
-        <p className="text-sm text-stone-600">{accommodation.shortDescription}</p>
-        <div className="grid grid-cols-2 gap-2 text-xs text-stone-600">
-          <div className="rounded-lg bg-stone-50 p-2">
-            <p className="text-[11px] text-stone-400">Kamar</p>
+        <p className="text-sm text-on-surface/70">{accommodation.shortDescription}</p>
+        <div className="grid grid-cols-2 gap-2 text-xs text-on-surface/70">
+          <div className="rounded-lg bg-surface-container-low p-2">
+            <p className="text-[11px] text-on-surface/40">Kamar</p>
             <p className="mt-1 flex items-center gap-1 font-medium">
               <BedDouble className="h-3 w-3" /> {rooms.length}
             </p>
           </div>
-          <div className="rounded-lg bg-stone-50 p-2">
-            <p className="text-[11px] text-stone-400">Occupancy</p>
+          <div className="rounded-lg bg-surface-container-low p-2">
+            <p className="text-[11px] text-on-surface/40">Occupancy</p>
             <p className="mt-1 font-medium">{occupancyRate}%</p>
           </div>
-          <div className="rounded-lg bg-stone-50 p-2">
-            <p className="text-[11px] text-stone-400">Rating</p>
+          <div className="rounded-lg bg-surface-container-low p-2">
+            <p className="text-[11px] text-on-surface/40">Rating</p>
             <p className="mt-1 flex items-center gap-1 font-medium">
               <Star className="h-3 w-3 text-amber-500" /> {accommodation.rating || "-"}
             </p>
           </div>
-          <div className="rounded-lg bg-stone-50 p-2">
-            <p className="text-[11px] text-stone-400">Harga</p>
+          <div className="rounded-lg bg-surface-container-low p-2">
+            <p className="text-[11px] text-on-surface/40">Harga</p>
             <p className="mt-1 font-medium">
               {formatCurrency(accommodation.priceRange.min)} - {formatCurrency(accommodation.priceRange.max)}
             </p>

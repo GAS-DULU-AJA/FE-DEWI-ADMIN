@@ -129,7 +129,7 @@ export function VillageLocationPicker({
   const currentLatLng = hasValidCoordinates ? ([latitude, longitude] as LatLngExpression) : null;
 
   return (
-    <div className="space-y-3 rounded-xl border border-stone-300 bg-muted/20 p-4">
+    <div className="space-y-3 rounded-xl border border-surface-container-high bg-muted/20 p-4">
       <div className="space-y-2">
         <p className="text-sm font-medium">{t("villageData.map.title")}</p>
         <p className="text-xs text-muted-foreground">{t("villageData.map.description")}</p>
@@ -158,7 +158,7 @@ export function VillageLocationPicker({
             type="button"
             onClick={() => void handleSearch()}
             disabled={isSearching}
-            className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-emerald-600 px-4 text-sm font-medium text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-70"
+            className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-primary px-4 text-sm font-medium text-white hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-70"
           >
             {isSearching ? <Loader2 className="h-4 w-4 animate-spin" /> : <MapPinned className="h-4 w-4" />}
             {t("villageData.map.searchAction")}
@@ -178,7 +178,7 @@ export function VillageLocationPicker({
                   setQuery(result.display_name);
                   setResults([]);
                 }}
-                className="w-full rounded-md px-2 py-1.5 text-left text-xs text-foreground hover:bg-emerald-50"
+                className="w-full rounded-md px-2 py-1.5 text-left text-xs text-foreground hover:bg-primary/10"
               >
                 {result.display_name}
               </button>
@@ -187,7 +187,7 @@ export function VillageLocationPicker({
         ) : null}
       </div>
 
-      <div className="overflow-hidden rounded-lg border border-stone-300 bg-background">
+      <div className="overflow-hidden rounded-lg border border-surface-container-high bg-background">
         <MapContainer
           center={position}
           zoom={currentLatLng ? 15 : 5}

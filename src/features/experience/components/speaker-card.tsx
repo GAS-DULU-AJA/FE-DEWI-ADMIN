@@ -28,7 +28,7 @@ export function SpeakerCard({
             </div>
             <div>
               <CardTitle className="text-base">{speaker.name}</CardTitle>
-              <p className="text-xs text-stone-500">{speaker.title}</p>
+              <p className="text-xs text-on-surface/60">{speaker.title}</p>
             </div>
           </div>
           {(onEdit || onDelete) && (
@@ -39,7 +39,7 @@ export function SpeakerCard({
           )}
         </div>
       </CardHeader>
-      <CardContent className="space-y-2 text-sm text-stone-600">
+      <CardContent className="space-y-2 text-sm text-on-surface/70">
         <p>{speaker.bio}</p>
         <div className="flex flex-wrap gap-1">
           {speaker.topics.map((topic) => (
@@ -49,7 +49,7 @@ export function SpeakerCard({
           ))}
         </div>
         {speaker.email ? (
-          <p className="text-xs text-stone-500">{t("speakers.email")}: {speaker.email}</p>
+          <p className="text-xs text-on-surface/60">{t("speakers.email")}: {speaker.email}</p>
         ) : null}
         {speaker.socialMedia?.length ? (
           <div className="flex gap-2">

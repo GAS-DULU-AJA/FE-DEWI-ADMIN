@@ -72,10 +72,10 @@ export default function KamarPage() {
       {/* ── Stok chart ── */}
       <Card>
         <CardHeader className="pb-2">
-          <CardTitle className="text-sm font-semibold text-stone-900">
+          <CardTitle className="text-sm font-semibold text-on-surface">
             Stok & Ketersediaan Kamar Per Properti
           </CardTitle>
-          <p className="text-xs text-stone-400">
+          <p className="text-xs text-on-surface/40">
             Unit tersedia (hijau), terisi (kuning), dalam pemeliharaan (merah)
           </p>
         </CardHeader>
@@ -91,11 +91,11 @@ export default function KamarPage() {
         </CardHeader>
         <CardContent className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-5">
           <div className="space-y-1">
-            <label className="text-xs font-medium text-stone-600">Penginapan</label>
+            <label className="text-xs font-medium text-on-surface/70">Penginapan</label>
             <select
               value={selectedAccommodationId}
               onChange={(event) => setSelectedAccommodationId(event.target.value)}
-              className="h-10 w-full rounded-lg border border-stone-200 bg-white px-3 text-sm"
+              className="h-10 w-full rounded-lg border-0 bg-surface-container-lowest px-3 text-sm"
             >
               <option value="all">Semua Penginapan</option>
               {ACCOMMODATIONS.map((accommodation) => (
@@ -107,13 +107,13 @@ export default function KamarPage() {
           </div>
 
           <div className="space-y-1">
-            <label className="text-xs font-medium text-stone-600">Status</label>
+            <label className="text-xs font-medium text-on-surface/70">Status</label>
             <select
               value={selectedStatus}
               onChange={(event) =>
                 setSelectedStatus(event.target.value as "all" | "available" | "booked" | "maintenance")
               }
-              className="h-10 w-full rounded-lg border border-stone-200 bg-white px-3 text-sm"
+              className="h-10 w-full rounded-lg border-0 bg-surface-container-lowest px-3 text-sm"
             >
               <option value="all">Semua Status</option>
               <option value="available">Tersedia</option>
@@ -123,34 +123,34 @@ export default function KamarPage() {
           </div>
 
           <div className="space-y-1">
-            <label className="text-xs font-medium text-stone-600">Harga Minimum</label>
+            <label className="text-xs font-medium text-on-surface/70">Harga Minimum</label>
             <input
               type="number"
               min={0}
               value={priceMin}
               onChange={(event) => setPriceMin(Number(event.target.value) || 0)}
-              className="h-10 w-full rounded-lg border border-stone-200 bg-white px-3 text-sm"
+              className="h-10 w-full rounded-lg border-0 bg-surface-container-lowest px-3 text-sm"
             />
           </div>
 
           <div className="space-y-1">
-            <label className="text-xs font-medium text-stone-600">Harga Maksimum</label>
+            <label className="text-xs font-medium text-on-surface/70">Harga Maksimum</label>
             <input
               type="number"
               min={0}
               value={priceMax}
               onChange={(event) => setPriceMax(Number(event.target.value) || 0)}
-              className="h-10 w-full rounded-lg border border-stone-200 bg-white px-3 text-sm"
+              className="h-10 w-full rounded-lg border-0 bg-surface-container-lowest px-3 text-sm"
             />
           </div>
 
           <div className="space-y-1">
-            <label className="text-xs font-medium text-stone-600">Cari kamar</label>
+            <label className="text-xs font-medium text-on-surface/70">Cari kamar</label>
             <input
               value={query}
               onChange={(event) => setQuery(event.target.value)}
               placeholder="Nama, kode, tipe..."
-              className="h-10 w-full rounded-lg border border-stone-200 bg-white px-3 text-sm"
+              className="h-10 w-full rounded-lg border-0 bg-surface-container-lowest px-3 text-sm"
             />
           </div>
         </CardContent>
@@ -161,19 +161,19 @@ export default function KamarPage() {
           <CardHeader>
             <CardTitle className="text-sm">Tipe Kamar</CardTitle>
           </CardHeader>
-          <CardContent className="text-2xl font-semibold text-stone-900">{roomsSummary.roomTypes}</CardContent>
+          <CardContent className="text-2xl font-semibold text-on-surface">{roomsSummary.roomTypes}</CardContent>
         </Card>
         <Card>
           <CardHeader>
             <CardTitle className="text-sm">Total Unit</CardTitle>
           </CardHeader>
-          <CardContent className="text-2xl font-semibold text-stone-900">{roomsSummary.totalUnits}</CardContent>
+          <CardContent className="text-2xl font-semibold text-on-surface">{roomsSummary.totalUnits}</CardContent>
         </Card>
         <Card>
           <CardHeader>
                 <CardTitle className="text-sm">Unit Tersedia</CardTitle>
           </CardHeader>
-          <CardContent className="text-2xl font-semibold text-emerald-700">{roomsSummary.totalAvailable}</CardContent>
+          <CardContent className="text-2xl font-semibold text-primary">{roomsSummary.totalAvailable}</CardContent>
         </Card>
       </div>
 
@@ -186,13 +186,13 @@ export default function KamarPage() {
             header: "Kamar",
             accessorFn: (row) => (
               <div>
-                <p className="font-medium text-stone-900">{row.name}</p>
-                <p className="text-xs text-stone-400">{row.bedType}</p>
+                <p className="font-medium text-on-surface">{row.name}</p>
+                <p className="text-xs text-on-surface/40">{row.bedType}</p>
               </div>
             ),
             sortable: true,
           },
-          { id: "roomCode", header: "Kode", accessorKey: "roomCode" as keyof RoomRow, className: "font-mono text-xs text-stone-500", hideOnMobile: true },
+          { id: "roomCode", header: "Kode", accessorKey: "roomCode" as keyof RoomRow, className: "font-mono text-xs text-on-surface/60", hideOnMobile: true },
           { id: "type", header: "Tipe", accessorKey: "type" as keyof RoomRow, sortable: true, hideOnMobile: true },
           {
             id: "accommodation",
@@ -211,7 +211,7 @@ export default function KamarPage() {
             id: "price",
             header: "Harga / Malam",
             accessorFn: (row) => (
-              <span className="font-medium text-stone-900 whitespace-nowrap">
+              <span className="font-medium text-on-surface whitespace-nowrap">
                 {formatCurrency(row.pricePerNight)}
               </span>
             ),
@@ -226,7 +226,7 @@ export default function KamarPage() {
                   ? "text-red-600"
                   : row.availableUnits < row.totalUnits
                     ? "text-amber-600"
-                    : "text-emerald-700";
+                    : "text-primary";
               return <span className={`font-semibold ${color}`}>{row.availableUnits}/{row.totalUnits}</span>;
             },
             sortable: true,

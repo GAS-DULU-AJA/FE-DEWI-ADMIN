@@ -18,8 +18,8 @@ export function PickupTimeline({ status }: { status: SmeOrderStatus }) {
         const active = idx <= currentIndex;
         return (
           <div key={step} className="flex items-center gap-2">
-            <span className={`h-2.5 w-2.5 rounded-full ${active ? "bg-emerald-600" : "bg-stone-300"}`} />
-            <span className={active ? "text-sm text-stone-900" : "text-sm text-stone-500"}>{t(step)}</span>
+            <span className={`h-2.5 w-2.5 rounded-full ${active ? "bg-primary" : "bg-surface-container-highest"}`} />
+            <span className={active ? "text-sm text-on-surface" : "text-sm text-on-surface/60"}>{t(step)}</span>
           </div>
         );
       })}

@@ -40,8 +40,8 @@ export default function ProdukPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-stone-900">{t("title")}</h1>
-          <p className="mt-0.5 text-sm text-stone-500">{t("subtitle")}</p>
+          <h1 className="font-display text-title-lg font-bold text-on-surface tracking-tight">{t("title")}</h1>
+          <p className="mt-0.5 text-sm text-on-surface/60">{t("subtitle")}</p>
         </div>
         <Button size="sm" onClick={() => setShowForm(!showForm)}>
           {showForm ? <X className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
@@ -53,8 +53,8 @@ export default function ProdukPage() {
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         {[
           { label: t("summary.totalProducts"), value: products.length, color: "bg-amber-50 text-amber-700 border-amber-100" },
-          { label: t("summary.published"), value: products.filter((p) => p.approvalStatus === "approved").length, color: "bg-emerald-50 text-emerald-700 border-emerald-100" },
-          { label: t("summary.pending"), value: products.filter((p) => p.approvalStatus === "pending").length, color: "bg-stone-50 text-stone-700 border-stone-200" },
+          { label: t("summary.published"), value: products.filter((p) => p.approvalStatus === "approved").length, color: "bg-primary/10 text-primary border-primary/100" },
+          { label: t("summary.pending"), value: products.filter((p) => p.approvalStatus === "pending").length, color: "bg-surface-container-low text-on-surface/80 border-surface-container-high" },
           { label: t("summary.lowStock"), value: products.filter((p) => p.stock <= 5).length, color: "bg-red-50 text-red-700 border-red-100" },
         ].map((s) => (
           <div key={s.label} className={`rounded-xl border p-3 text-center ${s.color}`}>
@@ -73,7 +73,7 @@ export default function ProdukPage() {
             className={`rounded-full px-3 py-1 text-xs font-medium transition-all ${
               selectedCategory === c
                 ? "bg-amber-500 text-white"
-                : "bg-stone-100 text-stone-600 hover:bg-stone-200"
+                : "bg-surface-container text-on-surface/70 hover:bg-surface-container-high"
             }`}
           >
             {t(`categories.${c}`)}
@@ -94,8 +94,8 @@ export default function ProdukPage() {
                   <ShoppingBag className="h-4 w-4 text-amber-600" />
                 </div>
                 <div>
-                  <p className="font-semibold text-stone-900 text-sm">{row.name}</p>
-                  <p className="text-xs text-stone-500">{row.category}</p>
+                  <p className="font-semibold text-on-surface text-sm">{row.name}</p>
+                  <p className="text-xs text-on-surface/60">{row.category}</p>
                 </div>
               </div>
             ),
@@ -113,7 +113,7 @@ export default function ProdukPage() {
             id: "stock",
             header: t("tableHeaders.stock") || "Stok",
             accessorFn: (row) => (
-              <span className={`text-xs font-medium ${row.stock <= 5 ? "text-red-600" : "text-emerald-600"}`}>
+              <span className={`text-xs font-medium ${row.stock <= 5 ? "text-red-600" : "text-primary"}`}>
                 {row.stock}
               </span>
             ),
@@ -131,8 +131,8 @@ export default function ProdukPage() {
             accessorFn: (row) => (
               <span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${
                 row.approvalStatus === "approved"
-                  ? "bg-emerald-100 text-emerald-700"
-                  : "bg-stone-100 text-stone-600"
+                  ? "bg-primary/10 text-primary"
+                  : "bg-surface-container text-on-surface/70"
               }`}>
                 {row.approvalStatus === "approved" ? t("status.approved") : t("status.pending")}
               </span>

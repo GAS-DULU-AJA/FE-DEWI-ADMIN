@@ -241,9 +241,9 @@ export function ExperienceDashboardSectionsTabs({ experiences }: { experiences: 
 
       {activeTab === "overview" && (
         <div className="space-y-4">
-          <Card className="border-violet-200 bg-linear-to-br from-violet-50 via-white to-stone-50">
+          <Card className="border-violet-200 bg-linear-to-br from-violet-50 via-white to-surface-container-low">
             <CardHeader>
-              <CardTitle className="text-base text-stone-900">Experience Control Center</CardTitle>
+              <CardTitle className="text-base text-on-surface">Experience Control Center</CardTitle>
               <CardDescription>
                 {isId
                   ? "Navigasi modul utama event organizer dari setup event sampai evaluasi pasca-acara."
@@ -277,7 +277,7 @@ export function ExperienceDashboardSectionsTabs({ experiences }: { experiences: 
               <Card key={section.key}>
                 <CardHeader className="pb-3">
                   <div className="flex items-start gap-3">
-                    <div className="rounded-lg bg-stone-100 p-2 text-stone-700">
+                    <div className="rounded-lg bg-surface-container p-2 text-on-surface/80">
                       <SectionIcon className="h-5 w-5" />
                     </div>
                     <div>
@@ -291,14 +291,14 @@ export function ExperienceDashboardSectionsTabs({ experiences }: { experiences: 
                     {section.features.map((feature) => {
                       const isActive = feature.status === "active";
                       return (
-                        <div key={feature.title} className="rounded-lg border border-stone-200 bg-stone-50 p-4">
+                        <div key={feature.title} className="rounded-lg border border-surface-container-high bg-surface-container-low p-4">
                           <div className="mb-2 flex items-start justify-between gap-3">
-                            <h3 className="text-sm font-semibold text-stone-900">{feature.title}</h3>
+                            <h3 className="text-sm font-semibold text-on-surface">{feature.title}</h3>
                             <Badge variant={isActive ? "default" : "amber"}>
                               {isActive ? (isId ? "Aktif" : "Active") : "Roadmap"}
                             </Badge>
                           </div>
-                          <p className="text-xs text-stone-600">{feature.description}</p>
+                          <p className="text-xs text-on-surface/70">{feature.description}</p>
                           {feature.href ? (
                             <div className="mt-3">
                               <Button asChild variant="outline" size="sm">
@@ -324,8 +324,8 @@ export function ExperienceDashboardSectionsTabs({ experiences }: { experiences: 
       {activeTab === "active" && (
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <Wrench className="h-4 w-4 text-stone-500" />
-            <p className="text-sm font-semibold text-stone-800">
+            <Wrench className="h-4 w-4 text-on-surface/60" />
+            <p className="text-sm font-semibold text-on-surface">
               {isId ? "Event yang Sedang Berjalan" : "Current Active Experiences"}
             </p>
           </div>

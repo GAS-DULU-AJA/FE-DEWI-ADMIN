@@ -53,9 +53,9 @@ export function FacilityReservationSelector({
 
   return (
     <div className="space-y-4">
-      <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-900">
+      <div className="rounded-xl border border-primary/200 bg-primary/10 p-4 text-sm text-primary">
         <p className="font-semibold">{isId ? "Referensi wajib ke Reservations Workspace" : "Required Reservations Workspace reference"}</p>
-        <p className="mt-1 text-emerald-800">
+        <p className="mt-1 text-primary">
           {isId
             ? `Fasilitas untuk ${targetVillage || "desa tujuan"} hanya boleh dipilih dari inventaris reservasi desa.`
             : `Facilities for ${targetVillage || "the target village"} must be selected from the village reservation inventory.`}
@@ -84,11 +84,11 @@ export function FacilityReservationSelector({
               const disabled = facility.availability === "unavailable";
 
               return (
-                <div key={facility.id} className="rounded-xl border border-stone-200 bg-white p-4">
+                <div key={facility.id} className="rounded-xl border border-surface-container-high bg-surface-container-lowest p-4">
                   <div className="flex items-start justify-between gap-3">
                     <div>
-                      <p className="font-semibold text-stone-900">{facility.name}</p>
-                      <p className="text-sm text-stone-500">
+                      <p className="font-semibold text-on-surface">{facility.name}</p>
+                      <p className="text-sm text-on-surface/60">
                         {isId ? "Biaya referensi" : "Reference fee"}: Rp {facility.price.toLocaleString("id-ID")}
                       </p>
                     </div>
@@ -115,11 +115,11 @@ export function FacilityReservationSelector({
           {selectedRequests.length > 0 ? (
             <div className="space-y-3">
               {selectedRequests.map((request) => (
-                <div key={request.facilityId} className="rounded-xl border border-stone-200 bg-stone-50 p-4">
+                <div key={request.facilityId} className="rounded-xl border border-surface-container-high bg-surface-container-low p-4">
                   <div className="mb-3 flex items-center justify-between gap-3">
                     <div>
-                      <p className="font-semibold text-stone-900">{request.facilityName}</p>
-                      <p className="text-xs text-stone-500">
+                      <p className="font-semibold text-on-surface">{request.facilityName}</p>
+                      <p className="text-xs text-on-surface/60">
                         {isId ? "Atur slot pemakaian untuk pengajuan approval." : "Set the usage slot for approval submission."}
                       </p>
                     </div>
@@ -179,7 +179,7 @@ export function FacilityReservationSelector({
               ))}
             </div>
           ) : (
-            <div className="rounded-xl border border-dashed border-stone-300 bg-white p-6 text-sm text-stone-500">
+            <div className="rounded-xl border border-dashed border-surface-container-high bg-surface-container-lowest p-6 text-sm text-on-surface/60">
               {isId
                 ? "Belum ada fasilitas dipilih. Tambahkan minimal satu fasilitas desa untuk proposal yang membutuhkan venue atau aset desa."
                 : "No facility selected yet. Add at least one village facility for proposals that use village venues or assets."}

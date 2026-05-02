@@ -87,20 +87,20 @@ export default function ExperienceLayout({ children }: { children: React.ReactNo
 
   return (
     <div className="space-y-4">
-      <nav className="rounded-lg border border-stone-200 bg-white px-4 py-3" aria-label="Breadcrumb">
+      <nav className="rounded-lg border-0 bg-surface-container-lowest px-4 py-3" aria-label="Breadcrumb">
         <ol className="flex flex-wrap items-center gap-2 text-sm">
           {breadcrumbItems.map((item, index) => {
             const isLast = index === breadcrumbItems.length - 1;
             return (
               <li key={`${item.href}-${item.label}`} className="flex items-center gap-2">
                 {isLast ? (
-                  <span className="font-medium text-stone-900">{item.label}</span>
+                  <span className="font-medium text-on-surface">{item.label}</span>
                 ) : (
-                  <Link href={item.href} className="text-stone-600 hover:text-stone-900">
+                  <Link href={item.href} className="text-on-surface/70 hover:text-on-surface">
                     {item.label}
                   </Link>
                 )}
-                {!isLast && <span className="text-stone-400">/</span>}
+                {!isLast && <span className="text-on-surface/40">/</span>}
               </li>
             );
           })}

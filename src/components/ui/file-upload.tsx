@@ -73,13 +73,13 @@ function FileUpload({
         className={cn(
           "flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed p-6 transition-colors",
           dragActive
-            ? "border-emerald-500 bg-emerald-50"
-            : "border-stone-300 bg-stone-50 hover:border-emerald-400 hover:bg-emerald-50/50"
+            ? "border-primary bg-primary/10"
+            : "border-surface-container-high bg-surface-container-low hover:border-emerald-400 hover:bg-primary/10/50"
         )}
       >
-        <Upload className={cn("h-8 w-8 mb-2", dragActive ? "text-emerald-600" : "text-stone-400")} />
-        <p className="text-sm text-stone-600 text-center">{placeholder}</p>
-        <p className="text-xs text-stone-400 mt-1">Max {maxSize}MB per file</p>
+        <Upload className={cn("h-8 w-8 mb-2", dragActive ? "text-primary" : "text-on-surface/40")} />
+        <p className="text-sm text-on-surface/70 text-center">{placeholder}</p>
+        <p className="text-xs text-on-surface/40 mt-1">Max {maxSize}MB per file</p>
         <input
           ref={inputRef}
           type="file"
@@ -97,15 +97,15 @@ function FileUpload({
           {value.map((file, idx) => (
             <div
               key={idx}
-              className="flex items-center gap-3 rounded-lg border border-stone-200 bg-white px-3 py-2"
+              className="flex items-center gap-3 rounded-lg border border-surface-container-high bg-surface-container-lowest px-3 py-2"
             >
               {isImage(file) ? (
                 <ImageIcon className="h-4 w-4 text-blue-500 shrink-0" />
               ) : (
-                <FileText className="h-4 w-4 text-stone-500 shrink-0" />
+                <FileText className="h-4 w-4 text-on-surface/60 shrink-0" />
               )}
-              <span className="flex-1 truncate text-sm text-stone-700">{file.name}</span>
-              <span className="text-xs text-stone-400 shrink-0">
+              <span className="flex-1 truncate text-sm text-on-surface/80">{file.name}</span>
+              <span className="text-xs text-on-surface/40 shrink-0">
                 {(file.size / 1024).toFixed(0)} KB
               </span>
               <button
@@ -114,7 +114,7 @@ function FileUpload({
                   e.stopPropagation();
                   removeFile(idx);
                 }}
-                className="shrink-0 rounded p-1 text-stone-400 hover:bg-red-50 hover:text-red-500 transition-colors"
+                className="shrink-0 rounded p-1 text-on-surface/40 hover:bg-red-500/10 hover:text-red-500 transition-colors"
               >
                 <X className="h-3.5 w-3.5" />
               </button>

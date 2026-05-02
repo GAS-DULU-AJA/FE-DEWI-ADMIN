@@ -11,12 +11,12 @@ export function PromotionCard({ promotion, entityNames }: { promotion: Promotion
           <Badge variant={promotion.status === "active" ? "default" : "secondary"}>{promotion.status}</Badge>
         </div>
         {entityNames && entityNames.length > 0 && (
-          <p className="text-xs text-stone-500">
+          <p className="text-xs text-on-surface/60">
             {entityNames.length === 1 ? entityNames[0] : `${entityNames.length} properties`}
           </p>
         )}
       </CardHeader>
-      <CardContent className="space-y-2 text-sm text-stone-600">
+      <CardContent className="space-y-2 text-sm text-on-surface/70">
         <p>{promotion.type}</p>
         <p>
           {promotion.discountType === "percentage"

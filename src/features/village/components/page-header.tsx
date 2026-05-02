@@ -30,34 +30,34 @@ export function VillagePageHeader({
   badge,
 }: VillagePageHeaderProps) {
   return (
-    <div className="space-y-4 rounded-2xl border border-stone-200/80 bg-white/80 p-4 shadow-sm backdrop-blur sm:p-5">
-      <nav className="flex flex-wrap items-center gap-1.5 text-sm text-stone-500">
+    <div className="pb-8">
+      <nav className="flex flex-wrap items-center gap-1.5 mb-3">
         {breadcrumbs.map((item, index) => {
           const isLast = index === breadcrumbs.length - 1;
           return (
             <div key={`${item.label}-${index}`} className="flex items-center gap-1.5">
               {item.href && !isLast ? (
-                <Link href={item.href} className="transition-colors hover:text-stone-900 hover:underline underline-offset-4">
+                <Link href={item.href} className="label-sm text-on-surface/40 hover:text-on-surface/70 transition-colors">
                   {item.label}
                 </Link>
               ) : (
-                <span className={isLast ? "font-medium text-stone-900" : undefined}>
+                <span className={isLast ? "label-sm text-on-surface/60" : "label-sm text-on-surface/40"}>
                   {item.label}
                 </span>
               )}
-              {!isLast && <ChevronRight className="h-4 w-4 text-stone-400" />}
+              {!isLast && <ChevronRight className="h-3 w-3 text-on-surface/30" />}
             </div>
           );
         })}
       </nav>
 
       <div className="flex flex-wrap items-start justify-between gap-4">
-        <div>
-          <div className="flex flex-wrap items-center gap-2">
-            <h1 className="text-2xl font-bold text-stone-900">{title}</h1>
+        <div className="max-w-2xl">
+          <div className="flex flex-wrap items-center gap-3">
+            <h1 className="font-display text-title-lg font-bold text-on-surface tracking-tight">{title}</h1>
             {badge}
           </div>
-          {description ? <p className="mt-1 text-sm text-stone-500">{description}</p> : null}
+          {description ? <p className="mt-2 font-body text-sm text-on-surface/60 leading-relaxed">{description}</p> : null}
         </div>
 
         <div className="flex w-full flex-wrap items-center gap-2 sm:w-auto sm:justify-end">

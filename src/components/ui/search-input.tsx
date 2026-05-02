@@ -34,15 +34,15 @@ function SearchInput({ value, onChange, debounceMs = 300, className, placeholder
 
   return (
     <div className={cn("relative", className)}>
-      <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-stone-400" />
+      <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-on-surface/40" />
       <input
         type="text"
         value={internal}
         onChange={handleChange}
         placeholder={placeholder}
         className={cn(
-          "h-10 w-full rounded-lg border border-stone-300 bg-white pl-9 pr-9 text-sm text-stone-900 placeholder:text-stone-400",
-          "focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors"
+          "h-10 w-full rounded-lg border border-surface-container-high bg-surface-container-lowest pl-9 pr-9 text-sm text-on-surface placeholder:text-on-surface/40",
+          "focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
         )}
         {...props}
       />
@@ -50,7 +50,7 @@ function SearchInput({ value, onChange, debounceMs = 300, className, placeholder
         <button
           type="button"
           onClick={handleClear}
-          className="absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600"
+          className="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface/40 hover:text-on-surface/70"
         >
           <X className="h-4 w-4" />
         </button>

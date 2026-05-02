@@ -10,43 +10,43 @@ export default function PrivacyPage() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-stone-50 pt-20">
+      <main className="min-h-screen bg-surface-container-low pt-20">
         <div className="container mx-auto max-w-3xl px-6 py-12">
-          <Link href="/" className="mb-6 inline-flex items-center gap-1 text-sm text-emerald-600 hover:text-emerald-700">
+          <Link href="/" className="mb-6 inline-flex items-center gap-1 text-sm text-primary hover:text-primary">
             <ArrowLeft className="h-4 w-4" />
             {t("backToHome")}
           </Link>
 
           <div className="flex items-center gap-3 mb-8">
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-100">
-              <Shield className="h-5 w-5 text-emerald-600" />
+              <Shield className="h-5 w-5 text-primary" />
             </div>
-            <h1 className="text-3xl font-bold text-stone-900">{t("title")}</h1>
+            <h1 className="text-3xl font-bold text-on-surface">{t("title")}</h1>
           </div>
 
           <div className="prose prose-stone max-w-none">
-            <p className="text-stone-600 leading-relaxed">{t("intro")}</p>
+            <p className="text-on-surface/70 leading-relaxed">{t("intro")}</p>
 
-            <h2 className="text-xl font-semibold text-stone-900 mt-8 mb-3">{t("dataCollection.title")}</h2>
-            <p className="text-stone-600 leading-relaxed">{t("dataCollection.content")}</p>
+            <h2 className="text-xl font-semibold text-on-surface mt-8 mb-3">{t("dataCollection.title")}</h2>
+            <p className="text-on-surface/70 leading-relaxed">{t("dataCollection.content")}</p>
 
-            <h2 className="text-xl font-semibold text-stone-900 mt-8 mb-3">{t("dataUsage.title")}</h2>
-            <p className="text-stone-600 leading-relaxed">{t("dataUsage.content")}</p>
+            <h2 className="text-xl font-semibold text-on-surface mt-8 mb-3">{t("dataUsage.title")}</h2>
+            <p className="text-on-surface/70 leading-relaxed">{t("dataUsage.content")}</p>
 
-            <h2 className="text-xl font-semibold text-stone-900 mt-8 mb-3">{t("dataSecurity.title")}</h2>
-            <p className="text-stone-600 leading-relaxed">{t("dataSecurity.content")}</p>
+            <h2 className="text-xl font-semibold text-on-surface mt-8 mb-3">{t("dataSecurity.title")}</h2>
+            <p className="text-on-surface/70 leading-relaxed">{t("dataSecurity.content")}</p>
 
-            <h2 className="text-xl font-semibold text-stone-900 mt-8 mb-3">{t("cookies.title")}</h2>
-            <p className="text-stone-600 leading-relaxed">{t("cookies.content")}</p>
+            <h2 className="text-xl font-semibold text-on-surface mt-8 mb-3">{t("cookies.title")}</h2>
+            <p className="text-on-surface/70 leading-relaxed">{t("cookies.content")}</p>
 
-            <h2 className="text-xl font-semibold text-stone-900 mt-8 mb-3">{t("rights.title")}</h2>
-            <p className="text-stone-600 leading-relaxed">{t("rights.content")}</p>
+            <h2 className="text-xl font-semibold text-on-surface mt-8 mb-3">{t("rights.title")}</h2>
+            <p className="text-on-surface/70 leading-relaxed">{t("rights.content")}</p>
 
-            <h2 className="text-xl font-semibold text-stone-900 mt-8 mb-3">{t("contact.title")}</h2>
-            <p className="text-stone-600 leading-relaxed">{t("contact.content")}</p>
+            <h2 className="text-xl font-semibold text-on-surface mt-8 mb-3">{t("contact.title")}</h2>
+            <p className="text-on-surface/70 leading-relaxed">{t("contact.content")}</p>
           </div>
 
-          <p className="mt-10 text-xs text-stone-400">{t("lastUpdated")}</p>
+          <p className="mt-10 text-xs text-on-surface/40">{t("lastUpdated")}</p>
         </div>
       </main>
       <Footer />

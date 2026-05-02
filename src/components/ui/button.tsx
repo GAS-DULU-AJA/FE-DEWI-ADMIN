@@ -4,24 +4,24 @@ import { Slot } from "@radix-ui/react-slot";
 import { forwardRef } from "react";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium ring-offset-white transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 cursor-pointer active:scale-[0.99]",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm font-medium font-body ring-offset-surface-container-lowest transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 cursor-pointer hover:scale-[1.02] active:scale-[0.99]",
   {
     variants: {
       variant: {
         default:
-          "bg-emerald-600 text-white hover:bg-emerald-700 active:bg-emerald-800 shadow-sm hover:shadow-md",
+          "bg-primary-gradient text-primary-foreground shadow-ambient hover:brightness-110",
         secondary:
-          "bg-amber-500 text-white hover:bg-amber-600 active:bg-amber-700 shadow-sm hover:shadow-md",
+          "bg-amber-500 text-white hover:bg-amber-600 active:bg-amber-700 shadow-ambient",
         outline:
-          "border border-emerald-600 text-emerald-700 bg-transparent hover:bg-emerald-50 active:bg-emerald-100",
+          "border-[1.5px] border-primary/40 text-primary bg-transparent hover:border-primary hover:bg-primary/5",
         ghost:
-          "text-emerald-700 hover:bg-emerald-50 active:bg-emerald-100",
+          "text-primary hover:bg-primary/5",
         destructive:
-          "bg-red-600 text-white hover:bg-red-700 active:bg-red-800 shadow-sm",
-        link: "text-emerald-600 underline-offset-4 hover:underline p-0 h-auto",
+          "bg-red-600 text-white hover:bg-red-700 active:bg-red-800 shadow-ambient",
+        link: "text-primary underline-offset-4 hover:underline p-0 h-auto rounded-none hover:scale-100",
       },
       size: {
-        sm: "h-8 px-3 text-xs",
+        sm: "h-8 px-4 text-xs",
         default: "h-10 px-5 py-2",
         lg: "h-12 px-8 text-base",
         icon: "h-10 w-10",

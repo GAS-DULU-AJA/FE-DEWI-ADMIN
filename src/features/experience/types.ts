@@ -1,4 +1,4 @@
-import type { PaymentStatus } from "@/types";
+import type { PaymentStatus, VillageApprovalStatus } from "@/types";
 
 export type ExperienceCategory =
   | "cultural"
@@ -117,6 +117,16 @@ export interface ExperienceItem {
   description: string;
   shortDescription: string;
   category: ExperienceCategory;
+  /**
+   * FK → VillageProfile.id — set after coordination is approved by village admin.
+   * Undefined = experience not yet tied to an approved village.
+   */
+  villageId?: string;
+  /**
+   * Village approval is managed via ExperienceCoordination workflow.
+   * Reflects the outcome of the coordination approval process.
+   */
+  villageApprovalStatus: VillageApprovalStatus;
   visibility: EventVisibility;
   locationType: EventLocationType;
   onlineUrl?: string;

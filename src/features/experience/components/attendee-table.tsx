@@ -1,28 +1,15 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
+import { DataTable, type ColumnDef, type ActionItem } from "@/components/ui/data-table";
 import type { ExperienceReservation } from "@/features/experience/types";
 import { useTranslations } from "next-intl";
 
 export function AttendeeTable({ reservations }: { reservations: ExperienceReservation[] }) {
   const t = useTranslations("experience");
-  const [query, setQuery] = useState("");
-  const [statusFilter, setStatusFilter] = useState<string>("all");
-
-  const filtered = useMemo(() => {
-    return reservations.filter((r) => {
-      const matchesQuery =
-        r.customerName.toLowerCase().includes(query.toLowerCase()) ||
-        r.customerEmail.toLowerCase().includes(query.toLowerCase()) ||
-        r.qrCode.toLowerCase().includes(query.toLowerCase());
-      const matchesStatus = statusFilter === "all" || r.bookingStatus === statusFilter;
-      return matchesQuery && matchesStatus;
-    });
-  }, [reservations, query, statusFilter]);
 
   const stats = useMemo(() => {
     const total = reservations.reduce((sum, r) => sum + r.quantity, 0);
@@ -34,87 +21,121 @@ export function AttendeeTable({ reservations }: { reservations: ExperienceReserv
 
   const statusColors: Record<string, string> = {
     confirmed: "bg-blue-100 text-blue-700",
-    checked_in: "bg-emerald-100 text-emerald-700",
+    checked_in: "bg-primary/10 text-primary",
     no_show: "bg-red-100 text-red-700",
-    cancelled: "bg-stone-100 text-stone-500",
+    cancelled: "bg-surface-container text-on-surface/60",
   };
+
+  const columns = useMemo((): ColumnDef<ExperienceReservation>[] => [
+    {
+      id: "customerName",
+      header: t("attendees.name"),
+      accessorKey: "customerName",
+      sortable: true,
+      accessorFn: (row) => <span className="font-medium text-on-surface">{row.customerName}</span>,
+    },
+    {
+      id: "customerEmail",
+      header: t("attendees.emailCol"),
+      accessorKey: "customerEmail",
+      hideOnMobile: true,
+    },
+    {
+      id: "ticketTypeName",
+      header: t("attendees.ticket"),
+      accessorKey: "ticketTypeName",
+      sortable: true,
+      filterable: true,
+    },
+    {
+      id: "quantity",
+      header: t("attendees.qty"),
+      accessorKey: "quantity",
+      sortable: true,
+      hideOnMobile: true,
+    },
+    {
+      id: "qrCode",
+      header: t("attendees.qrCode"),
+      accessorKey: "qrCode",
+      hideOnMobile: true,
+      accessorFn: (row) => (
+        <code className="rounded bg-surface-container px-1.5 py-0.5 text-xs">{row.qrCode}</code>
+      ),
+    },
+    {
+      id: "bookingStatus",
+      header: t("attendees.status"),
+      accessorKey: "bookingStatus",
+      sortable: true,
+      filterable: true,
+      filterOptions: [
+        { label: t("bookingStatus.confirmed"), value: "confirmed" },
+        { label: t("bookingStatus.checked_in"), value: "checked_in" },
+        { label: t("bookingStatus.no_show"), value: "no_show" },
+        { label: t("bookingStatus.cancelled"), value: "cancelled" },
+      ],
+      accessorFn: (row) => (
+        <Badge className={statusColors[row.bookingStatus] ?? ""}>
+          {t(`bookingStatus.${row.bookingStatus}`)}
+        </Badge>
+      ),
+    },
+  ], [t]);
+
+  const actions = (row: ExperienceReservation): ActionItem[] => {
+    const items: ActionItem[] = [];
+    if (row.bookingStatus === "confirmed") {
+      items.push({ label: t("attendees.checkIn"), onClick: () => {} });
+    }
+    if (row.eTicketUrl) {
+      items.push({ label: t("attendees.viewTicket"), onClick: () => {} });
+    }
+    return items;
+  };
+
+  const mobileCardRenderer = (row: ExperienceReservation) => (
+    <div className="space-y-1 p-1">
+      <p className="font-semibold text-on-surface">{row.customerName}</p>
+      <p className="text-xs text-on-surface/60">{row.customerEmail}</p>
+      <p className="text-xs text-on-surface/70">{row.ticketTypeName} · ×{row.quantity}</p>
+      <Badge className={statusColors[row.bookingStatus] ?? ""}>
+        {t(`bookingStatus.${row.bookingStatus}`)}
+      </Badge>
+    </div>
+  );
 
   return (
     <Card>
       <CardHeader>
         <CardTitle className="text-base">{t("attendees.title")}</CardTitle>
-        <div className="flex flex-wrap gap-3 text-xs text-stone-500">
+        <div className="flex flex-wrap gap-3 text-xs text-on-surface/60">
           <span>{t("attendees.total")}: {stats.total}</span>
           <span>{t("attendees.checkedIn")}: {stats.checkedIn}</span>
           <span>{t("attendees.noShow")}: {stats.noShow}</span>
           <span>{t("attendees.cancelled")}: {stats.cancelled}</span>
         </div>
       </CardHeader>
-      <CardContent className="space-y-3">
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-          <Input
-            placeholder={t("attendees.searchPlaceholder")}
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            className="sm:max-w-xs"
-          />
-          <div className="flex flex-wrap gap-1">
-            {["all", "confirmed", "checked_in", "no_show", "cancelled"].map((s) => (
-              <button
-                key={s}
-                onClick={() => setStatusFilter(s)}
-                className={`rounded-full px-2.5 py-1 text-xs ${statusFilter === s ? "bg-violet-600 text-white" : "bg-stone-100 text-stone-600"}`}
-              >
-                {s === "all" ? t("events.all") : t(`bookingStatus.${s}`)}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className="overflow-x-auto">
-          <table className="w-full min-w-[700px] text-sm">
-            <thead>
-              <tr className="border-b border-stone-200 text-left text-xs text-stone-500">
-                <th className="px-3 py-2">{t("attendees.name")}</th>
-                <th className="px-3 py-2">{t("attendees.emailCol")}</th>
-                <th className="px-3 py-2">{t("attendees.ticket")}</th>
-                <th className="px-3 py-2">{t("attendees.qty")}</th>
-                <th className="px-3 py-2">{t("attendees.qrCode")}</th>
-                <th className="px-3 py-2">{t("attendees.status")}</th>
-                <th className="px-3 py-2">{t("attendees.actions")}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filtered.map((r) => (
-                <tr key={r.id} className="border-b border-stone-100">
-                  <td className="px-3 py-2 font-medium text-stone-900">{r.customerName}</td>
-                  <td className="px-3 py-2 text-stone-600">{r.customerEmail}</td>
-                  <td className="px-3 py-2 text-stone-600">{r.ticketTypeName}</td>
-                  <td className="px-3 py-2 text-stone-600">{r.quantity}</td>
-                  <td className="px-3 py-2">
-                    <code className="rounded bg-stone-100 px-1.5 py-0.5 text-xs">{r.qrCode}</code>
-                  </td>
-                  <td className="px-3 py-2">
-                    <Badge className={statusColors[r.bookingStatus] ?? ""}>{t(`bookingStatus.${r.bookingStatus}`)}</Badge>
-                  </td>
-                  <td className="px-3 py-2">
-                    {r.bookingStatus === "confirmed" && (
-                      <Button variant="outline" size="sm">{t("attendees.checkIn")}</Button>
-                    )}
-                    {r.eTicketUrl && (
-                      <Button variant="ghost" size="sm">{t("attendees.viewTicket")}</Button>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        <div className="flex justify-end gap-2">
-          <Button variant="outline" size="sm">{t("attendees.exportCsv")}</Button>
-          <Button variant="outline" size="sm">{t("attendees.sendBulkNotification")}</Button>
-        </div>
+      <CardContent>
+        <DataTable
+          data={reservations}
+          columns={columns}
+          keyExtractor={(r) => r.id}
+          searchableFields={["customerName", "customerEmail", "qrCode"]}
+          searchPlaceholder={t("attendees.searchPlaceholder")}
+          actions={actions}
+          mobileCardRenderer={mobileCardRenderer}
+          pageSize={10}
+          emptyState={{
+            title: "No attendees found",
+          }}
+          toolbarExtra={
+            <div className="flex gap-2">
+              <Button variant="outline" size="sm">{t("attendees.exportCsv")}</Button>
+              <Button variant="outline" size="sm">{t("attendees.sendBulkNotification")}</Button>
+            </div>
+          }
+        />
       </CardContent>
     </Card>
   );

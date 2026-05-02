@@ -15,7 +15,7 @@ export function ExperienceCard({ experience }: { experience: Experience }) {
           </Badge>
         </div>
       </CardHeader>
-      <CardContent className="space-y-1 text-sm text-stone-600">
+      <CardContent className="space-y-1 text-sm text-on-surface/70">
         <p>{experience.location}</p>
         <p>{new Date(experience.startsAt).toLocaleString()}</p>
         <p>{t("experiences.bookedOf", { booked: experience.booked, capacity: experience.capacity })}</p>

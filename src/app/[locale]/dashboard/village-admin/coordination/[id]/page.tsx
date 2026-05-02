@@ -8,6 +8,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { COORDINATION_REQUESTS } from "@/features/village/mock-data";
 import { PaymentSchemeForm } from "@/features/village/components/payment-scheme-form";
 import { RevenueSharingConfig } from "@/features/village/components/revenue-sharing-config";
+import { FacilityInvoiceCard } from "@/features/village/components/facility-invoice-card";
+import { EventPublishGate } from "@/features/village/components/event-publish-gate";
 import { VillagePageHeader } from "@/features/village/components/page-header";
 
 export default function CoordinationDetailPage() {
@@ -34,19 +36,26 @@ export default function CoordinationDetailPage() {
         }
       />
 
+      {/* Event status & publish gate */}
+      <EventPublishGate coordinationRequestId={request.id} eventName={request.eventName} />
+
       <Card>
         <CardHeader>
           <CardTitle className="text-base">{t("coordination.detailTitle")}</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-2 text-sm text-stone-700">
+        <CardContent className="space-y-2 text-sm text-on-surface/80">
           <p><span className="font-medium">{t("coordination.requestedDate")}:</span> {request.requestedDate}</p>
           <p><span className="font-medium">{t("coordination.participantsEstimate")}:</span> {request.participantsEstimate}</p>
           <p><span className="font-medium">{t("coordination.requestedFacility")}:</span> {request.requestedFacilityId ?? t("coordination.notSpecified")}</p>
         </CardContent>
       </Card>
 
+      {/* Invoice sewa fasilitas — payment gate sebelum event published */}
+      <FacilityInvoiceCard coordinationRequestId={request.id} />
+
       <RevenueSharingConfig />
       <PaymentSchemeForm />
     </div>
   );
 }
+

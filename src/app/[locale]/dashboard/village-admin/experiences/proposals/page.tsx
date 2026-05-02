@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { DataTable, type ActionItem, type ColumnDef } from "@/components/ui/data-table";
 import { Textarea } from "@/components/ui/textarea";
 import { VillagePageHeader } from "@/features/village/components/page-header";
 import { ProposalStatusTracker } from "@/features/shared/proposals/components/proposal-status-tracker";
@@ -35,6 +36,66 @@ export default function VillageExperienceProposalsPage() {
     if (!experience) return null;
     return { coordination, experience };
   }, [coordinations, selected]);
+
+  const proposalRows = useMemo(
+    () =>
+      data.map((item) => ({
+        ...item,
+        currentStatus: (statusOverride[item.id] ?? item.status) as ProposalStatus,
+      })),
+    [data, statusOverride],
+  );
+
+  const columns = useMemo<ColumnDef<(typeof proposalRows)[number]>[]>(
+    () => [
+      {
+        id: "title",
+        header: isId ? "Judul" : "Title",
+        accessorKey: "title",
+        sortable: true,
+      },
+      {
+        id: "module",
+        header: "Module",
+        accessorKey: "module",
+        sortable: true,
+        filterable: true,
+        filterOptions: [
+          { label: "EXPERIENCE", value: "EXPERIENCE" },
+          { label: "ACCOMMODATION", value: "ACCOMMODATION" },
+          { label: "SME", value: "SME" },
+        ],
+        hideOnMobile: true,
+      },
+      {
+        id: "fromRole",
+        header: isId ? "Role Mitra" : "Partner Role",
+        accessorKey: "fromRole",
+        sortable: true,
+        hideOnMobile: true,
+      },
+      {
+        id: "submittedAt",
+        header: isId ? "Masuk" : "Submitted",
+        accessorKey: "submittedAt",
+        sortable: true,
+      },
+      {
+        id: "status",
+        header: isId ? "Status" : "Status",
+        accessorFn: (row) => row.currentStatus,
+        sortable: true,
+      },
+    ],
+    [isId, proposalRows],
+  );
+
+  const getActions = (row: (typeof proposalRows)[number]): ActionItem[] => [
+    {
+      label: isId ? "Pilih" : "Select",
+      onClick: () => setSelectedId(row.id),
+    },
+  ];
 
   function updateStatus(id: string, next: ProposalStatus) {
     if (next === "rejected") {
@@ -75,27 +136,26 @@ export default function VillageExperienceProposalsPage() {
             <CardTitle className="text-base">{isId ? "Daftar Proposal Masuk" : "Incoming Proposal List"}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
-            {data.map((item) => {
-              const active = item.id === selected?.id;
-              const finalStatus = (statusOverride[item.id] ?? item.status) as ProposalStatus;
-              return (
-                <button
-                  key={item.id}
-                  type="button"
-                  onClick={() => setSelectedId(item.id)}
-                  className={`w-full rounded-lg border p-3 text-left transition ${
-                    active ? "border-emerald-400 bg-emerald-50" : "border-stone-200 bg-white hover:border-stone-300"
-                  }`}
-                >
-                  <div className="flex items-center justify-between gap-2">
-                    <p className="font-medium text-stone-900">{item.title}</p>
-                    <Badge variant="secondary">{finalStatus}</Badge>
+            <DataTable
+              data={proposalRows}
+              columns={columns}
+              keyExtractor={(row) => row.id}
+              searchableFields={["title", "module", "fromRole", "targetVillage"]}
+              searchPlaceholder={isId ? "Cari proposal..." : "Search proposals..."}
+              pageSize={10}
+              onRowClick={(row) => setSelectedId(row.id)}
+              actions={getActions}
+              mobileCardRenderer={(row) => (
+                <div className="space-y-1">
+                  <p className="font-medium text-on-surface">{row.title}</p>
+                  <p className="text-xs text-on-surface/60">{row.module} · {row.fromRole}</p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs text-on-surface/60">{row.submittedAt}</span>
+                    <Badge variant="secondary">{row.currentStatus}</Badge>
                   </div>
-                  <p className="mt-1 text-xs text-stone-500">{item.module} · {item.fromRole}</p>
-                  <p className="text-xs text-stone-500">{isId ? "Masuk" : "Submitted"}: {item.submittedAt}</p>
-                </button>
-              );
-            })}
+                </div>
+              )}
+            />
           </CardContent>
         </Card>
 
@@ -106,9 +166,9 @@ export default function VillageExperienceProposalsPage() {
                 <CardTitle className="text-base">{selected.title}</CardTitle>
                 <Badge variant="secondary">{statusOverride[selected.id] ?? selected.status}</Badge>
               </div>
-              <p className="text-xs text-stone-500">{selected.module} · {selected.fromRole} · {selected.targetVillage}</p>
+              <p className="text-xs text-on-surface/60">{selected.module} · {selected.fromRole} · {selected.targetVillage}</p>
             </CardHeader>
-            <CardContent className="space-y-5 text-sm text-stone-700">
+            <CardContent className="space-y-5 text-sm text-on-surface/80">
               <ProposalStatusTracker
                 status={(statusOverride[selected.id] ?? selected.status) as ProposalStatus}
                 timeline={selected.timeline}
@@ -124,8 +184,8 @@ export default function VillageExperienceProposalsPage() {
                 />
               ) : (
                 selected.sections.map((section) => (
-                  <div key={section.titleEn} className="rounded-xl border border-stone-200 p-4">
-                    <p className="mb-2 font-semibold text-stone-900">{isId ? section.titleId : section.titleEn}</p>
+                  <div key={section.titleEn} className="rounded-xl border-0 p-4">
+                    <p className="mb-2 font-semibold text-on-surface">{isId ? section.titleId : section.titleEn}</p>
                     <div className="space-y-1.5">
                       {section.rows.map((row) => (
                         <p key={`${row.labelEn}-${row.value}`}>
@@ -137,8 +197,8 @@ export default function VillageExperienceProposalsPage() {
                 ))
               )}
 
-              <div className="rounded-xl border border-stone-200 p-4">
-                <p className="mb-2 font-semibold text-stone-900">{isId ? "Aksi Approval" : "Approval Action"}</p>
+              <div className="rounded-xl border-0 p-4">
+                <p className="mb-2 font-semibold text-on-surface">{isId ? "Aksi Approval" : "Approval Action"}</p>
                 <Textarea
                   value={approvalNote[selected.id] ?? ""}
                   onChange={(event) =>
@@ -158,7 +218,7 @@ export default function VillageExperienceProposalsPage() {
                   <Button
                     type="button"
                     onClick={() => updateStatus(selected.id, "approved")}
-                    className="bg-emerald-600 hover:bg-emerald-700"
+                    className="bg-primary hover:bg-primary"
                   >
                     {isId ? "Approve" : "Approve"}
                   </Button>
@@ -209,7 +269,7 @@ function ExperienceProposalPreviewWizard({
   const [stepIndex, setStepIndex] = useState(0);
 
   return (
-    <div className="space-y-4 rounded-xl border border-stone-200 p-4">
+    <div className="space-y-4 rounded-xl border-0 p-4">
       <div className="flex flex-wrap items-center gap-2">
         {EXPERIENCE_PREVIEW_STEPS.map((step, idx) => (
           <button
@@ -217,7 +277,7 @@ function ExperienceProposalPreviewWizard({
             type="button"
             onClick={() => setStepIndex(idx)}
             className={`rounded-full px-3 py-1 text-xs ${
-              idx === stepIndex ? "bg-emerald-600 text-white" : "bg-stone-100 text-stone-600"
+              idx === stepIndex ? "bg-primary text-white" : "bg-surface-container text-on-surface/70"
             }`}
           >
             {isId
@@ -246,7 +306,7 @@ function ExperienceProposalPreviewWizard({
       </div>
 
       {stepIndex === 0 ? (
-        <div className="space-y-1.5 text-sm text-stone-700">
+        <div className="space-y-1.5 text-sm text-on-surface/80">
           <p><span className="font-medium">{isId ? "Nama" : "Name"}:</span> {experience.name}</p>
           <p><span className="font-medium">{isId ? "Kategori" : "Category"}:</span> {experience.category}</p>
           <p><span className="font-medium">{isId ? "Deskripsi" : "Description"}:</span> {experience.description}</p>
@@ -258,7 +318,7 @@ function ExperienceProposalPreviewWizard({
       ) : null}
 
       {stepIndex === 1 ? (
-        <div className="space-y-1.5 text-sm text-stone-700">
+        <div className="space-y-1.5 text-sm text-on-surface/80">
           <p><span className="font-medium">{isId ? "Mulai" : "Start"}:</span> {new Date(experience.scheduleStart).toLocaleString("id-ID")}</p>
           <p><span className="font-medium">{isId ? "Selesai" : "End"}:</span> {new Date(experience.scheduleEnd).toLocaleString("id-ID")}</p>
           <p><span className="font-medium">{isId ? "Multi-day" : "Multi-day"}:</span> {experience.isMultiDay ? "Yes" : "No"}</p>
@@ -267,7 +327,7 @@ function ExperienceProposalPreviewWizard({
       ) : null}
 
       {stepIndex === 2 ? (
-        <div className="space-y-1.5 text-sm text-stone-700">
+        <div className="space-y-1.5 text-sm text-on-surface/80">
           <p><span className="font-medium">{isId ? "Kapasitas" : "Capacity"}:</span> {experience.totalCapacity}</p>
           <p><span className="font-medium">PIC:</span> {experience.contactPerson}</p>
           <p><span className="font-medium">{isId ? "Telepon" : "Phone"}:</span> {experience.contactPhone}</p>
@@ -279,10 +339,10 @@ function ExperienceProposalPreviewWizard({
       ) : null}
 
       {stepIndex === 3 ? (
-        <div className="space-y-2 text-sm text-stone-700">
+        <div className="space-y-2 text-sm text-on-surface/80">
           {experience.ticketTypes.map((ticket) => (
-            <div key={ticket.id} className="rounded-lg border border-stone-200 bg-stone-50 p-3">
-              <p className="font-medium text-stone-900">{ticket.name}</p>
+            <div key={ticket.id} className="rounded-lg border-0 bg-surface-container-low p-3">
+              <p className="font-medium text-on-surface">{ticket.name}</p>
               <p>{ticket.description}</p>
               <p>Rp {ticket.price.toLocaleString("id-ID")} · {isId ? "Kuota" : "Quota"}: {ticket.quota} · Sold: {ticket.sold}</p>
               <p>{isId ? "Benefit" : "Includes"}: {ticket.includes.join(", ")}</p>
@@ -292,56 +352,56 @@ function ExperienceProposalPreviewWizard({
       ) : null}
 
       {stepIndex === 4 ? (
-        <div className="space-y-2 text-sm text-stone-700">
+        <div className="space-y-2 text-sm text-on-surface/80">
           {experience.itinerary.map((agenda, idx) => (
-            <div key={`${agenda.time}-${idx}`} className="rounded-lg border border-stone-200 bg-stone-50 p-3">
-              <p className="font-medium text-stone-900">{agenda.time}{agenda.endTime ? ` - ${agenda.endTime}` : ""}</p>
+            <div key={`${agenda.time}-${idx}`} className="rounded-lg border-0 bg-surface-container-low p-3">
+              <p className="font-medium text-on-surface">{agenda.time}{agenda.endTime ? ` - ${agenda.endTime}` : ""}</p>
               <p>{agenda.activity}</p>
               {agenda.location ? <p>{agenda.location}</p> : null}
-              {agenda.description ? <p className="text-stone-600">{agenda.description}</p> : null}
+              {agenda.description ? <p className="text-on-surface/70">{agenda.description}</p> : null}
             </div>
           ))}
         </div>
       ) : null}
 
       {stepIndex === 5 ? (
-        <div className="space-y-2 text-sm text-stone-700">
+        <div className="space-y-2 text-sm text-on-surface/80">
           {experience.speakers.length > 0 ? (
             experience.speakers.map((speaker) => (
-              <div key={speaker.id} className="rounded-lg border border-stone-200 bg-stone-50 p-3">
-                <p className="font-medium text-stone-900">{speaker.name} · {speaker.title}</p>
+              <div key={speaker.id} className="rounded-lg border-0 bg-surface-container-low p-3">
+                <p className="font-medium text-on-surface">{speaker.name} · {speaker.title}</p>
                 <p>{speaker.bio}</p>
                 <p>{isId ? "Topik" : "Topics"}: {speaker.topics.join(", ")}</p>
               </div>
             ))
           ) : (
-            <p className="text-stone-500">-</p>
+            <p className="text-on-surface/60">-</p>
           )}
         </div>
       ) : null}
 
       {stepIndex === 6 ? (
-        <div className="space-y-3 text-sm text-stone-700">
+        <div className="space-y-3 text-sm text-on-surface/80">
           <div>
-            <p className="mb-1 font-medium text-stone-900">{isId ? "Dokumen" : "Documents"}</p>
+            <p className="mb-1 font-medium text-on-surface">{isId ? "Dokumen" : "Documents"}</p>
             {experience.documents.length > 0 ? (
               <ul className="space-y-1">
                 {experience.documents.map((doc) => (
-                  <li key={doc.id} className="rounded-lg border border-stone-200 bg-stone-50 px-3 py-2">
+                  <li key={doc.id} className="rounded-lg border-0 bg-surface-container-low px-3 py-2">
                     {doc.name} · {doc.type} · {doc.url}
                   </li>
                 ))}
               </ul>
             ) : (
-              <p className="text-stone-500">-</p>
+              <p className="text-on-surface/60">-</p>
             )}
           </div>
 
           <div>
-            <p className="mb-1 font-medium text-stone-900">{isId ? "Media/Gambar" : "Media/Images"}</p>
+            <p className="mb-1 font-medium text-on-surface">{isId ? "Media/Gambar" : "Media/Images"}</p>
             <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
               {[experience.posterImage, ...experience.media].filter(Boolean).map((img, idx) => (
-                <div key={`${img}-${idx}`} className="overflow-hidden rounded-lg border border-stone-200 bg-stone-50">
+                <div key={`${img}-${idx}`} className="overflow-hidden rounded-lg border-0 bg-surface-container-low">
                   <img src={img} alt={`proposal-media-${idx}`} className="h-36 w-full object-cover" />
                 </div>
               ))}
@@ -352,18 +412,18 @@ function ExperienceProposalPreviewWizard({
       ) : null}
 
       {stepIndex === 7 ? (
-        <div className="space-y-2 text-sm text-stone-700">
-          <p className="font-medium text-stone-900">{isId ? "Permintaan Fasilitas" : "Facility Requests"}</p>
+        <div className="space-y-2 text-sm text-on-surface/80">
+          <p className="font-medium text-on-surface">{isId ? "Permintaan Fasilitas" : "Facility Requests"}</p>
           {coordination.facilityRequests.map((facility) => (
-            <div key={`${facility.facilityId}-${facility.date}`} className="rounded-lg border border-stone-200 bg-stone-50 p-3">
+            <div key={`${facility.facilityId}-${facility.date}`} className="rounded-lg border-0 bg-surface-container-low p-3">
               <p>{facility.facilityName}</p>
               <p>{facility.date} · {facility.hours} {isId ? "jam" : "hours"} · Rp {facility.rentalPrice.toLocaleString("id-ID")}</p>
             </div>
           ))}
           <p className="mt-2"><span className="font-medium">{isId ? "Bagi Hasil" : "Revenue Sharing"}:</span> Organizer {coordination.revenueSplit.organizer}% · Desa {coordination.revenueSplit.village}% · Platform {coordination.revenueSplit.platform}%</p>
-          <p className="font-medium text-stone-900">{isId ? "Jadwal Pembayaran" : "Payment Milestones"}</p>
+          <p className="font-medium text-on-surface">{isId ? "Jadwal Pembayaran" : "Payment Milestones"}</p>
           {coordination.paymentSchedule.map((payment) => (
-            <div key={`${payment.milestone}-${payment.dueDate}`} className="rounded-lg border border-stone-200 bg-stone-50 p-3">
+            <div key={`${payment.milestone}-${payment.dueDate}`} className="rounded-lg border-0 bg-surface-container-low p-3">
               <p>{payment.milestone.toUpperCase()} · {payment.percent}% · Rp {payment.amount.toLocaleString("id-ID")}</p>
               <p>{isId ? "Jatuh tempo" : "Due"}: {payment.dueDate} · {payment.paid ? "Paid" : "Unpaid"}</p>
             </div>

@@ -7,12 +7,12 @@ import { FACILITIES } from "../mock-data";
 function MiniBar({ value, label }: { value: number; label: string }) {
   return (
     <div className="space-y-1">
-      <div className="flex items-center justify-between text-xs text-stone-500">
+      <div className="flex items-center justify-between text-xs text-on-surface/60">
         <span>{label}</span>
         <span>{value}%</span>
       </div>
-      <div className="h-2 rounded-full bg-stone-200">
-        <div className="h-2 rounded-full bg-emerald-500" style={{ width: `${value}%` }} />
+      <div className="h-2 rounded-full bg-surface-container-high">
+        <div className="h-2 rounded-full bg-primary/100" style={{ width: `${value}%` }} />
       </div>
     </div>
   );
@@ -63,10 +63,10 @@ export function FacilityUtilizationDonutLike() {
         <CardTitle className="text-sm">{t("dashboard.charts.facilityUtilization")}</CardTitle>
       </CardHeader>
       <CardContent className="flex items-center gap-4">
-        <div className="flex h-20 w-20 items-center justify-center rounded-full border-8 border-emerald-400 text-lg font-bold text-emerald-700">
+        <div className="flex h-20 w-20 items-center justify-center rounded-full border-8 border-primary/400 text-lg font-bold text-primary">
           {avg}%
         </div>
-        <div className="space-y-1 text-xs text-stone-600">
+        <div className="space-y-1 text-xs text-on-surface/70">
           <p>{t("dashboard.charts.monetizableFacilities")}</p>
           <p>{t("dashboard.charts.publicFacilities")}</p>
           <p>{t("dashboard.charts.securityTransportation")}</p>

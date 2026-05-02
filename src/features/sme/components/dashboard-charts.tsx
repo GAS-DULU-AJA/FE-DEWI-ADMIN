@@ -8,7 +8,7 @@ function PlaceholderChart({ title, subtitle }: { title: string; subtitle: string
         <CardTitle className="text-sm">{title}</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="rounded-lg border border-dashed border-stone-300 bg-stone-50 p-4 text-xs text-stone-500">
+        <div className="rounded-lg border border-dashed border-surface-container-high bg-surface-container-low p-4 text-xs text-on-surface/60">
           {subtitle}
         </div>
       </CardContent>

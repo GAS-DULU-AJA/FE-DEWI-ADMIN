@@ -369,16 +369,16 @@ export function ExperienceWizard() {
   const progressPct = Math.round((completedCount / completionItems.length) * 100);
 
   return (
-    <Card className="overflow-hidden border-stone-200 shadow-sm">
-      <CardHeader className="border-b border-stone-200 bg-[radial-gradient(circle_at_top_left,_rgba(16,185,129,0.18),_transparent_40%),linear-gradient(135deg,#f8fafc_0%,#ecfdf5_100%)]">
+    <Card className="overflow-hidden border-surface-container-high shadow-ambient">
+      <CardHeader className="border-b border-surface-container-high bg-[radial-gradient(circle_at_top_left,_rgba(16,185,129,0.18),_transparent_40%),linear-gradient(135deg,#f8fafc_0%,#ecfdf5_100%)]">
         <div className="flex flex-col gap-4 xl:flex-row xl:items-end xl:justify-between">
           <div className="space-y-3">
-            <Badge className="rounded-full bg-emerald-100 px-3 py-1 text-emerald-800 hover:bg-emerald-100">
+            <Badge className="rounded-full bg-primary/10 px-3 py-1 text-primary hover:bg-primary/10">
               {isId ? "Proposal untuk approval desa" : "Village approval proposal"}
             </Badge>
             <div>
-              <CardTitle className="text-xl text-stone-950">{t("components.wizardTitle")}</CardTitle>
-              <p className="mt-2 max-w-3xl text-sm leading-6 text-stone-600">
+              <CardTitle className="text-xl text-on-surface">{t("components.wizardTitle")}</CardTitle>
+              <p className="mt-2 max-w-3xl text-sm leading-6 text-on-surface/70">
                 {isId
                   ? "Wizard dirancang ulang supaya lebih mudah dipakai, lebih jelas dibaca, dan seluruh kebutuhan proposal experience bisa disiapkan tanpa keluar dari flow utama."
                   : "The wizard has been redesigned to feel clearer, easier to use, and complete enough to prepare the full experience proposal in one main flow."}
@@ -388,15 +388,15 @@ export function ExperienceWizard() {
 
           <div className="w-full max-w-sm rounded-2xl border border-white/70 bg-white/80 p-4 backdrop-blur xl:min-w-[320px]">
             <div className="flex items-center justify-between text-sm">
-              <span className="font-medium text-stone-700">{isId ? "Progress proposal" : "Proposal progress"}</span>
-              <span className="font-semibold text-stone-900">{progressPct}%</span>
+              <span className="font-medium text-on-surface/80">{isId ? "Progress proposal" : "Proposal progress"}</span>
+              <span className="font-semibold text-on-surface">{progressPct}%</span>
             </div>
-            <div className="mt-3 h-2 overflow-hidden rounded-full bg-stone-200">
-              <div className="h-full rounded-full bg-emerald-600 transition-all" style={{ width: `${progressPct}%` }} />
+            <div className="mt-3 h-2 overflow-hidden rounded-full bg-surface-container-high">
+              <div className="h-full rounded-full bg-primary transition-all" style={{ width: `${progressPct}%` }} />
             </div>
             <div className="mt-4 grid grid-cols-3 gap-2 text-xs">
               {completionItems.map((item) => (
-                <div key={item.label} className={`rounded-xl px-3 py-2 ${item.done ? "bg-emerald-50 text-emerald-700" : "bg-stone-100 text-stone-500"}`}>
+                <div key={item.label} className={`rounded-xl px-3 py-2 ${item.done ? "bg-primary/10 text-primary" : "bg-surface-container text-on-surface/60"}`}>
                   {item.label}
                 </div>
               ))}
@@ -417,30 +417,30 @@ export function ExperienceWizard() {
                 onClick={() => setStepIndex(idx)}
                 className={`rounded-2xl border px-4 py-3 text-left transition ${
                   active
-                    ? "border-emerald-300 bg-emerald-50 shadow-sm"
+                    ? "border-primary/300 bg-primary/10 shadow-ambient"
                     : completed
-                      ? "border-stone-200 bg-white hover:border-stone-300"
-                      : "border-stone-200 bg-stone-50 hover:border-stone-300"
+                      ? "border-surface-container-high bg-surface-container-lowest hover:border-surface-container-high"
+                      : "border-surface-container-high bg-surface-container-low hover:border-surface-container-high"
                 }`}
               >
                 <div className="flex items-center justify-between gap-3">
-                  <span className={`flex h-8 w-8 items-center justify-center rounded-full text-xs font-semibold ${active ? "bg-emerald-600 text-white" : completed ? "bg-stone-900 text-white" : "bg-stone-200 text-stone-700"}`}>
+                  <span className={`flex h-8 w-8 items-center justify-center rounded-full text-xs font-semibold ${active ? "bg-primary text-white" : completed ? "bg-on-surface text-surface-container-lowest" : "bg-surface-container-high text-on-surface/80"}`}>
                     {idx + 1}
                   </span>
                   {completed ? (
-                    <span className="text-[11px] font-medium uppercase tracking-wide text-emerald-700">
+                    <span className="text-[11px] font-medium uppercase tracking-wide text-primary">
                       {isId ? "Selesai" : "Done"}
                     </span>
                   ) : null}
                 </div>
-                <p className="mt-3 font-semibold text-stone-900">{isId ? step.labelId : step.labelEn}</p>
+                <p className="mt-3 font-semibold text-on-surface">{isId ? step.labelId : step.labelEn}</p>
               </button>
             );
           })}
         </div>
 
-        <div className="rounded-2xl border border-stone-200 bg-stone-50 p-4 text-sm text-stone-700">
-          <p className="font-semibold text-stone-900">
+        <div className="rounded-2xl border border-surface-container-high bg-surface-container-low p-4 text-sm text-on-surface/80">
+          <p className="font-semibold text-on-surface">
             {isId ? "Rule parity" : "Parity rule"}
           </p>
           <p className="mt-1">
@@ -461,7 +461,7 @@ export function ExperienceWizard() {
               <select
                 value={category}
                 onChange={(event) => setCategory(event.target.value as (typeof EXPERIENCE_CATEGORIES)[number])}
-                className="h-10 w-full rounded-lg border border-stone-200 px-3 text-sm"
+                className="h-10 w-full rounded-lg border border-surface-container-high px-3 text-sm"
               >
                 {EXPERIENCE_CATEGORIES.map((item) => (
                   <option key={item} value={item}>{t(`categories.${item}`)}</option>
@@ -477,7 +477,7 @@ export function ExperienceWizard() {
               <select
                 value={targetVillage}
                 onChange={(event) => handleVillageChange(event.target.value)}
-                className="h-10 w-full rounded-lg border border-stone-200 px-3 text-sm"
+                className="h-10 w-full rounded-lg border border-surface-container-high px-3 text-sm"
               >
                 {VILLAGE_OPTIONS.map((item) => (
                   <option key={item} value={item}>{item}</option>
@@ -489,7 +489,7 @@ export function ExperienceWizard() {
               <select
                 value={registrationType}
                 onChange={(event) => setRegistrationType(event.target.value as "internal" | "external")}
-                className="h-10 w-full rounded-lg border border-stone-200 px-3 text-sm"
+                className="h-10 w-full rounded-lg border border-surface-container-high px-3 text-sm"
               >
                 <option value="internal">{isId ? "Internal" : "Internal"}</option>
                 <option value="external">{isId ? "External" : "External"}</option>
@@ -500,7 +500,7 @@ export function ExperienceWizard() {
               <select
                 value={visibility}
                 onChange={(event) => setVisibility(event.target.value as (typeof EVENT_VISIBILITIES)[number])}
-                className="h-10 w-full rounded-lg border border-stone-200 px-3 text-sm"
+                className="h-10 w-full rounded-lg border border-surface-container-high px-3 text-sm"
               >
                 {EVENT_VISIBILITIES.map((item) => (
                   <option key={item} value={item}>{t(`visibility.${item}`)}</option>
@@ -512,7 +512,7 @@ export function ExperienceWizard() {
               <select
                 value={locationType}
                 onChange={(event) => setLocationType(event.target.value as (typeof EVENT_LOCATION_TYPES)[number])}
-                className="h-10 w-full rounded-lg border border-stone-200 px-3 text-sm"
+                className="h-10 w-full rounded-lg border border-surface-container-high px-3 text-sm"
               >
                 {EVENT_LOCATION_TYPES.map((item) => (
                   <option key={item} value={item}>{t(`locationType.${item}`)}</option>
@@ -538,7 +538,7 @@ export function ExperienceWizard() {
               <select
                 value={difficultyLevel}
                 onChange={(event) => setDifficultyLevel(event.target.value as (typeof DIFFICULTY_LEVELS)[number])}
-                className="h-10 w-full rounded-lg border border-stone-200 px-3 text-sm"
+                className="h-10 w-full rounded-lg border border-surface-container-high px-3 text-sm"
               >
                 {DIFFICULTY_LEVELS.map((item) => (
                   <option key={item} value={item}>{item}</option>
@@ -586,7 +586,7 @@ export function ExperienceWizard() {
               <Label>{isId ? "Tanggal & Waktu Selesai" : "End Date & Time"}</Label>
               <Input type="datetime-local" value={scheduleEnd} onChange={(event) => setScheduleEnd(event.target.value)} />
             </div>
-            <label className="md:col-span-2 inline-flex items-center gap-2 text-sm text-stone-700">
+            <label className="md:col-span-2 inline-flex items-center gap-2 text-sm text-on-surface/80">
               <input type="checkbox" checked={isMultiDay} onChange={(event) => setIsMultiDay(event.target.checked)} />
               {isId ? "Event multi-hari" : "Multi-day event"}
             </label>
@@ -623,13 +623,13 @@ export function ExperienceWizard() {
 
         {stepIndex === 3 && (
           <div className="space-y-4">
-            <label className="inline-flex items-center gap-2 text-sm text-stone-700">
+            <label className="inline-flex items-center gap-2 text-sm text-on-surface/80">
               <input type="checkbox" checked={isPaidEvent} onChange={(event) => setIsPaidEvent(event.target.checked)} />
               {isId ? "Event berbayar" : "Paid event"}
             </label>
 
-            <div className="rounded-lg border border-stone-200 p-3">
-              <p className="mb-2 text-sm font-semibold text-stone-900">Regular</p>
+            <div className="rounded-lg border border-surface-container-high p-3">
+              <p className="mb-2 text-sm font-semibold text-on-surface">Regular</p>
               <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
                 <div className="space-y-2">
                   <Label>{isId ? "Harga" : "Price"}</Label>
@@ -642,8 +642,8 @@ export function ExperienceWizard() {
               </div>
             </div>
 
-            <div className="rounded-lg border border-stone-200 p-3">
-              <label className="mb-2 inline-flex items-center gap-2 text-sm font-semibold text-stone-900">
+            <div className="rounded-lg border border-surface-container-high p-3">
+              <label className="mb-2 inline-flex items-center gap-2 text-sm font-semibold text-on-surface">
                 <input type="checkbox" checked={vipEnabled} onChange={(event) => setVipEnabled(event.target.checked)} /> VIP
               </label>
               <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
@@ -658,8 +658,8 @@ export function ExperienceWizard() {
               </div>
             </div>
 
-            <div className="rounded-lg border border-stone-200 p-3">
-              <label className="mb-2 inline-flex items-center gap-2 text-sm font-semibold text-stone-900">
+            <div className="rounded-lg border border-surface-container-high p-3">
+              <label className="mb-2 inline-flex items-center gap-2 text-sm font-semibold text-on-surface">
                 <input type="checkbox" checked={earlyBirdEnabled} onChange={(event) => setEarlyBirdEnabled(event.target.checked)} /> Early Bird
               </label>
               <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
@@ -692,7 +692,7 @@ export function ExperienceWizard() {
                 <select
                   value={refundPolicy}
                   onChange={(event) => setRefundPolicy(event.target.value as (typeof REFUND_POLICIES)[number])}
-                  className="h-10 w-full rounded-lg border border-stone-200 px-3 text-sm"
+                  className="h-10 w-full rounded-lg border border-surface-container-high px-3 text-sm"
                 >
                   {REFUND_POLICIES.map((policy) => (
                     <option key={policy} value={policy}>{policy}</option>
@@ -707,7 +707,7 @@ export function ExperienceWizard() {
 
         {stepIndex === 4 && (
           <div className="space-y-4">
-            <p className="text-sm text-stone-600">
+            <p className="text-sm text-on-surface/70">
               {isId
                 ? "Lengkapi minimal satu sesi agenda untuk memudahkan tim operasional dan pengelola desa memeriksa alur acara."
                 : "Add at least one agenda session so operations and village managers can review the event flow."}
@@ -734,7 +734,7 @@ export function ExperienceWizard() {
                 <select
                   value={sessionSpeakerId}
                   onChange={(event) => setSessionSpeakerId(event.target.value)}
-                  className="h-10 w-full rounded-lg border border-stone-200 px-3 text-sm"
+                  className="h-10 w-full rounded-lg border border-surface-container-high px-3 text-sm"
                   disabled={selectedSpeakers.length === 0}
                 >
                   <option value="">{isId ? "Tanpa pengisi acara khusus" : "No specific speaker"}</option>
@@ -792,13 +792,13 @@ export function ExperienceWizard() {
             />
 
             {selectedSpeakers.length > 0 ? (
-              <div className="rounded-2xl border border-stone-200 bg-white p-4 shadow-sm">
+              <div className="rounded-2xl border border-surface-container-high bg-surface-container-lowest p-4 shadow-ambient">
                 <div className="mb-3 flex items-center justify-between gap-3">
                   <div>
-                    <p className="font-semibold text-stone-900">
+                    <p className="font-semibold text-on-surface">
                       {isId ? "Line-up pengisi acara" : "Selected line-up"}
                     </p>
-                    <p className="text-sm text-stone-500">
+                    <p className="text-sm text-on-surface/60">
                       {isId
                         ? "Pengisi acara ini akan muncul sebagai bagian proposal ke pengelola desa."
                         : "These speakers will be shown as part of the proposal for village manager review."}
@@ -811,9 +811,9 @@ export function ExperienceWizard() {
 
                 <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
                   {selectedSpeakers.map((speaker) => (
-                    <div key={speaker.id} className="rounded-2xl border border-stone-200 bg-stone-50 p-4">
+                    <div key={speaker.id} className="rounded-2xl border border-surface-container-high bg-surface-container-low p-4">
                       <div className="flex items-center gap-3">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-100 text-sm font-bold text-emerald-700">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-sm font-bold text-primary">
                           {speaker.name
                             .split(" ")
                             .map((chunk) => chunk[0])
@@ -822,13 +822,13 @@ export function ExperienceWizard() {
                             .toUpperCase()}
                         </div>
                         <div>
-                          <p className="font-semibold text-stone-900">{speaker.name}</p>
-                          <p className="text-sm text-stone-500">{speaker.title}</p>
+                          <p className="font-semibold text-on-surface">{speaker.name}</p>
+                          <p className="text-sm text-on-surface/60">{speaker.title}</p>
                         </div>
                       </div>
                       <div className="mt-3 flex flex-wrap gap-2">
                         {speaker.topics.map((topic) => (
-                          <Badge key={topic} variant="outline" className="rounded-full text-[11px] text-stone-600">
+                          <Badge key={topic} variant="outline" className="rounded-full text-[11px] text-on-surface/70">
                             {topic}
                           </Badge>
                         ))}
@@ -849,7 +849,7 @@ export function ExperienceWizard() {
         {stepIndex === 6 && (
           <div className="space-y-4">
             <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
-              <div className="space-y-2 rounded-lg border border-dashed border-stone-300 bg-stone-50 p-4">
+              <div className="space-y-2 rounded-lg border border-dashed border-surface-container-high bg-surface-container-low p-4">
                 <Label>{isId ? "Upload Poster Event" : "Upload Event Poster"}</Label>
                 <Input
                   type="file"
@@ -857,17 +857,17 @@ export function ExperienceWizard() {
                   onChange={(event) => setPosterFile(event.target.files?.[0] ?? null)}
                 />
                 {posterFile ? (
-                  <div className="text-xs text-stone-600">
-                    <p className="font-medium text-stone-800">{posterFile.name}</p>
+                  <div className="text-xs text-on-surface/70">
+                    <p className="font-medium text-on-surface">{posterFile.name}</p>
                     <p>{formatBytes(posterFile.size)}</p>
                   </div>
                 ) : (
-                  <p className="text-xs text-stone-500">{t("components.posterPlaceholder")}</p>
+                  <p className="text-xs text-on-surface/60">{t("components.posterPlaceholder")}</p>
                 )}
-                {posterPreview ? <img src={posterPreview} alt="Poster preview" className="h-28 w-full rounded-md border border-stone-200 object-cover" /> : null}
+                {posterPreview ? <img src={posterPreview} alt="Poster preview" className="h-28 w-full rounded-md border border-surface-container-high object-cover" /> : null}
               </div>
 
-              <div className="space-y-2 rounded-lg border border-dashed border-stone-300 bg-stone-50 p-4">
+              <div className="space-y-2 rounded-lg border border-dashed border-surface-container-high bg-surface-container-low p-4">
                 <Label>{isId ? "Upload Banner Pendukung" : "Upload Supporting Banner"}</Label>
                 <Input
                   type="file"
@@ -875,18 +875,18 @@ export function ExperienceWizard() {
                   onChange={(event) => setBannerFile(event.target.files?.[0] ?? null)}
                 />
                 {bannerFile ? (
-                  <div className="text-xs text-stone-600">
-                    <p className="font-medium text-stone-800">{bannerFile.name}</p>
+                  <div className="text-xs text-on-surface/70">
+                    <p className="font-medium text-on-surface">{bannerFile.name}</p>
                     <p>{formatBytes(bannerFile.size)}</p>
                   </div>
                 ) : (
-                  <p className="text-xs text-stone-500">{t("components.bannerPlaceholder")}</p>
+                  <p className="text-xs text-on-surface/60">{t("components.bannerPlaceholder")}</p>
                 )}
-                {bannerPreview ? <img src={bannerPreview} alt="Banner preview" className="h-28 w-full rounded-md border border-stone-200 object-cover" /> : null}
+                {bannerPreview ? <img src={bannerPreview} alt="Banner preview" className="h-28 w-full rounded-md border border-surface-container-high object-cover" /> : null}
               </div>
             </div>
 
-            <div className="space-y-2 rounded-lg border border-dashed border-stone-300 bg-stone-50 p-4">
+            <div className="space-y-2 rounded-lg border border-dashed border-surface-container-high bg-surface-container-low p-4">
               <Label>{isId ? "Upload Gambar Pendukung (maks. 10)" : "Upload Supporting Images (max 10)"}</Label>
               <Input
                 type="file"
@@ -898,16 +898,16 @@ export function ExperienceWizard() {
                 }}
               />
               {supportingImages.length > 0 ? (
-                <ul className="space-y-1 text-xs text-stone-700">
+                <ul className="space-y-1 text-xs text-on-surface/80">
                   {supportingImages.map((file) => (
-                    <li key={`${file.name}-${file.lastModified}`} className="flex items-center justify-between rounded-md bg-white px-2 py-1">
+                    <li key={`${file.name}-${file.lastModified}`} className="flex items-center justify-between rounded-md bg-surface-container-lowest px-2 py-1">
                       <span className="truncate">{file.name}</span>
-                      <span className="text-stone-500">{formatBytes(file.size)}</span>
+                      <span className="text-on-surface/60">{formatBytes(file.size)}</span>
                     </li>
                   ))}
                 </ul>
               ) : (
-                <p className="text-xs text-stone-500">{isId ? "Belum ada gambar pendukung dipilih." : "No supporting images selected yet."}</p>
+                <p className="text-xs text-on-surface/60">{isId ? "Belum ada gambar pendukung dipilih." : "No supporting images selected yet."}</p>
               )}
             </div>
           </div>
@@ -915,10 +915,10 @@ export function ExperienceWizard() {
 
         {stepIndex === 7 && (
           <div className="space-y-4">
-            <p className="text-sm font-medium text-stone-900">{isId ? "Review Proposal Experience" : "Review Experience Proposal"}</p>
-            <ul className="space-y-2 rounded-lg border border-stone-200 bg-stone-50 p-4 text-sm text-stone-700">
+            <p className="text-sm font-medium text-on-surface">{isId ? "Review Proposal Experience" : "Review Experience Proposal"}</p>
+            <ul className="space-y-2 rounded-lg border border-surface-container-high bg-surface-container-low p-4 text-sm text-on-surface/80">
               {summaryItems.map((item) => (
-                <li key={item} className="border-b border-stone-200 pb-1 last:border-b-0 last:pb-0">{item}</li>
+                <li key={item} className="border-b border-surface-container-high pb-1 last:border-b-0 last:pb-0">{item}</li>
               ))}
             </ul>
 
@@ -931,7 +931,7 @@ export function ExperienceWizard() {
               </ul>
             </div>
 
-            <label className="inline-flex items-center gap-2 text-sm text-stone-700">
+            <label className="inline-flex items-center gap-2 text-sm text-on-surface/80">
               <input type="checkbox" checked={readyForApproval} onChange={(event) => setReadyForApproval(event.target.checked)} />
               {isId
                 ? "Saya memastikan proposal experience lengkap dan siap diajukan untuk approval Pengelola Desa."

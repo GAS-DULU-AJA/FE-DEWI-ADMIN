@@ -36,6 +36,7 @@ export interface DataTableProps<T> {
   data: T[];
   columns: ColumnDef<T>[];
   keyExtractor: (row: T) => string;
+  onRowClick?: (row: T) => void;
   // Pagination
   pageSize?: number;
   pageSizeOptions?: number[];
@@ -65,6 +66,7 @@ export function DataTable<T>({
   data,
   columns,
   keyExtractor,
+  onRowClick,
   pageSize: defaultPageSize = 10,
   pageSizeOptions = [10, 25, 50],
   searchPlaceholder = "Search...",
@@ -168,10 +170,10 @@ export function DataTable<T>({
           <Skeleton className="h-10 w-64" />
           <Skeleton className="h-10 w-24" />
         </div>
-        <div className="rounded-lg border border-stone-200 overflow-hidden">
+        <div className="rounded-lg border border-surface-container-high overflow-hidden">
           <div className="space-y-0">
             {Array.from({ length: 5 }).map((_, i) => (
-              <div key={i} className="flex items-center gap-4 border-b border-stone-100 px-4 py-3">
+              <div key={i} className="flex items-center gap-4 border-b border-surface-container px-4 py-3">
                 <Skeleton className="h-4 flex-1" />
                 <Skeleton className="h-4 w-24" />
                 <Skeleton className="h-4 w-20" />
@@ -202,14 +204,14 @@ export function DataTable<T>({
               className={cn(
                 "inline-flex h-10 items-center gap-1.5 rounded-lg border px-3 text-sm transition-colors",
                 activeFilterCount > 0
-                  ? "border-emerald-300 bg-emerald-50 text-emerald-700"
-                  : "border-stone-300 text-stone-600 hover:bg-stone-50"
+                  ? "border-emerald-300 bg-primary/10 text-primary"
+                  : "border-surface-container-high text-on-surface/70 hover:bg-surface-container-low"
               )}
             >
               <Filter className="h-4 w-4" />
               Filter
               {activeFilterCount > 0 && (
-                <span className="ml-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-600 text-[10px] text-white font-medium">
+                <span className="ml-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[10px] text-primary-foreground font-medium">
                   {activeFilterCount}
                 </span>
               )}
@@ -221,11 +223,11 @@ export function DataTable<T>({
 
       {/* Filter panel */}
       {showFilters && filterableColumns.length > 0 && (
-        <div className="rounded-lg border border-stone-200 bg-stone-50 p-4">
+        <div className="rounded-lg border border-surface-container-high bg-surface-container-low p-4">
           <div className="flex flex-wrap gap-4">
             {filterableColumns.map((col) => (
               <div key={col.id} className="space-y-1.5">
-                <p className="text-xs font-medium text-stone-600">{col.header}</p>
+                <p className="text-xs font-medium text-on-surface/70">{col.header}</p>
                 <div className="flex flex-wrap gap-1.5">
                   {col.filterOptions!.map((opt) => {
                     const active = (filters[col.id] || []).includes(opt.value);
@@ -247,8 +249,8 @@ export function DataTable<T>({
                         className={cn(
                           "rounded-full px-2.5 py-1 text-xs font-medium transition-colors",
                           active
-                            ? "bg-emerald-600 text-white"
-                            : "bg-white border border-stone-300 text-stone-600 hover:border-emerald-400"
+                            ? "bg-primary text-primary-foreground"
+                            : "bg-surface-container-lowest border border-surface-container-high text-on-surface/70 hover:border-primary/50"
                         )}
                       >
                         {opt.label}
@@ -263,7 +265,7 @@ export function DataTable<T>({
             <button
               type="button"
               onClick={() => setFilters({})}
-              className="mt-3 inline-flex items-center gap-1 text-xs text-stone-500 hover:text-red-600 transition-colors"
+              className="mt-3 inline-flex items-center gap-1 text-xs text-on-surface/60 hover:text-red-600 transition-colors"
             >
               <X className="h-3 w-3" /> Clear all filters
             </button>
@@ -282,18 +284,18 @@ export function DataTable<T>({
       ) : (
         <>
           {/* Desktop Table */}
-          <div className="hidden sm:block overflow-hidden rounded-lg border border-stone-200">
+          <div className="hidden sm:block overflow-hidden rounded-lg border border-surface-container-high">
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-stone-200 bg-stone-50">
+                  <tr className="border-b border-surface-container-high bg-surface-container-low">
                     {columns.map((col) => (
                       <th
                         key={col.id}
                         className={cn(
-                          "px-4 py-3 text-left font-medium text-stone-600",
+                          "px-4 py-3 text-left font-medium text-on-surface/70",
                           col.hideOnMobile && "hidden lg:table-cell",
-                          col.sortable && "cursor-pointer select-none hover:text-stone-900",
+                          col.sortable && "cursor-pointer select-none hover:text-on-surface",
                           col.className
                         )}
                         onClick={col.sortable ? () => handleSort(col.id) : undefined}
@@ -301,7 +303,7 @@ export function DataTable<T>({
                         <span className="inline-flex items-center gap-1">
                           {col.header}
                           {col.sortable && (
-                            <span className="text-stone-400">
+                            <span className="text-on-surface/40">
                               {sortCol === col.id ? (
                                 sortDir === "asc" ? <ArrowUp className="h-3.5 w-3.5" /> : <ArrowDown className="h-3.5 w-3.5" />
                               ) : (
@@ -315,14 +317,18 @@ export function DataTable<T>({
                     {actions && <th className="w-12 px-4 py-3" />}
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-stone-100">
+                <tbody className="divide-y divide-surface-container">
                   {paginatedData.map((row) => (
-                    <tr key={keyExtractor(row)} className="hover:bg-stone-50/50 transition-colors">
+                    <tr
+                      key={keyExtractor(row)}
+                      className={cn("hover:bg-surface-container-low/50 transition-colors", onRowClick && "cursor-pointer")}
+                      onClick={onRowClick ? () => onRowClick(row) : undefined}
+                    >
                       {columns.map((col) => (
                         <td
                           key={col.id}
                           className={cn(
-                            "px-4 py-3 text-stone-700",
+                            "px-4 py-3 text-on-surface/80",
                             col.hideOnMobile && "hidden lg:table-cell",
                             col.className
                           )}
@@ -331,7 +337,7 @@ export function DataTable<T>({
                         </td>
                       ))}
                       {actions && (
-                        <td className="px-4 py-3">
+                        <td className="px-4 py-3" onClick={(event) => event.stopPropagation()}>
                           <DropdownMenu items={actions(row) as DropdownMenuItem[]} align="right" />
                         </td>
                       )}
@@ -356,29 +362,33 @@ export function DataTable<T>({
               return (
                 <div
                   key={keyExtractor(row)}
-                  className="rounded-lg border border-stone-200 bg-white p-4 space-y-2"
+                  className={cn("rounded-lg border border-surface-container-high bg-surface-container-lowest p-4 space-y-2", onRowClick && "cursor-pointer")}
+                  onClick={onRowClick ? () => onRowClick(row) : undefined}
                 >
                   {columns.map((col) => (
                     <div key={col.id} className="flex items-center justify-between gap-2">
-                      <span className="text-xs font-medium text-stone-500">{col.header}</span>
-                      <span className="text-sm text-stone-700 text-right truncate max-w-[60%]">
+                      <span className="text-xs font-medium text-on-surface/60">{col.header}</span>
+                      <span className="text-sm text-on-surface/80 text-right truncate max-w-[60%]">
                         {getCellValue(row, col)}
                       </span>
                     </div>
                   ))}
                   {rowActions && rowActions.length > 0 && (
-                    <div className="flex gap-2 pt-2 border-t border-stone-100">
+                    <div className="flex gap-2 pt-2 border-t border-surface-container">
                       {rowActions.map((action, i) => (
                         <button
                           key={i}
                           type="button"
-                          onClick={action.onClick}
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            action.onClick();
+                          }}
                           disabled={action.disabled}
                           className={cn(
                             "flex-1 rounded-md py-1.5 text-xs font-medium transition-colors",
                             action.variant === "destructive"
                               ? "bg-red-50 text-red-600 hover:bg-red-100"
-                              : "bg-stone-50 text-stone-700 hover:bg-stone-100"
+                              : "bg-surface-container-low text-on-surface/80 hover:bg-surface-container"
                           )}
                         >
                           {action.label}

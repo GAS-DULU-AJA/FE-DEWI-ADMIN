@@ -15,20 +15,20 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           <div className="col-span-1 md:col-span-2">
             <div className="mb-4 flex items-center gap-2">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-600">
+              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
                 <Leaf className="h-5 w-5 text-white" />
               </div>
               <span className="text-xl font-bold text-white">Mitra Dewi</span>
             </div>
-            <p className="max-w-xs text-sm leading-relaxed text-stone-400">{t("description")}</p>
+            <p className="max-w-xs text-sm leading-relaxed text-on-surface/40">{t("description")}</p>
             <div className="mt-4 flex gap-3">
-              <a href="#" className="flex h-9 w-9 items-center justify-center rounded-lg bg-stone-800 text-stone-400 transition-colors hover:bg-emerald-600 hover:text-white">
+              <a href="#" className="flex h-9 w-9 items-center justify-center rounded-lg bg-stone-800 text-on-surface/40 transition-colors hover:bg-primary hover:text-white">
                 <Instagram className="h-4 w-4" />
               </a>
-              <a href="#" className="flex h-9 w-9 items-center justify-center rounded-lg bg-stone-800 text-stone-400 transition-colors hover:bg-emerald-600 hover:text-white">
+              <a href="#" className="flex h-9 w-9 items-center justify-center rounded-lg bg-stone-800 text-on-surface/40 transition-colors hover:bg-primary hover:text-white">
                 <Facebook className="h-4 w-4" />
               </a>
-              <a href="#" className="flex h-9 w-9 items-center justify-center rounded-lg bg-stone-800 text-stone-400 transition-colors hover:bg-emerald-600 hover:text-white">
+              <a href="#" className="flex h-9 w-9 items-center justify-center rounded-lg bg-stone-800 text-on-surface/40 transition-colors hover:bg-primary hover:text-white">
                 <Twitter className="h-4 w-4" />
               </a>
             </div>
@@ -43,7 +43,7 @@ export function Footer() {
                 { href: "/register", label: tCommon("register") },
               ].map((l) => (
                 <li key={l.href}>
-                  <Link href={l.href} className="text-stone-400 transition-colors hover:text-emerald-400">
+                  <Link href={l.href} className="text-on-surface/40 transition-colors hover:text-emerald-400">
                     {l.label}
                   </Link>
                 </li>
@@ -54,15 +54,15 @@ export function Footer() {
           <div>
             <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-stone-100">{t("contact")}</h3>
             <ul className="space-y-2 text-sm">
-              <li className="flex items-center gap-2 text-stone-400">
+              <li className="flex items-center gap-2 text-on-surface/40">
                 <Mail className="h-4 w-4 text-emerald-500" />
                 info@mitradewi.id
               </li>
-              <li className="flex items-center gap-2 text-stone-400">
+              <li className="flex items-center gap-2 text-on-surface/40">
                 <Phone className="h-4 w-4 text-emerald-500" />
                 +62 21 1234 5678
               </li>
-              <li className="flex items-start gap-2 text-stone-400">
+              <li className="flex items-start gap-2 text-on-surface/40">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" />
                 Yogyakarta, Indonesia
               </li>
@@ -70,7 +70,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col items-center justify-between gap-2 border-t border-stone-800 pt-6 text-xs text-stone-500 sm:flex-row">
+        <div className="mt-10 flex flex-col items-center justify-between gap-2 border-t border-stone-800 pt-6 text-xs text-on-surface/60 sm:flex-row">
           <p>© {new Date().getFullYear()} Mitra Dewi. {t("rights")}.</p>
           <div className="flex gap-4">
             <Link href="/privacy" className="transition-colors hover:text-emerald-400">{t("privacy")}</Link>

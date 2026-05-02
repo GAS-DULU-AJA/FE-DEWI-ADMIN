@@ -10,14 +10,15 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Link, useRouter } from "@/i18n/navigation";
-import { Building2, BedDouble, ShoppingBag, CalendarDays, UserPlus } from "lucide-react";
+import { Building2, BedDouble, ShoppingBag, CalendarDays, Car, UserPlus } from "lucide-react";
 import type { PartnerRole } from "@/types";
 
 const ROLE_OPTIONS: { value: PartnerRole; icon: React.ReactNode; labelKey: string; descKey: string; color: string }[] = [
-  { value: "VILLAGE_ADMIN", icon: <Building2 className="h-5 w-5" />, labelKey: "villageAdmin", descKey: "villageAdminDesc", color: "border-emerald-500 bg-emerald-50 text-emerald-700" },
+  { value: "VILLAGE_ADMIN", icon: <Building2 className="h-5 w-5" />, labelKey: "villageAdmin", descKey: "villageAdminDesc", color: "border-primary bg-primary/10 text-primary" },
   { value: "ACCOMMODATION", icon: <BedDouble className="h-5 w-5" />, labelKey: "accommodation", descKey: "accommodationDesc", color: "border-blue-500 bg-blue-50 text-blue-700" },
   { value: "UMKM", icon: <ShoppingBag className="h-5 w-5" />, labelKey: "umkm", descKey: "umkmDesc", color: "border-amber-500 bg-amber-50 text-amber-700" },
   { value: "EVENT_ORGANIZER", icon: <CalendarDays className="h-5 w-5" />, labelKey: "eventOrganizer", descKey: "eventOrganizerDesc", color: "border-violet-500 bg-violet-50 text-violet-700" },
+  { value: "TRANSPORT", icon: <Car className="h-5 w-5" />, labelKey: "transport", descKey: "transportDesc", color: "border-sky-500 bg-sky-50 text-sky-700" },
 ];
 
 export function RegisterForm() {
@@ -67,15 +68,15 @@ export function RegisterForm() {
               className={`flex items-start gap-3 rounded-xl border-2 p-3 text-left transition-all ${
                 selectedRole === opt.value
                   ? opt.color + " border-opacity-100"
-                  : "border-stone-200 hover:border-stone-300 bg-white"
+                  : "border-surface-container-high hover:border-surface-container-high bg-surface-container-lowest"
               }`}
             >
-              <span className={`mt-0.5 shrink-0 ${selectedRole === opt.value ? "" : "text-stone-400"}`}>
+              <span className={`mt-0.5 shrink-0 ${selectedRole === opt.value ? "" : "text-on-surface/40"}`}>
                 {opt.icon}
               </span>
               <div>
-                <p className="text-xs font-semibold">{tp(opt.labelKey as "villageAdmin" | "accommodation" | "umkm" | "eventOrganizer")}</p>
-                <p className="text-[10px] text-stone-400 mt-0.5 leading-tight hidden sm:block">{tp(opt.descKey as "villageAdminDesc" | "accommodationDesc" | "umkmDesc" | "eventOrganizerDesc")}</p>
+                <p className="text-xs font-semibold">{tp(opt.labelKey as "villageAdmin" | "accommodation" | "umkm" | "eventOrganizer" | "transport")}</p>
+                <p className="text-[10px] text-on-surface/40 mt-0.5 leading-tight hidden sm:block">{tp(opt.descKey as "villageAdminDesc" | "accommodationDesc" | "umkmDesc" | "eventOrganizerDesc" | "transportDesc")}</p>
               </div>
             </button>
           ))}
@@ -128,14 +129,14 @@ export function RegisterForm() {
       </div>
 
       {/* Agree Terms */}
-      <div className="flex items-start gap-3 rounded-lg bg-stone-50 border border-stone-200 p-3">
+      <div className="flex items-start gap-3 rounded-lg bg-surface-container-low border border-surface-container-high p-3">
         <input
           type="checkbox"
           id="agreeTerms"
-          className="mt-0.5 h-4 w-4 rounded border-stone-300 accent-emerald-600"
+          className="mt-0.5 h-4 w-4 rounded border-surface-container-high accent-primary"
           {...register("agreeTerms")}
         />
-        <label htmlFor="agreeTerms" className="text-sm text-stone-600 cursor-pointer">
+        <label htmlFor="agreeTerms" className="text-sm text-on-surface/70 cursor-pointer">
           {t("agreeTerms")}
         </label>
       </div>
@@ -145,9 +146,9 @@ export function RegisterForm() {
         {t("register")}
       </Button>
 
-      <p className="text-center text-sm text-stone-500">
+      <p className="text-center text-sm text-on-surface/60">
         {t("hasAccount")}{" "}
-        <Link href="/login" className="font-medium text-emerald-600 hover:text-emerald-700">
+        <Link href="/login" className="font-medium text-primary hover:text-primary">
           {t("loginHere")}
         </Link>
       </p>

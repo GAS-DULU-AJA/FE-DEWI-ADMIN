@@ -14,6 +14,7 @@ export const PARTNER_ROLES: PartnerRole[] = [
   "ACCOMMODATION",
   "UMKM",
   "EVENT_ORGANIZER",
+  "TRANSPORT",
 ];
 
 export const ROLE_DASHBOARD_PATH: Record<PartnerRole, string> = {
@@ -21,6 +22,7 @@ export const ROLE_DASHBOARD_PATH: Record<PartnerRole, string> = {
   ACCOMMODATION: "/dashboard/accommodation",
   UMKM: "/dashboard/sme",
   EVENT_ORGANIZER: "/dashboard/experience",
+  TRANSPORT: "/dashboard/transport",
 };
 
 export const ROLE_COLORS: Record<PartnerRole, string> = {
@@ -28,6 +30,7 @@ export const ROLE_COLORS: Record<PartnerRole, string> = {
   ACCOMMODATION: "blue",
   UMKM: "amber",
   EVENT_ORGANIZER: "violet",
+  TRANSPORT: "sky",
 };
 
 export const APPROVAL_STATUS_COLORS = {
@@ -97,5 +100,18 @@ export const DEMO_USERS = [
     isApproved: true,
     avatar: "",
     createdAt: "2024-02-15",
+  },
+  {
+    id: "5",
+    email: "transport@dewi.id",
+    password: "password123",
+    role: "TRANSPORT" as PartnerRole,
+    fullName: "Hendra Kusuma",
+    organizationName: "Sejahtera Transport",
+    phone: "085678901234",
+    address: "Jl. Terminal No. 3, Yogyakarta",
+    isApproved: true,
+    avatar: "",
+    createdAt: "2024-03-01",
   },
 ];

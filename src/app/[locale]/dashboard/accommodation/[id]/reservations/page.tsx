@@ -2,22 +2,23 @@ import { notFound } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AccommodationPageHeader } from "@/features/accommodation/components/page-header";
+import { PropertyReservationsTable } from "@/features/accommodation/components/property-reservations-table";
 import { PropertyDetailTabs } from "@/features/accommodation/components/property-detail-tabs";
 import { RefundDialog } from "@/features/accommodation/components/refund-dialog";
 import { getAccommodationById, getReservationsByAccommodationId } from "@/features/accommodation/utils";
-import { formatCurrency, formatDateShort } from "@/lib/utils";
+import { formatCurrency } from "@/lib/utils";
 
 const RESERVATION_STATUS_META: Record<string, { label: string; className: string }> = {
   pending: { label: "Pending", className: "bg-amber-100 text-amber-700" },
   confirmed: { label: "Confirmed", className: "bg-blue-100 text-blue-700" },
-  checked_in: { label: "Checked In", className: "bg-emerald-100 text-emerald-700" },
-  checked_out: { label: "Completed", className: "bg-stone-100 text-stone-700" },
+  checked_in: { label: "Checked In", className: "bg-primary/10 text-primary" },
+  checked_out: { label: "Completed", className: "bg-surface-container text-on-surface/80" },
   cancelled: { label: "Cancelled", className: "bg-red-100 text-red-700" },
 };
 
 const PAYMENT_STATUS_META: Record<string, { label: string; className: string }> = {
   pending: { label: "Pending", className: "bg-amber-100 text-amber-700" },
-  success: { label: "Paid", className: "bg-emerald-100 text-emerald-700" },
+  success: { label: "Paid", className: "bg-primary/10 text-primary" },
   failed: { label: "Failed", className: "bg-red-100 text-red-700" },
   refunded: { label: "Refunded", className: "bg-violet-100 text-violet-700" },
 };
@@ -60,13 +61,13 @@ export default async function PropertyReservationPage({
           <CardHeader>
             <CardTitle className="text-sm">Total Reservations</CardTitle>
           </CardHeader>
-          <CardContent className="text-2xl font-semibold text-stone-900">{reservations.length}</CardContent>
+          <CardContent className="text-2xl font-semibold text-on-surface">{reservations.length}</CardContent>
         </Card>
         <Card>
           <CardHeader>
             <CardTitle className="text-sm">Confirmed Guests</CardTitle>
           </CardHeader>
-          <CardContent className="text-2xl font-semibold text-emerald-700">
+          <CardContent className="text-2xl font-semibold text-primary">
             {reservations.filter((reservation) => reservation.status === "confirmed").length}
           </CardContent>
         </Card>
@@ -74,7 +75,7 @@ export default async function PropertyReservationPage({
           <CardHeader>
             <CardTitle className="text-sm">Reservation Value</CardTitle>
           </CardHeader>
-          <CardContent className="text-2xl font-semibold text-stone-900">
+          <CardContent className="text-2xl font-semibold text-on-surface">
             {formatCurrency(totalRevenue)}
           </CardContent>
         </Card>
@@ -86,56 +87,8 @@ export default async function PropertyReservationPage({
         <CardHeader>
           <CardTitle className="text-base">Booking Timeline</CardTitle>
         </CardHeader>
-        <CardContent className="overflow-x-auto p-0">
-          {reservations.length === 0 ? (
-            <p className="px-4 py-8 text-center text-sm text-stone-500">Belum ada reservasi untuk properti ini.</p>
-          ) : (
-            <table className="w-full text-sm">
-              <thead className="border-b border-stone-100 bg-stone-50">
-                <tr>
-                  {[
-                    "Guest",
-                    "Room",
-                    "Check-In",
-                    "Check-Out",
-                    "Total",
-                    "Reservation Status",
-                    "Payment",
-                  ].map((heading) => (
-                    <th key={heading} className="px-4 py-2.5 text-left text-xs font-medium text-stone-500">
-                      {heading}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-stone-100">
-                {reservations.map((reservation) => (
-                  <tr key={reservation.id} className="hover:bg-stone-50">
-                    <td className="px-4 py-3">
-                      <p className="font-medium text-stone-900">{reservation.guestName}</p>
-                      <p className="text-xs text-stone-500">{reservation.guestEmail}</p>
-                    </td>
-                    <td className="px-4 py-3 text-xs text-stone-600">{reservation.roomName}</td>
-                    <td className="px-4 py-3 text-xs text-stone-500">{formatDateShort(reservation.checkIn)}</td>
-                    <td className="px-4 py-3 text-xs text-stone-500">{formatDateShort(reservation.checkOut)}</td>
-                    <td className="px-4 py-3 font-medium text-stone-900">
-                      {formatCurrency(reservation.totalPrice)}
-                    </td>
-                    <td className="px-4 py-3">
-                      <Badge className={RESERVATION_STATUS_META[reservation.status].className}>
-                        {RESERVATION_STATUS_META[reservation.status].label}
-                      </Badge>
-                    </td>
-                    <td className="px-4 py-3">
-                      <Badge className={PAYMENT_STATUS_META[reservation.paymentStatus].className}>
-                        {PAYMENT_STATUS_META[reservation.paymentStatus].label}
-                      </Badge>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
+        <CardContent>
+          <PropertyReservationsTable reservations={reservations} />
         </CardContent>
       </Card>
     </div>

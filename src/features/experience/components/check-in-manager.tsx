@@ -19,10 +19,10 @@ export function CheckInManager({ reservations }: { reservations: ExperienceReser
         {reservations.map((item) => {
           const isChecked = checkedIn.includes(item.id);
           return (
-            <div key={item.id} className="flex items-center justify-between rounded-lg border border-stone-200 p-3">
+            <div key={item.id} className="flex items-center justify-between rounded-lg border border-surface-container-high p-3">
               <div>
-                <p className="font-medium text-stone-900">{item.customerName}</p>
-                <p className="text-stone-500">{item.ticketTypeName}</p>
+                <p className="font-medium text-on-surface">{item.customerName}</p>
+                <p className="text-on-surface/60">{item.ticketTypeName}</p>
               </div>
               <Button
                 variant={isChecked ? "outline" : "default"}

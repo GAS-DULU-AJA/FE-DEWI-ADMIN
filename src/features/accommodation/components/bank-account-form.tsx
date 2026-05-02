@@ -45,9 +45,9 @@ export function BankAccountForm({ account }: { account: BankAccount }) {
           <Label>SWIFT Code</Label>
           <Input value={form.swiftCode ?? ""} onChange={(e) => setForm({ ...form, swiftCode: e.target.value })} />
         </div>
-        <div className="md:col-span-2 flex items-center justify-between rounded-lg border border-stone-200 bg-stone-50 p-3 text-sm">
+        <div className="md:col-span-2 flex items-center justify-between rounded-lg border border-surface-container-high bg-surface-container-low p-3 text-sm">
           <span>Verification Status</span>
-          <span className={form.isVerified ? "text-emerald-700" : "text-amber-700"}>{form.isVerified ? "Verified" : "Pending verification"}</span>
+          <span className={form.isVerified ? "text-primary" : "text-amber-700"}>{form.isVerified ? "Verified" : "Pending verification"}</span>
         </div>
         <div className="md:col-span-2 flex justify-end">
           <Button>Save Bank Account</Button>

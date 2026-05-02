@@ -14,7 +14,7 @@ export function RefundDialog({ amount }: { amount: number }) {
         <CardTitle>Refund Processing</CardTitle>
       </CardHeader>
       <CardContent className="space-y-3 text-sm">
-        <p className="text-stone-600">Use this mock dialog to process full or partial refunds based on cancellation policy.</p>
+        <p className="text-on-surface/70">Use this mock dialog to process full or partial refunds based on cancellation policy.</p>
         <Input type="number" min={0} value={refundAmount} onChange={(e) => setRefundAmount(Number(e.target.value) || 0)} />
         <div className="flex gap-2">
           <Button>Process Refund</Button>

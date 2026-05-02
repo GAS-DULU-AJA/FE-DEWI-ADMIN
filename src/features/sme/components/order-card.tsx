@@ -35,14 +35,14 @@ export function SmeOrderCard({
         <div className="flex items-start justify-between gap-2">
           <div>
             <CardTitle className="text-base">{order.customerName}</CardTitle>
-            <p className="text-xs text-stone-500">{t("orderNumber", { id: order.id })}</p>
+            <p className="text-xs text-on-surface/60">{t("orderNumber", { id: order.id })}</p>
           </div>
           <SmeOrderStatusBadge status={order.status} />
         </div>
       </CardHeader>
-      <CardContent className="space-y-2 text-sm text-stone-600">
+      <CardContent className="space-y-2 text-sm text-on-surface/70">
         <p>{t("itemsCount", { count: order.items.length })}</p>
-        <p className="font-medium text-stone-900">{formatCurrency(order.totalPrice)}</p>
+        <p className="font-medium text-on-surface">{formatCurrency(order.totalPrice)}</p>
         <p>{t("pickupEta", { value: order.estimatedPickupTime ?? "-" })}</p>
       </CardContent>
     </Card>

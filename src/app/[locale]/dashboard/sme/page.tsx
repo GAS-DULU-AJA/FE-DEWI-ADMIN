@@ -11,6 +11,7 @@ import { SME_ORDERS, SME_PRODUCTS, SME_PROFILE } from "@/features/sme/mock-data"
 import { SmeDashboardCharts } from "@/features/sme/components/dashboard-charts";
 import { SmeProfileForm } from "@/features/sme/components/sme-profile-form";
 import { getSmeDashboardMetrics } from "@/features/sme/utils";
+import { VillageApprovalBanner } from "@/features/shared/components/village-approval-banner";
 
 export default function UmkmDashboard() {
   const locale = useLocale();
@@ -22,11 +23,17 @@ export default function UmkmDashboard() {
 
   return (
     <div className="space-y-6">
-      <div className="rounded-2xl border border-stone-200/80 bg-white/80 p-4 shadow-sm backdrop-blur sm:p-5">
+      <VillageApprovalBanner
+        villageName={SME_PROFILE.villageName}
+        status={SME_PROFILE.villageApprovalStatus}
+        note={SME_PROFILE.villageApprovalNote}
+      />
+
+      <div className="rounded-2xl border border-surface-container-high/80 bg-white/80 p-4 shadow-ambient backdrop-blur sm:p-5">
         <div className="flex items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-stone-900">{t("title")}</h1>
-          <p className="text-sm text-stone-500 mt-0.5">{t("subtitle")}</p>
+          <h1 className="font-display text-title-lg font-bold text-on-surface tracking-tight">{t("title")}</h1>
+          <p className="text-sm text-on-surface/60 mt-0.5">{t("subtitle")}</p>
         </div>
         <div className="flex items-center gap-2">
           <Button size="sm" variant="outline">
@@ -93,11 +100,11 @@ export default function UmkmDashboard() {
             {lowStockItems.map((product) => (
               <div
                 key={product.id}
-                className="flex items-center justify-between rounded-xl border border-stone-100 bg-stone-50 p-3 transition-colors hover:border-amber-200 hover:bg-amber-50/30"
+                className="flex items-center justify-between rounded-xl border border-surface-container bg-surface-container-low p-3 transition-colors hover:border-amber-200 hover:bg-amber-50/30"
               >
                 <div>
-                  <p className="text-sm font-semibold text-stone-800">{product.name}</p>
-                  <p className="text-xs text-stone-500">{t("stockDropped")}</p>
+                  <p className="text-sm font-semibold text-on-surface">{product.name}</p>
+                  <p className="text-xs text-on-surface/60">{t("stockDropped")}</p>
                 </div>
                 <span className="rounded-full bg-red-100 px-2.5 py-0.5 text-xs font-medium text-red-700">
                   {t("stockValue", { value: product.stock })}
@@ -107,13 +114,13 @@ export default function UmkmDashboard() {
             {SME_ORDERS.filter((order) => order.status === "ready_for_pickup").map((order) => (
               <div
                 key={order.id}
-                className="flex items-center justify-between rounded-xl border border-emerald-100 bg-emerald-50 p-3 transition-colors hover:border-emerald-200 hover:bg-emerald-100/50"
+                className="flex items-center justify-between rounded-xl border border-primary/100 bg-primary/10 p-3 transition-colors hover:border-primary/200 hover:bg-primary/10/50"
               >
                 <div>
-                  <p className="text-sm font-semibold text-stone-800">{t("orderNumber", { id: order.id })}</p>
-                  <p className="text-xs text-stone-500">{t("readyForPickupBy", { name: order.customerName })}</p>
+                  <p className="text-sm font-semibold text-on-surface">{t("orderNumber", { id: order.id })}</p>
+                  <p className="text-xs text-on-surface/60">{t("readyForPickupBy", { name: order.customerName })}</p>
                 </div>
-                <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-medium text-emerald-700">
+                <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
                   {t("ready")}
                 </span>
               </div>
@@ -150,9 +157,9 @@ export default function UmkmDashboard() {
         </CardHeader>
         <CardContent className="space-y-2">
           {SME_ORDERS.map((order) => (
-            <div key={order.id} className="flex items-center justify-between rounded-lg border border-stone-200 p-2 text-sm">
+            <div key={order.id} className="flex items-center justify-between rounded-lg border-0 p-2 text-sm">
               <span>{t("orderNumber", { id: order.id })}</span>
-              <span className="font-medium text-stone-900">{formatCurrency(order.totalPrice)}</span>
+              <span className="font-medium text-on-surface">{formatCurrency(order.totalPrice)}</span>
             </div>
           ))}
         </CardContent>

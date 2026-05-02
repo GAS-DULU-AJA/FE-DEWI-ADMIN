@@ -1,4 +1,3 @@
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -7,15 +6,9 @@ import {
   getConsolidatedRevenue,
   getAccommodationNameById,
 } from "@/features/accommodation/utils";
-import { formatCurrency, formatDateShort } from "@/lib/utils";
+import { FinanceTransactionTable } from "@/features/accommodation/components/finance-transaction-table";
+import { formatCurrency } from "@/lib/utils";
 import { getTranslations } from "next-intl/server";
-
-const PAYMENT_STATUS_META: Record<string, { className: string }> = {
-  pending: { className: "bg-amber-100 text-amber-700" },
-  success: { className: "bg-emerald-100 text-emerald-700" },
-  failed: { className: "bg-red-100 text-red-700" },
-  refunded: { className: "bg-violet-100 text-violet-700" },
-};
 
 export default async function ManajemenKeuanganPage({
   params,
@@ -43,8 +36,8 @@ export default async function ManajemenKeuanganPage({
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-stone-900">{t("title")}</h1>
-        <p className="mt-0.5 text-sm text-stone-500">
+        <h1 className="font-display text-title-lg font-bold text-on-surface tracking-tight">{t("title")}</h1>
+        <p className="mt-0.5 text-sm text-on-surface/60">
           {t("subtitle")}
         </p>
       </div>
@@ -52,15 +45,15 @@ export default async function ManajemenKeuanganPage({
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader>
-            <CardTitle className="text-xs text-stone-500">{t("kpi.availableBalance")}</CardTitle>
+            <CardTitle className="text-xs text-on-surface/60">{t("kpi.availableBalance")}</CardTitle>
           </CardHeader>
-          <CardContent className="text-xl font-semibold text-emerald-700">
+          <CardContent className="text-xl font-semibold text-primary">
             {formatCurrency(estimatedAvailableBalance)}
           </CardContent>
         </Card>
         <Card>
           <CardHeader>
-            <CardTitle className="text-xs text-stone-500">{t("kpi.pendingSettlement")}</CardTitle>
+            <CardTitle className="text-xs text-on-surface/60">{t("kpi.pendingSettlement")}</CardTitle>
           </CardHeader>
           <CardContent className="text-xl font-semibold text-amber-600">
             {formatCurrency(pendingSettlement)}
@@ -68,7 +61,7 @@ export default async function ManajemenKeuanganPage({
         </Card>
         <Card>
           <CardHeader>
-            <CardTitle className="text-xs text-stone-500">{t("kpi.refundTotal")}</CardTitle>
+            <CardTitle className="text-xs text-on-surface/60">{t("kpi.refundTotal")}</CardTitle>
           </CardHeader>
           <CardContent className="text-xl font-semibold text-violet-700">
             {formatCurrency(refundedAmount)}
@@ -76,9 +69,9 @@ export default async function ManajemenKeuanganPage({
         </Card>
         <Card>
           <CardHeader>
-            <CardTitle className="text-xs text-stone-500">{t("kpi.totalTransactions")}</CardTitle>
+            <CardTitle className="text-xs text-on-surface/60">{t("kpi.totalTransactions")}</CardTitle>
           </CardHeader>
-          <CardContent className="text-xl font-semibold text-stone-900">
+          <CardContent className="text-xl font-semibold text-on-surface">
             {consolidated.totalTransactions}
           </CardContent>
         </Card>
@@ -88,37 +81,11 @@ export default async function ManajemenKeuanganPage({
         <CardHeader>
           <CardTitle className="text-base">{t("transactionManagement.title")}</CardTitle>
         </CardHeader>
-        <CardContent className="overflow-x-auto p-0">
-          <table className="w-full text-sm">
-            <thead className="border-b border-stone-100 bg-stone-50">
-              <tr>
-                {[t("table.id"), t("table.date"), t("table.guest"), t("table.accommodation"), t("table.amount"), t("table.payment")].map((h) => (
-                  <th key={h} className="px-4 py-2.5 text-left text-xs font-medium text-stone-500">
-                    {h}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-stone-100">
-              {reservations.map((reservation) => {
-                const payMeta = PAYMENT_STATUS_META[reservation.paymentStatus];
-                return (
-                  <tr key={reservation.id} className="hover:bg-stone-50">
-                    <td className="px-4 py-3 font-mono text-xs text-stone-400">{reservation.id}</td>
-                    <td className="px-4 py-3 text-xs text-stone-500">{formatDateShort(reservation.createdAt)}</td>
-                    <td className="px-4 py-3 font-medium text-stone-900">{reservation.guestName}</td>
-                    <td className="px-4 py-3 text-xs text-stone-600">
-                      {getAccommodationNameById(reservation.accommodationId)}
-                    </td>
-                    <td className="px-4 py-3 font-medium text-stone-900">{formatCurrency(reservation.totalPrice)}</td>
-                    <td className="px-4 py-3">
-                      <Badge className={payMeta.className}>{t(`paymentStatus.${reservation.paymentStatus}`)}</Badge>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+        <CardContent>
+          <FinanceTransactionTable
+            reservations={reservations}
+            getAccommodationName={getAccommodationNameById}
+          />
         </CardContent>
       </Card>
 
@@ -129,22 +96,22 @@ export default async function ManajemenKeuanganPage({
           </CardHeader>
           <CardContent className="space-y-3">
             <div className="space-y-1">
-              <label className="text-xs font-medium text-stone-600">{t("withdraw.method")}</label>
-              <select className="h-10 w-full rounded-lg border border-stone-200 bg-white px-3 text-sm">
+              <label className="text-xs font-medium text-on-surface/70">{t("withdraw.method")}</label>
+              <select className="h-10 w-full rounded-lg border-0 bg-surface-container-lowest px-3 text-sm">
                 <option>{t("withdraw.methodBank")}</option>
                 <option>{t("withdraw.methodWallet")}</option>
               </select>
             </div>
             <div className="space-y-1">
-              <label className="text-xs font-medium text-stone-600">{t("withdraw.channel")}</label>
+              <label className="text-xs font-medium text-on-surface/70">{t("withdraw.channel")}</label>
               <Input placeholder={t("withdraw.channelPlaceholder")} />
             </div>
             <div className="space-y-1">
-              <label className="text-xs font-medium text-stone-600">{t("withdraw.accountNumber")}</label>
+              <label className="text-xs font-medium text-on-surface/70">{t("withdraw.accountNumber")}</label>
               <Input placeholder={t("withdraw.accountNumberPlaceholder")} />
             </div>
             <div className="space-y-1">
-              <label className="text-xs font-medium text-stone-600">{t("withdraw.amount")}</label>
+              <label className="text-xs font-medium text-on-surface/70">{t("withdraw.amount")}</label>
               <Input type="number" min={100000} placeholder={t("withdraw.amountPlaceholder")} />
             </div>
             <div className="rounded-lg border border-amber-200 bg-amber-50 p-3 text-xs text-amber-700">
@@ -159,7 +126,7 @@ export default async function ManajemenKeuanganPage({
             <CardTitle className="text-base">{t("requirements.title")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
-            <ul className="list-disc space-y-2 pl-5 text-sm text-stone-700">
+            <ul className="list-disc space-y-2 pl-5 text-sm text-on-surface/80">
               {[
                 t("requirements.items.1"),
                 t("requirements.items.2"),
@@ -171,11 +138,11 @@ export default async function ManajemenKeuanganPage({
                 <li key={item}>{item}</li>
               ))}
             </ul>
-            <div className="rounded-lg border border-stone-200 bg-stone-50 p-3">
-              <p className="text-xs font-semibold uppercase tracking-wide text-stone-500">
+            <div className="rounded-lg border-0 bg-surface-container-low p-3">
+              <p className="text-xs font-semibold uppercase tracking-wide text-on-surface/60">
                 {t("requirements.channelTitle")}
               </p>
-              <ul className="mt-2 list-disc space-y-1.5 pl-4 text-xs text-stone-600">
+              <ul className="mt-2 list-disc space-y-1.5 pl-4 text-xs text-on-surface/70">
                 {[
                   t("requirements.channels.1"),
                   t("requirements.channels.2"),

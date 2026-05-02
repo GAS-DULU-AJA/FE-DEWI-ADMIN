@@ -34,7 +34,7 @@ export default function FacilityDetailPage() {
         <CardHeader>
           <CardTitle className="text-base">{t("facilities.facilityInfo")}</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-2 text-sm text-stone-700">
+        <CardContent className="space-y-2 text-sm text-on-surface/80">
           <p><span className="font-medium">{t("facilities.category")}:</span> {t(`facilities.categories.${facility.category}`)}</p>
           <p>{facility.description}</p>
           <p>

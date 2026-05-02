@@ -11,12 +11,12 @@ export function SmePromotionCard({ promotion, productNames }: { promotion: SmePr
       <CardHeader className="pb-2">
         <CardTitle className="text-base">{promotion.name}</CardTitle>
         {productNames && productNames.length > 0 && (
-          <p className="text-xs text-stone-500">
+          <p className="text-xs text-on-surface/60">
             {productNames.length <= 2 ? productNames.join(", ") : `${productNames.length} products`}
           </p>
         )}
       </CardHeader>
-      <CardContent className="space-y-1 text-sm text-stone-600">
+      <CardContent className="space-y-1 text-sm text-on-surface/70">
         <p>{t(`types.${promotion.type}`)}</p>
         <p>
           {promotion.discountType === "percentage"

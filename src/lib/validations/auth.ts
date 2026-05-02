@@ -13,7 +13,7 @@ export const registerSchema = z
     confirmPassword: z.string().min(1, "passwordRequired"),
     phone: z.string().min(1),
     partnerType: z.enum(
-      ["VILLAGE_ADMIN", "ACCOMMODATION", "UMKM", "EVENT_ORGANIZER"],
+      ["VILLAGE_ADMIN", "ACCOMMODATION", "UMKM", "EVENT_ORGANIZER", "TRANSPORT"],
       {
         required_error: "partnerTypeRequired",
       }

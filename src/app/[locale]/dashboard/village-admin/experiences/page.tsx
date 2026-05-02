@@ -1,11 +1,12 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { DataTable, type ActionItem, type ColumnDef } from "@/components/ui/data-table";
 import { VillagePageHeader } from "@/features/village/components/page-header";
 import { getExperiences } from "@/features/experience/utils";
 import type { ExperienceItem } from "@/features/experience/types";
@@ -14,13 +15,78 @@ export default function ExperiencesPage() {
   const locale = useLocale();
   const isId = locale === "id";
   const t = useTranslations("village");
+  const tc = useTranslations("common");
+  const router = useRouter();
   const experiences = getExperiences();
-  const [status, setStatus] = useState("all");
+  const activeExperiences = experiences.filter(
+    (item) => item.status === "published" || item.status === "ticket_sales_open" || item.status === "ongoing",
+  ).length;
+  const totalBookings = experiences.reduce((sum, item) => sum + item.totalBookings, 0);
+  const avgRating = experiences.length
+    ? (experiences.reduce((sum, item) => sum + item.averageRating, 0) / experiences.length).toFixed(1)
+    : "0.0";
 
-  const list = useMemo(() => {
-    if (status === "all") return experiences;
-    return experiences.filter((item) => item.status === status);
-  }, [status, experiences]);
+  const columns = useMemo<ColumnDef<ExperienceItem>[]>(
+    () => [
+      {
+        id: "name",
+        header: tc("name"),
+        accessorKey: "name",
+        sortable: true,
+      },
+      {
+        id: "category",
+        header: t("experiences.category"),
+        accessorKey: "category",
+        sortable: true,
+        filterable: true,
+        filterOptions: [
+          { label: t("experiences.categories.cultural"), value: "cultural" },
+          { label: t("experiences.categories.nature"), value: "nature" },
+          { label: t("experiences.categories.culinary"), value: "culinary" },
+          { label: t("experiences.categories.craft"), value: "craft" },
+          { label: t("experiences.categories.sport"), value: "sport" },
+          { label: t("experiences.categories.education"), value: "education" },
+          { label: t("experiences.categories.other"), value: "other" },
+        ],
+        accessorFn: (row) => t(`experiences.categories.${row.category}`),
+        hideOnMobile: true,
+      },
+      {
+        id: "status",
+        header: tc("status"),
+        accessorKey: "status",
+        sortable: true,
+        filterable: true,
+        filterOptions: [
+          { label: t("experiences.statuses.draft"), value: "draft" },
+          { label: t("experiences.statuses.published"), value: "published" },
+          { label: t("experiences.statuses.ticket_sales_open"), value: "ticket_sales_open" },
+          { label: t("experiences.statuses.ongoing"), value: "ongoing" },
+          { label: t("experiences.statuses.completed"), value: "completed" },
+          { label: t("experiences.statuses.cancelled"), value: "cancelled" },
+        ],
+        accessorFn: (row) => t(`experiences.statuses.${row.status}`),
+      },
+      {
+        id: "schedule",
+        header: t("experiences.scheduleLabel"),
+        accessorFn: (row) => new Date(row.scheduleStart).toLocaleDateString(locale),
+        sortable: true,
+        hideOnMobile: true,
+      },
+    ],
+    [t, tc, locale],
+  );
+
+  const getActions = (row: ExperienceItem): ActionItem[] => [
+    {
+      label: t("actions.viewDetail"),
+      onClick: () => {
+        router.push(`/dashboard/village-admin/experiences/${row.id}`);
+      },
+    },
+  ];
 
   return (
     <div className="space-y-6">
@@ -47,23 +113,44 @@ export default function ExperiencesPage() {
         }
       />
 
-      <div className="flex flex-wrap gap-2">
-        {["all", "draft", "published", "ticket_sales_open", "ongoing", "completed", "cancelled"].map((item) => (
-          <button
-            key={item}
-            onClick={() => setStatus(item)}
-            className={`rounded-full px-3 py-1 text-xs ${status === item ? "bg-emerald-600 text-white" : "bg-stone-100 text-stone-600"}`}
-          >
-            {item === "all" ? t("experiences.statuses.all") : t(`experiences.statuses.${item}`)}
-          </button>
-        ))}
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+        <Card>
+          <CardContent className="pt-6">
+            <p className="text-xs text-on-surface/60">{isId ? "Total Experience" : "Total Experiences"}</p>
+            <p className="mt-1 text-2xl font-semibold text-on-surface">{experiences.length}</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="pt-6">
+            <p className="text-xs text-on-surface/60">{isId ? "Experience Aktif" : "Active Experiences"}</p>
+            <p className="mt-1 text-2xl font-semibold text-on-surface">{activeExperiences}</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="pt-6">
+            <p className="text-xs text-on-surface/60">{isId ? "Total Booking & Rating" : "Bookings & Rating"}</p>
+            <p className="mt-1 text-2xl font-semibold text-on-surface">{totalBookings.toLocaleString()} · ⭐ {avgRating}</p>
+          </CardContent>
+        </Card>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-        {list.map((experience) => (
-          <VillageExperienceCard key={experience.id} experience={experience} t={t} />
-        ))}
-      </div>
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">{isId ? "Daftar Experience & Tiket" : "Experience & Ticket List"}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <DataTable
+            data={experiences}
+            columns={columns}
+            keyExtractor={(row) => row.id}
+            searchableFields={["name", "locationName", "description"]}
+            searchPlaceholder={`${tc("search")}...`}
+            pageSize={10}
+            actions={getActions}
+            mobileCardRenderer={(row) => <VillageExperienceCard experience={row} t={t} />}
+          />
+        </CardContent>
+      </Card>
     </div>
   );
 }
@@ -80,9 +167,9 @@ function VillageExperienceCard({ experience, t }: { experience: ExperienceItem; 
           </Badge>
         </div>
       </CardHeader>
-      <CardContent className="space-y-2 text-sm text-stone-600">
+      <CardContent className="space-y-2 text-sm text-on-surface/70">
         <p>{experience.shortDescription}</p>
-        <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-stone-500">
+        <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-on-surface/60">
           <span>{experience.locationName}</span>
           <span>{new Date(experience.scheduleStart).toLocaleDateString()}</span>
           <span>{t("experiences.bookedOf", { booked: experience.totalBookings, capacity: experience.totalCapacity })}</span>

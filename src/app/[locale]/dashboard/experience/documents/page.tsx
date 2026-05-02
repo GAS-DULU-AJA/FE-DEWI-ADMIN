@@ -16,13 +16,13 @@ export default async function ExperienceDocumentsPage({
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-stone-900">{t("documents.pageTitle")}</h1>
-        <p className="mt-1 text-sm text-stone-500">{t("documents.pageSubtitle")}</p>
+        <h1 className="font-display text-title-lg font-bold text-on-surface tracking-tight">{t("documents.pageTitle")}</h1>
+        <p className="mt-2 font-body text-sm text-on-surface/60 leading-relaxed">{t("documents.pageSubtitle")}</p>
       </div>
 
       {experiences.map((experience) => (
         <div key={experience.id} className="space-y-2">
-          <h2 className="text-sm font-semibold text-stone-700">{experience.name}</h2>
+          <h2 className="text-sm font-semibold text-on-surface/80">{experience.name}</h2>
           <DocumentManager documents={experience.documents} />
         </div>
       ))}

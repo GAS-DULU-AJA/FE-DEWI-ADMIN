@@ -1,5 +1,6 @@
 import type { ApiResponse, QueryParams } from "./types";
 import { apiClient, apiUpload } from "./api-client";
+import type { WatermarkConfig } from "@/types";
 
 export interface Village {
   id: string;
@@ -28,6 +29,7 @@ export interface IVillageService {
   getById(id: string): Promise<ApiResponse<Village>>;
   update(id: string, dto: Partial<Village>): Promise<ApiResponse<Village>>;
   uploadGallery(id: string, formData: FormData): Promise<ApiResponse<VillageGallery>>;
+  getWatermarkConfig(): Promise<ApiResponse<WatermarkConfig>>;
 }
 
 export class VillageService implements IVillageService {
@@ -41,5 +43,9 @@ export class VillageService implements IVillageService {
 
   async uploadGallery(id: string, formData: FormData): Promise<ApiResponse<VillageGallery>> {
     return apiUpload(`/villages/${id}/gallery`, formData);
+  }
+
+  async getWatermarkConfig(): Promise<ApiResponse<WatermarkConfig>> {
+    return apiClient<ApiResponse<WatermarkConfig>>(`/settings/watermark`);
   }
 }

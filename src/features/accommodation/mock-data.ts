@@ -15,6 +15,9 @@ import type {
 const accommodationA: Accommodation = {
   id: "acc-1",
   partnerId: "2",
+  villageId: "village-sari-alam",
+  villageName: "Desa Sari Alam",
+  villageApprovalStatus: "approved",
   name: "Homestay Bukit Hijau",
   slug: "homestay-bukit-hijau",
   description:
