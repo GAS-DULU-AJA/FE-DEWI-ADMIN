@@ -66,35 +66,42 @@ export default function ExperienceProposalsPage() {
         </p>
       </div>
 
-      <DataTable
-        data={experiences}
-        columns={columns}
-        keyExtractor={(row) => row.id}
-        searchableFields={["name", "shortDescription"]}
-        searchPlaceholder={isId ? "Cari proposal..." : "Search proposals..."}
-        pageSize={10}
-        emptyState={{
-          icon: <CheckSquare className="h-10 w-10" />,
-          title: isId ? "Belum ada proposal" : "No proposals yet",
-          description: isId
-            ? "Buat experience baru untuk mengajukan proposal ke Pengelola Desa"
-            : "Create a new experience to submit a proposal to the Village Admin",
-        }}
-        mobileCardRenderer={(row) => (
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-base">{row.name}</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-1 text-sm text-on-surface/70">
-              <p>{t(`status.${row.status}`)}</p>
-              <p>
-                <CalendarDays className="mr-1 inline h-3.5 w-3.5" />
-                {new Date(row.scheduleStart).toLocaleDateString(locale)}
-              </p>
-            </CardContent>
-          </Card>
-        )}
-      />
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">{isId ? "Daftar Proposal" : "Proposal List"}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <DataTable
+            data={experiences}
+            columns={columns}
+            keyExtractor={(row) => row.id}
+            searchableFields={["name", "shortDescription"]}
+            searchPlaceholder={isId ? "Cari proposal..." : "Search proposals..."}
+            pageSize={10}
+            emptyState={{
+              icon: <CheckSquare className="h-10 w-10" />,
+              title: isId ? "Belum ada proposal" : "No proposals yet",
+              description: isId
+                ? "Buat experience baru untuk mengajukan proposal ke Pengelola Desa"
+                : "Create a new experience to submit a proposal to the Village Admin",
+            }}
+            mobileCardRenderer={(row) => (
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-base">{row.name}</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-1 text-sm text-on-surface/70">
+                  <p>{t(`status.${row.status}`)}</p>
+                  <p>
+                    <CalendarDays className="mr-1 inline h-3.5 w-3.5" />
+                    {new Date(row.scheduleStart).toLocaleDateString(locale)}
+                  </p>
+                </CardContent>
+              </Card>
+            )}
+          />
+        </CardContent>
+      </Card>
     </div>
   );
 }

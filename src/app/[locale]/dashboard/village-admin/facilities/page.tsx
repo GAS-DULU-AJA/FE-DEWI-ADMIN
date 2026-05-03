@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { Link, useRouter } from "@/i18n/navigation";
 import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ConfirmationDialog } from "@/components/ui/confirmation-dialog";
 import { DataTable, type ActionItem, type ColumnDef } from "@/components/ui/data-table";
 import { FacilityCard } from "@/features/village/components/facility-card";
@@ -122,31 +123,38 @@ export default function FacilitiesPage() {
         }
       />
 
-      <DataTable
-        data={rows}
-        columns={columns}
-        keyExtractor={(row) => row.id}
-        searchableFields={["name", "address"]}
-        searchPlaceholder={`${tc("search")}...`}
-        pageSize={10}
-        actions={getRowActions}
-        mobileCardRenderer={(row) => (
-          <div className="space-y-2">
-            <FacilityCard facility={row} />
-            <div className="flex flex-wrap gap-2">
-              <Button asChild variant="outline" size="sm">
-                <Link href={`/dashboard/village-admin/facilities/${row.id}`}>{t("actions.viewDetail")}</Link>
-              </Button>
-              <Button asChild variant="outline" size="sm">
-                <Link href={`/dashboard/village-admin/facilities/${row.id}/edit`}>{tc("edit")}</Link>
-              </Button>
-              <Button variant="outline" size="sm" onClick={() => setDeletingId(row.id)}>
-                {tc("delete")}
-              </Button>
-            </div>
-          </div>
-        )}
-      />
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">{t("facilities.title")}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <DataTable
+            data={rows}
+            columns={columns}
+            keyExtractor={(row) => row.id}
+            searchableFields={["name", "address"]}
+            searchPlaceholder={`${tc("search")}...`}
+            pageSize={10}
+            actions={getRowActions}
+            mobileCardRenderer={(row) => (
+              <div className="space-y-2">
+                <FacilityCard facility={row} />
+                <div className="flex flex-wrap gap-2">
+                  <Button asChild variant="outline" size="sm">
+                    <Link href={`/dashboard/village-admin/facilities/${row.id}`}>{t("actions.viewDetail")}</Link>
+                  </Button>
+                  <Button asChild variant="outline" size="sm">
+                    <Link href={`/dashboard/village-admin/facilities/${row.id}/edit`}>{tc("edit")}</Link>
+                  </Button>
+                  <Button variant="outline" size="sm" onClick={() => setDeletingId(row.id)}>
+                    {tc("delete")}
+                  </Button>
+                </div>
+              </div>
+            )}
+          />
+        </CardContent>
+      </Card>
 
       <ConfirmationDialog
         open={!!deletingFacility}

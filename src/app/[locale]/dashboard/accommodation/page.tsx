@@ -207,22 +207,26 @@ export default function PenginapanDashboard() {
       </div>
 
       {/* ── Properties Grid ── */}
-      <div className="rounded-2xl border border-surface-container-high/80 bg-white/70 p-4 shadow-ambient sm:p-5">
-        <h2 className="mb-4 text-lg font-semibold text-on-surface">{t("yourProperties")}</h2>
-        <PropertySwitcher accommodations={ACCOMMODATIONS} />
-        <div className="mt-4">
-          <DataTable
-            data={ACCOMMODATIONS}
-            columns={columns}
-            keyExtractor={(row) => row.id}
-            searchableFields={["name", "village", "district", "regency"]}
-            searchPlaceholder={`${tc("search")}...`}
-            pageSize={10}
-            actions={actions}
-            mobileCardRenderer={(row) => <AccommodationCard accommodation={row} />}
-          />
-        </div>
-      </div>
+      <Card>
+        <CardHeader>
+          <CardTitle>{t("yourProperties")}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <PropertySwitcher accommodations={ACCOMMODATIONS} />
+          <div className="mt-4">
+            <DataTable
+              data={ACCOMMODATIONS}
+              columns={columns}
+              keyExtractor={(row) => row.id}
+              searchableFields={["name", "village", "district", "regency"]}
+              searchPlaceholder={`${tc("search")}...`}
+              pageSize={10}
+              actions={actions}
+              mobileCardRenderer={(row) => <AccommodationCard accommodation={row} />}
+            />
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }

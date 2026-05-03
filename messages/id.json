@@ -1074,6 +1074,11 @@
         "nature": "Alam",
         "culinary": "Kuliner",
         "craft": "Kerajinan",
+        "adventure": "Petualangan",
+        "wellness": "Kebugaran",
+        "festival": "Festival",
+        "photography": "Fotografi",
+        "agro_tourism": "Agrowisata",
         "sport": "Olahraga",
         "education": "Edukasi",
         "other": "Lainnya"

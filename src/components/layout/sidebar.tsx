@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useLocale } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
@@ -27,6 +28,8 @@ import {
   FileText,
   Image as ImageIcon,
   MessageCircle,
+  ChevronDown,
+  ChevronRight,
 } from "lucide-react";
 import type { PartnerRole } from "@/types";
 
@@ -71,6 +74,9 @@ function getNavItems(role: PartnerRole, t: ReturnType<typeof useTranslations>, i
       { href: `${base}/village-admin/experiences/attendees`, label: t("nav.attendees"), icon: <Users className="h-4 w-4" />, permission: "experience.manage" },
       { href: `${base}/village-admin/experiences/analytics`, label: isId ? "Analitik Experience" : "Experience Analytics", icon: <TrendingUp className="h-4 w-4" />, permission: "experience.analytics" },
       { href: `${base}/village-admin/investment`, label: isId ? "Investasi Desa" : "Village Investment", icon: <TrendingUp className="h-4 w-4" />, permission: "experience.analytics" },
+      // Marketing
+      { type: "section", label: isId ? "Pemasaran" : "Marketing" },
+      { href: `${base}/village-admin/promotions`, label: isId ? "Promosi" : "Promotions", icon: <Megaphone className="h-4 w-4" />, permission: "experience.manage" },
       // Partners
       { type: "section", label: isId ? "Mitra" : "Partners" },
       { href: `${base}/village-admin/approval`, label: t("nav.partnerVerification"), icon: <CheckSquare className="h-4 w-4" />, permission: "experience.approve" },
@@ -215,6 +221,138 @@ export function DashboardSidebar({ onClose }: { onClose?: () => void }) {
 
   const navItems = getNavItems(user.role, t, isId);
 
+  const indexRoutes = [
+    "/dashboard",
+    "/dashboard/accommodation",
+    "/dashboard/sme",
+    "/dashboard/experience",
+    "/dashboard/village-admin",
+    "/dashboard/finance",
+    "/dashboard/transport",
+  ];
+
+  const isItemActive = (href: string) => {
+    const isIndexRoute = indexRoutes.some((route) => href.endsWith(route));
+    if (isIndexRoute) {
+      return pathname === href;
+    }
+    return pathname === href || pathname.startsWith(`${href}/`);
+  };
+
+  const canBeExpandableParent = (href: string) => {
+    const nonExpandableRoots = [
+      "/dashboard",
+      "/dashboard/village-admin",
+      "/dashboard/accommodation",
+      "/dashboard/sme",
+      "/dashboard/experience",
+      "/dashboard/transport",
+      "/dashboard/finance",
+    ];
+    return !nonExpandableRoots.some((route) => href.endsWith(route));
+  };
+
+  type RenderNode =
+    | { kind: "section"; section: NavSection }
+    | { kind: "item"; item: NavItem }
+    | { kind: "group"; parent: NavItem; children: NavItem[] };
+
+  const renderNodes = useMemo<RenderNode[]>(() => {
+    const nodes: RenderNode[] = [];
+
+    const getChildPriority = (childHref: string, parentHref: string) => {
+      const relative = childHref.replace(`${parentHref}/`, "");
+      const firstSegment = relative.split("/")[0] ?? "";
+
+      const priorityMap: Record<string, number> = {
+        proposals: 10,
+        calendar: 20,
+        speakers: 30,
+        attendees: 40,
+        documents: 50,
+        reservations: 60,
+        promotions: 70,
+        reviews: 80,
+        disputes: 90,
+        analytics: 100,
+      };
+
+      return priorityMap[firstSegment] ?? 1000;
+    };
+
+    type SectionChunk = { section?: NavSection; items: NavItem[] };
+    const chunks: SectionChunk[] = [];
+    let current: SectionChunk = { items: [] };
+
+    for (const element of navItems) {
+      if ("type" in element) {
+        if (current.items.length > 0 || current.section) {
+          chunks.push(current);
+        }
+        current = { section: element, items: [] };
+      } else {
+        current.items.push(element);
+      }
+    }
+
+    if (current.items.length > 0 || current.section) {
+      chunks.push(current);
+    }
+
+    for (const chunk of chunks) {
+      if (chunk.section) {
+        nodes.push({ kind: "section", section: chunk.section });
+      }
+
+      const parentOf = new Map<string, string>();
+      const childrenByParent = new Map<string, NavItem[]>();
+
+      for (const child of chunk.items) {
+        let bestParent: NavItem | null = null;
+
+        for (const parent of chunk.items) {
+          if (parent.href === child.href) continue;
+          if (!canBeExpandableParent(parent.href)) continue;
+          if (!child.href.startsWith(`${parent.href}/`)) continue;
+
+          if (!bestParent || parent.href.length > bestParent.href.length) {
+            bestParent = parent;
+          }
+        }
+
+        if (bestParent) {
+          parentOf.set(child.href, bestParent.href);
+          const siblings = childrenByParent.get(bestParent.href) ?? [];
+          siblings.push(child);
+          childrenByParent.set(bestParent.href, siblings);
+        }
+      }
+
+      for (const item of chunk.items) {
+        if (parentOf.has(item.href)) continue;
+
+        const children = childrenByParent.get(item.href) ?? [];
+        if (children.length > 0) {
+          const sortedChildren = [...children].sort((a, b) => {
+            const pa = getChildPriority(a.href, item.href);
+            const pb = getChildPriority(b.href, item.href);
+
+            if (pa !== pb) return pa - pb;
+            return a.label.localeCompare(b.label);
+          });
+
+          nodes.push({ kind: "group", parent: item, children: sortedChildren });
+        } else {
+          nodes.push({ kind: "item", item });
+        }
+      }
+    }
+
+    return nodes;
+  }, [navItems]);
+
+  const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>({});
+
   const roleColors: Record<PartnerRole, string> = {
     VILLAGE_ADMIN: "bg-primary",
     ACCOMMODATION: "bg-blue-600",
@@ -257,23 +395,85 @@ export function DashboardSidebar({ onClose }: { onClose?: () => void }) {
       {/* Nav Items */}
       <nav className="flex-1 overflow-y-auto px-3 pb-4 [scrollbar-color:var(--color-surface-container-high)_transparent] [scrollbar-width:thin]">
         <ul className="space-y-0.5">
-          {navItems.map((element, idx) => {
-            // Handle section headers
-            if ("type" in element && element.type === "section") {
+          {renderNodes.map((node, idx) => {
+            if (node.kind === "section") {
               return (
                 <li key={`section-${idx}`} className="pt-4 pb-1.5 first:pt-1.5">
                   <p className="label-sm px-3 text-on-surface/40">
-                    {element.label}
+                    {node.section.label}
                   </p>
                 </li>
               );
             }
 
-            const item = element as NavItem;
-            const indexRoutes = ["/dashboard", "/dashboard/accommodation", "/dashboard/sme", "/dashboard/experience", "/dashboard/village-admin", "/dashboard/finance"];
-            const isActive = indexRoutes.some((r) => item.href.endsWith(r))
-              ? pathname === item.href
-              : pathname === item.href || pathname.startsWith(item.href + "/");
+            if (node.kind === "group") {
+              const parentActive = isItemActive(node.parent.href);
+              const childActive = node.children.some((child) => isItemActive(child.href));
+              const isOpen = expandedGroups[node.parent.href] ?? (parentActive || childActive);
+
+              return (
+                <li key={`group-${node.parent.href}`} className="space-y-1">
+                  <div
+                    className={cn(
+                      "group flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-body transition-colors duration-150",
+                      parentActive || childActive
+                        ? "bg-primary/[0.08] text-primary font-semibold"
+                        : "text-on-surface/60 hover:bg-surface-container-low hover:text-on-surface",
+                    )}
+                  >
+                    <Link
+                      href={node.parent.href}
+                      onClick={onClose}
+                      className="flex min-w-0 flex-1 items-center gap-3"
+                    >
+                      {node.parent.icon}
+                      <span className="truncate">{node.parent.label}</span>
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setExpandedGroups((prev) => ({
+                          ...prev,
+                          [node.parent.href]: !isOpen,
+                        }))
+                      }
+                      className="rounded p-0.5 text-on-surface/60 hover:text-on-surface"
+                      aria-label={isOpen ? (isId ? "Tutup submenu" : "Collapse submenu") : (isId ? "Buka submenu" : "Expand submenu")}
+                    >
+                      {isOpen ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
+                    </button>
+                  </div>
+
+                  {isOpen ? (
+                    <ul className="ml-3 space-y-0.5 border-l border-surface-container-high pl-2">
+                      {node.children.map((child) => {
+                        const active = isItemActive(child.href);
+                        return (
+                          <li key={child.href}>
+                            <Link
+                              href={child.href}
+                              onClick={onClose}
+                              className={cn(
+                                "group flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-body transition-colors duration-150",
+                                active
+                                  ? "bg-primary/[0.08] text-primary font-semibold"
+                                  : "text-on-surface/60 hover:bg-surface-container-low hover:text-on-surface",
+                              )}
+                            >
+                              {child.icon}
+                              <span className="truncate">{child.label}</span>
+                            </Link>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  ) : null}
+                </li>
+              );
+            }
+
+            const item = node.item;
+            const isActive = isItemActive(item.href);
             return (
               <li key={item.href}>
                 <Link

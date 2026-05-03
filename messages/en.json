@@ -1074,6 +1074,11 @@
         "nature": "Nature",
         "culinary": "Culinary",
         "craft": "Craft",
+        "adventure": "Adventure",
+        "wellness": "Wellness",
+        "festival": "Festival",
+        "photography": "Photography",
+        "agro_tourism": "Agro Tourism",
         "sport": "Sport",
         "education": "Education",
         "other": "Other"

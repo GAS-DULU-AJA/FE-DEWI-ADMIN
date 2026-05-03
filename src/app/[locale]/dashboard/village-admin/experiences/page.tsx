@@ -26,6 +26,21 @@ export default function ExperiencesPage() {
     ? (experiences.reduce((sum, item) => sum + item.averageRating, 0) / experiences.length).toFixed(1)
     : "0.0";
 
+  const categoryLabelByValue: Record<ExperienceItem["category"], string> = {
+    cultural: t("experiences.categories.cultural"),
+    nature: t("experiences.categories.nature"),
+    culinary: t("experiences.categories.culinary"),
+    craft: t("experiences.categories.craft"),
+    adventure: t("experiences.categories.adventure"),
+    wellness: t("experiences.categories.wellness"),
+    education: t("experiences.categories.education"),
+    festival: t("experiences.categories.festival"),
+    photography: t("experiences.categories.photography"),
+    agro_tourism: t("experiences.categories.agro_tourism"),
+    sport: t("experiences.categories.sport"),
+    other: t("experiences.categories.other"),
+  };
+
   const columns = useMemo<ColumnDef<ExperienceItem>[]>(
     () => [
       {
@@ -45,11 +60,16 @@ export default function ExperiencesPage() {
           { label: t("experiences.categories.nature"), value: "nature" },
           { label: t("experiences.categories.culinary"), value: "culinary" },
           { label: t("experiences.categories.craft"), value: "craft" },
+          { label: t("experiences.categories.adventure"), value: "adventure" },
+          { label: t("experiences.categories.wellness"), value: "wellness" },
+          { label: t("experiences.categories.festival"), value: "festival" },
+          { label: t("experiences.categories.photography"), value: "photography" },
+          { label: t("experiences.categories.agro_tourism"), value: "agro_tourism" },
           { label: t("experiences.categories.sport"), value: "sport" },
           { label: t("experiences.categories.education"), value: "education" },
           { label: t("experiences.categories.other"), value: "other" },
         ],
-        accessorFn: (row) => t(`experiences.categories.${row.category}`),
+        accessorFn: (row) => categoryLabelByValue[row.category] ?? t("experiences.categories.other"),
         hideOnMobile: true,
       },
       {
@@ -76,7 +96,7 @@ export default function ExperiencesPage() {
         hideOnMobile: true,
       },
     ],
-    [t, tc, locale],
+    [categoryLabelByValue, t, tc, locale],
   );
 
   const getActions = (row: ExperienceItem): ActionItem[] => [

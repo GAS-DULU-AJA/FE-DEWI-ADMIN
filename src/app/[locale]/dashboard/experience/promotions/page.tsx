@@ -2,10 +2,12 @@
 
 import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DataTable, type ColumnDef } from "@/components/ui/data-table";
 import { ExperiencePromotionCard } from "@/features/experience/components/promotion-card";
 import { ExperiencePromotionForm } from "@/features/experience/components/promotion-form";
 import { getExperiencePromotions, getExperiences } from "@/features/experience/utils";
+import { HomepageAdRequestPanel } from "@/features/shared/components/homepage-ad-request-panel";
 import type { ExperiencePromotion } from "@/features/experience/types";
 import { useTranslations } from "next-intl";
 import { Plus } from "lucide-react";
@@ -107,17 +109,26 @@ export default function ExperiencePromotionsPage() {
 
       <ExperiencePromotionForm open={showForm} onOpenChange={setShowForm} />
 
-      <DataTable
-        data={rows}
-        columns={columns}
-        keyExtractor={(row) => row.id}
-        searchableFields={["name", "experienceName", "promoCode"]}
-        searchPlaceholder={`${tc("search")}...`}
-        pageSize={10}
-        mobileCardRenderer={(row) => (
-          <ExperiencePromotionCard promotion={row} experienceName={row.experienceName} />
-        )}
-      />
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">{t("promotions.title")}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <DataTable
+            data={rows}
+            columns={columns}
+            keyExtractor={(row) => row.id}
+            searchableFields={["name", "experienceName", "promoCode"]}
+            searchPlaceholder={`${tc("search")}...`}
+            pageSize={10}
+            mobileCardRenderer={(row) => (
+              <ExperiencePromotionCard promotion={row} experienceName={row.experienceName} />
+            )}
+          />
+        </CardContent>
+      </Card>
+
+      <HomepageAdRequestPanel role="experience" />
     </div>
   );
 }

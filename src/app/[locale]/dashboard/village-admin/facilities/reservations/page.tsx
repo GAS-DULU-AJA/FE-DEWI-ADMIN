@@ -86,82 +86,89 @@ export default function VillageFacilityReservationsPage() {
         sticky
       />
 
-      <DataTable<(typeof reservations)[0]>
-        data={list}
-        columns={[
-          {
-            id: "facility",
-            header: t("facilities.reservations.facilityLabel"),
-            accessorFn: (row) => (
-              <div>
-                <p className="font-medium text-on-surface">{row.facilityName}</p>
-                <p className="text-xs text-on-surface/60">{row.requesterName}</p>
-              </div>
-            ),
-            sortable: true,
-          },
-          {
-            id: "period",
-            header: t("facilities.reservations.periodLabel"),
-            accessorFn: (row) => `${row.startDate} - ${row.endDate}`,
-            sortable: true,
-          },
-          {
-            id: "participants",
-            header: t("facilities.reservations.participantsLabel"),
-            accessorKey: "participants",
-            sortable: true,
-            hideOnMobile: true,
-          },
-          {
-            id: "purpose",
-            header: t("facilities.reservations.purposeLabel"),
-            accessorKey: "purpose",
-            hideOnMobile: true,
-          },
-          {
-            id: "status",
-            header: tc("status"),
-            accessorFn: (row) => (
-              <Badge className={STATUS_BADGE_CLASS[row.status]}>
-                {t(`facilities.reservations.status.${row.status}`)}
-              </Badge>
-            ),
-            sortable: true,
-          },
-        ] satisfies ColumnDef<(typeof reservations)[0]>[]}
-        keyExtractor={(row) => row.id}
-        searchPlaceholder={t("facilities.reservations.searchPlaceholder")}
-        searchableFields={["facilityName", "requesterName", "purpose"] as (keyof (typeof reservations)[0])[]}
-        actions={(row) => {
-          const items: { label: string; icon?: React.ReactNode; onClick: () => void; variant?: "default" | "destructive" }[] = [];
-          if (row.status === "pending") {
-            items.push({
-              label: t("facilities.reservations.approve"),
-              icon: <CheckCircle className="h-4 w-4" />,
-              onClick: () => setConfirmAction({ type: "approve", reservation: row }),
-            });
-            items.push({
-              label: t("facilities.reservations.reject"),
-              icon: <XCircle className="h-4 w-4" />,
-              onClick: () => setConfirmAction({ type: "reject", reservation: row }),
-              variant: "destructive",
-            });
-          }
-          if (row.status === "approved") {
-            items.push({
-              label: t("facilities.reservations.complete"),
-              icon: <CheckCheck className="h-4 w-4" />,
-              onClick: () => setConfirmAction({ type: "complete", reservation: row }),
-            });
-          }
-          return items;
-        }}
-        emptyState={{
-          title: t("facilities.reservations.noData"),
-          description: t("facilities.reservations.noDataDescription"),
-        }}
-      />
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">{t("facilities.reservations.title")}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <DataTable<(typeof reservations)[0]>
+            data={list}
+            columns={[
+              {
+                id: "facility",
+                header: t("facilities.reservations.facilityLabel"),
+                accessorFn: (row) => (
+                  <div>
+                    <p className="font-medium text-on-surface">{row.facilityName}</p>
+                    <p className="text-xs text-on-surface/60">{row.requesterName}</p>
+                  </div>
+                ),
+                sortable: true,
+              },
+              {
+                id: "period",
+                header: t("facilities.reservations.periodLabel"),
+                accessorFn: (row) => `${row.startDate} - ${row.endDate}`,
+                sortable: true,
+              },
+              {
+                id: "participants",
+                header: t("facilities.reservations.participantsLabel"),
+                accessorKey: "participants",
+                sortable: true,
+                hideOnMobile: true,
+              },
+              {
+                id: "purpose",
+                header: t("facilities.reservations.purposeLabel"),
+                accessorKey: "purpose",
+                hideOnMobile: true,
+              },
+              {
+                id: "status",
+                header: tc("status"),
+                accessorFn: (row) => (
+                  <Badge className={STATUS_BADGE_CLASS[row.status]}>
+                    {t(`facilities.reservations.status.${row.status}`)}
+                  </Badge>
+                ),
+                sortable: true,
+              },
+            ] satisfies ColumnDef<(typeof reservations)[0]>[]}
+            keyExtractor={(row) => row.id}
+            searchPlaceholder={t("facilities.reservations.searchPlaceholder")}
+            searchableFields={["facilityName", "requesterName", "purpose"] as (keyof (typeof reservations)[0])[]}
+            actions={(row) => {
+              const items: { label: string; icon?: React.ReactNode; onClick: () => void; variant?: "default" | "destructive" }[] = [];
+              if (row.status === "pending") {
+                items.push({
+                  label: t("facilities.reservations.approve"),
+                  icon: <CheckCircle className="h-4 w-4" />,
+                  onClick: () => setConfirmAction({ type: "approve", reservation: row }),
+                });
+                items.push({
+                  label: t("facilities.reservations.reject"),
+                  icon: <XCircle className="h-4 w-4" />,
+                  onClick: () => setConfirmAction({ type: "reject", reservation: row }),
+                  variant: "destructive",
+                });
+              }
+              if (row.status === "approved") {
+                items.push({
+                  label: t("facilities.reservations.complete"),
+                  icon: <CheckCheck className="h-4 w-4" />,
+                  onClick: () => setConfirmAction({ type: "complete", reservation: row }),
+                });
+              }
+              return items;
+            }}
+            emptyState={{
+              title: t("facilities.reservations.noData"),
+              description: t("facilities.reservations.noDataDescription"),
+            }}
+          />
+        </CardContent>
+      </Card>
 
       <ConfirmationDialog
         open={conflictWarning.show}

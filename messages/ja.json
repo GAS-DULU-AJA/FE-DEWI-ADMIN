@@ -1074,6 +1074,11 @@
         "nature": "自然",
         "culinary": "グルメ",
         "craft": "工芸",
+        "adventure": "アドベンチャー",
+        "wellness": "ウェルネス",
+        "festival": "フェスティバル",
+        "photography": "写真",
+        "agro_tourism": "アグロツーリズム",
         "sport": "スポーツ",
         "education": "学習",
         "other": "その他"

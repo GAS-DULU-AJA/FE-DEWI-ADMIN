@@ -11,6 +11,7 @@ export type ExperienceCategory =
   | "festival"
   | "photography"
   | "agro_tourism"
+  | "sport"
   | "other";
 
 export type ExperienceLifecycleStatus =
