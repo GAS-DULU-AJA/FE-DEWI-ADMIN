@@ -7,6 +7,7 @@ import { DataTable, type ColumnDef } from "@/components/ui/data-table";
 import { SmePromotionCard } from "@/features/sme/components/promotion-card";
 import { SmePromotionForm } from "@/features/sme/components/promotion-form";
 import { getSmePromotions, getSmeProducts } from "@/features/sme/utils";
+import { HomepageAdRequestPanel } from "@/features/shared/components/homepage-ad-request-panel";
 import type { SmePromotion } from "@/features/sme/types";
 import { useLocale, useTranslations } from "next-intl";
 import { Plus } from "lucide-react";
@@ -155,17 +156,26 @@ export default function SmePromotionsPage() {
 
       <SmePromotionForm open={showForm} onOpenChange={setShowForm} />
 
-      <DataTable
-        data={rows}
-        columns={columns}
-        keyExtractor={(row) => row.id}
-        searchableFields={["name", "productsSummary", "promoCode"]}
-        searchPlaceholder={`${tc("search")}...`}
-        pageSize={10}
-        mobileCardRenderer={(row) => (
-          <SmePromotionCard promotion={row} productNames={getProductNames(row.applicableProductIds)} />
-        )}
-      />
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">{t("title")}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <DataTable
+            data={rows}
+            columns={columns}
+            keyExtractor={(row) => row.id}
+            searchableFields={["name", "productsSummary", "promoCode"]}
+            searchPlaceholder={`${tc("search")}...`}
+            pageSize={10}
+            mobileCardRenderer={(row) => (
+              <SmePromotionCard promotion={row} productNames={getProductNames(row.applicableProductIds)} />
+            )}
+          />
+        </CardContent>
+      </Card>
+
+      <HomepageAdRequestPanel role="sme" />
     </div>
   );
 }

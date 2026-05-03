@@ -11,6 +11,7 @@ import { PromotionForm } from "@/features/accommodation/components/promotion-for
 import {
   getAllAccommodationPromotions,
 } from "@/features/accommodation/utils";
+import { HomepageAdRequestPanel } from "@/features/shared/components/homepage-ad-request-panel";
 import { Plus } from "lucide-react";
 
 type PromotionRow = ReturnType<typeof getAllAccommodationPromotions>[number] & {
@@ -148,23 +149,32 @@ export default function AccommodationPromotionsPage() {
 
       <PromotionForm open={showForm} onOpenChange={setShowForm} />
 
-      <DataTable
-        data={rows}
-        columns={columns}
-        keyExtractor={(row) => row.id}
-        searchableFields={["name", "entityNamesDisplay", "type", "status"]}
-        searchPlaceholder="Search promotions..."
-        pageSize={10}
-        onRowClick={(row) => setSelectedId(row.id)}
-        actions={actions}
-        mobileCardRenderer={(row) => (
-          <div className="space-y-1">
-            <p className="font-medium text-on-surface">{row.name}</p>
-            <p className="text-xs text-on-surface/60">{row.status} · {row.coverageCount} properties</p>
-            <p className="text-xs text-on-surface/60">{row.validFrom} - {row.validTo}</p>
-          </div>
-        )}
-      />
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">Promotion Table</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <DataTable
+            data={rows}
+            columns={columns}
+            keyExtractor={(row) => row.id}
+            searchableFields={["name", "entityNamesDisplay", "type", "status"]}
+            searchPlaceholder="Search promotions..."
+            pageSize={10}
+            onRowClick={(row) => setSelectedId(row.id)}
+            actions={actions}
+            mobileCardRenderer={(row) => (
+              <div className="space-y-1">
+                <p className="font-medium text-on-surface">{row.name}</p>
+                <p className="text-xs text-on-surface/60">{row.status} · {row.coverageCount} properties</p>
+                <p className="text-xs text-on-surface/60">{row.validFrom} - {row.validTo}</p>
+              </div>
+            )}
+          />
+        </CardContent>
+      </Card>
+
+      <HomepageAdRequestPanel role="accommodation" />
 
       {selected ? (
         <PromotionCard

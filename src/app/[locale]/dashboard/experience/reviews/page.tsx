@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { ExperienceReviewCard } from "@/features/experience/components/review-card";
 import { getExperienceReviews, getExperiences } from "@/features/experience/utils";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DataTable, type ActionItem, type ColumnDef } from "@/components/ui/data-table";
 import type { ExperienceReview } from "@/features/experience/types";
 
@@ -75,23 +76,30 @@ export default function ExperienceReviewsPage() {
         <p className="mt-2 font-body text-sm text-on-surface/60 leading-relaxed">{t("reviews.averageRating", { value: average.toFixed(1) })}</p>
       </div>
 
-      <DataTable
-        data={rows}
-        columns={columns}
-        keyExtractor={(row) => row.id}
-        searchableFields={["reviewerName", "experienceName", "comment"]}
-        searchPlaceholder={`${tc("search")}...`}
-        pageSize={10}
-        onRowClick={(row) => setSelectedId(row.id)}
-        actions={actions}
-        mobileCardRenderer={(row) => (
-          <div className="space-y-1">
-            <p className="font-medium text-on-surface">{row.reviewerName}</p>
-            <p className="text-xs text-on-surface/60">{row.experienceName}</p>
-            <p className="text-xs text-on-surface/60">{row.rating.toFixed(1)} / 5</p>
-          </div>
-        )}
-      />
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">{t("reviews.title")}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <DataTable
+            data={rows}
+            columns={columns}
+            keyExtractor={(row) => row.id}
+            searchableFields={["reviewerName", "experienceName", "comment"]}
+            searchPlaceholder={`${tc("search")}...`}
+            pageSize={10}
+            onRowClick={(row) => setSelectedId(row.id)}
+            actions={actions}
+            mobileCardRenderer={(row) => (
+              <div className="space-y-1">
+                <p className="font-medium text-on-surface">{row.reviewerName}</p>
+                <p className="text-xs text-on-surface/60">{row.experienceName}</p>
+                <p className="text-xs text-on-surface/60">{row.rating.toFixed(1)} / 5</p>
+              </div>
+            )}
+          />
+        </CardContent>
+      </Card>
 
       {selected ? <ExperienceReviewCard review={selected} experienceName={selected.experienceName} /> : null}
     </div>

@@ -118,25 +118,32 @@ export default function VillageReviewsPage() {
         ))}
       </div>
 
-      <DataTable
-        data={list}
-        columns={columns}
-        keyExtractor={(row) => row.id}
-        searchableFields={["targetName", "reviewerName", "comment"]}
-        searchPlaceholder={`${tc("search")}...`}
-        pageSize={10}
-        onRowClick={(row) => setSelectedId(row.id)}
-        actions={getActions}
-        mobileCardRenderer={(row) => (
-          <div className="space-y-1">
-            <p className="font-medium text-on-surface">{row.targetName}</p>
-            <div className="flex items-center justify-between">
-              <span className="text-xs text-on-surface/60">{row.reviewerName}</span>
-              <Badge variant="outline">{row.rating}/5</Badge>
-            </div>
-          </div>
-        )}
-      />
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">{t("reviews.title")}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <DataTable
+            data={list}
+            columns={columns}
+            keyExtractor={(row) => row.id}
+            searchableFields={["targetName", "reviewerName", "comment"]}
+            searchPlaceholder={`${tc("search")}...`}
+            pageSize={10}
+            onRowClick={(row) => setSelectedId(row.id)}
+            actions={getActions}
+            mobileCardRenderer={(row) => (
+              <div className="space-y-1">
+                <p className="font-medium text-on-surface">{row.targetName}</p>
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-on-surface/60">{row.reviewerName}</span>
+                  <Badge variant="outline">{row.rating}/5</Badge>
+                </div>
+              </div>
+            )}
+          />
+        </CardContent>
+      </Card>
 
       {selectedReview ? (
         <Card>

@@ -3,6 +3,7 @@
 import { useMemo } from "react";
 import { Link, useRouter } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DataTable, type ActionItem, type ColumnDef } from "@/components/ui/data-table";
 import { ExperienceCard, EXPERIENCE_CATEGORIES, getExperiences } from "@/features/experience";
 import type { ExperienceItem } from "@/features/experience/types";
@@ -87,24 +88,31 @@ export default function ExperienceEventsPage() {
         </Button>
       </div>
 
-      <DataTable
-        data={experiences}
-        columns={columns}
-        keyExtractor={(row) => row.id}
-        searchableFields={["name", "description", "locationName"]}
-        searchPlaceholder={t("events.searchPlaceholder")}
-        pageSize={10}
-        onRowClick={(row) => router.push(`/dashboard/experience/events/${row.id}`)}
-        actions={actions}
-        mobileCardRenderer={(row) => (
-          <div className="space-y-2">
-            <ExperienceCard experience={row} />
-            <Button asChild variant="outline" size="sm">
-              <Link href={`/dashboard/experience/events/${row.id}`}>{t("events.openDetail")}</Link>
-            </Button>
-          </div>
-        )}
-      />
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">{t("events.title")}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <DataTable
+            data={experiences}
+            columns={columns}
+            keyExtractor={(row) => row.id}
+            searchableFields={["name", "description", "locationName"]}
+            searchPlaceholder={t("events.searchPlaceholder")}
+            pageSize={10}
+            onRowClick={(row) => router.push(`/dashboard/experience/events/${row.id}`)}
+            actions={actions}
+            mobileCardRenderer={(row) => (
+              <div className="space-y-2">
+                <ExperienceCard experience={row} />
+                <Button asChild variant="outline" size="sm">
+                  <Link href={`/dashboard/experience/events/${row.id}`}>{t("events.openDetail")}</Link>
+                </Button>
+              </div>
+            )}
+          />
+        </CardContent>
+      </Card>
     </div>
   );
 }
